@@ -114,8 +114,9 @@ namespace SHARRandomizer
 
 
             var watcher = memory.Watcher;
-            /*
             watcher.Error += Watcher_Error;
+            
+            /*
             watcher.NewGame += Watcher_NewGame;
             watcher.LoadGame += Watcher_LoadGame;
             */
@@ -275,6 +276,13 @@ namespace SHARRandomizer
             
             return true;
         }
+
+        Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.ErrorEventArgs e, CancellationToken token)
+        {
+            Console.WriteLine($"Error: {e.Exception}");
+            return Task.CompletedTask;
+        }
+
 
         Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
         {
