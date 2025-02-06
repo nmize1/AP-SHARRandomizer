@@ -239,6 +239,8 @@ namespace SHARRandomizer
             
             foreach (var bonusMissionInfo in missionManager.BonusMissions)
             {
+                if (bonusMissionInfo.MissionNum < 0) continue; // Avoids empty bonus mission slots
+
                 var bonusMission = missions[bonusMissionInfo.MissionNum];
                 List<string> bms = new List<string> { "bm1", "sr1", "sr2", "sr3" };
                 
