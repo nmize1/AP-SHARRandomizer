@@ -31,5 +31,5 @@ public class StaticEntityDSG : IEntityDSG
     }
 
     internal const uint DrawstuffOffset = IsGeoOffset + sizeof(int);
-    public Drawable Drawstuff => Memory.ClassFactory.Create<Drawable>(ReadUInt32(DrawstuffOffset));
+    public tDrawable Drawstuff => Memory.ClassFactory.Create<tDrawable>(ReadUInt32(DrawstuffOffset));
 }

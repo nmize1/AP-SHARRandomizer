@@ -12,19 +12,19 @@ public class GeometryVehicle : Class
 
     public Vehicle Vehicle => Memory.ClassFactory.Create<Vehicle>(ReadUInt32(0));
 
-    public CompositeDrawable CompositeDrawable => Memory.ClassFactory.Create<CompositeDrawable>(ReadUInt32(4));
+    public tCompositeDrawable CompositeDrawable => Memory.ClassFactory.Create<tCompositeDrawable>(ReadUInt32(4));
 
-    public Mesh ChassisGeometry => Memory.ClassFactory.Create<Mesh>(ReadUInt32(8));
+    public tGeometry ChassisGeometry => Memory.ClassFactory.Create<tGeometry>(ReadUInt32(8));
 
-    public PointerArray<Shader> RefractionShaders => new(Memory, Address + 12, 16);
+    public PointerArray<tShader> RefractionShaders => new(Memory, Address + 12, 16);
 
-    public Shader HoodShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(76));
+    public tShader HoodShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(76));
 
-    public Shader TrunkShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(80));
+    public tShader TrunkShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(80));
 
-    public Shader DoorPShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(84));
+    public tShader DoorPShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(84));
 
-    public Shader DoorDShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(88));
+    public tShader DoorDShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(88));
 
     public Texture HoodTextureDam => Memory.ClassFactory.Create<Texture>(ReadUInt32(92));
 
@@ -42,7 +42,7 @@ public class GeometryVehicle : Class
 
     public Texture DoorDTextureNorm => Memory.ClassFactory.Create<Texture>(ReadUInt32(120));
 
-    public Shader ChassisShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(124));
+    public tShader ChassisShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(124));
 
     public Texture ChassisTextureNorm => Memory.ClassFactory.Create<Texture>(ReadUInt32(128));
 
@@ -74,7 +74,7 @@ public class GeometryVehicle : Class
         set => WriteStruct(140, value);
     }
 
-    public ParticleSystem VariableEmissionParticleSystem => Memory.ClassFactory.Create<ParticleSystem>(ReadUInt32(220));
+    public tParticleSystem VariableEmissionParticleSystem => Memory.ClassFactory.Create<tParticleSystem>(ReadUInt32(220));
 
     public SkidMarkGenerator SkidMarkGenerator => Memory.ClassFactory.Create<SkidMarkGenerator>(ReadUInt32(224));
 
@@ -126,11 +126,11 @@ public class GeometryVehicle : Class
         set => WriteInt32(332, value);
     }
 
-    public BillboardQuadGroup FrinkArc => Memory.ClassFactory.Create<BillboardQuadGroup>(ReadUInt32(336));
+    public tBillboardQuadGroup FrinkArc => Memory.ClassFactory.Create<tBillboardQuadGroup>(ReadUInt32(336));
 
     public StructArray<Color> OriginalFrinkArcColour => new(Memory, Address + 340, sizeof(int), 3);
 
-    public PointerArray<BillboardQuadGroup> BrakeLights => new(Memory, Address + 352, 4);
+    public PointerArray<tBillboardQuadGroup> BrakeLights => new(Memory, Address + 352, 4);
 
     public StructArray<Color> OriginalBrakeLightColours => new(Memory, Address + 368, sizeof(int), 4);
 
@@ -146,7 +146,7 @@ public class GeometryVehicle : Class
         set => WriteBoolean(385, value);
     }
 
-    public PointerArray<BillboardQuadGroup> GhostGlows => new(Memory, Address + 388, 6);
+    public PointerArray<tBillboardQuadGroup> GhostGlows => new(Memory, Address + 388, 6);
 
     public StructArray<Color> OriginalGhostGlowColours => new(Memory, Address + 412, sizeof(int), 6);
 
@@ -156,7 +156,7 @@ public class GeometryVehicle : Class
         set => WriteBoolean(436, value);
     }
 
-    public PointerArray<BillboardQuadGroup> NukeGlows => new(Memory, Address + 440, 1);
+    public PointerArray<tBillboardQuadGroup> NukeGlows => new(Memory, Address + 440, 1);
 
     public StructArray<Color> OriginalNukeGlowColours => new(Memory, Address + 444, sizeof(int), 3);
 
@@ -194,7 +194,7 @@ public class GeometryVehicle : Class
 
     public DrawablePropElement RoofAlphaShape => Memory.ClassFactory.Create<DrawablePropElement>(ReadUInt32(476));
 
-    public Shader RoofShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(480));
+    public tShader RoofShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(480));
 
     public int RoofAlpha
     {

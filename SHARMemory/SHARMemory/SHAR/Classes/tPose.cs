@@ -4,9 +4,10 @@ using SHARMemory.Memory.RTTI;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVtPose@@")]
-public class Pose : Class
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Radical naming")]
+public class tPose : Class
 {
-    public Pose(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
+    public tPose(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     public int NumJoints
     {
@@ -20,7 +21,7 @@ public class Pose : Class
         set => WriteInt32(12, value);
     }
 
-    public Skeleton Skeleton => Memory.ClassFactory.Create<Skeleton>(16);
+    public tSkeleton Skeleton => Memory.ClassFactory.Create<tSkeleton>(16);
 
     public Joint Joint => Memory.ClassFactory.Create<Joint>(20);
 

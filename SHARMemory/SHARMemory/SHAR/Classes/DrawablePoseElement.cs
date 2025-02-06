@@ -8,5 +8,5 @@ public class DrawablePoseElement : DrawableElement
 {
     public DrawablePoseElement(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    public DrawablePose Skin => Memory.ClassFactory.Create<DrawablePose>(ReadUInt32(20));
+    public tDrawablePose Skin => Memory.ClassFactory.Create<tDrawablePose>(ReadUInt32(20));
 }

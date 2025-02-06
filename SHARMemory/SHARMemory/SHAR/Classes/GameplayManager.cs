@@ -44,88 +44,107 @@ public class GameplayManager : Class
 
     public GameplayManager(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
+    internal const uint EventListenerVFTableOffset = 0;
+    internal const uint PresentationEventCallBackVFTableOffset = EventListenerVFTableOffset + sizeof(uint);
+
+    internal const uint IsDemoOffset = PresentationEventCallBackVFTableOffset + sizeof(uint);
     public bool IsDemo
     {
-        get => ReadBoolean(8);
-        set => WriteBoolean(8, value);
+        get => ReadBoolean(IsDemoOffset);
+        set => WriteBoolean(IsDemoOffset, value);
     }
 
+    internal const uint PlayerAndCarInfoOffset = IsDemoOffset + 4; // Padding
     public PlayerAndCarInfo PlayerAndCarInfo
     {
-        get => ReadStruct<PlayerAndCarInfo>(12);
-        set => WriteStruct(12, value);
+        get => ReadStruct<PlayerAndCarInfo>(PlayerAndCarInfoOffset);
+        set => WriteStruct(PlayerAndCarInfoOffset, value);
     }
 
+    internal const uint CharacterIndexOffset = PlayerAndCarInfoOffset + PlayerAndCarInfo.Size;
     public int CharacterIndex
     {
-        get => ReadInt32(40);
-        set => WriteInt32(40, value);
+        get => ReadInt32(CharacterIndexOffset);
+        set => WriteInt32(CharacterIndexOffset, value);
     }
 
-    public StructArray<CarData> VehicleSlots => new(Memory, ReadUInt32(44), CarData.Size, 3);
+    internal const uint VehicleSlotsOffset = CharacterIndexOffset + sizeof(int);
+    public StructArray<CarData> VehicleSlots => new(Memory, ReadUInt32(VehicleSlotsOffset), CarData.Size, 3);
 
+    internal const uint DefaultLevelVehicleNameOffset = VehicleSlotsOffset + CarData.Size * 3;
     public string DefaultLevelVehicleName
     {
-        get => ReadString(416, Encoding.UTF8, 64);
-        set => WriteString(416, value, Encoding.UTF8, 64);
+        get => ReadString(DefaultLevelVehicleNameOffset, Encoding.UTF8, 64);
+        set => WriteString(DefaultLevelVehicleNameOffset, value, Encoding.UTF8, 64);
     }
 
+    internal const uint DefaultLevelVehicleLocatorOffset = DefaultLevelVehicleNameOffset + 64;
     public string DefaultLevelVehicleLocator
     {
-        get => ReadString(480, Encoding.UTF8, 64);
-        set => WriteString(480, value, Encoding.UTF8, 64);
+        get => ReadString(DefaultLevelVehicleLocatorOffset, Encoding.UTF8, 64);
+        set => WriteString(DefaultLevelVehicleLocatorOffset, value, Encoding.UTF8, 64);
     }
 
+    internal const uint DefaultLevelVehicleConfigOffset = DefaultLevelVehicleLocatorOffset + 64;
     public string DefaultLevelVehicleConfig
     {
-        get => ReadString(544, Encoding.UTF8, 64);
-        set => WriteString(544, value, Encoding.UTF8, 64);
+        get => ReadString(DefaultLevelVehicleConfigOffset, Encoding.UTF8, 64);
+        set => WriteString(DefaultLevelVehicleConfigOffset, value, Encoding.UTF8, 64);
     }
 
+    internal const uint ShouldLoadDefaultVehicleOffset = DefaultLevelVehicleConfigOffset + 64;
     public bool ShouldLoadDefaultVehicle
     {
-        get => ReadBoolean(608);
-        set => WriteBoolean(608, value);
+        get => ReadBoolean(ShouldLoadDefaultVehicleOffset);
+        set => WriteBoolean(ShouldLoadDefaultVehicleOffset, value);
     }
 
-    public StructArray<MissionCarData> MissionVehicleSlots => new(Memory, ReadUInt32(612), MissionCarData.Size, 5);
+    internal const uint MissionVehicleSlotsOffset = ShouldLoadDefaultVehicleOffset + 4; // Padding
+    public StructArray<MissionCarData> MissionVehicleSlots => new(Memory, ReadUInt32(MissionVehicleSlotsOffset), MissionCarData.Size, 5);
 
-    public StructArray<Structs.ChaseManager> ChaseManagers => new(Memory, ReadUInt32(832), Structs.ChaseManager.Size, 1);
+    internal const uint ChaseManagersOffset = MissionVehicleSlotsOffset + MissionCarData.Size * 5;
+    public StructArray<Structs.ChaseManager> ChaseManagers => new(Memory, ReadUInt32(ChaseManagersOffset), Structs.ChaseManager.Size, 1);
 
+    internal const uint BlackScreenTimerOffset = ChaseManagersOffset + Structs.ChaseManager.Size * 1;
     public int BlackScreenTimer
     {
-        get => ReadInt32(916);
-        set => WriteInt32(916, value);
+        get => ReadInt32(BlackScreenTimerOffset);
+        set => WriteInt32(BlackScreenTimerOffset, value);
     }
 
-    public char SkipSunday
+    internal const uint SkipSundayOffset = BlackScreenTimerOffset + sizeof(int);
+    public bool SkipSunday
     {
-        get => (char)ReadByte(920);
-        set => WriteByte(920, (byte)value);
+        get => ReadBoolean(SkipSundayOffset);
+        set => WriteBoolean(SkipSundayOffset, value);
     }
 
+    internal const uint AIIndexOffset = SkipSundayOffset + 4; // Padding
     public int AIIndex
     {
-        get => ReadInt32(924);
-        set => WriteInt32(924, value);
+        get => ReadInt32(AIIndexOffset);
+        set => WriteInt32(AIIndexOffset, value);
     }
 
+    internal const uint GameTypeOffset = AIIndexOffset + sizeof(int);
     public GameTypes GameType
     {
-        get => (GameTypes)ReadUInt32(928);
-        set => WriteUInt32(928, (uint)value);
+        get => (GameTypes)ReadUInt32(GameTypeOffset);
+        set => WriteUInt32(GameTypeOffset, (uint)value);
     }
 
+    internal const uint PostLevelFMVOffset = GameTypeOffset + sizeof(uint);
     public string PostLevelFMV
     {
-        get => ReadString(932, Encoding.UTF8, 13);
-        set => WriteString(932, value, Encoding.UTF8, 13);
+        get => ReadString(PostLevelFMVOffset, Encoding.UTF8, 13);
+        set => WriteString(PostLevelFMVOffset, value, Encoding.UTF8, 13);
     }
 
+    internal const uint Bitfield_0x3B1Offset = PostLevelFMVOffset + 13;
     private byte Bitfield_0x3B1
     {
-        get => ReadByte(945);
-        set => WriteByte(945, value);
+        get => ReadByte(Bitfield_0x3B1Offset);
+        set => WriteByte(Bitfield_0x3B1Offset, value);
     }
 
     public bool IrisClosed
@@ -164,38 +183,49 @@ public class GameplayManager : Class
         }
     }
 
+    internal const uint CurrentMissionOffset = Bitfield_0x3B1Offset + 3; // Padding
     public int CurrentMission
     {
-        get => ReadInt32(948);
-        set => WriteInt32(948, value);
+        get => ReadInt32(CurrentMissionOffset);
+        set => WriteInt32(CurrentMissionOffset, value);
     }
 
+    internal const uint NumPlayersOffset = CurrentMissionOffset + sizeof(int);
     public int NumPlayers
     {
-        get => ReadInt32(952);
-        set => WriteInt32(952, value);
+        get => ReadInt32(NumPlayersOffset);
+        set => WriteInt32(NumPlayersOffset, value);
     }
 
+    internal const uint LevelDataOffset = NumPlayersOffset + sizeof(int);
     public LevelData LevelData
     {
-        get => ReadStruct<LevelData>(956);
-        set => WriteStruct(956, value);
+        get => ReadStruct<LevelData>(LevelDataOffset);
+        set => WriteStruct(LevelDataOffset, value);
     }
 
+    internal const uint NumMissionsOffset = LevelDataOffset + LevelData.Size;
     public int NumMissions
     {
-        get => ReadInt32(1056);
-        set => WriteInt32(1056, value);
+        get => ReadInt32(NumMissionsOffset);
+        set => WriteInt32(NumMissionsOffset, value);
     }
 
-    public PointerArray<Mission> Missions => new(Memory, Address + 1060, MAX_MISSIONS + MAX_BONUS_MISSIONS);
+    internal const uint MissionsOffset = NumMissionsOffset + sizeof(int);
+    public PointerArray<Mission> Missions => new(Memory, Address + MissionsOffset, MAX_MISSIONS + MAX_BONUS_MISSIONS);
 
-    // GameMemoryAllocator CurrentMissionHeap (1080)
+    internal const uint CurrentMissionHeapOffset = MissionsOffset + sizeof(uint) * (MAX_MISSIONS + MAX_BONUS_MISSIONS);
+    public uint CurrentMissionHeap // TODO: Add GameMemoryAllocator enum
+    {
+        get => ReadUInt32(CurrentMissionHeapOffset);
+        set => WriteUInt32(CurrentMissionHeapOffset, value);
+    }
 
+    internal const uint Bitfield_0x4A0Offset = CurrentMissionHeapOffset + sizeof(uint);
     private byte Bitfield_0x4A0
     {
-        get => ReadByte(1184);
-        set => WriteByte(1184, value);
+        get => ReadByte(Bitfield_0x4A0Offset);
+        set => WriteByte(Bitfield_0x4A0Offset, value);
     }
 
     public bool LevelComplete
@@ -234,94 +264,111 @@ public class GameplayManager : Class
         }
     }
 
-    public Vehicle CurrentVehicle => Memory.ClassFactory.Create<Vehicle>(ReadUInt32(1188));
+    internal const uint CurrentVehicleOffset = Bitfield_0x4A0Offset + 4; // Padding
+    public Vehicle CurrentVehicle => Memory.ClassFactory.Create<Vehicle>(ReadUInt32(CurrentVehicleOffset));
 
+    internal const uint VDUOffset = CurrentVehicleOffset + sizeof(uint);
     public VDU VDU
     {
-        get => ReadStruct<VDU>(1192);
-        set => WriteStruct(1192, value);
+        get => ReadStruct<VDU>(VDUOffset);
+        set => WriteStruct(VDUOffset, value);
     }
 
+    internal const uint NumBonusMissionsOffset = VDUOffset + VDU.Size;
     public int NumBonusMissions
     {
-        get => ReadInt32(1236);
-        set => WriteInt32(1236, value);
+        get => ReadInt32(NumBonusMissionsOffset);
+        set => WriteInt32(NumBonusMissionsOffset, value);
     }
 
+    internal const uint CurrentBonusMissionOffset = NumBonusMissionsOffset + sizeof(int);
     public int CurrentBonusMission
     {
-        get => ReadInt32(1240);
-        set => WriteInt32(1240, value);
+        get => ReadInt32(CurrentBonusMissionOffset);
+        set => WriteInt32(CurrentBonusMissionOffset, value);
     }
 
+    internal const uint DesiredBonusMissionOffset = CurrentBonusMissionOffset + sizeof(int);
     public int DesiredBonusMission
     {
-        get => ReadInt32(1244);
-        set => WriteInt32(1244, value);
+        get => ReadInt32(DesiredBonusMissionOffset);
+        set => WriteInt32(DesiredBonusMissionOffset, value);
     }
 
+    internal const uint IsInBonusMissionOffset = DesiredBonusMissionOffset + sizeof(int);
     public bool IsInBonusMission
     {
-        get => ReadBoolean(1248);
-        set => WriteBoolean(1248, value);
+        get => ReadBoolean(IsInBonusMissionOffset);
+        set => WriteBoolean(IsInBonusMissionOffset, value);
     }
 
+    internal const uint FireBonusMissionDialogueOffset = IsInBonusMissionOffset + 1;
     public bool FireBonusMissionDialogue
     {
-        get => ReadBoolean(1249);
-        set => WriteBoolean(1249, value);
+        get => ReadBoolean(FireBonusMissionDialogueOffset);
+        set => WriteBoolean(FireBonusMissionDialogueOffset, value);
     }
 
+    internal const uint JumpToBonusMissionOffset = FireBonusMissionDialogueOffset + 1;
     public bool JumpToBonusMission
     {
-        get => ReadBoolean(1250);
-        set => WriteBoolean(1250, value);
+        get => ReadBoolean(JumpToBonusMissionOffset);
+        set => WriteBoolean(JumpToBonusMissionOffset, value);
     }
 
-    public bool UpdateBonusMission
+    internal const uint UpdateBonusMissionsOffset = JumpToBonusMissionOffset + 1;
+    public bool UpdateBonusMissions
     {
-        get => ReadBoolean(1251);
-        set => WriteBoolean(1251, value);
+        get => ReadBoolean(UpdateBonusMissionsOffset);
+        set => WriteBoolean(UpdateBonusMissionsOffset, value);
     }
 
-    // BonusMissionInfo[MAX_BONUS_MISSIONS] BonusMissions (1252)
+    internal const uint BonusMissionsOffset = UpdateBonusMissionsOffset + 1;
+    public ClassArray<BonusMissionInfo> BonusMissions => new(Memory, Address + BonusMissionsOffset, BonusMissionInfo.Size, MAX_BONUS_MISSIONS);
 
+    internal const uint CurrentMessageOffset = BonusMissionsOffset + BonusMissionInfo.Size * MAX_BONUS_MISSIONS;
     public Messages CurrentMessage
     {
-        get => (Messages)ReadInt32(5812);
-        set => WriteInt32(5812, (int)value);
+        get => (Messages)ReadInt32(CurrentMessageOffset);
+        set => WriteInt32(CurrentMessageOffset, (int)value);
     }
 
-    public RespawnManager RespawnManager => Memory.ClassFactory.Create<RespawnManager>(ReadUInt32(5816));
+    internal const uint RespawnManagerOffset = CurrentMessageOffset + sizeof(int);
+    public RespawnManager RespawnManager => Memory.ClassFactory.Create<RespawnManager>(ReadUInt32(RespawnManagerOffset));
 
+    internal const uint IrisSpeedOffset = RespawnManagerOffset + sizeof(uint);
     public float IrisSpeed
     {
-        get => ReadSingle(5820);
-        set => WriteSingle(5820, value);
+        get => ReadSingle(IrisSpeedOffset);
+        set => WriteSingle(IrisSpeedOffset, value);
     }
 
+    internal const uint PutPlayerInCarOffset = IrisSpeedOffset + sizeof(float);
     public bool PutPlayerInCar
     {
-        get => ReadBoolean(5824);
-        set => WriteBoolean(6064, value);
+        get => ReadBoolean(PutPlayerInCarOffset);
+        set => WriteBoolean(PutPlayerInCarOffset, value);
     }
 
+    internal const uint ManualControlFadeOffset = PutPlayerInCarOffset + 1;
     public bool ManualControlFade
     {
-        get => ReadBoolean(5825);
-        set => WriteBoolean(6065, value);
+        get => ReadBoolean(ManualControlFadeOffset);
+        set => WriteBoolean(ManualControlFadeOffset, value);
     }
 
+    internal const uint CurrentVehicleIconIDOffset = ManualControlFadeOffset + 3; // Padding
     public int CurrentVehicleIconID
     {
-        get => ReadInt32(5828);
-        set => WriteInt32(5828, value);
+        get => ReadInt32(CurrentVehicleIconIDOffset);
+        set => WriteInt32(CurrentVehicleIconIDOffset, value);
     }
 
+    internal const uint ElapsedIdleTimeOffset = CurrentVehicleIconIDOffset + sizeof(int);
     public uint ElapsedIdleTime
     {
-        get => ReadUInt32(5832);
-        set => WriteUInt32(5832, value);
+        get => ReadUInt32(ElapsedIdleTimeOffset);
+        set => WriteUInt32(ElapsedIdleTimeOffset, value);
     }
 
     public int GetCurrentMissionIndex()

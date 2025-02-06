@@ -5,9 +5,10 @@ using SHARMemory.SHAR.Structs;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVtGeometry@@")]
-public class Mesh : Drawable
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Radical naming")]
+public class tGeometry : tDrawable
 {
-    public Mesh(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
+    public tGeometry(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     internal const uint BoxOffset = NameOffset + sizeof(long);
     public Box3D Box
@@ -31,5 +32,5 @@ public class Mesh : Drawable
     }
 
     internal const uint PrimGroupsOffset = CastsShadowOffset + sizeof(int);
-    public PointerArray<PrimGroup> PrimGroups => PointerArrayExtensions.FromPtrArray<PrimGroup>(Memory, this, PrimGroupsOffset);
+    public PointerArray<tPrimGroup> PrimGroups => PointerArrayExtensions.FromPtrArray<tPrimGroup>(Memory, this, PrimGroupsOffset);
 }

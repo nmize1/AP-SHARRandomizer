@@ -24,7 +24,7 @@ public class ArticulatedPhysicsObject : PhysicsObject
         set => WriteInt32(476, value);
     }
 
-    public Pose Pose => Memory.ClassFactory.Create<Pose>(ReadUInt32(480));
+    public tPose Pose => Memory.ClassFactory.Create<tPose>(ReadUInt32(480));
 
     public float TimeSinceComputeInertiaMatrix
     {

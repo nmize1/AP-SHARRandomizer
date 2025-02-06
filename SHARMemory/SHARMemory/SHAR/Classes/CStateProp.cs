@@ -20,7 +20,7 @@ public class CStateProp : tEntity
     public SHARMemory.Memory.Class BaseFrameController => Memory.ClassFactory.Create<SHARMemory.Memory.Class>(ReadUInt32(BaseFrameControllerOffset));
 
     private const uint FastDisplayDrawableOffset = BaseFrameControllerOffset + sizeof(uint);
-    public Drawable FastDisplayDrawable => Memory.ClassFactory.Create<Drawable>(ReadUInt32(FastDisplayDrawableOffset));
+    public tDrawable FastDisplayDrawable => Memory.ClassFactory.Create<tDrawable>(ReadUInt32(FastDisplayDrawableOffset));
 
     private const uint CurrentStateOffset = FastDisplayDrawableOffset + sizeof(uint);
     public uint CurrentState

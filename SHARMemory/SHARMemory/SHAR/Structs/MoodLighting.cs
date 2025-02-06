@@ -10,7 +10,7 @@ public struct MoodLighting
 {
     public const int Size = sizeof(uint) + sizeof(int) + sizeof(int) + sizeof(uint) + sizeof(float) + sizeof(int);
 
-    public LightGroup SunGroup;
+    public tLightGroup SunGroup;
 
     public Color SrcModulus;
 
@@ -22,7 +22,7 @@ public struct MoodLighting
 
     public int VolumeCount;
 
-    public MoodLighting(LightGroup sunGroup, Color srcModulus, Color dstModulus, StructArray<Color> originals, float transition, int volumeCount)
+    public MoodLighting(tLightGroup sunGroup, Color srcModulus, Color dstModulus, StructArray<Color> originals, float transition, int volumeCount)
     {
         SunGroup = sunGroup;
         SrcModulus = srcModulus;
@@ -41,7 +41,7 @@ internal class MoodLightingStruct : Struct
 
     public override object FromBytes(ProcessMemory Memory, byte[] Bytes, int Offset = 0)
     {
-        LightGroup SunGroup = Memory.ClassFactory.Create<LightGroup>(BitConverter.ToUInt32(Bytes, Offset));
+        tLightGroup SunGroup = Memory.ClassFactory.Create<tLightGroup>(BitConverter.ToUInt32(Bytes, Offset));
         Offset += sizeof(uint);
         Color SrcModulus = Memory.StructFromBytes<Color>(Bytes, Offset);
         Offset += sizeof(int);

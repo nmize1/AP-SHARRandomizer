@@ -26,7 +26,7 @@ public class CoinManager : Class
     public CoinManager(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     private const uint CoinDrawableOffset = 0x08;
-    public Drawable CoinDrawable => Memory.ClassFactory.Create<Drawable>(CoinDrawableOffset);
+    public tDrawable CoinDrawable => Memory.ClassFactory.Create<tDrawable>(CoinDrawableOffset);
 
     private const uint CoinBoundingOffset = CoinDrawableOffset + 0x04;
     public Sphere CoinBounding

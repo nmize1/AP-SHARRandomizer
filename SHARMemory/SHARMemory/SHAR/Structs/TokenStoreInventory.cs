@@ -9,17 +9,17 @@ public struct TokenStoreInventory
 {
     public const int Size = sizeof(uint) * RewardsManager.MAX_INVENTORY + sizeof(int);
 
-    public Merchandise[] Merchandises;
+    public Merchandise[] InventoryList;
 
     public int Counter;
 
     public TokenStoreInventory(Merchandise[] merchandises, int counter)
     {
-        Merchandises = merchandises;
+        InventoryList = merchandises;
         Counter = counter;
     }
 
-    public override readonly string ToString() => $"{Merchandises} | {Counter}";
+    public override readonly string ToString() => $"{InventoryList} | {Counter}";
 }
 
 internal class TokenStoreInventoryStruct : Struct
@@ -45,7 +45,7 @@ internal class TokenStoreInventoryStruct : Struct
 
         for (uint i = 0; i < RewardsManager.MAX_INVENTORY; i++)
         {
-            BitConverter.GetBytes(Value2.Merchandises[i]?.Address ?? 0).CopyTo(Buffer, Offset);
+            BitConverter.GetBytes(Value2.InventoryList[i]?.Address ?? 0).CopyTo(Buffer, Offset);
             Offset += sizeof(uint);
         }
         BitConverter.GetBytes(Value2.Counter).CopyTo(Buffer, Offset);

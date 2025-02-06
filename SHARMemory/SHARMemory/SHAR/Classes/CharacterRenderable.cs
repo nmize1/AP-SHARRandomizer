@@ -7,7 +7,7 @@ public class CharacterRenderable : Class
 {
     public CharacterRenderable(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    public PointerArray<DrawablePose> DrawableList => new(Memory, Address, 3);
+    public PointerArray<tDrawablePose> DrawableList => new(Memory, Address, 3);
 
     public int CurrentLOD
     {
@@ -25,5 +25,5 @@ public class CharacterRenderable : Class
 
     public PointerArray<Texture> SwatchTextures => new(Memory, Address + 24, 5);
 
-    public Shader SwatchShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(44));
+    public tShader SwatchShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(44));
 }

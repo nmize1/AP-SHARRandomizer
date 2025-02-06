@@ -34,7 +34,7 @@ public class StaticPhysDSG : CollisionEntityDSG
     public SimState SimState => Memory.ClassFactory.Create<SimState>(ReadUInt32(SimStateOffset));
 
     internal const uint ShadowOffset = SimStateOffset + sizeof(uint);
-    public Drawable Shadow => Memory.ClassFactory.Create<Drawable>(ReadUInt32(ShadowOffset));
+    public tDrawable Shadow => Memory.ClassFactory.Create<tDrawable>(ReadUInt32(ShadowOffset));
 
     internal const uint ShadowMatrixOffset = ShadowOffset + sizeof(uint);
     public Matrix4x4? ShadowMatrix

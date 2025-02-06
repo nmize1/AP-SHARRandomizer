@@ -9,17 +9,17 @@ public struct Icon
 {
     public const int Size = sizeof(uint) + sizeof(uint) + sizeof(int) + sizeof(uint) + sizeof(uint);
 
-    public Drawable Drawable;
+    public tDrawable Drawable;
 
     public Classes.tMultiController MultiController;
 
     public int EffectIndex;
 
-    public Drawable ShadowDrawable;
+    public tDrawable ShadowDrawable;
 
     public Classes.tMultiController ShadowController;
 
-    public Icon(Drawable drawable, Classes.tMultiController multiController, int effectIndex, Drawable shadowDrawable, Classes.tMultiController shadowController)
+    public Icon(tDrawable drawable, Classes.tMultiController multiController, int effectIndex, tDrawable shadowDrawable, Classes.tMultiController shadowController)
     {
         Drawable = drawable;
         MultiController = multiController;
@@ -37,13 +37,13 @@ internal class IconStruct : Struct
 
     public override object FromBytes(ProcessMemory Memory, byte[] Bytes, int Offset = 0)
     {
-        Drawable Drawable = Memory.ClassFactory.Create<Drawable>(BitConverter.ToUInt32(Bytes, Offset));
+        tDrawable Drawable = Memory.ClassFactory.Create<tDrawable>(BitConverter.ToUInt32(Bytes, Offset));
         Offset += sizeof(uint);
         Classes.tMultiController MultiController = Memory.ClassFactory.Create<Classes.tMultiController>(BitConverter.ToUInt32(Bytes, Offset));
         Offset += sizeof(uint);
         int EffectIndex = BitConverter.ToInt32(Bytes, Offset);
         Offset += sizeof(int);
-        Drawable ShadowDrawable = Memory.ClassFactory.Create<Drawable>(BitConverter.ToUInt32(Bytes, Offset));
+        tDrawable ShadowDrawable = Memory.ClassFactory.Create<tDrawable>(BitConverter.ToUInt32(Bytes, Offset));
         Offset += sizeof(uint);
         Classes.tMultiController ShadowController = Memory.ClassFactory.Create<Classes.tMultiController>(BitConverter.ToUInt32(Bytes, Offset));
         Offset += sizeof(uint);

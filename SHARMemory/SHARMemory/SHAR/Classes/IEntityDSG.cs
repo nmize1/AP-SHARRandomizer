@@ -4,7 +4,7 @@ using SHARMemory.Memory.RTTI;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVIEntityDSG@@")]
-public class IEntityDSG : Drawable
+public class IEntityDSG : tDrawable
 {
     public IEntityDSG(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 

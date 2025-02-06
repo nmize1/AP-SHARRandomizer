@@ -93,11 +93,19 @@ public sealed class Watcher
     public event AsyncEventHandler<CardCollectedEventArgs> CardCollected;
 
     /// <summary>
-    /// An event handler for when the Current Mission changes.
+    /// An event handler for when the Mission Index changes.
     /// </summary>
-    public event AsyncEventHandler<CurrentMissionChangedEventArgs> CurrentMissionChanged;
+    public event AsyncEventHandler<MissionIndexChangedEventArgs> MissionIndexChanged;
     /// <summary>
     /// An event handler for when the Current Mission changes.
+    /// </summary>
+    public event AsyncEventHandler<MissionChangedEventArgs> MissionChanged;
+    /// <summary>
+    /// An event handler for when the Current Stage changes.
+    /// </summary>
+    public event AsyncEventHandler<MissionStageChangedEventArgs> MissionStageChanged;
+    /// <summary>
+    /// An event handler for when the Current Vehicle changes.
     /// </summary>
     public event AsyncEventHandler<VehicleChangedEventArgs> VehicleChanged;
 
@@ -406,6 +414,8 @@ public sealed class Watcher
 
     private Globals.RenderEnums.LevelEnum? lastLevel = null;
     private int lastMissionIndex = -1;
+    private uint lastMission = 0;
+    private uint lastStage = 0;
     private uint lastVehicle = 0;
     private async Task CheckGameplayManager()
     {
@@ -421,21 +431,61 @@ public sealed class Watcher
         var missionIndex = gameplayManager.GetCurrentMissionIndex();
         if (!lastLevel.HasValue || lastLevel.Value != levelData.Level || lastMissionIndex != missionIndex)
         {
-            await CurrentMissionChanged.InvokeAsync(Memory, new(lastLevel, lastMissionIndex, levelData.Level, missionIndex), CancellationToken.None);
+            await MissionIndexChanged.InvokeAsync(Memory, new(lastLevel, lastMissionIndex, levelData.Level, missionIndex), CancellationToken.None);
 
             lastLevel = levelData.Level;
             lastMissionIndex = missionIndex;
         }
 
-        Vehicle vehicle = gameplayManager.CurrentVehicle;
+        if (gameplayManager is MissionManager missionManager)
+        {
+            var mission = missionManager.GetCurrentMission();
+            if ((mission?.Address ?? 0) != lastMission)
+            {
+                Classes.Mission lastMission2 = null;
+                if (lastMission != 0)
+                {
+                    try
+                    {
+                        lastMission2 = Memory.ClassFactory.Create<Classes.Mission>(lastMission);
+                    }
+                    catch { }
+                }
+                await MissionChanged.InvokeAsync(Memory, new(lastMission2, mission), CancellationToken.None);
+
+                lastMission = mission?.Address ?? 0;
+            }
+
+            var stage = mission?.GetCurrentStage();
+            if ((stage?.Address ?? 0) != lastStage)
+            {
+                MissionStage lastStage2 = null;
+                if (lastStage != 0)
+                {
+                    try
+                    {
+                        lastStage2 = Memory.ClassFactory.Create<MissionStage>(lastStage);
+                    }
+                    catch { }
+                }
+                await MissionStageChanged.InvokeAsync(Memory, new(lastStage2, stage), CancellationToken.None);
+
+                lastStage = stage?.Address ?? 0;
+            }
+        }
+
+        var vehicle = gameplayManager.CurrentVehicle;
         if ((vehicle?.Address ?? 0) != lastVehicle)
         {
             Vehicle lastVehicle2 = null;
-            try
+            if (lastVehicle != 0)
             {
-                lastVehicle2 = Memory.ClassFactory.Create<Vehicle>(lastVehicle);
+                try
+                {
+                    lastVehicle2 = Memory.ClassFactory.Create<Vehicle>(lastVehicle);
+                }
+                catch { }
             }
-            catch { }
             await VehicleChanged.InvokeAsync(Memory, new(lastVehicle2, vehicle), CancellationToken.None);
 
             lastVehicle = vehicle?.Address ?? 0;

@@ -23,7 +23,7 @@ public class InstStatEntityDSG : StaticEntityDSG
     }
 
     internal const uint ShadowDrawableOffset = MatrixOffset + sizeof(uint);
-    public Drawable ShadowDrawable => Memory.ClassFactory.Create<Drawable>(ReadUInt32(ShadowDrawableOffset));
+    public tDrawable ShadowDrawable => Memory.ClassFactory.Create<tDrawable>(ReadUInt32(ShadowDrawableOffset));
 
     internal const uint ShadowMatrixOffset = ShadowDrawableOffset + sizeof(uint);
     public Matrix4x4? ShadowMatrix

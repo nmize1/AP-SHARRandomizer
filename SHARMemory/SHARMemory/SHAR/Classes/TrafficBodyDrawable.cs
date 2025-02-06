@@ -5,7 +5,7 @@ using System.Drawing;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVTrafficBodyDrawable@@")]
-public class TrafficBodyDrawable : Drawable
+public class TrafficBodyDrawable : tDrawable
 {
     public TrafficBodyDrawable(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
@@ -24,10 +24,10 @@ public class TrafficBodyDrawable : Drawable
     }
 
     internal const uint BodyPropDrawableOffset = FadingOffset + 4; // Padding
-    public Drawable BodyPropDrawable => Memory.ClassFactory.Create<Drawable>(ReadUInt32(BodyPropDrawableOffset));
+    public tDrawable BodyPropDrawable => Memory.ClassFactory.Create<tDrawable>(ReadUInt32(BodyPropDrawableOffset));
 
     internal const uint BodyShaderOffset = BodyPropDrawableOffset + sizeof(uint);
-    public Shader BodyShader => Memory.ClassFactory.Create<Shader>(ReadUInt32(BodyShaderOffset));
+    public tShader BodyShader => Memory.ClassFactory.Create<tShader>(ReadUInt32(BodyShaderOffset));
 
     internal const uint DesiredColourOffset = BodyShaderOffset + sizeof(uint);
     public Color DesiredColour

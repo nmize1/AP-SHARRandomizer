@@ -5,9 +5,10 @@ using SHARMemory.SHAR.Structs;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVtCompositeDrawable@@")]
-public class CompositeDrawable : DrawablePose
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Radical naming")]
+public class tCompositeDrawable : tDrawablePose
 {
-    public CompositeDrawable(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
+    public tCompositeDrawable(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     public Box3D BoundingBox
     {

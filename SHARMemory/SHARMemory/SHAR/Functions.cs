@@ -73,4 +73,11 @@ public sealed class Functions
         var address = _memory.Execute(GetMerchandiseAddress, parameter);
         return _memory.ClassFactory.Create<Merchandise>(address);
     }
+    /// <summary>
+    /// Uses SHAR's <c>RewardsManager::GetMerchandise</c> function to get a <see cref="Merchandise"/> instance.
+    /// </summary>
+    /// <param name="level">The level of the merchandise.</param>
+    /// <param name="index">The index of the merchandise.</param>
+    /// <returns>The Merchandise.</returns>
+    public Merchandise GetMerchandise(int level, int index) => GetMerchandise((uint)level, (uint)index);
 }

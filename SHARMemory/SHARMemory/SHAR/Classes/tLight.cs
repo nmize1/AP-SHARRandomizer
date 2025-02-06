@@ -6,7 +6,8 @@ using System.Drawing;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVtLight@@")]
-public class Light : Class
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Radical naming")]
+public class tLight : Class
 {
     public enum IlluminationTypes
     {
@@ -15,7 +16,7 @@ public class Light : Class
         Negative,
     }
 
-    public Light(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
+    public tLight(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     private const uint ColourOffset = 16;
     public Color Colour

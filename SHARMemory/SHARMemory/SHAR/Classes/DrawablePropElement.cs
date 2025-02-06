@@ -8,5 +8,5 @@ public class DrawablePropElement : DrawableElement
 {
     public DrawablePropElement(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    public Drawable Drawable => Memory.ClassFactory.Create<Drawable>(ReadUInt32(20));
+    public tDrawable Drawable => Memory.ClassFactory.Create<tDrawable>(ReadUInt32(20));
 }
