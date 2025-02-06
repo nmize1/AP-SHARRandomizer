@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHARMemory", "SHARMemory\SHARMemory.csproj", "{02ACA7F8-9CDB-453F-B420-2D8119194C4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHARRandomizer", "SHARRandomizer\SHARRandomizer.csproj", "{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{02ACA7F8-9CDB-453F-B420-2D8119194C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02ACA7F8-9CDB-453F-B420-2D8119194C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02ACA7F8-9CDB-453F-B420-2D8119194C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

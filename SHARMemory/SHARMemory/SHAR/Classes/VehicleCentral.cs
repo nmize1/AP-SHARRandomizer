@@ -23,4 +23,5 @@ public class VehicleCentral : Class
     private readonly int MaxVehicles;
     private readonly uint ActiveVehiclesOffset;
     public PointerArray<Vehicle> ActiveVehicles => new(Memory, Address + ActiveVehiclesOffset, MaxVehicles);
+
 }

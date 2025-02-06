@@ -1,0 +1,4647 @@
+{
+  "game": "SimpsonsHitAndRun",
+  "player_name": "CaesiusSHAR",
+  "player_id": 1,
+  "items": {
+    "Homer - Casual": {
+      "count": 1,
+      "name": "Homer - Casual",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124000,
+      "progression": false
+    },
+    "Homer - Muumuu": {
+      "count": 1,
+      "name": "Homer - Muumuu",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124001,
+      "progression": false
+    },
+    "Homer - Chosen One": {
+      "count": 1,
+      "name": "Homer - Chosen One",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124002,
+      "progression": false
+    },
+    "Bart - Tall": {
+      "count": 1,
+      "name": "Bart - Tall",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124003,
+      "progression": false
+    },
+    "Bart - Football": {
+      "count": 1,
+      "name": "Bart - Football",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124004,
+      "progression": false
+    },
+    "Bart - Ninja": {
+      "count": 1,
+      "name": "Bart - Ninja",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124005,
+      "progression": false
+    },
+    "Lisa - Cool": {
+      "count": 1,
+      "name": "Lisa - Cool",
+      "category": [
+        "Progression"
+      ],
+      "progression": true,
+      "id": 16957124006
+    },
+    "Lisa - Floreda": {
+      "count": 1,
+      "name": "Lisa - Floreda",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124007,
+      "progression": false
+    },
+    "Lisa - Hockey": {
+      "count": 1,
+      "name": "Lisa - Hockey",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124008,
+      "progression": false
+    },
+    "Marge - Classy": {
+      "count": 1,
+      "name": "Marge - Classy",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124009,
+      "progression": false
+    },
+    "Marge - Inmate": {
+      "count": 1,
+      "name": "Marge - Inmate",
+      "category": [
+        "Progression"
+      ],
+      "progression": true,
+      "id": 16957124010
+    },
+    "Marge - Police": {
+      "count": 1,
+      "name": "Marge - Police",
+      "category": [
+        "Progression"
+      ],
+      "progression": true,
+      "id": 16957124011
+    },
+    "Apu - American": {
+      "count": 1,
+      "name": "Apu - American",
+      "category": [
+        "Progression"
+      ],
+      "progression": true,
+      "id": 16957124012
+    },
+    "Apu - Army": {
+      "count": 1,
+      "name": "Apu - Army",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124013,
+      "progression": false
+    },
+    "Apu - B-sharps": {
+      "count": 1,
+      "name": "Apu - B-sharps",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124014,
+      "progression": false
+    },
+    "Bart - Hugo": {
+      "count": 1,
+      "name": "Bart - Hugo",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124015,
+      "progression": false
+    },
+    "Bart - Cadet": {
+      "count": 1,
+      "name": "Bart - Cadet",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124016,
+      "progression": false
+    },
+    "Bart - Bartman": {
+      "count": 1,
+      "name": "Bart - Bartman",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124017,
+      "progression": false
+    },
+    "Homer - Dirty": {
+      "count": 1,
+      "name": "Homer - Dirty",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124018,
+      "progression": false
+    },
+    "Homer - Evil": {
+      "count": 1,
+      "name": "Homer - Evil",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124019,
+      "progression": false
+    },
+    "Homer - Donut": {
+      "count": 1,
+      "name": "Homer - Donut",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124020,
+      "progression": false
+    },
+    "Family Sedan": {
+      "count": 1,
+      "name": "Family Sedan",
+      "category": [
+        "Level 1 Cars",
+        "Cars"
+      ],
+      "progression": true,
+      "id": 16957124021
+    },
+    "Plow King": {
+      "count": 1,
+      "name": "Plow King",
+      "category": [
+        "Progression",
+        "Level 1 Cars",
+        "Cars"
+      ],
+      "progression": true,
+      "id": 16957124022
+    },
+    "Duff Truck": {
+      "count": 1,
+      "name": "Duff Truck",
+      "category": [
+        "Cars",
+        "Level 1 Cars"
+      ],
+      "useful": true,
+      "id": 16957124023,
+      "progression": false
+    },
+    "Surveillance Van": {
+      "count": 1,
+      "name": "Surveillance Van",
+      "category": [
+        "Cars",
+        "Level 1 Cars"
+      ],
+      "useful": true,
+      "id": 16957124024,
+      "progression": false
+    },
+    "Cletus' Truck": {
+      "count": 1,
+      "name": "Cletus' Truck",
+      "category": [
+        "Cars",
+        "Level 1 Cars"
+      ],
+      "useful": true,
+      "id": 16957124025,
+      "progression": false
+    },
+    "Electarus": {
+      "count": 1,
+      "name": "Electarus",
+      "category": [
+        "Cars",
+        "Level 1 Cars"
+      ],
+      "useful": true,
+      "id": 16957124026,
+      "progression": false
+    },
+    "Mr. Plow": {
+      "count": 1,
+      "name": "Mr. Plow",
+      "category": [
+        "Progression",
+        "Level 2 Cars",
+        "Cars"
+      ],
+      "progression": true,
+      "id": 16957124027
+    },
+    "Limo": {
+      "count": 1,
+      "name": "Limo",
+      "category": [
+        "Cars",
+        "Level 2 Cars"
+      ],
+      "useful": true,
+      "id": 16957124028,
+      "progression": false
+    },
+    "Fire Truck": {
+      "count": 1,
+      "name": "Fire Truck",
+      "category": [
+        "Cars",
+        "Level 2 Cars"
+      ],
+      "useful": true,
+      "id": 16957124029,
+      "progression": false
+    },
+    "WW2 Vehicle": {
+      "count": 1,
+      "name": "WW2 Vehicle",
+      "category": [
+        "Cars",
+        "Level 2 Cars"
+      ],
+      "useful": true,
+      "id": 16957124030,
+      "progression": false
+    },
+    "Moe's Sedan": {
+      "count": 1,
+      "name": "Moe's Sedan",
+      "category": [
+        "Cars",
+        "Level 2 Cars"
+      ],
+      "useful": true,
+      "id": 16957124031,
+      "progression": false
+    },
+    "School Bus": {
+      "count": 1,
+      "name": "School Bus",
+      "category": [
+        "Progression",
+        "Level 3 Cars"
+      ],
+      "progression": true,
+      "id": 16957124032
+    },
+    "Donut Truck": {
+      "count": 1,
+      "name": "Donut Truck",
+      "category": [
+        "Cars",
+        "Level 3 Cars"
+      ],
+      "useful": true,
+      "id": 16957124033,
+      "progression": false
+    },
+    "Nerd Car": {
+      "count": 1,
+      "name": "Nerd Car",
+      "category": [
+        "Cars",
+        "Level 3 Cars"
+      ],
+      "useful": true,
+      "id": 16957124034,
+      "progression": false
+    },
+    "Skinner's Sedan": {
+      "count": 1,
+      "name": "Skinner's Sedan",
+      "category": [
+        "Cars",
+        "Level 3 Cars"
+      ],
+      "useful": true,
+      "id": 16957124035,
+      "progression": false
+    },
+    "Book Burning Van": {
+      "count": 1,
+      "name": "Book Burning Van",
+      "category": [
+        "Cars",
+        "Level 3 Cars"
+      ],
+      "useful": true,
+      "id": 16957124036,
+      "progression": false
+    },
+    "Scottish Willie's Tractor": {
+      "count": 1,
+      "name": "Scottish Willie's Tractor",
+      "category": [
+        "Cars",
+        "Level 4 Cars"
+      ],
+      "useful": true,
+      "id": 16957124037,
+      "progression": false
+    },
+    "Curator": {
+      "count": 1,
+      "name": "Curator",
+      "category": [
+        "Cars",
+        "Level 4 Cars"
+      ],
+      "useful": true,
+      "id": 16957124038,
+      "progression": false
+    },
+    "Krusty's Limo": {
+      "count": 1,
+      "name": "Krusty's Limo",
+      "category": [
+        "Cars",
+        "Level 4 Cars"
+      ],
+      "useful": true,
+      "id": 16957124039,
+      "progression": false
+    },
+    "Kremlin": {
+      "count": 1,
+      "name": "Kremlin",
+      "category": [
+        "Cars",
+        "Level 4 Cars"
+      ],
+      "useful": true,
+      "id": 16957124040,
+      "progression": false
+    },
+    "Clown Car": {
+      "count": 1,
+      "name": "Clown Car",
+      "category": [
+        "Cars",
+        "Level 4 Cars"
+      ],
+      "useful": true,
+      "id": 16957124041,
+      "progression": false
+    },
+    "Car Built for Homer": {
+      "count": 1,
+      "name": "Car Built for Homer",
+      "category": [
+        "Progression",
+        "Level 5 Cars"
+      ],
+      "progression": true,
+      "id": 16957124042
+    },
+    "Cola Truck": {
+      "count": 1,
+      "name": "Cola Truck",
+      "category": [
+        "Cars",
+        "Level 5 Cars"
+      ],
+      "useful": true,
+      "id": 16957124043,
+      "progression": false
+    },
+    "Police Car": {
+      "count": 1,
+      "name": "Police Car",
+      "category": [
+        "Cars",
+        "Level 5 Cars"
+      ],
+      "useful": true,
+      "id": 16957124044,
+      "progression": false
+    },
+    "Hover Car": {
+      "count": 1,
+      "name": "Hover Car",
+      "category": [
+        "Cars",
+        "Level 5 Cars"
+      ],
+      "useful": true,
+      "id": 16957124045,
+      "progression": false
+    },
+    "El Carro Loco": {
+      "count": 1,
+      "name": "El Carro Loco",
+      "category": [
+        "Cars",
+        "Level 5 Cars"
+      ],
+      "useful": true,
+      "id": 16957124046,
+      "progression": false
+    },
+    "Globex Super Villain Car": {
+      "count": 1,
+      "name": "Globex Super Villain Car",
+      "category": [
+        "Progression",
+        "Level 6 Cars",
+        "Cars"
+      ],
+      "progression": true,
+      "id": 16957124047
+    },
+    "Armored Truck": {
+      "count": 1,
+      "name": "Armored Truck",
+      "category": [
+        "Cars",
+        "Level 6 Cars"
+      ],
+      "useful": true,
+      "id": 16957124048,
+      "progression": false
+    },
+    "Chase Sedan": {
+      "count": 1,
+      "name": "Chase Sedan",
+      "category": [
+        "Cars",
+        "Level 6 Cars"
+      ],
+      "useful": true,
+      "id": 16957124049,
+      "progression": false
+    },
+    "Bandit": {
+      "count": 1,
+      "name": "Bandit",
+      "category": [
+        "Cars",
+        "Level 6 Cars"
+      ],
+      "useful": true,
+      "id": 16957124050,
+      "progression": false
+    },
+    "36 Strutz Bearat": {
+      "count": 1,
+      "name": "36 Strutz Bearat",
+      "category": [
+        "Cars",
+        "Level 6 Cars"
+      ],
+      "useful": true,
+      "id": 16957124051,
+      "progression": false
+    },
+    "Zombie Car": {
+      "count": 1,
+      "name": "Zombie Car",
+      "category": [
+        "Progression",
+        "Level 7 Cars",
+        "Cars"
+      ],
+      "progression": true,
+      "id": 16957124052
+    },
+    "Hearse": {
+      "count": 1,
+      "name": "Hearse",
+      "category": [
+        "Cars",
+        "Level 7 Cars"
+      ],
+      "useful": true,
+      "id": 16957124053,
+      "progression": false
+    },
+    "Mr. Burns Limo": {
+      "count": 1,
+      "name": "Mr. Burns Limo",
+      "category": [
+        "Cars",
+        "Level 7 Cars"
+      ],
+      "useful": true,
+      "id": 16957124054,
+      "progression": false
+    },
+    "Hover Bike": {
+      "count": 1,
+      "name": "Hover Bike",
+      "category": [
+        "Cars",
+        "Level 7 Cars"
+      ],
+      "useful": true,
+      "id": 16957124055,
+      "progression": false
+    },
+    "Open Wheel Race Car": {
+      "count": 1,
+      "name": "Open Wheel Race Car",
+      "category": [
+        "Cars",
+        "Level 7 Cars"
+      ],
+      "useful": true,
+      "id": 16957124056,
+      "progression": false
+    },
+    "Honor Roller": {
+      "count": 1,
+      "name": "Honor Roller",
+      "category": [
+        "Cars",
+        "Level 2 Cars"
+      ],
+      "progression": true,
+      "id": 16957124057
+    },
+    "Malibu Stacy Car": {
+      "count": 1,
+      "name": "Malibu Stacy Car",
+      "category": [
+        "Cars",
+        "Level 3 Cars"
+      ],
+      "progression": true,
+      "id": 16957124058
+    },
+    "Canyonero": {
+      "count": 1,
+      "name": "Canyonero",
+      "category": [
+        "Cars",
+        "Level 4 Cars"
+      ],
+      "progression": true,
+      "id": 16957124059
+    },
+    "Longhorn": {
+      "count": 1,
+      "name": "Longhorn",
+      "category": [
+        "Cars",
+        "Level 5 Cars"
+      ],
+      "progression": true,
+      "id": 16957124060
+    },
+    "Ferrini - Red": {
+      "count": 1,
+      "name": "Ferrini - Red",
+      "category": [
+        "Cars",
+        "Level 6 Cars"
+      ],
+      "progression": true,
+      "id": 16957124061
+    },
+    "70's Sports Car": {
+      "count": 1,
+      "name": "70's Sports Car",
+      "category": [
+        "Cars",
+        "Level 7 Cars"
+      ],
+      "progression": true,
+      "id": 16957124062
+    },
+    "Reset Car": {
+      "count": "20",
+      "name": "Reset Car",
+      "category": [
+        "Filler"
+      ],
+      "trap": true,
+      "id": 16957124063,
+      "progression": false
+    },
+    "Bonus Track 1 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 1 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124064,
+      "progression": false
+    },
+    "Bonus Track 2 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 2 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124065,
+      "progression": false
+    },
+    "Bonus Track 3 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 3 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124066,
+      "progression": false
+    },
+    "Bonus Track 4 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 4 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124067,
+      "progression": false
+    },
+    "Bonus Track 5 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 5 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124068,
+      "progression": false
+    },
+    "Bonus Track 6 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 6 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124069,
+      "progression": false
+    },
+    "Bonus Track 7 Unlock": {
+      "count": 1,
+      "name": "Bonus Track 7 Unlock",
+      "category": [
+        "Bonus Game"
+      ],
+      "progression_skip_balancing": true,
+      "id": 16957124070,
+      "progression": false
+    },
+    "Level 1": {
+      "count": 1,
+      "name": "Level 1",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124071
+    },
+    "Level 2": {
+      "count": 1,
+      "name": "Level 2",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124072
+    },
+    "Level 3": {
+      "count": 1,
+      "name": "Level 3",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124073
+    },
+    "Level 4": {
+      "count": 1,
+      "name": "Level 4",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124074
+    },
+    "Level 5": {
+      "count": 1,
+      "name": "Level 5",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124075
+    },
+    "Level 6": {
+      "count": 1,
+      "name": "Level 6",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124076
+    },
+    "Level 7": {
+      "count": 1,
+      "name": "Level 7",
+      "category": [
+        "Level"
+      ],
+      "progression": true,
+      "id": 16957124077
+    },
+    "Homer Kick": {
+      "count": 1,
+      "name": "Homer Kick",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124078
+    },
+    "Bart Kick": {
+      "count": 1,
+      "name": "Bart Kick",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124079
+    },
+    "Lisa Kick": {
+      "count": 1,
+      "name": "Lisa Kick",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124080
+    },
+    "Marge Kick": {
+      "count": 1,
+      "name": "Marge Kick",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124081
+    },
+    "Apu Kick": {
+      "count": 1,
+      "name": "Apu Kick",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124082
+    },
+    "Homer Double Jump": {
+      "count": 1,
+      "name": "Homer Double Jump",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124083
+    },
+    "Bart Double Jump": {
+      "count": 1,
+      "name": "Bart Double Jump",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124084
+    },
+    "Lisa Double Jump": {
+      "count": 1,
+      "name": "Lisa Double Jump",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124085
+    },
+    "Marge Double Jump": {
+      "count": 1,
+      "name": "Marge Double Jump",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124086
+    },
+    "Apu Double Jump": {
+      "count": 1,
+      "name": "Apu Double Jump",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124087
+    },
+    "Homer Ground Pound": {
+      "count": 1,
+      "name": "Homer Ground Pound",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124088
+    },
+    "Bart Ground Pound": {
+      "count": 1,
+      "name": "Bart Ground Pound",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124089
+    },
+    "Lisa Ground Pound": {
+      "count": 1,
+      "name": "Lisa Ground Pound",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124090
+    },
+    "Marge Ground Pound": {
+      "count": 1,
+      "name": "Marge Ground Pound",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124091
+    },
+    "Apu Ground Pound": {
+      "count": 1,
+      "name": "Apu Ground Pound",
+      "category": [
+        "Moves"
+      ],
+      "progression": true,
+      "id": 16957124092
+    },
+    "Wrench": {
+      "count": 10,
+      "name": "Wrench",
+      "category": [
+        "Filler"
+      ],
+      "filler": true,
+      "id": 16957124093,
+      "progression": false
+    },
+    "Hit N Run Reset": {
+      "count": 50,
+      "name": "Hit N Run Reset",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124094,
+      "progression": false
+    },
+    "10 Coins": {
+      "count": 100,
+      "name": "10 Coins",
+      "category": [
+        "Filler"
+      ],
+      "useful": true,
+      "id": 16957124095,
+      "progression": false
+    },
+    "Car Brake": {
+      "count": 20,
+      "name": "Car Brake",
+      "category": [
+        "Filler"
+      ],
+      "trap": true,
+      "id": 16957124096,
+      "progression": false
+    },
+    "Donut": {
+      "name": "Donut",
+      "id": 16957124097,
+      "progression": false
+    }
+  },
+  "locations": {
+    "(L1M1) SMRT": {
+      "name": "(L1M1) SMRT",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "id": 16957124500
+    },
+    "(L1M2) Petty Theft Homer": {
+      "name": "(L1M2) Petty Theft Homer",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "id": 16957124501
+    },
+    "(L1M3) Office Spaced": {
+      "name": "(L1M3) Office Spaced",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "requires": "|Plow King|",
+      "id": 16957124502
+    },
+    "(L1M4) Blind Big Brother": {
+      "name": "(L1M4) Blind Big Brother",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "requires": "",
+      "id": 16957124503
+    },
+    "(L1M5) Flowers By Irene": {
+      "name": "(L1M5) Flowers By Irene",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "requires": "",
+      "id": 16957124504
+    },
+    "(L1M6) BoneStorm Storm": {
+      "name": "(L1M6) BoneStorm Storm",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "requires": "",
+      "id": 16957124505
+    },
+    "(L1M7) The Fat and the Furious": {
+      "name": "(L1M7) The Fat and the Furious",
+      "region": "Level 1",
+      "category": [
+        "Level 1 Mission"
+      ],
+      "requires": "",
+      "id": 16957124506
+    },
+    "(L1BM) This Old Shanty": {
+      "name": "(L1BM) This Old Shanty",
+      "region": "Level 1",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124507
+    },
+    "(LVL1) Time Trial Race": {
+      "name": "(LVL1) Time Trial Race",
+      "region": "Level 1",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124508
+    },
+    "(LVL1) Circuit Race": {
+      "name": "(LVL1) Circuit Race",
+      "region": "Level 1",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124509
+    },
+    "(LVL1) Checkpoint Race ": {
+      "name": "(LVL1) Checkpoint Race ",
+      "region": "Level 1",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124510
+    },
+    "(L2M1) Detention Deficit Disorder": {
+      "name": "(L2M1) Detention Deficit Disorder",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "id": 16957124511
+    },
+    "(L2M2) Weapons of Mass Delinquency": {
+      "name": "(L2M2) Weapons of Mass Delinquency",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "id": 16957124512
+    },
+    "(L2M3) Voc Nerduli": {
+      "name": "(L2M3) Voc Nerduli",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "id": 16957124513
+    },
+    "(L2M4) Bart \u2018n\u2019 Frink": {
+      "name": "(L2M4) Bart \u2018n\u2019 Frink",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "id": 16957124514
+    },
+    "(L2M5) Better Than Beef": {
+      "name": "(L2M5) Better Than Beef",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "id": 16957124515
+    },
+    "(L2M6) Monkey See Monkey D\u2019oh": {
+      "name": "(L2M6) Monkey See Monkey D\u2019oh",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "requires": "|Mr. Plow|",
+      "id": 16957124516
+    },
+    "(L2M7) Cell-Outs": {
+      "name": "(L2M7) Cell-Outs",
+      "region": "Level 2",
+      "category": [
+        "Level 2 Mission"
+      ],
+      "requires": "",
+      "id": 16957124517
+    },
+    "(L2BM) Dial B for Blood": {
+      "name": "(L2BM) Dial B for Blood",
+      "region": "Level 2",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124518
+    },
+    "(LVL 2) Time Trial Race": {
+      "name": "(LVL 2) Time Trial Race",
+      "region": "Level 2",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124519
+    },
+    "(LVL 2) Circuit Race": {
+      "name": "(LVL 2) Circuit Race",
+      "region": "Level 2",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124520
+    },
+    "(LVL 2) Checkpoint Race ": {
+      "name": "(LVL 2) Checkpoint Race ",
+      "region": "Level 2",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124521
+    },
+    "(L3M1) Nerd Race Queen": {
+      "name": "(L3M1) Nerd Race Queen",
+      "region": "Level 3",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "id": 16957124522
+    },
+    "(L3M2) Clueless": {
+      "name": "(L3M2) Clueless",
+      "region": "Level 3",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "id": 16957124523
+    },
+    "(L3M3) Bonfire of the Manatees": {
+      "name": "(L3M3) Bonfire of the Manatees",
+      "region": "Level 3",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "id": 16957124524
+    },
+    "(L3M4) Operation Hellfish": {
+      "name": "(L3M4) Operation Hellfish",
+      "region": "Level 3",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "requires": "|School Bus|",
+      "id": 16957124525
+    },
+    "(L3M5) Slithery Sleuthing": {
+      "name": "(L3M5) Slithery Sleuthing",
+      "region": "Level 3",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "requires": "|Lisa - Cool|",
+      "id": 16957124526
+    },
+    "(L3M6) Fishy Deals": {
+      "region": "Level 3",
+      "name": "(L3M6) Fishy Deals",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "requires": "",
+      "id": 16957124527
+    },
+    "(L3M7) The Old Pirate of the Sea": {
+      "name": "(L3M7) The Old Pirate of the Sea",
+      "region": "Level 3",
+      "category": [
+        "Level 3 Mission"
+      ],
+      "requires": "",
+      "id": 16957124528
+    },
+    "(L3BM) Princi-Pal": {
+      "name": "(L3BM) Princi-Pal",
+      "region": "Level 3",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124529
+    },
+    "(LVL 3) Time Trial Race": {
+      "name": "(LVL 3) Time Trial Race",
+      "region": "Level 3",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124530
+    },
+    "(LVL 3) Circuit Race": {
+      "name": "(LVL 3) Circuit Race",
+      "region": "Level 3",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124531
+    },
+    "(LVL 3) Checkpoint Race": {
+      "name": "(LVL 3) Checkpoint Race",
+      "region": "Level 3",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124532
+    },
+    "(L4M1) For a Few Donuts More": {
+      "name": "(L4M1) For a Few Donuts More",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "id": 16957124533
+    },
+    "(L4M2) Redneck Roundup": {
+      "name": "(L4M2) Redneck Roundup",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "id": 16957124534
+    },
+    "(L4M3) Ketchup Logic": {
+      "name": "(L4M3) Ketchup Logic",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "requires": "|Marge - Inmate|",
+      "id": 16957124535
+    },
+    "(L4M4) Return of the Nearly-Dead": {
+      "name": "(L4M4) Return of the Nearly-Dead",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "requires": "",
+      "id": 16957124536
+    },
+    "(L4M5) Wolves Stole My Pills": {
+      "name": "(L4M5) Wolves Stole My Pills",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "requires": "",
+      "id": 16957124537
+    },
+    "(L4M6) The Cola Wars": {
+      "name": "(L4M6) The Cola Wars",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "requires": "|Marge - Police|",
+      "id": 16957124538
+    },
+    "(L4M7) From Outer Space": {
+      "name": "(L4M7) From Outer Space",
+      "region": "Level 4",
+      "category": [
+        "Level 4 Mission"
+      ],
+      "requires": "",
+      "id": 16957124539
+    },
+    "(L4BM) Beached Love": {
+      "name": "(L4BM) Beached Love",
+      "region": "Level 4",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124540
+    },
+    "(LVL 4) CheckPoint Race": {
+      "region": "Level 4",
+      "name": "(LVL 4) CheckPoint Race",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124541
+    },
+    "(LVL 4) Circuit Race": {
+      "name": "(LVL 4) Circuit Race",
+      "region": "Level 4",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124542
+    },
+    "(LVL 4) Time Trial Race": {
+      "name": "(LVL 4) Time Trial Race",
+      "region": "Level 4",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124543
+    },
+    "(L5M1) Incriminating Caffeine": {
+      "name": "(L5M1) Incriminating Caffeine",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "id": 16957124544
+    },
+    "(L5M2) \u2026and Baby Makes 8": {
+      "name": "(L5M2) \u2026and Baby Makes 8",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "id": 16957124545
+    },
+    "(L5M3) Eight is Too Much": {
+      "name": "(L5M3) Eight is Too Much",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "requires": "|Car Built for Homer|",
+      "id": 16957124546
+    },
+    "(L5M4) This Little Piggy": {
+      "name": "(L5M4) This Little Piggy",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "requires": "|Apu - American|",
+      "id": 16957124547
+    },
+    "(L5M5) Never Trust a Snake": {
+      "name": "(L5M5) Never Trust a Snake",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "requires": "",
+      "id": 16957124548
+    },
+    "(L5M6) Kwik Cash": {
+      "name": "(L5M6) Kwik Cash",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "requires": "",
+      "id": 16957124549
+    },
+    "(L5M7) Curious Curator": {
+      "name": "(L5M7) Curious Curator",
+      "region": "Level 5",
+      "category": [
+        "Level 5 Mission"
+      ],
+      "requires": "",
+      "id": 16957124550
+    },
+    "(L5BM) Kinky Frinky": {
+      "name": "(L5BM) Kinky Frinky",
+      "region": "Level 5",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124551
+    },
+    "(LVL 5) Checkpoint Race": {
+      "name": "(LVL 5) Checkpoint Race",
+      "region": "Level 5",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124552
+    },
+    "(LVL 5) Circuit Race": {
+      "name": "(LVL 5) Circuit Race",
+      "region": "Level 5",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124553
+    },
+    "(LVL 5) Time Trial": {
+      "name": "(LVL 5) Time Trial",
+      "region": "Level 5",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124554
+    },
+    "(L6M1) Going to the Lu\u2019": {
+      "name": "(L6M1) Going to the Lu\u2019",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124555
+    },
+    "(L6M2) Getting Down with the Clown": {
+      "name": "(L6M2) Getting Down with the Clown",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124556
+    },
+    "(L6M3) Lab Coat Caper": {
+      "name": "(L6M3) Lab Coat Caper",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124557
+    },
+    "(L6M4) Duff for Me, Duff for You": {
+      "name": "(L6M4) Duff for Me, Duff for You",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124558
+    },
+    "(L6M5) Full Metal Jackass": {
+      "name": "(L6M5) Full Metal Jackass",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124559
+    },
+    "(L6M6) Set to Kill": {
+      "name": "(L6M6) Set to Kill",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124560
+    },
+    "(L6M7) Kang and Kodos Strike Back": {
+      "name": "(L6M7) Kang and Kodos Strike Back",
+      "region": "Level 6",
+      "category": [
+        "Level 6 Mission"
+      ],
+      "id": 16957124561
+    },
+    "(L6BM) Milking The Pigs": {
+      "name": "(L6BM) Milking The Pigs",
+      "region": "Level 6",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124562
+    },
+    "(LVL 6) CheckPoint Race": {
+      "name": "(LVL 6) CheckPoint Race",
+      "region": "Level 6",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124563
+    },
+    "(LVL 6) Time Trial Race": {
+      "name": "(LVL 6) Time Trial Race",
+      "region": "Level 6",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124564
+    },
+    "(LVL 6) Circuit Race": {
+      "name": "(LVL 6) Circuit Race",
+      "region": "Level 6",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124565
+    },
+    "(L7M1) Rigor Motors": {
+      "name": "(L7M1) Rigor Motors",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "id": 16957124566
+    },
+    "(L7M2) Long Black Probes": {
+      "name": "(L7M2) Long Black Probes",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "requires": "|Zombie Car|",
+      "id": 16957124567
+    },
+    "(L7M3) Pocket Protector": {
+      "name": "(L7M3) Pocket Protector",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "requires": "",
+      "id": 16957124568
+    },
+    "(L7M4) There\u2019s Something About Monty": {
+      "name": "(L7M4) There\u2019s Something About Monty",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "requires": "|Homer Double Jump|",
+      "id": 16957124569
+    },
+    "(L7M5) Alien \u201cAuto\u201dtopsy Part 1": {
+      "name": "(L7M5) Alien \u201cAuto\u201dtopsy Part 1",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "requires": "",
+      "id": 16957124570
+    },
+    "(L7M6) Alien \u201cAuto\u201dtopsy Part 2": {
+      "name": "(L7M6) Alien \u201cAuto\u201dtopsy Part 2",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "requires": "",
+      "id": 16957124571
+    },
+    "(L7M7) Alien \u201cAuto\u201dtopsy Part 3": {
+      "name": "(L7M7) Alien \u201cAuto\u201dtopsy Part 3",
+      "region": "Level 7",
+      "category": [
+        "Level 7 Mission"
+      ],
+      "requires": "",
+      "id": 16957124572
+    },
+    "(L7BM) Flaming Tires": {
+      "name": "(L7BM) Flaming Tires",
+      "region": "Level 7",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124573
+    },
+    "(LVL 7) CheckPoint Race": {
+      "name": "(LVL 7) CheckPoint Race",
+      "region": "Level 7",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124574
+    },
+    "(LVL 7) Time Trial Race": {
+      "name": "(LVL 7) Time Trial Race",
+      "region": "Level 7",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124575
+    },
+    "(LVL 7) Circuit Race": {
+      "name": "(LVL 7) Circuit Race",
+      "region": "Level 7",
+      "category": [
+        "Bonus Mission"
+      ],
+      "id": 16957124576
+    },
+    "(LVL 1) WASP - Small Park Next to Simpsons House": {
+      "name": "(LVL 1) WASP - Small Park Next to Simpsons House",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124577
+    },
+    "(LVL 1) WASP - Next to the Blue House Besides Simpsons House": {
+      "name": "(LVL 1) WASP - Next to the Blue House Besides Simpsons House",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124578
+    },
+    "(LVL 1) WASP - Flanders Backyard": {
+      "name": "(LVL 1) WASP - Flanders Backyard",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124579
+    },
+    "(LVL 1) WASP - Wiggum\u2019s Backyard": {
+      "name": "(LVL 1) WASP - Wiggum\u2019s Backyard",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124580
+    },
+    "(LVL 1) WASP - Kwik-E-Mart Roof": {
+      "name": "(LVL 1) WASP - Kwik-E-Mart Roof",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124581
+    },
+    "(LVL 1) WASP - Gas Pump Roof": {
+      "name": "(LVL 1) WASP - Gas Pump Roof",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124582
+    },
+    "(LVL 1) WASP - Lard Lads Roof": {
+      "name": "(LVL 1) WASP - Lard Lads Roof",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124583
+    },
+    "(LVL 1) WASP - School Yard Bus": {
+      "name": "(LVL 1) WASP - School Yard Bus",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124584
+    },
+    "(LVL 1) WASP - Back Door of School": {
+      "name": "(LVL 1) WASP - Back Door of School",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124585
+    },
+    "(LVL 1) WASP - School Roof 1": {
+      "name": "(LVL 1) WASP - School Roof 1",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124586
+    },
+    "(LVL 1) WASP - School Roof 2": {
+      "name": "(LVL 1) WASP - School Roof 2",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124587
+    },
+    "(LVL 1) WASP - Top of Tower Before Broken Bridge": {
+      "name": "(LVL 1) WASP - Top of Tower Before Broken Bridge",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124588
+    },
+    "(LVL 1) WASP - Rocket Car": {
+      "name": "(LVL 1) WASP - Rocket Car",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124589
+    },
+    "(LVL 1) WASP - StoneCutters Table 1": {
+      "name": "(LVL 1) WASP - StoneCutters Table 1",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124590
+    },
+    "(LVL 1) WASP - StoneCutters Table 2": {
+      "name": "(LVL 1) WASP - StoneCutters Table 2",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124591
+    },
+    "(LVL 1) WASP - Barn Haystack": {
+      "name": "(LVL 1) WASP - Barn Haystack",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124592
+    },
+    "(LVL 1) WASP - Trailer Park 1": {
+      "name": "(LVL 1) WASP - Trailer Park 1",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124593
+    },
+    "(LVL 1) WASP - Trailer Park 2": {
+      "name": "(LVL 1) WASP - Trailer Park 2",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Double Jump| AND (|Homer Kick| OR |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124594
+    },
+    "(LVL 1) WASP - Atop of Bridge Framework 1": {
+      "name": "(LVL 1) WASP - Atop of Bridge Framework 1",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Double Jump| AND (|Homer Kick| OR |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124595
+    },
+    "(LVL 1) WASP - Atop of Bridge Framework 2": {
+      "name": "(LVL 1) WASP - Atop of Bridge Framework 2",
+      "region": "Level 1",
+      "category": [
+        "Level 1 WASP"
+      ],
+      "requires": "|Homer Double Jump| AND (|Homer Kick| OR |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124596
+    },
+    "(LVL 1) CARD - Simpsons Backyard": {
+      "name": "(LVL 1) CARD - Simpsons Backyard",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": [],
+      "id": 16957124597
+    },
+    "(LVL 1) CARD - Kwik-E-Mart Roof": {
+      "name": "(LVL 1) CARD - Kwik-E-Mart Roof",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": [],
+      "id": 16957124598
+    },
+    "(LVL 1) CARD - Wiggum\u2019s Backyard": {
+      "name": "(LVL 1) CARD - Wiggum\u2019s Backyard",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": [],
+      "id": 16957124599
+    },
+    "(LVL 1) CARD - Corner Outside Near StoneCutter Entrance": {
+      "name": "(LVL 1) CARD - Corner Outside Near StoneCutter Entrance",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": [],
+      "id": 16957124600
+    },
+    "(LVL 1) CARD - Above StoneCutters Table": {
+      "name": "(LVL 1) CARD - Above StoneCutters Table",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124601
+    },
+    "(LVL 1) CARD - Highest Platform in PowerPlant": {
+      "name": "(LVL 1) CARD - Highest Platform in PowerPlant",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124602
+    },
+    "(LVL 1) CARD - TrailerPark": {
+      "name": "(LVL 1) CARD - TrailerPark",
+      "region": "Level 1",
+      "category": [
+        "Level 1 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124603
+    },
+    "(LVL 1) GAG - Simpsons TV": {
+      "name": "(LVL 1) GAG - Simpsons TV",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124604
+    },
+    "(LVL 1) GAG - Swings Besides Blue House": {
+      "name": "(LVL 1) GAG - Swings Besides Blue House",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124605
+    },
+    "(LVL 1) GAG - Simpsons Grill": {
+      "name": "(LVL 1) GAG - Simpsons Grill",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124606
+    },
+    "(LVL 1) GAG - Simpsons Swing": {
+      "name": "(LVL 1) GAG - Simpsons Swing",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124607
+    },
+    "(LVL 1) GAG - Simpsons FireBreathing Tiki": {
+      "name": "(LVL 1) GAG - Simpsons FireBreathing Tiki",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124608
+    },
+    "(LVL 1) GAG - Flanders Bomb Shelter": {
+      "name": "(LVL 1) GAG - Flanders Bomb Shelter",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124609
+    },
+    "(LVL 1) GAG - Tank in Front of Power Plant": {
+      "name": "(LVL 1) GAG - Tank in Front of Power Plant",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124610
+    },
+    "(LVL 1) GAG - Homer's Workstation Meltdown": {
+      "name": "(LVL 1) GAG - Homer's Workstation Meltdown",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124611
+    },
+    "(LVL 1) GAG - School Fire Extinguisher": {
+      "name": "(LVL 1) GAG - School Fire Extinguisher",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124612
+    },
+    "(LVL 1) GAG - School Fire Alarm": {
+      "name": "(LVL 1) GAG - School Fire Alarm",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124613
+    },
+    "(LVL 1) GAG - Man in Freezer at Kwik-E-Mart": {
+      "name": "(LVL 1) GAG - Man in Freezer at Kwik-E-Mart",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124614
+    },
+    "(LVL 1) GAG - Silent Alarm in Kwik-E-Mart": {
+      "name": "(LVL 1) GAG - Silent Alarm in Kwik-E-Mart",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124615
+    },
+    "(LVL 1) GAG - Arcade Cabinet in Kwik-E-Mart": {
+      "name": "(LVL 1) GAG - Arcade Cabinet in Kwik-E-Mart",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124616
+    },
+    "(LVL 1) GAG - Squishee Machine in Kwik-E-Mart": {
+      "name": "(LVL 1) GAG - Squishee Machine in Kwik-E-Mart",
+      "region": "Level 1",
+      "category": [
+        "Level 1 GAG"
+      ],
+      "requires": [],
+      "id": 16957124617
+    },
+    "(LVL 1) COSTUME - Casual Homer": {
+      "name": "(LVL 1) COSTUME - Casual Homer",
+      "region": "Level 1",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124618
+    },
+    "(LVL 1) COSTUME - MuuMuu Homer": {
+      "name": "(LVL 1) COSTUME - MuuMuu Homer",
+      "region": "Level 1",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124619
+    },
+    "(LVL 1) COSTUME - The Chosen One": {
+      "name": "(LVL 1) COSTUME - The Chosen One",
+      "region": "Level 1",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124620
+    },
+    "(LVL 1) CAR - Duff Truck": {
+      "name": "(LVL 1) CAR - Duff Truck",
+      "region": "Level 1",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124621
+    },
+    "(LVL 1) CAR - Surveillance Van": {
+      "name": "(LVL 1) CAR - Surveillance Van",
+      "region": "Level 1",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124622
+    },
+    "(LVL 1) CAR - Plow King": {
+      "name": "(LVL 1) CAR - Plow King",
+      "region": "Level 1",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124623
+    },
+    "(LVL 2) WASP - CourtHouse Steps": {
+      "name": "(LVL 2) WASP - CourtHouse Steps",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124624
+    },
+    "(LVL 2) WASP - Gazebo Between Museum and Courthouse": {
+      "name": "(LVL 2) WASP - Gazebo Between Museum and Courthouse",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124625
+    },
+    "(LVL 2) WASP - Museum Steps": {
+      "name": "(LVL 2) WASP - Museum Steps",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124626
+    },
+    "(LVL 2) WASP - Hospital Front Yard": {
+      "name": "(LVL 2) WASP - Hospital Front Yard",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124627
+    },
+    "(LVL 2) WASP - Roof Across Monkey Building": {
+      "name": "(LVL 2) WASP - Roof Across Monkey Building",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124628
+    },
+    "(LVL 2) WASP - Town Hall (Front)": {
+      "name": "(LVL 2) WASP - Town Hall (Front)",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124629
+    },
+    "(LVL 2) WASP - Town Hall (Back)": {
+      "name": "(LVL 2) WASP - Town Hall (Back)",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124630
+    },
+    "(LVL 2) WASP - Behind Downtown Krusty Burger": {
+      "name": "(LVL 2) WASP - Behind Downtown Krusty Burger",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124631
+    },
+    "(LVL 2) WASP - Monorail Stairs": {
+      "name": "(LVL 2) WASP - Monorail Stairs",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124632
+    },
+    "(LVL 2) WASP - UpStair Beside Monorail": {
+      "name": "(LVL 2) WASP - UpStair Beside Monorail",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124633
+    },
+    "(LVL 2) WASP - Roof Across Monorail": {
+      "name": "(LVL 2) WASP - Roof Across Monorail",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124634
+    },
+    "(LVL 2) WASP - Stairs Leading atop Trains": {
+      "name": "(LVL 2) WASP - Stairs Leading atop Trains",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124635
+    },
+    "(LVL 2) WASP - Across Moving Train": {
+      "name": "(LVL 2) WASP - Across Moving Train",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124636
+    },
+    "(LVL 2) WASP - On Train Past Water Tank": {
+      "name": "(LVL 2) WASP - On Train Past Water Tank",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124637
+    },
+    "(LVL 2) WASP - Inside Trainyard Parking Spot": {
+      "name": "(LVL 2) WASP - Inside Trainyard Parking Spot",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124638
+    },
+    "(LVL 2) WASP - Car Wash": {
+      "name": "(LVL 2) WASP - Car Wash",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124639
+    },
+    "(LVL 2) WASP - Legitimate Businessman\u2019s Rooftop 1": {
+      "name": "(LVL 2) WASP - Legitimate Businessman\u2019s Rooftop 1",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124640
+    },
+    "(LVL 2) WASP - Legitimate Businessman\u2019s Rooftop 2": {
+      "name": "(LVL 2) WASP - Legitimate Businessman\u2019s Rooftop 2",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124641
+    },
+    "(LVL 2) WASP - Roof Next to Moe\u2019s": {
+      "name": "(LVL 2) WASP - Roof Next to Moe\u2019s",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124642
+    },
+    "(LVL 2) WASP - Lard Lads Roof": {
+      "name": "(LVL 2) WASP - Lard Lads Roof",
+      "region": "Level 2",
+      "category": [
+        "Level 2 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|)",
+      "id": 16957124643
+    },
+    "(LVL 2) CARD - Statue": {
+      "name": "(LVL 2) CARD - Statue",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": [],
+      "id": 16957124644
+    },
+    "(LVL 2) CARD - Roof Across Monkey Building": {
+      "name": "(LVL 2) CARD - Roof Across Monkey Building",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124645
+    },
+    "(LVL 2) CARD - Legitimate Businessman\u2019s Rooftop": {
+      "name": "(LVL 2) CARD - Legitimate Businessman\u2019s Rooftop",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124646
+    },
+    "(LVL 2) CARD - Car Wash": {
+      "name": "(LVL 2) CARD - Car Wash",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124647
+    },
+    "(LVL 2) CARD - Train Wagon": {
+      "name": "(LVL 2) CARD - Train Wagon",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124648
+    },
+    "(LVL 2) CARD - Alleyway Behind Krusty Burger": {
+      "name": "(LVL 2) CARD - Alleyway Behind Krusty Burger",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124649
+    },
+    "(LVL 2) CARD - Fountain At Stadium": {
+      "name": "(LVL 2) CARD - Fountain At Stadium",
+      "region": "Level 2",
+      "category": [
+        "Level 2 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124650
+    },
+    "(LVL 2) GAG - CATapult": {
+      "name": "(LVL 2) GAG - CATapult",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124651
+    },
+    "(LVL 2) GAG - Cement Truck": {
+      "name": "(LVL 2) GAG - Cement Truck",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124652
+    },
+    "(LVL 2) GAG - Pickled Egg Jar at Moes": {
+      "name": "(LVL 2) GAG - Pickled Egg Jar at Moes",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124653
+    },
+    "(LVL 2) GAG - Slot Machine at Moes": {
+      "name": "(LVL 2) GAG - Slot Machine at Moes",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124654
+    },
+    "(LVL 2) GAG - Love Tester as Moes": {
+      "name": "(LVL 2) GAG - Love Tester as Moes",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124655
+    },
+    "(LVL 2) GAG - Light up Drinks at Moes": {
+      "name": "(LVL 2) GAG - Light up Drinks at Moes",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124656
+    },
+    "(LVL 2) GAG - Rat\u2019s Milk Machine atop Moe\u2019s Roof": {
+      "name": "(LVL 2) GAG - Rat\u2019s Milk Machine atop Moe\u2019s Roof",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124657
+    },
+    "(LVL 2) GAG - Blinding an old man at the DMV": {
+      "name": "(LVL 2) GAG - Blinding an old man at the DMV",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124658
+    },
+    "(LVL 2) GAG - Car Ride at Try-N-Save": {
+      "name": "(LVL 2) GAG - Car Ride at Try-N-Save",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124659
+    },
+    "(LVL 2) GAG - Missile Behind Military Antiques": {
+      "name": "(LVL 2) GAG - Missile Behind Military Antiques",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124660
+    },
+    "(LVL 2) GAG - Dumpster Behind Krusty Burger (Near Police Station)": {
+      "name": "(LVL 2) GAG - Dumpster Behind Krusty Burger (Near Police Station)",
+      "region": "Level 2",
+      "category": [
+        "Level 2 GAG"
+      ],
+      "requires": [],
+      "id": 16957124661
+    },
+    "(LVL 2) COSTUME - Tall Bart": {
+      "name": "(LVL 2) COSTUME - Tall Bart",
+      "region": "Level 2",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124662
+    },
+    "(LVL 2) COSTUME - Ninja Bart": {
+      "name": "(LVL 2) COSTUME - Ninja Bart",
+      "region": "Level 2",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124663
+    },
+    "(LVL 2) COSTUME - Football Bart": {
+      "name": "(LVL 2) COSTUME - Football Bart",
+      "region": "Level 2",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124664
+    },
+    "(LVL 2) CAR - Mr. Plow": {
+      "name": "(LVL 2) CAR - Mr. Plow",
+      "region": "Level 2",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124665
+    },
+    "(LVL 2) CAR - Limo": {
+      "name": "(LVL 2) CAR - Limo",
+      "region": "Level 2",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124666
+    },
+    "(LVL 2) CAR - Fire Truck": {
+      "name": "(LVL 2) CAR - Fire Truck",
+      "region": "Level 2",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124667
+    },
+    "Bonus Track 1 (3 Laps)": {
+      "name": "Bonus Track 1 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 1 Unlock|",
+      "id": 16957124668
+    },
+    "Bonus Track 2 (3 Laps)": {
+      "name": "Bonus Track 2 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 2 Unlock|",
+      "id": 16957124669
+    },
+    "Bonus Track 3 (3 Laps)": {
+      "name": "Bonus Track 3 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 3 Unlock|",
+      "id": 16957124670
+    },
+    "Bonus Track 4 (3 Laps)": {
+      "name": "Bonus Track 4 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 4 Unlock|",
+      "id": 16957124671
+    },
+    "Bonus Track 5 (3 Laps)": {
+      "name": "Bonus Track 5 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 5 Unlock|",
+      "id": 16957124672
+    },
+    "Bonus Track 6 (3 Laps)": {
+      "name": "Bonus Track 6 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 6 Unlock|",
+      "id": 16957124673
+    },
+    "Bonus Track 7 (3 Laps)": {
+      "name": "Bonus Track 7 (3 Laps)",
+      "region": "Main Menu",
+      "category": [
+        "Bonus Game"
+      ],
+      "requires": "|Bonus Track 7 Unlock|",
+      "id": 16957124674
+    },
+    "(LVL 3) COSTUME - Cool Lisa": {
+      "name": "(LVL 3) COSTUME - Cool Lisa",
+      "region": "Level 3",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124675
+    },
+    "(LVL 3) COSTUME - Floreda Lisa ": {
+      "name": "(LVL 3) COSTUME - Floreda Lisa ",
+      "region": "Level 3",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124676
+    },
+    "(LVL 3) COSTUME - Hockey Lisa": {
+      "name": "(LVL 3) COSTUME - Hockey Lisa",
+      "region": "Level 3",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124677
+    },
+    "(LVL 3) CAR - Nerd Car": {
+      "name": "(LVL 3) CAR - Nerd Car",
+      "region": "Level 3",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124678
+    },
+    "(LVL 3) CAR - Donut Truck": {
+      "name": "(LVL 3) CAR - Donut Truck",
+      "region": "Level 3",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124679
+    },
+    "(LVL 3) CAR - School Bus": {
+      "name": "(LVL 3) CAR - School Bus",
+      "region": "Level 3",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124680
+    },
+    "(LVL 3) WASP - Observatory": {
+      "name": "(LVL 3) WASP - Observatory",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124681
+    },
+    "(LVL 3) WASP - Broken Railing Below Dam": {
+      "name": "(LVL 3) WASP - Broken Railing Below Dam",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124682
+    },
+    "(LVL 3) WASP - Broken Railing Above Dam (Exit)": {
+      "name": "(LVL 3) WASP - Broken Railing Above Dam (Exit)",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124683
+    },
+    "(LVL 3) WASP - Kamp Krusty Near Stage": {
+      "name": "(LVL 3) WASP - Kamp Krusty Near Stage",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124684
+    },
+    "(LVL 3) WASP - Kamp Krusty Well": {
+      "name": "(LVL 3) WASP - Kamp Krusty Well",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124685
+    },
+    "(LVL 3) WASP - Exit of Kamp Krusty\u2019s Well": {
+      "name": "(LVL 3) WASP - Exit of Kamp Krusty\u2019s Well",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124686
+    },
+    "(LVL 3) WASP - Motel Complex": {
+      "name": "(LVL 3) WASP - Motel Complex",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124687
+    },
+    "(LVL 3) WASP - Duff Brewery Behind Krusty Glass": {
+      "name": "(LVL 3) WASP - Duff Brewery Behind Krusty Glass",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124688
+    },
+    "(LVL 3) WASP - Duff Blimp 1": {
+      "name": "(LVL 3) WASP - Duff Blimp 1",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124689
+    },
+    "(LVL 3) WASP - Duff Blimp 2": {
+      "name": "(LVL 3) WASP - Duff Blimp 2",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124690
+    },
+    "(LVL 3) WASP - Krusty Studio Left": {
+      "name": "(LVL 3) WASP - Krusty Studio Left",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124691
+    },
+    "(LVL 3) WASP - Krusty Studio Right": {
+      "name": "(LVL 3) WASP - Krusty Studio Right",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124692
+    },
+    "(LVL 3) WASP - (Boat) Front end of Boat": {
+      "name": "(LVL 3) WASP - (Boat) Front end of Boat",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "((|Lisa Kick| OR |Lisa Ground Pound|) AND |Lisa Double Jump|)",
+      "id": 16957124693
+    },
+    "(LVL 3) WASP - (Boat) Next to the Crane": {
+      "name": "(LVL 3) WASP - (Boat) Next to the Crane",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "((|Lisa Kick| OR |Lisa Ground Pound|) AND |Lisa Double Jump|)",
+      "id": 16957124694
+    },
+    "(LVL 3) WASP - (Boat) Stairs": {
+      "name": "(LVL 3) WASP - (Boat) Stairs",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "((|Lisa Kick| OR |Lisa Ground Pound|) AND |Lisa Double Jump|)",
+      "id": 16957124695
+    },
+    "(LVL 3) WASP - LightHouse": {
+      "name": "(LVL 3) WASP - LightHouse",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124696
+    },
+    "(LVL 3) WASP - Planet Hype": {
+      "name": "(LVL 3) WASP - Planet Hype",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124697
+    },
+    "(LVL 3) WASP - Beach": {
+      "name": "(LVL 3) WASP - Beach",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124698
+    },
+    "(LVL 3) WASP - Bowling Rooftop": {
+      "name": "(LVL 3) WASP - Bowling Rooftop",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "((|Lisa Kick| OR |Lisa Ground Pound|) AND |Lisa Double Jump|)",
+      "id": 16957124699
+    },
+    "(LVL 3) WASP - Comic Book Guy Rooftop 1": {
+      "name": "(LVL 3) WASP - Comic Book Guy Rooftop 1",
+      "region": "Level 3",
+      "category": [
+        "Level 3 WASP"
+      ],
+      "requires": "|Lisa Kick| OR (|Lisa Double Jump| AND |Lisa Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124700
+    },
+    "(LVL 3) CARD - Above Bowling": {
+      "name": "(LVL 3) CARD - Above Bowling",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": "|Lisa Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124701
+    },
+    "(LVL 3) CARD - Atop Lighthouse": {
+      "name": "(LVL 3) CARD - Atop Lighthouse",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": [],
+      "id": 16957124702
+    },
+    "(LVL 3) CARD - Edge of the Boat": {
+      "name": "(LVL 3) CARD - Edge of the Boat",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": "|Lisa Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124703
+    },
+    "(LVL 3) CARD - Balcony of Krusty Studio": {
+      "name": "(LVL 3) CARD - Balcony of Krusty Studio",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": "|Lisa Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124704
+    },
+    "(LVL 3) CARD - Above Below the Dam Railing": {
+      "name": "(LVL 3) CARD - Above Below the Dam Railing",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": "|Lisa Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124705
+    },
+    "(LVL 3) CARD - Broken Bridge": {
+      "name": "(LVL 3) CARD - Broken Bridge",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": [],
+      "id": 16957124706
+    },
+    "(LVL 3) CARD - Comic Book Guy's Rooftop": {
+      "name": "(LVL 3) CARD - Comic Book Guy's Rooftop",
+      "region": "Level 3",
+      "category": [
+        "Level 3 CARD"
+      ],
+      "requires": [],
+      "id": 16957124707
+    },
+    "(LVL 3) GAG - Comic Book Guy Robot": {
+      "name": "(LVL 3) GAG - Comic Book Guy Robot",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124708
+    },
+    "(LVL 3) GAG - Comic Book Guy Radioactive Man": {
+      "name": "(LVL 3) GAG - Comic Book Guy Radioactive Man",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124709
+    },
+    "(LVL 3) GAG - Yellow Dumpster Across Krusty Burger": {
+      "name": "(LVL 3) GAG - Yellow Dumpster Across Krusty Burger",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124710
+    },
+    "(LVL 3) GAG - Kid Drowning in Ball Pit": {
+      "name": "(LVL 3) GAG - Kid Drowning in Ball Pit",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124711
+    },
+    "(LVL 3) GAG - Crane on Ship": {
+      "name": "(LVL 3) GAG - Crane on Ship",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124712
+    },
+    "(LVL 3) GAG - Observatory Alarm": {
+      "name": "(LVL 3) GAG - Observatory Alarm",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124713
+    },
+    "(LVL 3) GAG - Perpetual Motion Machine at Observatory": {
+      "name": "(LVL 3) GAG - Perpetual Motion Machine at Observatory",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124714
+    },
+    "(LVL 3) GAG - Telescope at Observatory": {
+      "name": "(LVL 3) GAG - Telescope at Observatory",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124715
+    },
+    "(LVL 3) GAG - (Observatory) Monkey": {
+      "name": "(LVL 3) GAG - (Observatory) Monkey",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124716
+    },
+    "(LVL 3) GAG - Kamp Krusty Flag": {
+      "name": "(LVL 3) GAG - Kamp Krusty Flag",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124717
+    },
+    "(LVL 3) GAG - Boar\u2019s Head at Kamp Krusty": {
+      "name": "(LVL 3) GAG - Boar\u2019s Head at Kamp Krusty",
+      "region": "Level 3",
+      "category": [
+        "Level 3 GAG"
+      ],
+      "requires": [],
+      "id": 16957124718
+    },
+    "(LVL 4) WASP - Blue House Before Krusty Glass 1": {
+      "name": "(LVL 4) WASP - Blue House Before Krusty Glass 1",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124719
+    },
+    "(LVL 4) WASP - Blue House Before Krusty Glass 2": {
+      "name": "(LVL 4) WASP - Blue House Before Krusty Glass 2",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124720
+    },
+    "(LVL 4) WASP - Flander\u2019s Backyard": {
+      "name": "(LVL 4) WASP - Flander\u2019s Backyard",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124721
+    },
+    "(LVL 4) WASP - Wiggums Backyard": {
+      "name": "(LVL 4) WASP - Wiggums Backyard",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124722
+    },
+    "(LVL 4) WASP - Wiggums Backyard 2": {
+      "name": "(LVL 4) WASP - Wiggums Backyard 2",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124723
+    },
+    "(LVL 4) WASP - Kwik-E-Mart Rooftop": {
+      "name": "(LVL 4) WASP - Kwik-E-Mart Rooftop",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124724
+    },
+    "(LVL 4) WASP - Gas Station Rooftop": {
+      "name": "(LVL 4) WASP - Gas Station Rooftop",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124725
+    },
+    "(LVL 4) WASP - Atop Gasoline Pump": {
+      "name": "(LVL 4) WASP - Atop Gasoline Pump",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124726
+    },
+    "(LVL 4) WASP - Mr. Burns Giant ChessBoard 1": {
+      "name": "(LVL 4) WASP - Mr. Burns Giant ChessBoard 1",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124727
+    },
+    "(LVL 4) WASP - Mr. Burns Giant ChessBoard 2": {
+      "name": "(LVL 4) WASP - Mr. Burns Giant ChessBoard 2",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124728
+    },
+    "(LVL 4) WASP - Mr. Burns StairCase": {
+      "name": "(LVL 4) WASP - Mr. Burns StairCase",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124729
+    },
+    "(LVL 4) WASP - Mr. Burns Library": {
+      "name": "(LVL 4) WASP - Mr. Burns Library",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124730
+    },
+    "(LVL 4) WASP - Outside of Homer\u2019s Workstation": {
+      "name": "(LVL 4) WASP - Outside of Homer\u2019s Workstation",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124731
+    },
+    "(LVL 4) WASP - Atop Trailer Park": {
+      "name": "(LVL 4) WASP - Atop Trailer Park",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124732
+    },
+    "(LVL 4) WASP - In Trailer Park": {
+      "name": "(LVL 4) WASP - In Trailer Park",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124733
+    },
+    "(LVL 4) WASP - Barn": {
+      "name": "(LVL 4) WASP - Barn",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124734
+    },
+    "(LVL 4) WASP - Behind School Steps": {
+      "name": "(LVL 4) WASP - Behind School Steps",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124735
+    },
+    "(LVL 4) WASP - School Rooftop 1": {
+      "name": "(LVL 4) WASP - School Rooftop 1",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124736
+    },
+    "(LVL 4) WASP - School Rooftop 2": {
+      "name": "(LVL 4) WASP - School Rooftop 2",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124737
+    },
+    "(LVL 4) WASP - Atop Tower Before Broken Bridge": {
+      "name": "(LVL 4) WASP - Atop Tower Before Broken Bridge",
+      "region": "Level 4",
+      "category": [
+        "Level 4 WASP"
+      ],
+      "requires": "|Marge Kick| OR (|Marge Double Jump| AND |Marge Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124738
+    },
+    "(LVL 4) CARD - Far End of Gas Station Roof": {
+      "name": "(LVL 4) CARD - Far End of Gas Station Roof",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": [],
+      "id": 16957124739
+    },
+    "(LVL 4) CARD - Mr. Burns Hidden Naked Picture behind Secret Passage": {
+      "name": "(LVL 4) CARD - Mr. Burns Hidden Naked Picture behind Secret Passage",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": [],
+      "id": 16957124740
+    },
+    "(LVL 4) CARD - Atop of Bridge Frame by Krusty Burger": {
+      "name": "(LVL 4) CARD - Atop of Bridge Frame by Krusty Burger",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": "|Marge Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124741
+    },
+    "(LVL 4) CARD - Tower By Broken Bridge": {
+      "name": "(LVL 4) CARD - Tower By Broken Bridge",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": "|Marge Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124742
+    },
+    "(LVL 4) CARD - Rooftop Jump Before Mansion": {
+      "name": "(LVL 4) CARD - Rooftop Jump Before Mansion",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": [],
+      "id": 16957124743
+    },
+    "(LVL 4) CARD - Simpsons Treehouse": {
+      "name": "(LVL 4) CARD - Simpsons Treehouse",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": [],
+      "id": 16957124744
+    },
+    "(LVL 4) CARD - TrailerPark": {
+      "name": "(LVL 4) CARD - TrailerPark",
+      "region": "Level 4",
+      "category": [
+        "Level 4 CARD"
+      ],
+      "requires": [],
+      "id": 16957124745
+    },
+    "(LVL 4) GAG - Simpson TV": {
+      "name": "(LVL 4) GAG - Simpson TV",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124746
+    },
+    "(LVL 4) GAG - Simpsons Swings": {
+      "name": "(LVL 4) GAG - Simpsons Swings",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124747
+    },
+    "(LVL 4) GAG - Simpsons Grill": {
+      "name": "(LVL 4) GAG - Simpsons Grill",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124748
+    },
+    "(LVL 4) GAG - Simpsons Fire Breathing Tiki": {
+      "name": "(LVL 4) GAG - Simpsons Fire Breathing Tiki",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "region": "Level 4",
+      "id": 16957124749
+    },
+    "(LVL 4) GAG - Krusty Lamp (Bart's Room)": {
+      "name": "(LVL 4) GAG - Krusty Lamp (Bart's Room)",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124750
+    },
+    "(LVL 4) GAG - Flanders Bomb Shelter": {
+      "name": "(LVL 4) GAG - Flanders Bomb Shelter",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124751
+    },
+    "(LVL 4) GAG - Tank Outside Power Plant": {
+      "name": "(LVL 4) GAG - Tank Outside Power Plant",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124752
+    },
+    "(LVL 4) GAG - Homer\u2019s Workstation Meltdown": {
+      "name": "(LVL 4) GAG - Homer\u2019s Workstation Meltdown",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124753
+    },
+    "(LVL 4) GAG - School Fire Extinguisher ": {
+      "name": "(LVL 4) GAG - School Fire Extinguisher ",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124754
+    },
+    "(LVL 4) GAG - School Fire Alarm": {
+      "name": "(LVL 4) GAG - School Fire Alarm",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124755
+    },
+    "(LVL 4) GAG - Frozen man in Kwik-E-Mart": {
+      "name": "(LVL 4) GAG - Frozen man in Kwik-E-Mart",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124756
+    },
+    "(LVL 4) GAG - Silent Alarm in Kwik-E-Mart": {
+      "name": "(LVL 4) GAG - Silent Alarm in Kwik-E-Mart",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124757
+    },
+    "(LVL 4) GAG - ATM in Kwik-E-Mart": {
+      "name": "(LVL 4) GAG - ATM in Kwik-E-Mart",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124758
+    },
+    "(LVL 4) GAG - Arcade Cabinet in Kwik-E-Mart": {
+      "name": "(LVL 4) GAG - Arcade Cabinet in Kwik-E-Mart",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124759
+    },
+    "(LVL 4) GAG - Squishee Machine in Kwik-E-Mart": {
+      "name": "(LVL 4) GAG - Squishee Machine in Kwik-E-Mart",
+      "region": "Level 4",
+      "category": [
+        "Level 4 GAG"
+      ],
+      "requires": [],
+      "id": 16957124760
+    },
+    "(LVL 4) COSTUME - Inmate Marge": {
+      "name": "(LVL 4) COSTUME - Inmate Marge",
+      "region": "Level 4",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124761
+    },
+    "(LVL 4) COSTUME - Classy Marge": {
+      "name": "(LVL 4) COSTUME - Classy Marge",
+      "region": "Level 4",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124762
+    },
+    "(LVL 4) COSTUME - Police Marge": {
+      "name": "(LVL 4) COSTUME - Police Marge",
+      "region": "Level 4",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124763
+    },
+    "(LVL 4) CAR - Krusty\u2019s Limo": {
+      "name": "(LVL 4) CAR - Krusty\u2019s Limo",
+      "region": "Level 4",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124764
+    },
+    "(LVL 4) CAR - Scottish Willy\u2019s Tractor": {
+      "name": "(LVL 4) CAR - Scottish Willy\u2019s Tractor",
+      "region": "Level 4",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124765
+    },
+    "(LVL 4) CAR - Curator": {
+      "name": "(LVL 4) CAR - Curator",
+      "region": "Level 4",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124766
+    },
+    "(LVL 5) WASP - Front of Hospital": {
+      "name": "(LVL 5) WASP - Front of Hospital",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124767
+    },
+    "(LVL 5) WASP - Hut Between Museum & Court House": {
+      "name": "(LVL 5) WASP - Hut Between Museum & Court House",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124768
+    },
+    "(LVL 5) WASP - Steps of Town Hall": {
+      "name": "(LVL 5) WASP - Steps of Town Hall",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124769
+    },
+    "(LVL 5) WASP - Museum Steps": {
+      "name": "(LVL 5) WASP - Museum Steps",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124770
+    },
+    "(LVL 5) WASP - Rooftop Next to Moes": {
+      "name": "(LVL 5) WASP - Rooftop Next to Moes",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124771
+    },
+    "(LVL 5) WASP - Legitimate Businessman\u2019s Rooftop 1": {
+      "name": "(LVL 5) WASP - Legitimate Businessman\u2019s Rooftop 1",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124772
+    },
+    "(LVL 5) WASP - Legitimate Businessman\u2019s Rooftop 2": {
+      "name": "(LVL 5) WASP - Legitimate Businessman\u2019s Rooftop 2",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124773
+    },
+    "(LVL 5) WASP - Trainyard Stairs": {
+      "name": "(LVL 5) WASP - Trainyard Stairs",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124774
+    },
+    "(LVL 5) WASP - Other Side of Moving Train": {
+      "name": "(LVL 5) WASP - Other Side of Moving Train",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124775
+    },
+    "(LVL 5) WASP - Watertower 1": {
+      "name": "(LVL 5) WASP - Watertower 1",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124776
+    },
+    "(LVL 5) WASP - Watertower 2": {
+      "name": "(LVL 5) WASP - Watertower 2",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124777
+    },
+    "(LVL 5) WASP - Police Station Steps": {
+      "name": "(LVL 5) WASP - Police Station Steps",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124778
+    },
+    "(LVL 5) WASP - Monorail Stairs": {
+      "name": "(LVL 5) WASP - Monorail Stairs",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124779
+    },
+    "(LVL 5) WASP - Monorail": {
+      "name": "(LVL 5) WASP - Monorail",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124780
+    },
+    "(LVL 5) WASP - Otherside of Monorail 1": {
+      "name": "(LVL 5) WASP - Otherside of Monorail 1",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124781
+    },
+    "(LVL 5) WASP - Otherside of Monorail 2": {
+      "name": "(LVL 5) WASP - Otherside of Monorail 2",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124782
+    },
+    "(LVL 5) WASP - Under Giant Purple Beams 1": {
+      "name": "(LVL 5) WASP - Under Giant Purple Beams 1",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124783
+    },
+    "(LVL 5) WASP - Under Giant Purple Beams 2": {
+      "name": "(LVL 5) WASP - Under Giant Purple Beams 2",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124784
+    },
+    "(LVL 5) WASP - Alleyway Rooftop": {
+      "name": "(LVL 5) WASP - Alleyway Rooftop",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "|Apu Kick| OR (|Apu Double Jump| AND |Apu Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124785
+    },
+    "(LVL 5) WASP - Fountain in from Stadium": {
+      "name": "(LVL 5) WASP - Fountain in from Stadium",
+      "region": "Level 5",
+      "category": [
+        "Level 5 WASP"
+      ],
+      "requires": "((|Apu Kick| OR |Apu Ground Pound|) AND |Apu Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124786
+    },
+    "(LVL 5) CARD - Construction Beam Platforming": {
+      "name": "(LVL 5) CARD - Construction Beam Platforming",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": "|Apu Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124787
+    },
+    "(LVL 5) CARD - The Legitimate Businessman's Stairs": {
+      "name": "(LVL 5) CARD - The Legitimate Businessman's Stairs",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": [],
+      "id": 16957124788
+    },
+    "(LVL 5) CARD - Moe\u2019s Rooftop": {
+      "name": "(LVL 5) CARD - Moe\u2019s Rooftop",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": "|Apu Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124789
+    },
+    "(LVL 5) CARD - Watertower": {
+      "name": "(LVL 5) CARD - Watertower",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": "|Apu Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124790
+    },
+    "(LVL 5) CARD - Unfinished Highway One Way Ramp": {
+      "name": "(LVL 5) CARD - Unfinished Highway One Way Ramp",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": [],
+      "id": 16957124791
+    },
+    "(LVL 5) CARD - Firetruck": {
+      "name": "(LVL 5) CARD - Firetruck",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": [],
+      "id": 16957124792
+    },
+    "(LVL 5) CARD - Monorail": {
+      "name": "(LVL 5) CARD - Monorail",
+      "region": "Level 5",
+      "category": [
+        "Level 5 CARD"
+      ],
+      "requires": "|Apu Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124793
+    },
+    "(LVL 5) GAG - Pickled Egg in Moes": {
+      "name": "(LVL 5) GAG - Pickled Egg in Moes",
+      "region": "Level 5",
+      "category": [
+        "Level 5 GAG"
+      ],
+      "requires": [],
+      "id": 16957124794
+    },
+    "(LVL 5) GAG - Slot Machine in Moes": {
+      "name": "(LVL 5) GAG - Slot Machine in Moes",
+      "region": "Level 5",
+      "category": [
+        "Level 5 GAG"
+      ],
+      "requires": [],
+      "id": 16957124795
+    },
+    "(LVL 5) GAG - Love Tester in Moes": {
+      "name": "(LVL 5) GAG - Love Tester in Moes",
+      "region": "Level 5",
+      "category": [
+        "Level 5 GAG"
+      ],
+      "requires": [],
+      "id": 16957124796
+    },
+    "(LVL 5) GAG - Blind an Old man at the DMV": {
+      "name": "(LVL 5) GAG - Blind an Old man at the DMV",
+      "region": "Level 5",
+      "category": [
+        "Level 5 GAG"
+      ],
+      "requires": [],
+      "id": 16957124797
+    },
+    "(LVL 5) GAG - Dumpster Behind Behind Krusty Burger (Near Police Station)": {
+      "name": "(LVL 5) GAG - Dumpster Behind Behind Krusty Burger (Near Police Station)",
+      "region": "Level 5",
+      "category": [
+        "Level 5 GAG"
+      ],
+      "requires": [],
+      "id": 16957124798
+    },
+    "(LVL 5) COSTUME - Army Apu": {
+      "name": "(LVL 5) COSTUME - Army Apu",
+      "region": "Level 5",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124799
+    },
+    "(LVL 5) COSTUME - American Apu": {
+      "name": "(LVL 5) COSTUME - American Apu",
+      "region": "Level 5",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124800
+    },
+    "(LVL 5) COSTUME - B-Sharps Apu": {
+      "name": "(LVL 5) COSTUME - B-Sharps Apu",
+      "region": "Level 5",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124801
+    },
+    "(LVL 5) CAR - Car Built for Homer": {
+      "name": "(LVL 5) CAR - Car Built for Homer",
+      "region": "Level 5",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124802
+    },
+    "(LVL 5) CAR - Police Car": {
+      "name": "(LVL 5) CAR - Police Car",
+      "region": "Level 5",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124803
+    },
+    "(LVL 5) CAR - Cola Truck": {
+      "name": "(LVL 5) CAR - Cola Truck",
+      "region": "Level 5",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124804
+    },
+    "(LVL 6) CAR - Armored Truck": {
+      "name": "(LVL 6) CAR - Armored Truck",
+      "region": "Level 6",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124805
+    },
+    "(LVL 6) CAR - Chase Sedan": {
+      "name": "(LVL 6) CAR - Chase Sedan",
+      "region": "Level 6",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124806
+    },
+    "(LVL 6) CAR - Super Villain Globex Car": {
+      "name": "(LVL 6) CAR - Super Villain Globex Car",
+      "region": "Level 6",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124807
+    },
+    "(LVL 6) WASP - Observatory 1": {
+      "name": "(LVL 6) WASP - Observatory 1",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124808
+    },
+    "(LVL 6) WASP - Observatory 2": {
+      "name": "(LVL 6) WASP - Observatory 2",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124809
+    },
+    "(LVL 6) WASP - Kamp Krusty 1": {
+      "name": "(LVL 6) WASP - Kamp Krusty 1",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124810
+    },
+    "(LVL 6) WASP - Kamp Krusty 2": {
+      "name": "(LVL 6) WASP - Kamp Krusty 2",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124811
+    },
+    "(LVL 6) WASP - Broken Railing Below Dam": {
+      "name": "(LVL 6) WASP - Broken Railing Below Dam",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124812
+    },
+    "(LVL 6) WASP - Broken Railing Exit": {
+      "name": "(LVL 6) WASP - Broken Railing Exit",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124813
+    },
+    "(LVL 6) WASP - Motel": {
+      "name": "(LVL 6) WASP - Motel",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124814
+    },
+    "(LVL 6) WASP - Duff Brewery Krusty Glass": {
+      "name": "(LVL 6) WASP - Duff Brewery Krusty Glass",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124815
+    },
+    "(LVL 6) WASP - Under Duff Blimp": {
+      "name": "(LVL 6) WASP - Under Duff Blimp",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124816
+    },
+    "(LVL 6) WASP - Krusty Studio Left": {
+      "name": "(LVL 6) WASP - Krusty Studio Left",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124817
+    },
+    "(LVL 6) WASP - Krusty Studio Right": {
+      "name": "(LVL 6) WASP - Krusty Studio Right",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124818
+    },
+    "(LVL 6) WASP - Krusty Studio Balcony": {
+      "name": "(LVL 6) WASP - Krusty Studio Balcony",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124819
+    },
+    "(LVL 6) WASP - (Boat) Crane": {
+      "name": "(LVL 6) WASP - (Boat) Crane",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124820
+    },
+    "(LVL 6) WASP - (Boat) Staircase 1": {
+      "name": "(LVL 6) WASP - (Boat) Staircase 1",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124821
+    },
+    "(LVL 6) WASP - (Boat) Staircase 2": {
+      "name": "(LVL 6) WASP - (Boat) Staircase 2",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124822
+    },
+    "(LVL 6) WASP - Lighthouse": {
+      "name": "(LVL 6) WASP - Lighthouse",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124823
+    },
+    "(LVL 6) WASP - Planet Hype Rooftop": {
+      "name": "(LVL 6) WASP - Planet Hype Rooftop",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124824
+    },
+    "(LVL 6) WASP - Bowling Rooftop": {
+      "name": "(LVL 6) WASP - Bowling Rooftop",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "((|Bart Kick| OR |Bart Ground Pound|) AND |Bart Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124825
+    },
+    "(LVL 6) WASP - Comic Book Guy Rooftop 1": {
+      "name": "(LVL 6) WASP - Comic Book Guy Rooftop 1",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124826
+    },
+    "(LVL 6) WASP - Comic Book Guy Rooftop 2": {
+      "name": "(LVL 6) WASP - Comic Book Guy Rooftop 2",
+      "region": "Level 6",
+      "category": [
+        "Level 6 WASP"
+      ],
+      "requires": "|Bart Kick| OR (|Bart Double Jump| AND |Bart Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124827
+    },
+    "(LVL 6) CARD - High Above Street BallPit House": {
+      "name": "(LVL 6) CARD - High Above Street BallPit House",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": [],
+      "id": 16957124828
+    },
+    "(LVL 6) CARD - Casino Ramp": {
+      "name": "(LVL 6) CARD - Casino Ramp",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": [],
+      "id": 16957124829
+    },
+    "(LVL 6) CARD - Planet Hype Sign": {
+      "name": "(LVL 6) CARD - Planet Hype Sign",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124830
+    },
+    "(LVL 6) CARD - Atop Front of Boat": {
+      "name": "(LVL 6) CARD - Atop Front of Boat",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124831
+    },
+    "(LVL 6) CARD - Duff Blimp": {
+      "name": "(LVL 6) CARD - Duff Blimp",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124832
+    },
+    "(LVL 6) CARD - Hidden in Bush Next to Kamp Krusty Well Exit": {
+      "name": "(LVL 6) CARD - Hidden in Bush Next to Kamp Krusty Well Exit",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124833
+    },
+    "(LVL 6) CARD - Broken Bridge": {
+      "name": "(LVL 6) CARD - Broken Bridge",
+      "region": "Level 6",
+      "category": [
+        "Level 6 CARD"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124834
+    },
+    "(LVL 6) GAG - Comic Book Guy Robot": {
+      "name": "(LVL 6) GAG - Comic Book Guy Robot",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124835
+    },
+    "(LVL 6) GAG - Comic Book Guy Radioactive Man": {
+      "name": "(LVL 6) GAG - Comic Book Guy Radioactive Man",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124836
+    },
+    "(LVL 6) GAG - Yellow Dumpster Across Krusty Burger": {
+      "region": "Level 6",
+      "name": "(LVL 6) GAG - Yellow Dumpster Across Krusty Burger",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124837
+    },
+    "(LVL 6) GAG - Kid Drowning in Ball Pit": {
+      "name": "(LVL 6) GAG - Kid Drowning in Ball Pit",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124838
+    },
+    "(LVL 6) GAG - Crane on Ship": {
+      "name": "(LVL 6) GAG - Crane on Ship",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124839
+    },
+    "(LVL 6) GAG - Observatory Alarm": {
+      "name": "(LVL 6) GAG - Observatory Alarm",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124840
+    },
+    "(LVL 6) GAG - Perpetual Motion Machine at Observatory": {
+      "name": "(LVL 6) GAG - Perpetual Motion Machine at Observatory",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124841
+    },
+    "(LVL 6) GAG - Telescope at Observatory": {
+      "name": "(LVL 6) GAG - Telescope at Observatory",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124842
+    },
+    "(LVL 6) GAG - (Observatory) Monkey": {
+      "name": "(LVL 6) GAG - (Observatory) Monkey",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124843
+    },
+    "(LVL 6) GAG - Kamp Krusty Flag": {
+      "name": "(LVL 6) GAG - Kamp Krusty Flag",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124844
+    },
+    "(LVL 6) GAG - Boar\u2019s Head at Kamp Krusty": {
+      "name": "(LVL 6) GAG - Boar\u2019s Head at Kamp Krusty",
+      "region": "Level 6",
+      "category": [
+        "Level 6 GAG"
+      ],
+      "requires": [],
+      "id": 16957124845
+    },
+    "(LVL 6) COSTUME - Hugo Bart": {
+      "name": "(LVL 6) COSTUME - Hugo Bart",
+      "region": "Level 6",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124846
+    },
+    "(LVL 6) COSTUME - Cadet Bart": {
+      "name": "(LVL 6) COSTUME - Cadet Bart",
+      "region": "Level 6",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124847
+    },
+    "(LVL 6) COSTUME - Bartman": {
+      "name": "(LVL 6) COSTUME - Bartman",
+      "region": "Level 6",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124848
+    },
+    "(LVL 7) CAR - Zombie Car": {
+      "name": "(LVL 7) CAR - Zombie Car",
+      "region": "Level 7",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124849
+    },
+    "(LVL 7) CAR - Hover Bike": {
+      "name": "(LVL 7) CAR - Hover Bike",
+      "region": "Level 7",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124850
+    },
+    "(LVL 7) CAR - Hearse": {
+      "name": "(LVL 7) CAR - Hearse",
+      "region": "Level 7",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124851
+    },
+    "(LVL 7) WASP - Blue House Haunted Playground": {
+      "name": "(LVL 7) WASP - Blue House Haunted Playground",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124852
+    },
+    "(LVL 7) WASP - Blue House Backyard": {
+      "name": "(LVL 7) WASP - Blue House Backyard",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124853
+    },
+    "(LVL 7) WASP - Simpsons\u2019 Backyard": {
+      "name": "(LVL 7) WASP - Simpsons\u2019 Backyard",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124854
+    },
+    "(LVL 7) WASP - Flanders\u2019 Backyard": {
+      "name": "(LVL 7) WASP - Flanders\u2019 Backyard",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124855
+    },
+    "(LVL 7) WASP - Wiggums\u2019 Backyard": {
+      "name": "(LVL 7) WASP - Wiggums\u2019 Backyard",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124856
+    },
+    "(LVL 7) WASP - Atop of Kwik-E-Mart": {
+      "name": "(LVL 7) WASP - Atop of Kwik-E-Mart",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124857
+    },
+    "(LVL 7) WASP - Atop of Gasoline": {
+      "name": "(LVL 7) WASP - Atop of Gasoline",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "((|Homer Kick| OR |Homer Ground Pound|) AND |Homer Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124858
+    },
+    "(LVL 7) WASP - Lard Lad Rooftop": {
+      "name": "(LVL 7) WASP - Lard Lad Rooftop",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124859
+    },
+    "(LVL 7) WASP - Krusty Burger Rooftop": {
+      "name": "(LVL 7) WASP - Krusty Burger Rooftop",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124860
+    },
+    "(LVL 7) WASP - School playground": {
+      "name": "(LVL 7) WASP - School playground",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124861
+    },
+    "(LVL 7) WASP - The One Being Abducted": {
+      "name": "(LVL 7) WASP - The One Being Abducted",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124862
+    },
+    "(LVL 7) WASP - School Roof 1": {
+      "name": "(LVL 7) WASP - School Roof 1",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124863
+    },
+    "(LVL 7) WASP - School Roof 2": {
+      "name": "(LVL 7) WASP - School Roof 2",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124864
+    },
+    "(LVL 7) WASP - Bridge Barricade": {
+      "name": "(LVL 7) WASP - Bridge Barricade",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124865
+    },
+    "(LVL 7) WASP - Bridge Frame by Cletus": {
+      "name": "(LVL 7) WASP - Bridge Frame by Cletus",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "((|Homer Kick| OR |Homer Ground Pound|) AND |Homer Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124866
+    },
+    "(LVL 7) WASP - TrailerPark 1": {
+      "name": "(LVL 7) WASP - TrailerPark 1",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "((|Homer Kick| OR |Homer Ground Pound|) AND |Homer Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124867
+    },
+    "(LVL 7) WASP - TrailerPark 2": {
+      "name": "(LVL 7) WASP - TrailerPark 2",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "((|Homer Kick| OR |Homer Ground Pound|) AND |Homer Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124868
+    },
+    "(LVL 7) WASP - Barn Silo": {
+      "name": "(LVL 7) WASP - Barn Silo",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "((|Homer Kick| OR |Homer Ground Pound|) AND |Homer Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124869
+    },
+    "(LVL 7) WASP - Power Plant Parking lot": {
+      "name": "(LVL 7) WASP - Power Plant Parking lot",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "|Homer Kick| OR (|Homer Double Jump| AND |Homer Ground Pound|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124870
+    },
+    "(LVL 7) WASP - Mr. Burns Office": {
+      "name": "(LVL 7) WASP - Mr. Burns Office",
+      "region": "Level 7",
+      "category": [
+        "Level 7 WASP"
+      ],
+      "requires": "((|Homer Kick| OR |Homer Ground Pound|) AND |Homer Double Jump|) OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124871
+    },
+    "(LVL 7) CARD - Flanders\u2019 Bomb Shelter": {
+      "name": "(LVL 7) CARD - Flanders\u2019 Bomb Shelter",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": [],
+      "id": 16957124872
+    },
+    "(LVL 7) CARD - Blue House Haunted Playground": {
+      "name": "(LVL 7) CARD - Blue House Haunted Playground",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124873
+    },
+    "(LVL 7) CARD - School Playground": {
+      "name": "(LVL 7) CARD - School Playground",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124874
+    },
+    "(LVL 7) CARD - Atop of Lard Lad": {
+      "name": "(LVL 7) CARD - Atop of Lard Lad",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124875
+    },
+    "(LVL 7) CARD - Cemetery Moat": {
+      "name": "(LVL 7) CARD - Cemetery Moat",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124876
+    },
+    "(LVL 7) CARD - Barn Silo": {
+      "name": "(LVL 7) CARD - Barn Silo",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124877
+    },
+    "(LVL 7) CARD - Mr. Burns Office": {
+      "name": "(LVL 7) CARD - Mr. Burns Office",
+      "region": "Level 7",
+      "category": [
+        "Level 7 CARD"
+      ],
+      "requires": "|Homer Double Jump| OR {YamlDisabled(moverandomizer)}",
+      "id": 16957124878
+    },
+    "(LVL 7) GAG - Simpsons TV": {
+      "name": "(LVL 7) GAG - Simpsons TV",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124879
+    },
+    "(LVL 7) GAG - Simpsons Swing": {
+      "name": "(LVL 7) GAG - Simpsons Swing",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124880
+    },
+    "(LVL 7) GAG - Simpsons Fire Breathing Tiki": {
+      "name": "(LVL 7) GAG - Simpsons Fire Breathing Tiki",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124881
+    },
+    "(LVL 7) GAG - Krusty Lamp (Bart\u2019s Room)": {
+      "name": "(LVL 7) GAG - Krusty Lamp (Bart\u2019s Room)",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124882
+    },
+    "(LVL 7) GAG - Clown Bed (Bart\u2019s Room)": {
+      "name": "(LVL 7) GAG - Clown Bed (Bart\u2019s Room)",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124883
+    },
+    "(LVL 7) GAG - Flanders\u2019 Bomb Shelter": {
+      "name": "(LVL 7) GAG - Flanders\u2019 Bomb Shelter",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124884
+    },
+    "(LVL 7) GAG - Blue House Haunted Swing": {
+      "name": "(LVL 7) GAG - Blue House Haunted Swing",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124885
+    },
+    "(LVL 7) GAG - Tank in Power Plant Parking lot": {
+      "name": "(LVL 7) GAG - Tank in Power Plant Parking lot",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124886
+    },
+    "(LVL 7) GAG - Frozen Man in Kwik-E-Mart": {
+      "name": "(LVL 7) GAG - Frozen Man in Kwik-E-Mart",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124887
+    },
+    "(LVL 7) GAG - Silent Alarm in Kwik-E-Mart": {
+      "name": "(LVL 7) GAG - Silent Alarm in Kwik-E-Mart",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124888
+    },
+    "(LVL 7) GAG - Squishee Machine in Kwik-E-Mart": {
+      "name": "(LVL 7) GAG - Squishee Machine in Kwik-E-Mart",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124889
+    },
+    "(LVL 7) GAG - ATM in Kwik-E-Mart": {
+      "name": "(LVL 7) GAG - ATM in Kwik-E-Mart",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124890
+    },
+    "(LVL 7) GAG - Arcade Cabinet in Kwik-E-Mart": {
+      "name": "(LVL 7) GAG - Arcade Cabinet in Kwik-E-Mart",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124891
+    },
+    "(LVL 7) GAG - School Fire Extinguisher": {
+      "name": "(LVL 7) GAG - School Fire Extinguisher",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124892
+    },
+    "(LVL 7) GAG - School Fire Alarm": {
+      "name": "(LVL 7) GAG - School Fire Alarm",
+      "region": "Level 7",
+      "category": [
+        "Level 7 GAG"
+      ],
+      "requires": [],
+      "id": 16957124893
+    },
+    "(LVL 7) COSTUME - Dirty Homer": {
+      "name": "(LVL 7) COSTUME - Dirty Homer",
+      "region": "Level 7",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124894
+    },
+    "(LVL 7) COSTUME - Devil Homer": {
+      "name": "(LVL 7) COSTUME - Devil Homer",
+      "region": "Level 7",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124895
+    },
+    "(LVL 7) COSTUME - Donut Homer": {
+      "name": "(LVL 7) COSTUME - Donut Homer",
+      "region": "Level 7",
+      "category": [
+        "Shop"
+      ],
+      "requires": [],
+      "id": 16957124896
+    },
+    "Goal: Final Mission(L7M7)": {
+      "name": "Goal: Final Mission(L7M7)",
+      "region": "Level 7",
+      "category": [
+        "Final Mission Goal"
+      ],
+      "victory": true,
+      "id": 16957124897
+    },
+    "Goal: All Missions Complete!": {
+      "name": "Goal: All Missions Complete!",
+      "category": [],
+      "victory": true,
+      "requires": "{allMissionsAccessible()}",
+      "id": 16957124898,
+      "region": "Manual"
+    },
+    "Goal: All Story Missions Complete!": {
+      "name": "Goal: All Story Missions Complete!",
+      "category": [],
+      "victory": true,
+      "requires": "{allStoryMissionsAccessible()}",
+      "id": 16957124899,
+      "region": "Manual"
+    },
+    "Goal: All Wasps and Cards Collected!": {
+      "name": "Goal: All Wasps and Cards Collected!",
+      "category": [],
+      "victory": true,
+      "requires": "{collectedAllWasps()} AND {collectedAllCards()}",
+      "id": 16957124900,
+      "region": "Manual"
+    }
+  },
+  "regions": {
+    "Level 1": {
+      "connects_to": [
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Level 5",
+        "Level 6",
+        "Level 7"
+      ],
+      "requires": "|Level 1| AND |@Cars:1|"
+    },
+    "Level 2": {
+      "connects_to": [
+        "Level 1",
+        "Level 3",
+        "Level 4",
+        "Level 5",
+        "Level 6",
+        "Level 7"
+      ],
+      "requires": "|Level 2| AND (|@Level 2 Cars:1| OR |@Level 3 Cars:1| OR |@Level 4 Cars:1| OR |@Level 5 Cars:1| OR |@Level 6 Cars:1| OR |@Level 7 Cars:1|)"
+    },
+    "Level 3": {
+      "connects_to": [
+        "Level 1",
+        "Level 2",
+        "Level 4",
+        "Level 5",
+        "Level 6",
+        "Level 7"
+      ],
+      "requires": "|Level 3| AND (|@Level 3 Cars:1| OR |@Level 4 Cars:1| OR |@Level 5 Cars:1| OR |@Level 6 Cars:1| OR |@Level 7 Cars:1|)"
+    },
+    "Level 4": {
+      "connects_to": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 5",
+        "Level 6",
+        "Level 7"
+      ],
+      "requires": "|Level 4| AND (|@Level 4 Cars:1| OR |@Level 5 Cars:1| OR |@Level 6 Cars:1| OR |@Level 7 Cars:1|)"
+    },
+    "Level 5": {
+      "connects_to": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Level 6",
+        "Level 7"
+      ],
+      "requires": "|Level 5| AND (|@Level 5 Cars:1| OR |@Level 6 Cars:1| OR |@Level 7 Cars:1|)"
+    },
+    "Level 6": {
+      "connects_to": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Level 5",
+        "Level 7"
+      ],
+      "requires": "|Level 6| AND (|@Level 6 Cars:1| OR |@Level 7 Cars:1|)"
+    },
+    "Level 7": {
+      "connects_to": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Level 5",
+        "Level 6"
+      ],
+      "requires": "|Level 7| AND |@Level 7 Cars:1|"
+    },
+    "Main Menu": {
+      "starting": true,
+      "connects_to": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Level 5",
+        "Level 6",
+        "Level 7"
+      ],
+      "requires": []
+    }
+  },
+  "categories": {
+    "move_rando": {
+      "hidden": true,
+      "yaml_option": [
+        "Move_Randomizer_Enabled"
+      ]
+    }
+  }
+}
