@@ -112,6 +112,7 @@ namespace SHARRandomizer
                 }
             }
 
+
             var watcher = memory.Watcher;
             /*
             watcher.Error += Watcher_Error;
@@ -181,7 +182,7 @@ namespace SHARRandomizer
             }
         }
 
-        bool UnlockCurrentMission(Memory memory)
+        bool UnlockCurrentMission(Memory memory, MissionStage stage = null)
         {
             Console.WriteLine("Checking to unlock current mission.");
             if (memory?.Globals?.GameplayManager is not MissionManager missionManager)
@@ -204,18 +205,9 @@ namespace SHARRandomizer
             if (!UnlockedLevels.Contains($"Level {level + 1}")) // Skip if item not received
                 return false;
 
-            var objective = missionManager.GetCurrentMission()?.GetCurrentStage()?.Objective;
-            while (objective == null)
-            {
-                objective = missionManager.GetCurrentMission()?.GetCurrentStage()?.Objective;
-            }
-
-            Console.WriteLine($"{objective}");
+            var objective = (stage ?? missionManager.GetCurrentMission()?.GetCurrentStage())?.Objective;
             if (objective?.ObjectiveType != MissionObjective.ObjectiveTypes.Invalid)
-            {
-                Console.WriteLine($"{objective?.ObjectiveType} : {MissionObjective.ObjectiveTypes.Invalid}");
                 return false;
-            }
 
             objective.Finished = true;
             Console.WriteLine($"Skipped dummy objective for L{level + 1}SD{index + 1}");
@@ -236,9 +228,56 @@ namespace SHARRandomizer
             return true;
         }
 
+        bool HandleCurrentBonusMissions(Memory memory)
+        {
+            var missionManager = (memory.Globals.GameplayManager as MissionManager);
+            var missions = missionManager.Missions.ToArray();
+            int? level = (int)missionManager.LevelData.Level;
+            bool unlocked = false;
+            if (UnlockedLevels.Contains($"Level {level + 1}")) // Skip if level item already received
+                unlocked = true;
+            
+            foreach (var bonusMissionInfo in missionManager.BonusMissions)
+            {
+                var bonusMission = missions[bonusMissionInfo.MissionNum];
+                List<string> bms = new List<string> { "bm1", "sr1", "sr2", "sr3" };
+                
+                if (!bms.Contains(bonusMission.Name))
+                    continue;
+
+                if (unlocked)
+                {
+                    Console.WriteLine($"Unlocking {bonusMission.Name}");
+                    bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.Active;
+                    if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
+                    {
+                        foreach (var element in compositeDrawable.Elements)
+                        {
+                            element.Visible = true;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Locking {bonusMission.Name}");
+                    bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.None;
+                    if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
+                    {
+                        foreach (var element in compositeDrawable.Elements)
+                        {
+                            element.Visible = false;
+                        }
+                    }
+                }
+            }
+            
+            return true;
+        }
+
         Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
         {
-            UnlockCurrentMission(sender);
+            UnlockCurrentMission(sender, e.NewStage);
+            HandleCurrentBonusMissions(sender);
             LockDefaultCarsOnLoad(sender);
 
             return Task.CompletedTask;
