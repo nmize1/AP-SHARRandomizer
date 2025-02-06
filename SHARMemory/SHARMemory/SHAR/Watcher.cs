@@ -218,7 +218,7 @@ public sealed class Watcher
                 switch (gameState)
                 {
                     case GameFlow.GameState.PreLicence:
-                    //case GameFlow.GameState.Licence:
+                        //case GameFlow.GameState.Licence:
                         lastGameState = gameState;
                         continue;
                 }

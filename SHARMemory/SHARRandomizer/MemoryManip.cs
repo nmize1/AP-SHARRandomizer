@@ -80,7 +80,7 @@ namespace SHARRandomizer
                     tempRewards.Add(rewards.BonusMission);
                     tempRewards.Add(rewards.StreetRace);
 
-                    foreach (var reward in rewardsManager.LevelTokenStoreList[i].Merchandises.ToArray())
+                    foreach (var reward in rewardsManager.LevelTokenStoreList[i].InventoryList.ToArray())
                     {
                         if (reward.RewardType != Reward.RewardTypes.Null && reward.Name != "Null")
                         {
@@ -119,7 +119,7 @@ namespace SHARRandomizer
             watcher.LoadGame += Watcher_LoadGame;
             */
             watcher.CardCollected += Watcher_CardCollected;
-            watcher.CurrentMissionChanged += Watcher_CurrentMissionChanged;
+            watcher.MissionStageChanged += Watcher_MissionStageChanged;
 
             watcher.Start();
         }
@@ -236,7 +236,7 @@ namespace SHARRandomizer
             return true;
         }
 
-        Task Watcher_CurrentMissionChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.CurrentMissionChangedEventArgs e, CancellationToken token)
+        Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
         {
             UnlockCurrentMission(sender);
             LockDefaultCarsOnLoad(sender);
