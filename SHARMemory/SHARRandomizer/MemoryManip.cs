@@ -149,6 +149,10 @@ namespace SHARRandomizer
                     GameFlow.GameState? state = memory.Singletons.GameFlow?.CurrentContext;
                     if (!(state == null || !(state == GameFlow.GameState.DemoInGame || state == GameFlow.GameState.NormalInGame || state == GameFlow.GameState.BonusInGame)))
                     {
+                        while (language == null)
+                        {
+                            language = memory.Globals?.TextBible?.CurrentLanguage;
+                        }
                         string item = await itemsReceived.DequeueAsync();
 
                         var rewardsManager = memory.Singletons.RewardsManager;
