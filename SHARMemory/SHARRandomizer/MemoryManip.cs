@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.IO;
+using System.Text.Json;
 using SHARMemory.Memory;
 using SHARMemory.SHAR;
 using SHARMemory.SHAR.Classes;
@@ -20,6 +22,7 @@ namespace SHARRandomizer
     {
         Process? p;
         public static AwaitableQueue<string> itemsReceived = new AwaitableQueue<string>();
+        public static string UUID = "";
         List<Reward> REWARDS = new List<Reward>();
 
         List<string> UnlockedLevels = new List<string>();
@@ -69,6 +72,14 @@ namespace SHARRandomizer
                 language = memory.Globals?.TextBible?.CurrentLanguage;
             }
 
+            var watcher = memory.Watcher;
+            watcher.Error += Watcher_Error;
+
+            watcher.CardCollected += Watcher_CardCollected;
+            watcher.MissionStageChanged += Watcher_MissionStageChanged;
+
+            watcher.Start();
+
             /* Get all rewards in a list for lookup purposes */
             int i = 0;
             foreach (var rewards in rewardsManager.RewardsList)
@@ -92,38 +103,10 @@ namespace SHARRandomizer
                 REWARDS.AddRange(tempRewards);
             }
 
+
+
             /* Lock all default cars since they unlock on level load */
             LockDefaultCarsOnLoad(memory);
-
-            /* Change all mission titles to "Locked" */
-            for (i = 0; i < 7; i++)
-                missionTitles[i] = new string[7];
-
-            string name = $"MISSION_TITLE_L{0}_M{0}";
-            language.SetString(name, "LOCKED");
-            for (int level = 0; level < 7; level++)
-            {
-                for (int mission = 0; mission < 7; mission++)
-                {
-                    name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                    string title = language.GetString(name);
-                    missionTitles[level][mission] = title;
-                    language.SetString(name, "LOCKED");
-                }
-            }
-
-
-            var watcher = memory.Watcher;
-            watcher.Error += Watcher_Error;
-            
-            /*
-            watcher.NewGame += Watcher_NewGame;
-            watcher.LoadGame += Watcher_LoadGame;
-            */
-            watcher.CardCollected += Watcher_CardCollected;
-            watcher.MissionStageChanged += Watcher_MissionStageChanged;
-
-            watcher.Start();
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
@@ -148,7 +131,7 @@ namespace SHARRandomizer
                 {
                     GameFlow.GameState? state = memory.Singletons.GameFlow?.CurrentContext;
                     if (!(state == null || !(state == GameFlow.GameState.DemoInGame || state == GameFlow.GameState.NormalInGame || state == GameFlow.GameState.BonusInGame)))
-                    {
+                    {                        
                         while (language == null)
                         {
                             language = memory.Globals?.TextBible?.CurrentLanguage;
@@ -172,6 +155,12 @@ namespace SHARRandomizer
                         else if (item.StartsWith("Level"))
                         {
                             Console.WriteLine($"Unlocking {item}");
+                            while (missionTitles.Any(row => row == null || row.Any(item => item == null)))
+                            {
+                                Console.WriteLine("Waiting for mission names to be saved.");
+                                LoadGameMissions();
+                                await Task.Delay(1000);
+                            }
                             UnlockMissionsPerLevel(item);
                         }
                         else
@@ -280,6 +269,81 @@ namespace SHARRandomizer
             
             return true;
         }
+
+        void LoadGameMissions()
+        {
+            string filePath = "mission_titles.json";
+
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                var saveData = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
+
+                if (saveData != null && saveData.TryGetValue("UUID", out object storedUUIDObj) && storedUUIDObj is JsonElement uuidElement)
+                {
+                    string storedUUID = uuidElement.GetString();
+
+                    if (storedUUID == UUID)
+                    {
+                        if (saveData.TryGetValue("MissionTitles", out object missionTitlesObj) && missionTitlesObj is JsonElement missionTitlesElement)
+                        {
+                            missionTitles = JsonSerializer.Deserialize<string[][]>(missionTitlesElement.GetRawText()) ?? new string[7][];
+                            Console.WriteLine("UUID matches. Loaded mission titles from file.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("UUID mismatch! Reinitializing mission titles.");
+                        InitializeMissionTitles();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No valid UUID found in file! Reinitializing mission titles.");
+                    InitializeMissionTitles();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Mission titles file not found! Initializing a new one.");
+                InitializeMissionTitles();
+            }
+        }
+
+        void InitializeMissionTitles()
+        {
+            string filePath = "mission_titles.json";
+            for (int i = 0; i < 7; i++)
+            {
+                missionTitles[i] = new string[7];
+            }
+
+            string name = $"MISSION_TITLE_L{0}_M{0}";
+            language.SetString(name, "LOCKED");
+
+            for (int level = 0; level < 7; level++)
+            {
+                for (int mission = 0; mission < 7; mission++)
+                {
+                    name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
+                    string title = language.GetString(name);
+                    missionTitles[level][mission] = title;
+                    language.SetString(name, "LOCKED");
+                }
+            }
+
+            var saveData = new Dictionary<string, object>
+            {
+                { "UUID", UUID }, 
+                { "MissionTitles", missionTitles }
+            };
+
+            string json = JsonSerializer.Serialize(saveData, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
+
+            Console.WriteLine("Initialized and saved mission titles to file.");
+        }
+
 
         Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.ErrorEventArgs e, CancellationToken token)
         {

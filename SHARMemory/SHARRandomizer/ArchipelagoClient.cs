@@ -23,72 +23,10 @@ namespace SHARRandomizer
         private ArchipelagoSession _session;
         private bool _ignoreLocations;
 
-        private string URI = "archipelago.gg:49597";
+        private string URI = "archipelago.gg:51121";
         private string SLOTNAME = "CaesiusSHAR";
         private string PASSWORD = "";
-/*
-        private Dictionary<string, Dictionary<string, object>> location_table;
-        private Dictionary<string, Dictionary<string, object>> item_table;
-        private List<string> location_names;
-        private List<string> item_names;
-        private Dictionary<string, int> location_names_to_id;
-        private Dictionary<string, int> item_names_to_id;
-        private string game;
 
-        public Dictionary<string, object> GetLocationByName(string name)
-        {
-            if (location_table.TryGetValue(name, out Dictionary<string, object> location))
-            {
-                return location;
-            }
-            else
-            {
-                return new Dictionary<string, object> { { "name", name } };
-            }
-        }
-
-        public Dictionary<string, object> GetLocationById(int id)
-        {
-            string name = location_names[id];
-            return GetLocationByName(name);
-        }
-
-        public Dictionary<string, object> GetItemByName(string name)
-        {
-            if (item_table.TryGetValue(name, out Dictionary<string, object> item))
-            {
-                return item;
-            }
-            else
-            {
-                return new Dictionary<string, object> { { "name", name } };
-            }
-        }
-        public Dictionary<string, object> GetItemById(int id)
-        {
-            string name = item_names[id];
-            return GetItemByName(name);
-        }
-
-        public void UpdateIds(Dictionary<string, object> dataPackage)
-        {
-            location_names_to_id = dataPackage["location_name_to_id"] as Dictionary<string, int>;
-            item_names_to_id = dataPackage["item_name_to_id"] as Dictionary<string, int>;
-        }
-
-        public void UpdateDataPackage(Dictionary<string, object> dataPackage)
-        {
-            var games = dataPackage["games"] as Dictionary<string, object>;
-            foreach (var kvp in games)
-            {
-                // If the key matches the current game, update the ids.
-                if (kvp.Key == game)
-                {
-                    UpdateIds(kvp.Value as Dictionary<string, object>);
-                }
-            }
-        }
-*/
         public void Connect()
         {
             if (Connected || _attemptingConnection)
@@ -129,31 +67,54 @@ namespace SHARRandomizer
             _attemptingConnection = true;
             _ignoreLocations = true;
 
-            try
+            do
             {
-                loginResult = _session.TryConnectAndLogin(
-                    "SimpsonsHitAndRun",
-                    SLOTNAME,
-                    ItemsHandlingFlags.AllItems,
-                    new Version(MinArchipelagoVersion),
-                    password: PASSWORD,
-                    requestSlotData: true);
-            }
-            catch (Exception e)
-            {
-                loginResult = new LoginFailure(e.GetBaseException().Message);
-            }
+                try
+                {
+                    if (_session == null)
+                    {
+                        try
+                        {
+                            _session = ArchipelagoSessionFactory.CreateSession(URI);
+                            SetupSession();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
 
-            if (loginResult is LoginFailure loginFailure)
-            {
-                _attemptingConnection = false;
-                Console.WriteLine("AP connection failed: " + string.Join("\n", loginFailure.Errors));
-                _session = null;
-                return;
-            }
+                    loginResult = _session.TryConnectAndLogin(
+                        "SimpsonsHitAndRun",
+                        SLOTNAME,
+                        ItemsHandlingFlags.AllItems,
+                        new Version(MinArchipelagoVersion),
+                        password: PASSWORD,
+                        requestSlotData: true);
+                }
+                catch (Exception e)
+                {
+                    loginResult = new LoginFailure(e.GetBaseException().Message);
+                }
+
+                if (loginResult is LoginFailure loginFailure)
+                {
+                    _attemptingConnection = false;
+                    Console.WriteLine("AP connection failed: " + string.Join("\n", loginFailure.Errors));
+                    _session = null;
+                    Console.WriteLine("Reattempting connecting in 5 seconds.");
+                    await Task.Delay(5000);
+                }
+            } while (loginResult is LoginFailure);
 
             var login = loginResult as LoginSuccessful;
             Console.WriteLine($"Successfully connected to {URI} as {SLOTNAME}");
+            Console.WriteLine("Slot Data:");
+            foreach (var kvp in login.SlotData)
+            {
+                Console.WriteLine($"  {kvp.Key}: {kvp.Value}");
+            }
+            MemoryManip.UUID = login.SlotData["id"].ToString();
             while (true)
             {
                 await SendLocs();
