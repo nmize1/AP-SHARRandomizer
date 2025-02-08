@@ -15,4 +15,6 @@ public class Character : DynaPhysDSG
     public float Rotation => ReadSingle(272);
 
     public Vehicle Car => Memory.ClassFactory.Create<Vehicle>(ReadUInt32(348));
+
+    public JumpAction JumpLocomotion => Memory.ClassFactory.Create<JumpAction>(ReadUInt32(680));
 }

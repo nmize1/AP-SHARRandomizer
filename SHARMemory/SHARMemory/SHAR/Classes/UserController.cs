@@ -16,7 +16,11 @@ public class UserController : Class
 
     public UserController(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    internal const uint ControllerIdOffset = 8;
+    internal const uint IRadControllerInputPointCallbackVFTableOffset = 0;
+    
+    internal const uint GameConfigHandlerOffset = IRadControllerInputPointCallbackVFTableOffset + sizeof(uint);
+
+    internal const uint ControllerIdOffset = GameConfigHandlerOffset + sizeof(uint);
     public int ControllerId
     {
         get => ReadInt32(ControllerIdOffset);
@@ -30,7 +34,7 @@ public class UserController : Class
         set => WriteBoolean(IsConnectedOffset, value);
     }
 
-    internal const uint GameStateOffset = IsConnectedOffset + 4;
+    internal const uint GameStateOffset = IsConnectedOffset + 4; // Padding
     public InputManager.ActiveState GameState
     {
         get => (InputManager.ActiveState)ReadUInt32(GameStateOffset);
@@ -45,9 +49,9 @@ public class UserController : Class
     }
 
     internal const uint ControllerOffset = InputPointsRegisteredOffset + 4;
-    public PointerArray<RealController> Controller => new(Memory, Address + ControllerOffset, 4);
+    public PointerArray<RealController> Controller => new(Memory, Address + ControllerOffset, RealController.NUM_CONTROLLER_TYPES);
 
-    internal const uint SteeringSpringOffset = ControllerOffset + sizeof(uint) * 4;
+    internal const uint SteeringSpringOffset = ControllerOffset + sizeof(uint) * RealController.NUM_CONTROLLER_TYPES;
     public SHARMemory.Memory.Class SteeringSpring => Memory.ClassFactory.Create<SHARMemory.Memory.Class>(ReadUInt32(SteeringSpringOffset));
 
     internal const uint SteeringDamperOffset = SteeringSpringOffset + sizeof(uint);
@@ -66,33 +70,64 @@ public class UserController : Class
     public PointerArray<Mappable> Mappable => new(Memory, Address + MappableOffset, MAX_MAPPABLES);
 
     internal const uint VirtualMapOffset = MappableOffset + sizeof(uint) * MAX_MAPPABLES;
-    // TODO
+    public ClassArray<Mapper> VirtualMap => new(Memory, Address + VirtualMapOffset, Mapper.Size, MAX_VIRTUAL_MAPPINGS);
 
-    internal const uint MapDataOffset = VirtualMapOffset + 196 * MAX_VIRTUAL_MAPPINGS;
+    internal const uint MapDataOffset = VirtualMapOffset + Mapper.Size * MAX_VIRTUAL_MAPPINGS;
     public ButtonMapData MapData
     {
         get => ReadStruct<ButtonMapData>(MapDataOffset);
         set => WriteStruct(MapDataOffset, value);
     }
 
-    internal const uint NumButtonsOffset = MapDataOffset + ButtonMapData.Size + 32; // Unknown 32 bytes
+    internal const uint NumButtonsOffset = MapDataOffset + ButtonMapData.Size;
     public int NumButtons
     {
         get => ReadInt32(NumButtonsOffset);
         set => WriteInt32(NumButtonsOffset, value);
     }
 
-    public const uint ButtonArrayOffset = NumButtonsOffset + sizeof(int);
+    internal const uint ButtonArrayOffset = NumButtonsOffset + sizeof(int);
     public ClassArray<Button> ButtonArray => new(Memory, Address + ButtonArrayOffset, Button.Size, MAX_PHYSICAL_BUTTONS);
 
-    public const uint ButtonNamesOffset = ButtonArrayOffset + Button.Size * MAX_PHYSICAL_BUTTONS;
+    internal const uint ButtonNamesOffset = ButtonArrayOffset + Button.Size * MAX_PHYSICAL_BUTTONS;
     public StructArray<ulong> ButtonNames => new(Memory, Address + ButtonNamesOffset, sizeof(ulong), MAX_PHYSICAL_BUTTONS);
 
-    public const uint ButtonDeadZonesOffset = ButtonNamesOffset + sizeof(ulong) * MAX_PHYSICAL_BUTTONS;
+    internal const uint ButtonDeadZonesOffset = ButtonNamesOffset + sizeof(ulong) * MAX_PHYSICAL_BUTTONS;
     public StructArray<float> ButtonDeadZones => new(Memory, Address + ButtonDeadZonesOffset, sizeof(float), MAX_PHYSICAL_BUTTONS);
 
-    public const uint ButtonStickyOffset = ButtonDeadZonesOffset + sizeof(float) * MAX_PHYSICAL_BUTTONS;
+    internal const uint ButtonStickyOffset = ButtonDeadZonesOffset + sizeof(float) * MAX_PHYSICAL_BUTTONS;
     public StructArray<bool> ButtonSticky => new(Memory, Address + ButtonStickyOffset, sizeof(bool), MAX_PHYSICAL_BUTTONS);
+
+    internal const uint KeyboardBackOffset = ButtonStickyOffset + MAX_PHYSICAL_BUTTONS;
+
+    internal const uint IsRumbleOnOffset = KeyboardBackOffset + 1;
+
+    internal const uint IsWheelOffset = IsRumbleOnOffset + 1;
+
+    internal const uint RumbleEffectOffset = IsWheelOffset + 1;
+    public RumbleEffect RumbleEffect => Memory.ClassFactory.Create<RumbleEffect>(Address + RumbleEffectOffset);
+
+    internal const uint MouseLookOffset = RumbleEffectOffset + RumbleEffect.Size;
+
+    internal const uint InvertMouseXOffset = MouseLookOffset + 1;
+
+    internal const uint InvertMouseYOffset = InvertMouseXOffset + 1;
+
+    internal const uint ForceFeedbackOffset = InvertMouseYOffset + 1;
+
+    internal const uint TutorialDisabledOffset = ForceFeedbackOffset + 1;
+
+    internal const uint MouseSensitivityXOffset = TutorialDisabledOffset + 4; // Padding
+
+    internal const uint MouseSensitivityYOffset = MouseSensitivityXOffset + sizeof(float);
+
+    internal const uint WheelSensitivityXOffset = MouseSensitivityYOffset + sizeof(float);
+
+    internal const uint WheelSensitivityYOffset = WheelSensitivityXOffset + sizeof(float);
+
+    internal const uint ResetMouseCounterOffset = WheelSensitivityYOffset + sizeof(float);
+
+    public const uint Size = ResetMouseCounterOffset + sizeof(int) * 3;
 
     public void SetButtonValue(InputManager.Buttons button, float value, bool sticky) => SetButtonValue((int)button, value, sticky);
 
@@ -132,5 +167,43 @@ public class UserController : Class
         ButtonSticky[button] = sticky;
         if (sticky && value == 0)
             ButtonSticky[button] = false;
+    }
+
+    public void DisableButton(InputManager.Buttons button)
+    {
+        var mapType = InputManager.ButtonToMapType(button);
+        if (mapType == InputManager.MapType.Frontend)
+            throw new ArgumentException($"Button {button} is a Frontend button. Disabling unsupported.");
+
+        foreach (var virtualMap in VirtualMap)
+        {
+            var code = virtualMap.ButtonMap[(int)button];
+            if (code == -1)
+                continue;
+
+            var buttonId = code & 0xFFFFFF;
+
+            foreach (var controller in Controller)
+                controller.DisableButton((int)mapType, buttonId);
+        }
+    }
+
+    public void EnableButton(InputManager.Buttons button)
+    {
+        var mapType = InputManager.ButtonToMapType(button);
+        if (mapType == InputManager.MapType.Frontend)
+            throw new ArgumentException($"Button {button} is a Frontend button. Enabling unsupported.");
+
+        foreach (var virtualMap in VirtualMap)
+        {
+            var code = virtualMap.ButtonMap[(int)button];
+            if (code == -1)
+                continue;
+
+            var buttonId = code & 0xFFFFFF;
+
+            foreach (var controller in Controller)
+                controller.EnableButton((int)mapType, buttonId, button);
+        }
     }
 }

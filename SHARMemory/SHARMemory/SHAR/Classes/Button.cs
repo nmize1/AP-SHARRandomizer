@@ -7,6 +7,7 @@ public class Button : Class
     public Button(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     public static uint TickCount(Memory memory) => memory.ReadUInt32(memory.SelectAddress(0x6C900C, 0, 0, 0));
+    public uint TickCount() => TickCount(Memory);
 
     internal const uint ValueOffset = 0;
     public float Value
@@ -26,12 +27,12 @@ public class Button : Class
 
     public void ForceChange()
     {
-        TickCountAtChange = TickCount(Memory);
+        TickCountAtChange = TickCount();
     }
 
     public void SetValue(float value)
     {
         Value = value;
-        TickCountAtChange = TickCount(Memory);
+        TickCountAtChange = TickCount();
     }
 }
