@@ -77,6 +77,7 @@ namespace SHARRandomizer
 
             watcher.CardCollected += Watcher_CardCollected;
             watcher.MissionStageChanged += Watcher_MissionStageChanged;
+            watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
 
             watcher.Start();
 
@@ -158,8 +159,7 @@ namespace SHARRandomizer
                             while (missionTitles.Any(row => row == null || row.Any(item => item == null)))
                             {
                                 Console.WriteLine("Waiting for mission names to be saved.");
-                                LoadGameMissions();
-                                await Task.Delay(1000);
+                                InitializeMissionTitles();
                             }
                             UnlockMissionsPerLevel(item);
                         }
@@ -216,7 +216,7 @@ namespace SHARRandomizer
             for (int mission = 0; mission < 7; mission++)
             {
                 string name = $"MISSION_TITLE_L{levelNum}_M{mission + 1}";
-                language.SetString(name, missionTitles[levelNum - 1][mission]);
+                language.SetString(name, /* Get from LocationTranslations now */);
             }
 
             return true;
@@ -270,46 +270,6 @@ namespace SHARRandomizer
             return true;
         }
 
-        void LoadGameMissions()
-        {
-            string filePath = "mission_titles.json";
-
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                var saveData = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
-
-                if (saveData != null && saveData.TryGetValue("UUID", out object storedUUIDObj) && storedUUIDObj is JsonElement uuidElement)
-                {
-                    string storedUUID = uuidElement.GetString();
-
-                    if (storedUUID == UUID)
-                    {
-                        if (saveData.TryGetValue("MissionTitles", out object missionTitlesObj) && missionTitlesObj is JsonElement missionTitlesElement)
-                        {
-                            missionTitles = JsonSerializer.Deserialize<string[][]>(missionTitlesElement.GetRawText()) ?? new string[7][];
-                            Console.WriteLine("UUID matches. Loaded mission titles from file.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("UUID mismatch! Reinitializing mission titles.");
-                        InitializeMissionTitles();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No valid UUID found in file! Reinitializing mission titles.");
-                    InitializeMissionTitles();
-                }
-            }
-            else
-            {
-                Console.WriteLine("Mission titles file not found! Initializing a new one.");
-                InitializeMissionTitles();
-            }
-        }
-
         void InitializeMissionTitles()
         {
             string filePath = "mission_titles.json";
@@ -331,17 +291,6 @@ namespace SHARRandomizer
                     language.SetString(name, "LOCKED");
                 }
             }
-
-            var saveData = new Dictionary<string, object>
-            {
-                { "UUID", UUID }, 
-                { "MissionTitles", missionTitles }
-            };
-
-            string json = JsonSerializer.Serialize(saveData, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, json);
-
-            Console.WriteLine("Initialized and saved mission titles to file.");
         }
 
 
@@ -364,8 +313,14 @@ namespace SHARRandomizer
         Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"L{e.Level + 1}C{e.Card + 1} collected.");
-            ArchipelagoClient.sentLocations.Enqueue(LocationTranslations.Cards[$"L{e.Level + 1}C{e.Card + 1}"]);
+            //ArchipelagoClient.sentLocations.Enqueue(LocationTranslations.Cards[$"L{e.Level + 1}C{e.Card + 1}"]);
 
+            return Task.CompletedTask;
+        }
+
+        Task Watcher_PersistentObjectDestroyed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.PersistentObjectDestroyedEventArts e, CancellationToken token)
+        {
+            Console.WriteLine($"Destroyed object: {e.Sector} - {e.Index}");
             return Task.CompletedTask;
         }
     }

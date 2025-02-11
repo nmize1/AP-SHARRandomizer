@@ -16,4 +16,10 @@
     <ProjectReference Include="..\SHARMemory\SHARMemory.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Configs\Vanilla.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,71 +1,146 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
-namespace SHARRandomizer.Classes
+public class LocationTranslations
 {
-    public class LocationTranslations
+    public LevelData level1 { get; set; }
+    public LevelData level2 { get; set; }
+    public LevelData level3 { get; set; }
+    public LevelData level4 { get; set; }
+    public LevelData level5 { get; set; }
+    public LevelData level6 { get; set; }
+    public LevelData level7 { get; set; }
+
+    public class LevelData
     {
-        public static Dictionary<string, long> Cards = new Dictionary<string, long>
+        public List<ltMission> missions { get; set; }
+        [JsonProperty("bonus missions")]
+        public List<ltBonusMission> bonus_missions { get; set; }
+        public List<ltWasp> wasps { get; set; }
+        public List<ltCard> cards { get; set; }
+        public List<ltGag> gags { get; set; }
+        public List<ltShop> shops { get; set; }
+    }
+
+    public class ltMission
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+        public long apid { get; set; }
+        public int index { get; set; }
+    }
+
+    public class ltBonusMission
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+        public long apid { get; set; }
+    }
+
+    public class ltWasp
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+        public long apid { get; set; }
+    }
+
+    public class ltCard
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+        public long apid { get; set; }
+    }
+
+    public class ltGag
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+        public long apid { get; set; }
+    }
+
+    public class ltShop
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+        public long apid { get; set; }
+    }
+
+    public static LocationTranslations LoadFromJson(string jsonFilePath)
+    {
+        try
         {
-            { "L1C1", 16957124597 },
-            { "L1C2", 16957124598 },
-            { "L1C3", 16957124599 },
-            { "L1C4", 16957124600 },
-            { "L1C5", 16957124601 },
-            { "L1C6", 16957124602 },
-            { "L1C7", 16957124603 },
+            string jsonString = File.ReadAllText(jsonFilePath);
+            return JsonConvert.DeserializeObject<LocationTranslations>(jsonString);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading JSON: {ex.Message}");
+            return null;
+        }
+    }
 
-            { "L2C1", 16957124644 },
-            { "L2C2", 16957124645 },
-            { "L2C3", 16957124646 },
-            { "L2C4", 16957124647 },
-            { "L2C5", 16957124648 },
-            { "L2C6", 16957124649 },
-            { "L2C7", 16957124650 },
+    public void PrintData()
+    {
+        Console.WriteLine("Level 1 Data:");
+        PrintLevelData(level1);
 
-            { "L3C1", 16957124701 },
-            { "L3C2", 16957124702 },
-            { "L3C3", 16957124703 },
-            { "L3C4", 16957124704 },
-            { "L3C5", 16957124705 },
-            { "L3C6", 16957124706 },
-            { "L3C7", 16957124707 },
-            
-            { "L4C1", 16957124739 },
-            { "L4C2", 16957124740 },
-            { "L4C3", 16957124741 },
-            { "L4C4", 16957124742 },
-            { "L4C5", 16957124743 },
-            { "L4C6", 16957124744 },
-            { "L4C7", 16957124745 },
+        Console.WriteLine("\nLevel 2 Data:");
+        PrintLevelData(level2);
 
-            { "L5C1", 16957124788 },
-            { "L5C2", 16957124789 },
-            { "L5C3", 16957124790 },
-            { "L5C4", 16957124791 },
-            { "L5C5", 16957124792 },
-            { "L5C6", 16957124793 },
-            { "L5C7", 16957124794 },
+        Console.WriteLine("\nLevel 3 Data:");
+        PrintLevelData(level3);
 
-            { "L6C1", 16957124828 },
-            { "L6C2", 16957124829 },
-            { "L6C3", 16957124830 },
-            { "L6C4", 16957124831 },
-            { "L6C5", 16957124832 },
-            { "L6C6", 16957124833 },
-            { "L6C7", 16957124834 },
+        Console.WriteLine("Level 4 Data:");
+        PrintLevelData(level4);
 
-            { "L7C1", 16957124872 },
-            { "L7C2", 16957124873 },
-            { "L7C3", 16957124874 },
-            { "L7C4", 16957124875 },
-            { "L7C5", 16957124876 },
-            { "L7C6", 16957124877 },
-            { "L7C7", 16957124878 }
-        };
+        Console.WriteLine("\nLevel 5 Data:");
+        PrintLevelData(level5);
 
+        Console.WriteLine("\nLevel 6 Data:");
+        PrintLevelData(level6);
+
+        Console.WriteLine("\nLevel 7 Data:");
+        PrintLevelData(level7);
+    }
+
+    private void PrintLevelData(LevelData levelData)
+    {
+        Console.WriteLine("  Missions:");
+        foreach (var mission in levelData.missions)
+        {
+            Console.WriteLine($"    - Name: {mission.name}, APID: {mission.apid}, Index: {mission.index}");
+        }
+
+        Console.WriteLine("  Bonus Missions:");
+        foreach (var bonusMission in levelData.bonus_missions)
+        {
+            Console.WriteLine($"    - Name: {bonusMission.name}, APID: {bonusMission.apid}");
+        }
+
+        Console.WriteLine("  Wasps:");
+        foreach (var wasp in levelData.wasps)
+        {
+            Console.WriteLine($"    - Name: {wasp.name}, ID: {wasp.id}, APID: {wasp.apid}");
+        }
+
+        Console.WriteLine("  Cards:");
+        foreach (var card in levelData.cards)
+        {
+            Console.WriteLine($"    - Name: {card.name}, ID: {card.id}, APID: {card.apid}");
+        }
+
+        Console.WriteLine("  Gags:");
+        foreach (var gag in levelData.gags)
+        {
+            Console.WriteLine($"    - Name: {gag.name}, APID: {gag.apid}");
+        }
+
+        Console.WriteLine("  Shops:");
+        foreach (var shop in levelData.shops)
+        {
+            Console.WriteLine($"    - Name: {shop.name}, APID: {shop.apid}");
+        }
     }
 }
