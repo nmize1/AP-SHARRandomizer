@@ -13,6 +13,7 @@ public class LocationTranslations
     public LevelData level6 { get; set; }
     public LevelData level7 { get; set; }
 
+
     public class LevelData
     {
         public List<ltMission> missions { get; set; }
@@ -81,6 +82,78 @@ public class LocationTranslations
         }
     }
 
+    public string getMissionName(int index, int level)
+    {
+        List<LevelData> Levels = new List<LevelData> { level1, level2, level3, level4, level5, level6, level7 };
+        return Levels[level].missions[index].name;    
+    }
+
+    public long getAPID(string id, string type)
+    {
+        List<LevelData> Levels = new List<LevelData>{ level1, level2, level3, level4, level5, level6, level7 };
+        foreach (var level in Levels)
+        {
+            switch (type.ToLower())
+            {
+                case "mission":
+                    foreach (var mission in level.missions)
+                    {
+                        if (mission.id == id)
+                            return mission.apid;
+                    }
+                    break;
+
+                case "bonus_mission":
+                    foreach (var bonusMission in level.bonus_missions)
+                    {
+                        if (bonusMission.id == id)
+                            return bonusMission.apid;
+                    }
+                    break;
+
+                case "wasp":
+                    foreach (var wasp in level.wasps)
+                    {
+                        if (wasp.id == id)
+                            return wasp.apid;
+                    }
+                    break;
+
+                case "card":
+                    foreach (var card in level.cards)
+                    {
+
+                        if (card.id == id)
+                            return card.apid;
+
+                    }
+                    break;
+
+                case "gag":
+                    foreach (var gag in level.gags)
+                    {
+                        if (gag.id == id)
+                            return gag.apid;
+                    }
+                    break;
+
+                case "shop":
+                    foreach (var store in level.shops)
+                    {
+                        if (store.id == id)
+                            return store.apid;
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentException("Invalid type specified.");
+            }
+        }
+
+        return -1;
+    }
+
+
     public void PrintData()
     {
         Console.WriteLine("Level 1 Data:");
@@ -92,7 +165,7 @@ public class LocationTranslations
         Console.WriteLine("\nLevel 3 Data:");
         PrintLevelData(level3);
 
-        Console.WriteLine("Level 4 Data:");
+        Console.WriteLine("\nLevel 4 Data:");
         PrintLevelData(level4);
 
         Console.WriteLine("\nLevel 5 Data:");

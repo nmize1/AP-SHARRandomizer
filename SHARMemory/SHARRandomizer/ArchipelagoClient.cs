@@ -23,9 +23,9 @@ namespace SHARRandomizer
         private ArchipelagoSession _session;
         private bool _ignoreLocations;
 
-        private string URI = "archipelago.gg:51121";
-        private string SLOTNAME = "CaesiusSHAR";
-        private string PASSWORD = "";
+        public string URI = "";
+        public string SLOTNAME = "";
+        public string PASSWORD = "";
 
         public void Connect()
         {
@@ -168,7 +168,7 @@ namespace SHARRandomizer
                 Console.WriteLine($"Trying to send location {location} when there's no connection");
                 return;
             }
-
+            Console.WriteLine(location);
             _session.Locations.CompleteLocationChecksAsync(location);
         }
 

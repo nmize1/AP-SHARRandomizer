@@ -6,12 +6,25 @@ using SHARRandomizer;
 using SHARRandomizer.Classes;
 using System.Diagnostics;
 using System.Drawing;
-/*
-LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
-lt.PrintData();
-return;
-*/
+
+
+Console.WriteLine("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:");
+string URI = Console.ReadLine();
+if (int.TryParse(URI, out int porttest))
+    URI = $"archipelago.gg:{URI}";
+
+Console.WriteLine("Enter slot name:");
+string SLOTNAME = Console.ReadLine();
+
+Console.WriteLine("Enter password:");
+string PASSWORD = Console.ReadLine();
+
+
 ArchipelagoClient ac = new ArchipelagoClient();
+ac.URI = URI;
+ac.SLOTNAME = SLOTNAME;
+ac.PASSWORD = PASSWORD;
+
 MemoryManip mm = new MemoryManip();
 
 Thread connectThread = new Thread(ac.Connect);

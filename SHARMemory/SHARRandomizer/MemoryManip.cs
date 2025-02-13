@@ -15,12 +15,15 @@ using SHARMemory.SHAR.Classes;
 using SHARMemory.SHAR.Structs;
 using SHARRandomizer.Classes;
 using static System.Net.Mime.MediaTypeNames;
+using Newtonsoft.Json.Linq;
 
 namespace SHARRandomizer
 {
     class MemoryManip
     {
         Process? p;
+
+        LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
         public static AwaitableQueue<string> itemsReceived = new AwaitableQueue<string>();
         public static string UUID = "";
         List<Reward> REWARDS = new List<Reward>();
@@ -46,7 +49,11 @@ namespace SHARRandomizer
 
                 Memory memory = new(p);
                 Console.WriteLine($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Language: {memory.GameSubVersion}.", "Main");
-
+                GameFlow.GameState? state = memory.Singletons.GameFlow?.CurrentContext;
+                while (!(state == null || !(state == GameFlow.GameState.DemoInGame || state == GameFlow.GameState.NormalInGame || state == GameFlow.GameState.BonusInGame)))
+                {
+                    
+                }
                 InitialGameState(memory);
                 await GetItems(memory);
 
@@ -78,6 +85,8 @@ namespace SHARRandomizer
             watcher.CardCollected += Watcher_CardCollected;
             watcher.MissionStageChanged += Watcher_MissionStageChanged;
             watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
+            watcher.GagViewed += Watcher_GagViewed;
+            watcher.CarPurchased += Watcher_CarPurchased;
 
             watcher.Start();
 
@@ -104,8 +113,7 @@ namespace SHARRandomizer
                 REWARDS.AddRange(tempRewards);
             }
 
-
-
+            InitializeMissionTitles();
             /* Lock all default cars since they unlock on level load */
             LockDefaultCarsOnLoad(memory);
         }
@@ -156,11 +164,6 @@ namespace SHARRandomizer
                         else if (item.StartsWith("Level"))
                         {
                             Console.WriteLine($"Unlocking {item}");
-                            while (missionTitles.Any(row => row == null || row.Any(item => item == null)))
-                            {
-                                Console.WriteLine("Waiting for mission names to be saved.");
-                                InitializeMissionTitles();
-                            }
                             UnlockMissionsPerLevel(item);
                         }
                         else
@@ -211,12 +214,14 @@ namespace SHARRandomizer
         bool UnlockMissionsPerLevel(string level)
         {
             UnlockedLevels.Add(level);
-            int levelNum = int.Parse(Regex.Match(level, @"\d+").Value);
+            int levelNum = int.Parse(Regex.Match(level, @"\d+").Value) - 1;
 
             for (int mission = 0; mission < 7; mission++)
             {
+                string missionTitle = lt.getMissionName(mission, levelNum);
+                Console.WriteLine(missionTitle);
                 string name = $"MISSION_TITLE_L{levelNum}_M{mission + 1}";
-                language.SetString(name, /* Get from LocationTranslations now */);
+                language.SetString(name, missionTitle.Trim());
             }
 
             return true;
@@ -272,13 +277,7 @@ namespace SHARRandomizer
 
         void InitializeMissionTitles()
         {
-            string filePath = "mission_titles.json";
-            for (int i = 0; i < 7; i++)
-            {
-                missionTitles[i] = new string[7];
-            }
-
-            string name = $"MISSION_TITLE_L{0}_M{0}";
+             string name = $"MISSION_TITLE_L{0}_M{0}";
             language.SetString(name, "LOCKED");
 
             for (int level = 0; level < 7; level++)
@@ -286,8 +285,6 @@ namespace SHARRandomizer
                 for (int mission = 0; mission < 7; mission++)
                 {
                     name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                    string title = language.GetString(name);
-                    missionTitles[level][mission] = title;
                     language.SetString(name, "LOCKED");
                 }
             }
@@ -313,7 +310,7 @@ namespace SHARRandomizer
         Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"L{e.Level + 1}C{e.Card + 1} collected.");
-            //ArchipelagoClient.sentLocations.Enqueue(LocationTranslations.Cards[$"L{e.Level + 1}C{e.Card + 1}"]);
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"L{e.Level + 1}C{e.Card + 1}", "card"));
 
             return Task.CompletedTask;
         }
@@ -321,6 +318,20 @@ namespace SHARRandomizer
         Task Watcher_PersistentObjectDestroyed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.PersistentObjectDestroyedEventArts e, CancellationToken token)
         {
             Console.WriteLine($"Destroyed object: {e.Sector} - {e.Index}");
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Sector} - {e.Index}", "wasp"));
+            return Task.CompletedTask;
+        }
+
+        Task Watcher_GagViewed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.GagViewedEventArgs e, CancellationToken token)
+        {
+            Console.WriteLine($"Gag Viewed: {e.Level} - {e.Gag}");
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Gag}", "gag"));
+            return Task.CompletedTask;
+        }
+
+        Task Watcher_CarPurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.CarPurchasedEventArgs e, CancellationToken token)
+        {
+            Console.WriteLine($"Car Purchased: {e.}")
             return Task.CompletedTask;
         }
     }
