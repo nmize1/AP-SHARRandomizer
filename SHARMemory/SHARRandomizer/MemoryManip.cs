@@ -214,11 +214,11 @@ namespace SHARRandomizer
         bool UnlockMissionsPerLevel(string level)
         {
             UnlockedLevels.Add(level);
-            int levelNum = int.Parse(Regex.Match(level, @"\d+").Value) - 1;
+            int levelNum = int.Parse(Regex.Match(level, @"\d+").Value);
 
             for (int mission = 0; mission < 7; mission++)
             {
-                string missionTitle = lt.getMissionName(mission, levelNum);
+                string missionTitle = lt.getMissionName(mission, levelNum-1);
                 Console.WriteLine(missionTitle);
                 string name = $"MISSION_TITLE_L{levelNum}_M{mission + 1}";
                 language.SetString(name, missionTitle.Trim());
@@ -331,7 +331,7 @@ namespace SHARRandomizer
 
         Task Watcher_CarPurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.CarPurchasedEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Car Purchased: {e.}")
+            //Console.WriteLine($"Car Purchased: {e.}")
             return Task.CompletedTask;
         }
     }
