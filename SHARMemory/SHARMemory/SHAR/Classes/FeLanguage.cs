@@ -36,8 +36,9 @@ public class FeLanguage : Class
 
     public int? GetIndex(uint hash)
     {
+        var hashes = Hashes.ToArray();
         for (int i = 0; i < NumStrings; i++)
-            if (Hashes[i] == hash)
+            if (hashes[i] == hash)
                 return i;
 
         return null;
