@@ -3,43 +3,43 @@
     "missions": [
       {
         "name": "S-M-R-T",
-        "id": "",
+        "id": "0 - 1",
         "apid": "122289",
         "index": 0
       },
       {
         "name": "Petty Theft Homer",
-        "id": "",
+        "id": "0 - 2",
         "apid": "122290",
         "index": 1
       },
       {
         "name": "Office Spaced",
-        "id": "",
+        "id": "0 - 3",
         "apid": "122291",
         "index": 2
       },
       {
         "name": "Blind Big Brother",
-        "id": "",
+        "id": "0 - 4",
         "apid": "122292",
         "index": 3
       },
       {
         "name": "Flowers By Irene",
-        "id": "",
+        "id": "0 - 5",
         "apid": "122293",
         "index": 4
       },
       {
         "name": "Bonestorm Storm",
-        "id": "",
+        "id": "0 - 6",
         "apid": "122294",
         "index": 5
       },
       {
         "name": "The Fat and Furious",
-        "id": "",
+        "id": "0 - 7",
         "apid": "122295",
         "index": 6
       }
@@ -47,22 +47,22 @@
     "bonus missions": [
       {
         "name": "(L1BM) This Old Shanty",
-        "id": "",
+        "id": "0 - bonus",
         "apid": "122296"
       },
       {
         "name": "(LVL1) Time Trial Race",
-        "id": "",
+        "id": "0 - 1",
         "apid": "122297"
       },
       {
         "name": "(LVL1) Circuit Race",
-        "id": "",
+        "id": "0 - 2",
         "apid": "122298"
       },
       {
         "name": "(LVL1) Checkpoint Race",
-        "id": "",
+        "id": "0 - 3",
         "apid": "122299"
       }
     ],
@@ -314,43 +314,43 @@
     "missions": [
       {
         "name": "Detention Deficit Disorder",
-        "id": "",
+        "id": "1 - 1",
         "apid": "122300",
         "index": 0
       },
       {
         "name": "Weapons of Mass Delinquency",
-        "id": "",
+        "id": "1 - 2",
         "apid": "122301",
         "index": 1
       },
       {
         "name": "Vox Nerduli",
-        "id": "",
+        "id": "1 - 3",
         "apid": "122302",
         "index": 2
       },
       {
         "name": "Bart \u0027n\u0027 Frink",
-        "id": "",
+        "id": "1 - 4",
         "apid": "122303",
         "index": 3
       },
       {
         "name": "Better Than Beef",
-        "id": "",
+        "id": "1 - 5",
         "apid": "122304",
         "index": 4
       },
       {
         "name": "Monkey See Monkey D\u0027oh",
-        "id": "",
+        "id": "1 - 6",
         "apid": "122305",
         "index": 5
       },
       {
         "name": "Cell-Outs",
-        "id": "",
+        "id": "1 - 7",
         "apid": "122306",
         "index": 6
       }
@@ -358,22 +358,22 @@
     "bonus missions": [
       {
         "name": "(L2BM) Dial B for Blood",
-        "id": "",
+        "id": "1 - bonus",
         "apid": "122307"
       },
       {
         "name": "(LVL 2) Time Trial Race",
-        "id": "",
+        "id": "1 - 1",
         "apid": "122308"
       },
       {
         "name": "(LVL 2) Circuit Race",
-        "id": "",
+        "id": "1 - 2",
         "apid": "122309"
       },
       {
         "name": "(LVL 2) Checkpoint Race",
-        "id": "",
+        "id": "1 - 3",
         "apid": "122310"
       }
     ],
@@ -610,43 +610,43 @@
     "missions": [
       {
         "name": "Nerd Race Queen",
-        "id": "",
+        "id": "2 - 1",
         "apid": "122311",
         "index": 0
       },
       {
         "name": "Clueless",
-        "id": "",
+        "id": "2 - 2",
         "apid": "122312",
         "index": 1
       },
       {
         "name": "Bonfire of the Manatees",
-        "id": "",
+        "id": "2 - 3",
         "apid": "122313",
         "index": 2
       },
       {
         "name": "Operation Hellfish",
-        "id": "",
+        "id": "2 - 4",
         "apid": "122314",
         "index": 3
       },
       {
         "name": "Slithery Sleuthing",
-        "id": "",
+        "id": "2 - 5",
         "apid": "122315",
         "index": 4
       },
       {
         "name": "Fishy Deals",
-        "id": "",
+        "id": "2 - 6",
         "apid": "122316",
         "index": 5
       },
       {
         "name": "The Old Pirate and the Sea",
-        "id": "",
+        "id": "2 - 7",
         "apid": "122317",
         "index": 6
       }
@@ -654,22 +654,22 @@
     "bonus missions": [
       {
         "name": "(L3BM) Princi-Pal",
-        "id": "",
+        "id": "2- bonus",
         "apid": "122318"
       },
       {
         "name": "(LVL 3) Time Trial Race",
-        "id": "",
+        "id": "2- 1",
         "apid": "122319"
       },
       {
         "name": "(LVL 3) Circuit Race",
-        "id": "",
+        "id": "2- 2",
         "apid": "122320"
       },
       {
         "name": "(LVL 3) Checkpoint Race",
-        "id": "",
+        "id": "2- 3",
         "apid": "122321"
       }
     ],
@@ -906,43 +906,43 @@
     "missions": [
       {
         "name": "For A Few Donuts More",
-        "id": "",
+        "id": "3 - 1",
         "apid": "122322",
         "index": 0
       },
       {
         "name": "Redneck Roundup",
-        "id": "",
+        "id": "3 - 2",
         "apid": "122323",
         "index": 1
       },
       {
         "name": "Ketchup Logic",
-        "id": "",
+        "id": "3 - 3",
         "apid": "122324",
         "index": 2
       },
       {
         "name": "Return of the Nearly-Dead",
-        "id": "",
+        "id": "3 - 4",
         "apid": "122325",
         "index": 3
       },
       {
         "name": "Wolves Stole My Pills",
-        "id": "",
+        "id": "3 - 5",
         "apid": "122326",
         "index": 4
       },
       {
         "name": "The Cola Wars",
-        "id": "",
+        "id": "3 - 6",
         "apid": "122327",
         "index": 5
       },
       {
         "name": "From Outer Space",
-        "id": "",
+        "id": "3 - 7",
         "apid": "122328",
         "index": 6
       }
@@ -950,22 +950,22 @@
     "bonus missions": [
       {
         "name": "(L4BM) Beached Love",
-        "id": "",
+        "id": "3 - bonus",
         "apid": "122329"
       },
       {
         "name": "(LVL 4) CheckPoint Race",
-        "id": "",
+        "id": "3 - 1",
         "apid": "122330"
       },
       {
         "name": "(LVL 4) Circuit Race",
-        "id": "",
+        "id": "3 - 2",
         "apid": "122331"
       },
       {
         "name": "(LVL 4) Time Trial Race",
-        "id": "",
+        "id": "3 - 3",
         "apid": "122332"
       }
     ],
@@ -1222,43 +1222,43 @@
     "missions": [
       {
         "name": "Incriminating Caffeine",
-        "id": "",
+        "id": "4 - 1",
         "apid": "122333",
         "index": 0
       },
       {
         "name": ". . . and Baby Makes 8",
-        "id": "",
+        "id": "4 - 2",
         "apid": "122334",
         "index": 1
       },
       {
         "name": "Eight is Too Much",
-        "id": "",
+        "id": "4 - 3",
         "apid": "122335",
         "index": 2
       },
       {
         "name": "This Little Piggy",
-        "id": "",
+        "id": "4 - 4",
         "apid": "122336",
         "index": 3
       },
       {
         "name": "Never Trust a Snake",
-        "id": "",
+        "id": "4 - 5",
         "apid": "122337",
         "index": 4
       },
       {
         "name": "Kwik Cash",
-        "id": "",
+        "id": "4 - 6",
         "apid": "122338",
         "index": 5
       },
       {
         "name": "Curious Curator",
-        "id": "",
+        "id": "4 - 7",
         "apid": "122339",
         "index": 6
       }
@@ -1266,22 +1266,22 @@
     "bonus missions": [
       {
         "name": "(L5BM) Kinky Frinky",
-        "id": "",
+        "id": "4 - bonus",
         "apid": "122340"
       },
       {
         "name": "(LVL 5) Checkpoint Race",
-        "id": "",
+        "id": "4 - 1",
         "apid": "122341"
       },
       {
         "name": "(LVL 5) Circuit Race",
-        "id": "",
+        "id": "4 - 2",
         "apid": "122342"
       },
       {
         "name": "(LVL 5) Time Trial",
-        "id": "",
+        "id": "4 - 3",
         "apid": "122343"
       }
     ],
@@ -1493,43 +1493,43 @@
     "missions": [
       {
         "name": "Going to the Lu\u0027",
-        "id": "",
+        "id": "5 - 1",
         "apid": "122344",
         "index": 0
       },
       {
         "name": "Getting Down with the Clown",
-        "id": "",
+        "id": "5 - 2",
         "apid": "122345",
         "index": 1
       },
       {
         "name": "Lab Coat Caper",
-        "id": "",
+        "id": "5 - 3",
         "apid": "122346",
         "index": 2
       },
       {
         "name": "Duff for Me, Duff for You",
-        "id": "",
+        "id": "5 - 4",
         "apid": "122347",
         "index": 3
       },
       {
         "name": "Full Metal Jackass",
-        "id": "",
+        "id": "5 - 5",
         "apid": "122348",
         "index": 4
       },
       {
         "name": "Set to Kill",
-        "id": "",
+        "id": "5 - 6",
         "apid": "122349",
         "index": 5
       },
       {
         "name": "Kang and Kodos Strike Back",
-        "id": "",
+        "id": "5 - 7",
         "apid": "122350",
         "index": 6
       }
@@ -1537,22 +1537,22 @@
     "bonus missions": [
       {
         "name": "(L6BM) Milking The Pigs",
-        "id": "",
+        "id": "5 - bonus",
         "apid": "122351"
       },
       {
         "name": "(LVL 6) Checkpoint Race",
-        "id": "",
+        "id": "5 - 1",
         "apid": "122352"
       },
       {
         "name": "(LVL 6) Time Trial Race",
-        "id": "",
+        "id": "5 - 2",
         "apid": "122353"
       },
       {
         "name": "(LVL 6) Circuit Race",
-        "id": "",
+        "id": "5 - 3",
         "apid": "122354"
       }
     ],
@@ -1790,43 +1790,43 @@
     "missions": [
       {
         "name": "Rigor Motors",
-        "id": "",
+        "id": "6 - 1",
         "apid": "122355",
         "index": 0
       },
       {
         "name": "Long Black Probes",
-        "id": "",
+        "id": "6 - 2",
         "apid": "122356",
         "index": 1
       },
       {
         "name": "Pocket Protector",
-        "id": "",
+        "id": "6 - 3",
         "apid": "122357",
         "index": 2
       },
       {
         "name": "There\u0027s Something About Monty",
-        "id": "",
+        "id": "6 - 4",
         "apid": "122358",
         "index": 3
       },
       {
         "name": "Alien \u0022Auto\u0022topsy Part I",
-        "id": "",
+        "id": "6 - 5",
         "apid": "122359",
         "index": 4
       },
       {
         "name": "Alien \u0022Auto\u0022topsy Part II",
-        "id": "",
+        "id": "6 - 6",
         "apid": "122360",
         "index": 5
       },
       {
         "name": "Alien \u0022Auto\u0022topsy Part III",
-        "id": "",
+        "id": "6 - 7",
         "apid": "122361",
         "index": 6
       }
@@ -1834,22 +1834,22 @@
     "bonus missions": [
       {
         "name": "(L7BM) Flaming Tires",
-        "id": "",
+        "id": "6 - bonus",
         "apid": "122362"
       },
       {
         "name": "(LVL 7) CheckPoint Race",
-        "id": "",
+        "id": "6 - 1",
         "apid": "122363"
       },
       {
         "name": "(LVL 7) Time Trial Race",
-        "id": "",
+        "id": "6 - 2",
         "apid": "1223643"
       },
       {
         "name": "(LVL 7) Circuit Race",
-        "id": "",
+        "id": "6 - 3",
         "apid": "122365"
       }
     ],
