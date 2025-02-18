@@ -17,6 +17,7 @@ using SHARRandomizer.Classes;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics.Tracing;
+using System.Runtime.CompilerServices;
 
 namespace SHARRandomizer
 {
@@ -221,9 +222,11 @@ namespace SHARRandomizer
                                     HandleTraps(memory, s);
                                     break;
 
-                                case string s when s.Contains("Ability")
+                                case string s when s.Contains("Jump") || s.Contains("Kick"):
                                     Console.WriteLine($"Received {s}");
-                                    CheckAvailableMoves(memory, );
+                                    moves.Add(s);
+                                    CheckAvailableMoves(memory, CURRENTLEVEL);
+                                    break;
 
                                 default:
                                     Console.WriteLine($"Error unlocking reward: {item}.");
@@ -428,7 +431,7 @@ namespace SHARRandomizer
                     break;
                 case "Duff Trap":
                     break;
-                case "Flippable":
+                case "Flippable Cars":
                     break;
                 default:
                     break;
@@ -509,21 +512,21 @@ namespace SHARRandomizer
         Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Mission Complete: {e.Level} - {e.Mission}");
-            //ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission}", "mission"));
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission}", "mission"));
             return Task.CompletedTask;
         }
 
         Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Mission Complete: {e.Level} - Bonus");
-            //ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - Bonus", "bonus_mission"));
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - Bonus", "bonus_mission"));
             return Task.CompletedTask;
         }
 
         Task Watcher_StreetRaceComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.StreetRaceCompleteEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Race Complete: {e.Level} - {e.Race}");
-            //ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Race}", "bonus_mission"));
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Race}", "bonus_mission"));
             return Task.CompletedTask;
         }
     }
