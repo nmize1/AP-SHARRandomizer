@@ -27,6 +27,7 @@ namespace SHARRandomizer
             GameFlow.GameState.NormalInGame or GameFlow.GameState.DemoInGame or GameFlow.GameState.BonusInGame => true,
             _ => false,
         };
+
     }
 
     class MemoryManip
@@ -42,10 +43,11 @@ namespace SHARRandomizer
         List<string> UnlockedItems = new List<string>();
         public Dictionary<string, int> fillerInventory = new Dictionary<string, int>();
         List<string> traps = new List<string>();
-
+        List<string> moves = new List<string>();
         FeLanguage language = null;
 
-
+        bool DISABLEDOUBLEJUMPS = false;
+        string CURRENTLEVEL = "";
 
         public async Task MemoryStart()
         {
@@ -146,6 +148,7 @@ namespace SHARRandomizer
             fillerInventory.Add("Hit N Run Reset", 0);
             fillerInventory.Add("Wrench", 0);
             traps.AddRange(new List<string> { "Car Brake", "Reset Car" });
+            Task.Run(() => CheckJumpActions(memory));
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
@@ -217,6 +220,10 @@ namespace SHARRandomizer
                                     Console.WriteLine($"Received TRAP {s}.");
                                     HandleTraps(memory, s);
                                     break;
+
+                                case string s when s.Contains("Ability")
+                                    Console.WriteLine($"Received {s}");
+                                    CheckAvailableMoves(memory, );
 
                                 default:
                                     Console.WriteLine($"Error unlocking reward: {item}.");
@@ -346,6 +353,66 @@ namespace SHARRandomizer
             }
         }
 
+        void CheckAvailableMoves(Memory memory, string level)
+        {
+            string character = "";
+            switch (level)
+            {
+                case "L1":
+                    character = "Homer";
+                    break;
+                case "L2":
+                    character = "Bart";
+                    break;
+                case "L3":
+                    character = "Lisa";
+                    break;
+                case "L4":
+                    character = "Marge";
+                    break;
+                case "L5":
+                    character = "Apu";
+                    break;
+                case "L6":
+                    character = "Bart";
+                    break;
+                case "L7":
+                    character = "Homer";
+                    break;
+            }
+
+            if (!moves.Contains($"{character} Kick"))
+                memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.Attack);
+            else
+                memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.Attack);
+
+            if (!moves.Contains($"{character} Double Jump"))
+                DISABLEDOUBLEJUMPS = true;
+            else
+                DISABLEDOUBLEJUMPS = false;
+        }
+
+        async void CheckJumpActions(Memory memory)
+        {  
+            while (memory.IsRunning)
+            {
+                await System.Threading.Tasks.Task.Delay(1);
+                if (memory.InGame())
+                {
+                    var jumpAction = memory.Singletons.CharacterManager?.Player?.JumpLocomotion;
+                    if (jumpAction != null)
+                    {
+                        if (DISABLEDOUBLEJUMPS)
+                            jumpAction.JumpAgain = true;
+                        /*
+                        if (DISABLEGROUNDPOUNDS)
+                            jumpAction.Slam = false;
+                        */
+                    }
+                }  
+            }
+        }
+
         async void HandleTraps(Memory memory, string trap)
         {
             Button button;
@@ -403,10 +470,11 @@ namespace SHARRandomizer
 
         Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
         {
+            CURRENTLEVEL = e.Level.ToString();
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
             LockDefaultCarsOnLoad(sender);
-
+            CheckAvailableMoves(sender, CURRENTLEVEL);
             return Task.CompletedTask;
         }
 
