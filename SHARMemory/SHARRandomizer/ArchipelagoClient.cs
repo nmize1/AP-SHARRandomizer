@@ -115,6 +115,7 @@ namespace SHARRandomizer
                 Console.WriteLine($"  {kvp.Key}: {kvp.Value}");
             }
             MemoryManip.UUID = login.SlotData["id"].ToString();
+            _session.DataStorage["index"].Initialize(0);
             while (true)
             {
                 await SendLocs();
@@ -219,7 +220,7 @@ namespace SHARRandomizer
             _session?.Say(message);
         }
 
-        public void Session_ItemReceived(IReceivedItemsHelper helper)
+        public async void Session_ItemReceived(IReceivedItemsHelper helper)
         {
             var index = helper.Index - 1;
             var item = helper.DequeueItem();
@@ -227,10 +228,21 @@ namespace SHARRandomizer
             itemName ??= item.ItemDisplayName;
 
             Console.WriteLine($"Received item #{index}: {item.ItemId} - {itemName}");
+            
             var player = item.Player;
             var playerName = player.Alias ?? player.Name ?? $"Player #{player.Slot}";
 
-            MemoryManip.itemsReceived.Enqueue(itemName);
+            var storedIndex = await _session.DataStorage["index"].GetAsync<int>();
+            if (storedIndex < index)
+            {
+                _session.DataStorage["index"] = index;
+                MemoryManip.itemsReceived.Enqueue(itemName);
+            }
+            else if(item.Flags == ItemFlags.Advancement || item.Flags == ItemFlags.NeverExclude)
+            {
+                MemoryManip.itemsReceived.Enqueue(itemName);
+            }
+            
         }
     }
 }

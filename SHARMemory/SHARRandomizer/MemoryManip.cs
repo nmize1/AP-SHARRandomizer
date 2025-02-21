@@ -50,6 +50,7 @@ namespace SHARRandomizer
         bool DISABLEDOUBLEJUMPS = false;
         string CURRENTLEVEL = "";
 
+
         public async Task MemoryStart()
         {
             Console.WriteLine("Waiting for SHAR process...", "Main");
@@ -127,6 +128,12 @@ namespace SHARRandomizer
                 }
                 REWARDS.AddRange(tempRewards);
             }
+            Console.WriteLine("Waiting till gameplay starts.");
+            while (!Extensions.InGame(memory))
+            {
+
+            }
+
             var textBible = memory.Globals.TextBible.CurrentLanguage;
             Console.WriteLine("REWARDS:");
             foreach (var r in REWARDS)
@@ -134,16 +141,11 @@ namespace SHARRandomizer
                 Console.WriteLine((textBible?.GetString(r.Name.ToUpper()) ?? r.Name));
             }
 
-            while (!Extensions.InGame(memory))
-            {
-                
-            }
+
             while (language == null)
             {
                 language = memory.Globals?.TextBible?.CurrentLanguage;
             }
-            /* Lock all default cars since they unlock on level load */
-            LockDefaultCarsOnLoad(memory);
             InitializeMissionTitles();
 
             fillerInventory.Add("Hit N Run Reset", 0);
@@ -159,7 +161,7 @@ namespace SHARRandomizer
             foreach (var rewards in rewardsManager.RewardsList)
             {
                 var textBible = memory.Globals.TextBible.CurrentLanguage;
-                if (!UnlockedItems.Contains(textBible?.GetString(rewards.DefaultCar.Name.ToUpper()) ?? rewards.DefaultCar.Name))
+                if (!UnlockedItems.Contains(rewards.DefaultCar.Name))
                     rewards.DefaultCar.Earned = false;
             }
         }
@@ -173,7 +175,7 @@ namespace SHARRandomizer
                 try
                 {
                     if(Extensions.InGame(memory))
-                    {                        
+                    {
                         string item = await itemsReceived.DequeueAsync();
 
                         var rewardsManager = memory.Singletons.RewardsManager;
@@ -189,6 +191,7 @@ namespace SHARRandomizer
                         {
                             Console.WriteLine($"Unlocking {(textBible?.GetString(matchingReward.Name.ToUpper()) ?? matchingReward.Name)}");
                             matchingReward.Earned = true;
+                            UnlockedItems.Add(matchingReward.Name);
                         }
                         else
                         {
@@ -407,10 +410,6 @@ namespace SHARRandomizer
                     {
                         if (DISABLEDOUBLEJUMPS)
                             jumpAction.JumpAgain = true;
-                        /*
-                        if (DISABLEGROUNDPOUNDS)
-                            jumpAction.Slam = false;
-                        */
                     }
                 }  
             }
@@ -476,8 +475,8 @@ namespace SHARRandomizer
             CURRENTLEVEL = e.Level.ToString();
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
-            LockDefaultCarsOnLoad(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
+            LockDefaultCarsOnLoad(sender);
             return Task.CompletedTask;
         }
 

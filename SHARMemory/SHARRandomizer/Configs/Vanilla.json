@@ -676,102 +676,102 @@
     "wasps": [
       {
         "name": "(LVL 3) WASP - Observatory",
-        "id": "w_observatory",
+        "id": "Level3 - 17",
         "apid": "122463"
       },
       {
         "name": "(LVL 3) WASP - Broken Railing Below Dam",
-        "id": "w_dam1",
+        "id": "Level3 - 11",
         "apid": "122464"
       },
       {
         "name": "(LVL 3) WASP - Broken Railing Above Dam (Exit)",
-        "id": "w_dam2",
+        "id": "Level3 - 16",
         "apid": "122465"
       },
       {
         "name": "(LVL 3) WASP - Kamp Krusty Near Stage",
-        "id": "w_kamp1",
+        "id": "Level3 - 18",
         "apid": "122466"
       },
       {
         "name": "(LVL 3) WASP - Kamp Krusty Well",
-        "id": "w_kamp2",
+        "id": "Level3 - 19",
         "apid": "122467"
       },
       {
         "name": "(LVL 3) WASP - Exit of Kamp Krusty's Well",
-        "id": "w_culvert",
+        "id": "Level3 - 9",
         "apid": "122468"
       },
       {
         "name": "(LVL 3) WASP - Motel Complex",
-        "id": "w_offramp",
+        "id": "Level3 - 10",
         "apid": "122469"
       },
       {
         "name": "(LVL 3) WASP - Duff Brewery Behind Krusty Glass",
-        "id": "w_duff2",
+        "id": "Level3 - 5",
         "apid": "122470"
       },
       {
         "name": "(LVL 3) WASP - Duff Blimp 1",
-        "id": "w_duff1",
+        "id": "Level3 - 14",
         "apid": "12246371"
       },
       {
         "name": "(LVL 3) WASP - Duff Blimp 2",
-        "id": "w_duff3",
+        "id": "Level3 - 15",
         "apid": "122472"
       },
       {
         "name": "(LVL 3) WASP - Krusty Studio Left",
-        "id": "w_kstage1",
+        "id": "Level3 - 6",
         "apid": "122473"
       },
       {
         "name": "(LVL 3) WASP - Krusty Studio Right",
-        "id": "w_night",
+        "id": "Level3 - 8",
         "apid": "122474"
       },
       {
         "name": "(LVL 3) WASP - (Boat) Front end of Boat",
-        "id": "w_dockcrane",
+        "id": "Level3 - 4",
         "apid": "122475"
       },
       {
         "name": "(LVL 3) WASP - (Boat) Next to the Crane",
-        "id": "w_shipcrane",
+        "id": "Level3 - 3",
         "apid": "122476"
       },
       {
         "name": "(LVL 3) WASP - (Boat) Stairs",
-        "id": "w_shipstairs",
+        "id": "Level3 - 13",
         "apid": "122477"
       },
       {
         "name": "(LVL 3) WASP - LightHouse",
-        "id": "w_lighthouse",
+        "id": "Level3 - 2",
         "apid": "122478"
       },
       {
         "name": "(LVL 3) WASP - Planet Hype",
-        "id": "w_hype",
+        "id": "Level3 - 12",
         "apid": "122479"
       },
       {
         "name": "(LVL 3) WASP - Beach",
-        "id": "w_kstage2",
+        "id": "Level3 - 7",
         "apid": "122480"
       },
       {
         "name": "(LVL 3) WASP - Bowling Rooftop",
-        "id": "w_bowl",
+        "id": "Level3 - 1",
         "apid": "122481"
       },
       {
         "name": "(LVL 3) WASP - Comic Book Guy Rooftop",
-        "id": "w_comicroof",
+        "id": "Level3 - 0",
         "apid": "122482"
       }
     ],
@@ -815,57 +815,57 @@
     "gags": [
       {
         "name": "(LVL 3) GAG - Comic Book Guy Robot",
-        "id": "",
+        "id": "2 - 1",
         "apid": "122490"
       },
       {
         "name": "(LVL 3) GAG - Comic Book Guy Radioactive Man",
-        "id": "",
+        "id": "2 - 0",
         "apid": "122491"
       },
       {
         "name": "(LVL 3) GAG - Yellow Dumpster Across Krusty Burger",
-        "id": "",
+        "id": "2 - 10",
         "apid": "122492"
       },
       {
         "name": "(LVL 3) GAG - Kid Drowning in Ball Pit",
-        "id": "",
+        "id": "2 - 8",
         "apid": "122493"
       },
       {
         "name": "(LVL 3) GAG - Crane on Ship",
-        "id": "",
+        "id": "2 - 7",
         "apid": "122494"
       },
       {
         "name": "(LVL 3) GAG - Observatory Alarm",
-        "id": "",
+        "id": "2 - 4",
         "apid": "122495"
       },
       {
         "name": "(LVL 3) GAG - Perpetual Motion Machine at Observatory",
-        "id": "",
+        "id": "2 - 6",
         "apid": "122496"
       },
       {
         "name": "(LVL 3) GAG - Telescope at Observatory",
-        "id": "",
+        "id": "2 - 9",
         "apid": "122497"
       },
       {
         "name": "(LVL 3) GAG - (Observatory) Monkey",
-        "id": "",
+        "id": "2 - 5",
         "apid": "122498"
       },
       {
         "name": "(LVL 3) GAG - Kamp Krusty Flag",
-        "id": "",
+        "id": "2 - 2",
         "apid": "122499"
       },
       {
         "name": "(LVL 3) GAG - Boar’s Head at Kamp Krusty",
-        "id": "",
+        "id": "2 - 3",
         "apid": "122500"
       }
     ],
@@ -972,102 +972,102 @@
     "wasps": [
       {
         "name": "(LVL 4) WASP - Blue House Before Krusty Glass 1",
-        "id": "w_simpsons",
+        "id": "Level4 - 10",
         "apid": "122501"
       },
       {
         "name": "(LVL 4) WASP - Blue House Before Krusty Glass 2",
-        "id": "w_neighbor1",
+        "id": "Level4 - 12",
         "apid": "122502"
       },
       {
         "name": "(LVL 4) WASP - Flander's Backyard",
-        "id": "w_flanders",
+        "id": "Level4 - 11",
         "apid": "122503"
       },
       {
         "name": "(LVL 4) WASP - Wiggums Backyard",
-        "id": "w_wiggum",
+        "id": "Level4 - 13",
         "apid": "122504"
       },
       {
         "name": "(LVL 4) WASP - Wiggums Backyard 2",
-        "id": "w_wiggum2",
+        "id": "Level4 - 14",
         "apid": "122505"
       },
       {
         "name": "(LVL 4) WASP - Kwik-E-Mart Rooftop",
-        "id": "w_kwickemart",
+        "id": "Level4 - 0",
         "apid": "122506"
       },
       {
         "name": "(LVL 4) WASP - Gas Station Rooftop",
-        "id": "w_gasroof2",
+        "id": "Level4 - 15",
         "apid": "122507"
       },
       {
         "name": "(LVL 4) WASP - Atop Gasoline Pump",
-        "id": "w_gasroof",
+        "id": "Level4 - 1",
         "apid": "122508"
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns Giant ChessBoard 1",
-        "id": "w_chess1",
+        "id": "Level4 - 6",
         "apid": "122509"
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns Giant ChessBoard 2",
-        "id": "w_chess2",
+        "id": "Level4 - 7",
         "apid": "122510"
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns StairCase",
-        "id": "w_burns1",
+        "id": "Level4 - 5",
         "apid": "122511"
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns Library",
-        "id": "w_burns2",
+        "id": "Level4 - 17",
         "apid": "122512"
       },
       {
         "name": "(LVL 4) WASP - Outside of Homer's Workstation",
-        "id": "w_powerplant2",
+        "id": "Level4 - 18",
         "apid": "122513"
       },
       {
         "name": "(LVL 4) WASP - Atop Trailer Park",
-        "id": "w_trailor1",
+        "id": "Level4 - 8",
         "apid": "122514"
       },
       {
         "name": "(LVL 4) WASP - In Trailer Park",
-        "id": "w_trailor2",
+        "id": "Level4 - 9",
         "apid": "122515"
       },
       {
         "name": "(LVL 4) WASP - Barn",
-        "id": "w_barn",
+        "id": "Level4 - 19",
         "apid": "122516"
       },
       {
         "name": "(LVL 4) WASP - Behind School Steps",
-        "id": "w_schoolstairs",
+        "id": "Level4 - 16",
         "apid": "122517"
       },
       {
         "name": "(LVL 4) WASP - School Rooftop 1",
-        "id": "w_schoolroof1",
+        "id": "Level4 - 2",
         "apid": "122518"
       },
       {
         "name": "(LVL 4) WASP - School Rooftop 2",
-        "id": "w_schoolroof2",
+        "id": "Level4 - 3",
         "apid": "122519"
       },
       {
         "name": "(LVL 4) WASP - Atop Tower Before Broken Bridge",
-        "id": "w_bridge1",
+        "id": "Level4 - 4",
         "apid": "122520"
       }
     ],
@@ -1111,77 +1111,77 @@
     "gags": [
       {
         "name": "(LVL 4) GAG - Simpson TV",
-        "id": "",
+        "id": "3 - 7",
         "apid": "122528"
       },
       {
         "name": "(LVL 4) GAG - Simpsons Swings",
-        "id": "",
+        "id": "3 - 3",
         "apid": "122529"
       },
       {
         "name": "(LVL 4) GAG - Simpsons Grill",
-        "id": "",
+        "id": "3 - 0",
         "apid": "122530"
       },
       {
         "name": "(LVL 4) GAG - Simpsons Fire Breathing Tiki",
-        "id": "",
+        "id": "3 - 8",
         "apid": "122531"
       },
       {
         "name": "(LVL 4) GAG - Krusty Lamp (Bart's Room)",
-        "id": "",
+        "id": "3 - 12",
         "apid": "122532"
       },
       {
         "name": "(LVL 4) GAG - Flanders Bomb Shelter",
-        "id": "",
+        "id": "3 - 2",
         "apid": "122533"
       },
       {
         "name": "(LVL 4) GAG - Tank Outside Power Plant",
-        "id": "",
+        "id": "3 - 1",
         "apid": "122534"
       },
       {
         "name": "(LVL 4) GAG - Homer’s Workstation Meltdown",
-        "id": "",
+        "id": "3 - 9",
         "apid": "122535"
       },
       {
         "name": "(LVL 4) GAG - School Fire Extinguisher",
-        "id": "",
+        "id": "3 - 10",
         "apid": "122536"
       },
       {
         "name": "(LVL 4) GAG - School Fire Alarm",
-        "id": "",
+        "id": "3 - 11",
         "apid": "122537"
       },
       {
         "name": "(LVL 4) GAG - Frozen man in Kwik-E-Mart",
-        "id": "",
+        "id": "3 - 5",
         "apid": "122538"
       },
       {
         "name": "(LVL 4) GAG - Silent Alarm in Kwik-E-Mart",
-        "id": "",
+        "id": "3 - 14",
         "apid": "122539"
       },
       {
         "name": "(LVL 4) GAG - ATM in Kwik-E-Mart",
-        "id": "",
+        "id": "3 - 6",
         "apid": "122540"
       },
       {
         "name": "(LVL 4) GAG - Arcade Cabinet in Kwik-E-Mart",
-        "id": "",
+        "id": "3 - 13",
         "apid": "122541"
       },
       {
         "name": "(LVL 4) GAG - Squishee Machine in Kwik-E-Mart",
-        "id": "",
+        "id": "3 - 4",
         "apid": "122542"
       }
     ],
@@ -1288,102 +1288,102 @@
     "wasps": [
       {
         "name": "(LVL 5) WASP - Front of Hospital",
-        "id": "w_hospital",
+        "id": "Level5 - 1",
         "apid": "122549"
       },
       {
         "name": "(LVL 5) WASP - Gazebo Between Museum & Court House",
-        "id": "w_gazebo",
+        "id": "Level5 - 12",
         "apid": "122550"
       },
       {
         "name": "(LVL 5) WASP - Steps of Town Hall",
-        "id": "w_townhall",
+        "id": "Level5 - 11",
         "apid": "122551"
       },
       {
         "name": "(LVL 5) WASP - Museum Steps",
-        "id": "w_museum",
+        "id": "Level5 - 2",
         "apid": "122552"
       },
       {
         "name": "(LVL 5) WASP - Rooftop Next to Moes",
-        "id": "w_moesroof",
+        "id": "Level5 - 15",
         "apid": "122553"
       },
       {
         "name": "(LVL 5) WASP - Legitimate Businessman's Rooftop 1",
-        "id": "w_legitroof",
+        "id": "Level5 - 13",
         "apid": "122554"
       },
       {
         "name": "(LVL 5) WASP - Legitimate Businessman's Rooftop 2",
-        "id": "w_legitroof2",
+        "id": "Level5 - 14",
         "apid": "122555"
       },
       {
         "name": "(LVL 5) WASP - Trainyard Stairs",
-        "id": "w_railstair",
+        "id": "Level5 - 3",
         "apid": "122556"
       },
       {
         "name": "(LVL 5) WASP - Other Side of Moving Train",
-        "id": "w_rail1",
+        "id": "Level5 - 16",
         "apid": "122557"
       },
       {
         "name": "(LVL 5) WASP - Watertower 1",
-        "id": "w_rail3",
+        "id": "Level5 - 5",
         "apid": "122558"
       },
       {
         "name": "(LVL 5) WASP - Watertower 2",
-        "id": "w_rail2",
+        "id": "Level5 - 4",
         "apid": "122559"
       },
       {
         "name": "(LVL 5) WASP - Police Station Steps",
-        "id": "w_police",
+        "id": "Level5 - 17",
         "apid": "122560"
       },
       {
         "name": "(LVL 5) WASP - Monorail Stairs",
-        "id": "w_mono1",
+        "id": "Level5 - 6",
         "apid": "122561"
       },
       {
         "name": "(LVL 5) WASP - Monorail",
-        "id": "w_mono2",
+        "id": "Level5 - 18",
         "apid": "122562"
       },
       {
         "name": "(LVL 5) WASP - Otherside of Monorail 1",
-        "id": "w_mono3",
+        "id": "Level5 - 19",
         "apid": "122563"
       },
       {
         "name": "(LVL 5) WASP - Otherside of Monorail 2",
-        "id": "w_mono4",
+        "id": "Level5 - 7",
         "apid": "122564"
       },
       {
         "name": "(LVL 5) WASP - Under Giant Purple Beams 1",
-        "id": "w_needle1",
+        "id": "Level5 - 8",
         "apid": "122565"
       },
       {
         "name": "(LVL 5) WASP - Under Giant Purple Beams 2",
-        "id": "w_needle2",
+        "id": "Level5 - 9",
         "apid": "122566"
       },
       {
         "name": "(LVL 5) WASP - Alleyway Rooftop",
-        "id": "w_roof",
+        "id": "Level5 - 0",
         "apid": "122567"
       },
       {
         "name": "(LVL 5) WASP - Fountain in from Stadium",
-        "id": "w_fountain",
+        "id": "Level5 - 10",
         "apid": "122568"
       }
     ],
@@ -1427,32 +1427,32 @@
     "gags": [
       {
         "name": "(LVL 5) GAG - Pickled Egg in Moe's",
-        "id": "",
+        "id": "4 - 0",
         "apid": "122576"
       },
       {
         "name": "(LVL 5) GAG - Slot Machine in Moe's",
-        "id": "",
+        "id": "4 - 3",
         "apid": "122577"
       },
       {
         "name": "(LVL 5) GAG - Love Tester in Moe's",
-        "id": "",
+        "id": "4 - 2",
         "apid": "122578"
       },
       {
-        "name": "(LVL 5) GAG - Blind an Old Man at the DMV",
-        "id": "",
+        "name": "(LVL 5) GAG - Blind an Hans Moleman at the DMV",
+        "id": "4 - 4",
         "apid": "122579"
       },
       {
         "name": "(LVL 5) GAG - Dumpster Behind Krusty Burger (Near Police Station)",
-        "id": "",
+        "id": "4 - 5",
         "apid": "122580"
       },
       {
         "name": "(LVL 5) GAG - Light Up Drinks in Moe's",
-        "id": "",
+        "id": "4 - 1",
         "apid": "122682" 
       }
     ],
@@ -1559,102 +1559,102 @@
     "wasps": [
       {
         "name": "(LVL 6) WASP - Observatory 1",
-        "id": "w_observatory1",
+        "id": "Level6 - 8",
         "apid": "122590"
       },
       {
         "name": "(LVL 6) WASP - Observatory 2",
-        "id": "w_observatory2",
+        "id": "Level6 - 9",
         "apid": "122591"
       },
       {
         "name": "(LVL 6) WASP - Kamp Krusty 1",
-        "id": "w_kamp1",
+        "id": "Level6 - 10",
         "apid": "122592"
       },
       {
         "name": "(LVL 6) WASP - Kamp Krusty 2",
-        "id": "w_kamp2",
+        "id": "Level6 - 11",
         "apid": "122593"
       },
       {
         "name": "(LVL 6) WASP - Broken Railing Below Dam",
-        "id": "w_dam1",
+        "id": "Level6 - 18",
         "apid": "122594"
       },
       {
         "name": "(LVL 6) WASP - Broken Railing Exit",
-        "id": "w_dam2",
+        "id": "Level6 - 19",
         "apid": "122595"
       },
       {
         "name": "(LVL 6) WASP - Motel",
-        "id": "w_offramp",
+        "id": "Level6 - 7",
         "apid": "122596"
       },
       {
         "name": "(LVL 6) WASP - Duff Brewery Krusty Glass",
-        "id": "w_duff2",
+        "id": "Level6 - 16",
         "apid": "122597"
       },
       {
         "name": "(LVL 6) WASP - Under Duff Blimp",
-        "id": "w_duff3",
+        "id": "Level6 - 17",
         "apid": "122598"
       },
       {
         "name": "(LVL 6) WASP - Krusty Studio Left",
-        "id": "w_kstage1",
+        "id": "Level6 - 4",
         "apid": "122599"
       },
       {
         "name": "(LVL 6) WASP - Krusty Studio Right",
-        "id": "w_night",
+        "id": "Level6 - 6",
         "apid": "122600"
       },
       {
         "name": "(LVL 6) WASP - Krusty Studio Balcony",
-        "id": "w_kstage2",
+        "id": "Level6 - 5",
         "apid": "122601"
       },
       {
         "name": "(LVL 6) WASP - (Boat) Crane",
-        "id": "w_dockcrane",
+        "id": "Level6 - 3",
         "apid": "122602"
       },
       {
         "name": "(LVL 6) WASP - (Boat) Staircase 1",
-        "id": "w_shipcrane",
+        "id": "Level6 - 14",
         "apid": "122603"
       },
       {
         "name": "(LVL 6) WASP - (Boat) Staircase 2",
-        "id": "w_shipstairs",
+        "id": "Level6 - 15",
         "apid": "122604"
       },
       {
         "name": "(LVL 6) WASP - Lighthouse",
-        "id": "w_lighthouse",
+        "id": "Level6 - 2",
         "apid": "122605"
       },
       {
         "name": "(LVL 6) WASP - Planet Hype Rooftop",
-        "id": "w_hype2",
+        "id": "Level6 - 13",
         "apid": "122606"
       },
       {
         "name": "(LVL 6) WASP - Bowling Rooftop",
-        "id": "w_bowl",
+        "id": "Level6 - 1",
         "apid": "122607"
       },
       {
         "name": "(LVL 6) WASP - Comic Book Guy Rooftop 1",
-        "id": "w_comicroof",
+        "id": "Level6 - 0",
         "apid": "122608"
       },
       {
         "name": "(LVL 6) WASP - Comic Book Guy Rooftop 2",
-        "id": "w_comicroof2",
+        "id": "Level6 - 12",
         "apid": "122609"
       }
     ],
@@ -1698,58 +1698,58 @@
     "gags": [
       {
         "name": "(LVL 6) GAG - Comic Book Guy Robot",
-        "id": "",
+        "id": "5 - 1",
         "apid": "122617"
       },
       {
         "name": "(LVL 6) GAG - Comic Book Guy Radioactive Man",
-        "id": "",
+        "id": "5 - 0",
         "apid": "122618"
       },
       {
         "name": "(LVL 6) GAG - Yellow Dumpster Across Krusty Burger",
-        "id": "",
+        "id": "5 - 10",
         "apid": "122619"
       },
       {
         "name": "(LVL 6) GAG - Kid Drowning in Ball Pit",
-        "id": "",
+        "id": "5 - 8",
         "apid": "122620"
       },
       {
         "name": "(LVL 6) GAG - Crane on Ship",
-        "id": "",
+        "id": "5 - 7",
         "apid": "122621",
         "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}"
       },
       {
         "name": "(LVL 6) GAG - Observatory Alarm",
-        "id": "",
+        "id": "5 - 4",
         "apid": "122622"
       },
       {
         "name": "(LVL 6) GAG - Perpetual Motion Machine at Observatory",
-        "id": "",
+        "id": "5 - 6",
         "apid": "122623"
       },
       {
         "name": "(LVL 6) GAG - Telescope at Observatory",
-        "id": "",
+        "id": "5 - 9",
         "apid": "122624"
       },
       {
         "name": "(LVL 6) GAG - (Observatory) Monkey",
-        "id": "",
+        "id": "5 - 5",
         "apid": "122625"
       },
       {
         "name": "(LVL 6) GAG - Kamp Krusty Flag",
-        "id": "",
+        "id": "5 - 2",
         "apid": "122626"
       },
       {
         "name": "(LVL 6) GAG - Boar’s Head at Kamp Krusty",
-        "id": "",
+        "id": "5 - 3",
         "apid": "122627"
       }
     ],
@@ -1856,102 +1856,102 @@
     "wasps": [
       {
         "name": "(LVL 7) WASP - Blue House Haunted Playground",
-        "id": "w_lemon",
+        "id": "Level7 - 0",
         "apid": "122634"
       },
       {
         "name": "(LVL 7) WASP - Blue House Backyard",
-        "id": "w_simpsons",
+        "id": "Level7 - 10",
         "apid": "122635"
       },
       {
         "name": "(LVL 7) WASP - Simpsons' Backyard",
-        "id": "w_simpson2",
+        "id": "Level7 - 11",
         "apid": "122636"
       },
       {
         "name": "(LVL 7) WASP - Flanders' Backyard",
-        "id": "w_flanders",
+        "id": "Level7 - 12",
         "apid": "122637"
       },
       {
         "name": "(LVL 7) WASP - Wiggums' Backyard",
-        "id": "w_wiggums",
+        "id": "Level7 - 13",
         "apid": "122638"
       },
       {
         "name": "(LVL 7) WASP - Atop of Kwik-E-Mart",
-        "id": "w_kwickemart",
+        "id": "Level7 - 14",
         "apid": "122639"
       },
       {
         "name": "(LVL 7) WASP - Atop of Gasoline",
-        "id": "w_gasroof",
+        "id": "Level7 - 15",
         "apid": "122640"
       },
       {
         "name": "(LVL 7) WASP - Lard Lad Rooftop",
-        "id": "w_lardlads",
+        "id": "Level7 - 2",
         "apid": "122641"
       },
       {
         "name": "(LVL 7) WASP - Krusty Burger Rooftop",
-        "id": "w_krustyRC",
+        "id": "Level7 - 1",
         "apid": "122642"
       },
       {
         "name": "(LVL 7) WASP - School playground",
-        "id": "w_playground",
+        "id": "Level7 - 3",
         "apid": "122643"
       },
       {
         "name": "(LVL 7) WASP - The One Being Abducted",
-        "id": "w_schoolroof1",
+        "id": "Level7 - 4",
         "apid": "122644"
       },
       {
         "name": "(LVL 7) WASP - School Roof 1",
-        "id": "w_schoolroof2",
+        "id": "Level7 - 5",
         "apid": "122645"
       },
       {
         "name": "(LVL 7) WASP - School Roof 2",
-        "id": "w_schoolroof3",
+        "id": "Level7 - 6",
         "apid": "122646"
       },
       {
         "name": "(LVL 7) WASP - Bridge Barricade",
-        "id": "w_blockade",
+        "id": "Level7 - 7",
         "apid": "122647"
       },
       {
         "name": "(LVL 7) WASP - Bridge Frame by Cletus",
-        "id": "w_bridge1",
+        "id": "Level7 - 16",
         "apid": "122648"
       },
       {
         "name": "(LVL 7) WASP - TrailerPark 1",
-        "id": "w_trailor1",
+        "id": "Level7 - 18",
         "apid": "122649"
       },
       {
         "name": "(LVL 7) WASP - TrailerPark 2",
-        "id": "w_trailor2",
+        "id": "Level7 - 19",
         "apid": "122650"
       },
       {
         "name": "(LVL 7) WASP - Barn Silo",
-        "id": "w_barn",
+        "id": "Level7 - 8",
         "apid": "122651"
       },
       {
         "name": "(LVL 7) WASP - Power Plant Parking lot",
-        "id": "w_plantlot2",
+        "id": "Level7 - 9",
         "apid": "122652"
       },
       {
         "name": "(LVL 7) WASP - Mr. Burns Office",
-        "id": "w_plantlot",
+        "id": "Level7 - 17",
         "apid": "122653"
       }
     ],
@@ -1995,77 +1995,77 @@
     "gags": [
       {
         "name": "(LVL 7) GAG - Simpsons TV",
-        "id": "",
+        "id": "6 - 6",
         "apid": "122661"
       },
       {
         "name": "(LVL 7) GAG - Simpsons Swing",
-        "id": "",
+        "id": "6 - 1",
         "apid": "122662"
       },
       {
         "name": "(LVL 7) GAG - Simpsons Fire Breathing Tiki",
-        "id": "",
+        "id": "6 - 7",
         "apid": "122663"
       },
       {
         "name": "(LVL 7) GAG - Krusty Lamp (Bart’s Room)",
-        "id": "",
+        "id": "6 - 12",
         "apid": "122664"
       },
       {
         "name": "(LVL 7) GAG - Clown Bed (Bart’s Room)",
-        "id": "",
+        "id": "6 - 13",
         "apid": "122665"
       },
       {
         "name": "(LVL 7) GAG - Flanders’ Bomb Shelter",
-        "id": "",
+        "id": "6 - 14",
         "apid": "122666"
       },
       {
         "name": "(LVL 7) GAG - Blue House Haunted Swing",
-        "id": "",
+        "id": "6 - 2",
         "apid": "122667"
       },
       {
         "name": "(LVL 7) GAG - Tank in Power Plant Parking Lot",
-        "id": "",
+        "id": "6 - 0",
         "apid": "122668"
       },
       {
         "name": "(LVL 7) GAG - Frozen Man in Kwik-E-Mart",
-        "id": "",
+        "id": "6 - 4",
         "apid": "122669"
       },
       {
         "name": "(LVL 7) GAG - Silent Alarm in Kwik-E-Mart",
-        "id": "",
+        "id": " 6 - 11",
         "apid": "122670"
       },
       {
         "name": "(LVL 7) GAG - Squishee Machine in Kwik-E-Mart",
-        "id": "",
+        "id": "6 - 3",
         "apid": "122671"
       },
       {
         "name": "(LVL 7) GAG - ATM in Kwik-E-Mart",
-        "id": "",
+        "id": "6 - 5",
         "apid": "122672"
       },
       {
         "name": "(LVL 7) GAG - Arcade Cabinet in Kwik-E-Mart",
-        "id": "",
+        "id": "6 - 10",
         "apid": "122673"
       },
       {
         "name": "(LVL 7) GAG - School Fire Extinguisher",
-        "id": "",
+        "id": "6 - 9",
         "apid": "122674"
       },
       {
         "name": "(LVL 7) GAG - School Fire Alarm",
-        "id": "",
+        "id": "6 - 8",
         "apid": "122675"
       }
     ],
