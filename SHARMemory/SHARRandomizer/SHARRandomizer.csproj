@@ -22,4 +22,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SHARRandomizerMod\Resources\art\frontend\dynaload\cars\" />
+    <Folder Include="SHARRandomizerMod\Resources\art\frontend\scrooby\" />
+  </ItemGroup>
+
 </Project>

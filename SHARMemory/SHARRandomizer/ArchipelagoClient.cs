@@ -14,6 +14,7 @@ namespace SHARRandomizer
 {
     public class ArchipelagoClient
     {
+        List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset"};
         private const string MinArchipelagoVersion = "0.5.0";
         public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>();
 
@@ -238,9 +239,13 @@ namespace SHARRandomizer
                 _session.DataStorage["index"] = index;
                 MemoryManip.itemsReceived.Enqueue(itemName);
             }
-            else if(item.Flags == ItemFlags.Advancement || item.Flags == ItemFlags.NeverExclude)
+            else if (item.Flags != ItemFlags.Trap && !NORESEND.Contains(item.ItemName))
             {
                 MemoryManip.itemsReceived.Enqueue(itemName);
+            }
+            else
+            {
+                Console.WriteLine($"Didn't enqueue {itemName} which is {item.Flags}");
             }
             
         }
