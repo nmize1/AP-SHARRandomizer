@@ -227,7 +227,7 @@ namespace SHARRandomizer
                                     HandleTraps(memory, s);
                                     break;
 
-                                case string s when s.Contains("Jump") || s.Contains("Kick"):
+                                case string s when s.Contains("Jump") || s.Contains("Attack"):
                                     Console.WriteLine($"Received {s}");
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
