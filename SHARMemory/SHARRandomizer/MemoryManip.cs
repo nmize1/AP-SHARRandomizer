@@ -48,6 +48,7 @@ namespace SHARRandomizer
         FeLanguage language = null;
 
         bool DISABLEDOUBLEJUMPS = false;
+        bool DISABLEEBRAKE = false;
         string CURRENTLEVEL = "";
 
 
@@ -153,7 +154,7 @@ namespace SHARRandomizer
             fillerInventory.Add("Hit N Run Reset", 0);
             fillerInventory.Add("Wrench", 0);
             traps.AddRange(new List<string> { "Car Brake", "Reset Car" });
-            Task.Run(() => CheckJumpActions(memory));
+            Task.Run(() => CheckActions(memory));
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
@@ -227,7 +228,7 @@ namespace SHARRandomizer
                                     HandleTraps(memory, s);
                                     break;
 
-                                case string s when s.Contains("Jump") || s.Contains("Attack"):
+                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake"):
                                     Console.WriteLine($"Received {s}");
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
@@ -398,9 +399,20 @@ namespace SHARRandomizer
                 DISABLEDOUBLEJUMPS = true;
             else
                 DISABLEDOUBLEJUMPS = false;
+
+            if (!moves.Contains($"{character} E-Brake"))
+            {
+                memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.HandBrake);
+                DISABLEEBRAKE = true;
+            }
+            else
+            {
+                memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.HandBrake);
+                DISABLEEBRAKE = false;
+            }
         }
 
-        async void CheckJumpActions(Memory memory)
+        async void CheckActions(Memory memory)
         {  
             while (memory.IsRunning)
             {
@@ -413,6 +425,11 @@ namespace SHARRandomizer
                         if (DISABLEDOUBLEJUMPS)
                             jumpAction.JumpAgain = true;
                     }
+                    Console.WriteLine(memory.Singletons.CharacterManager?.Player?.Car?.Speed.ToString());
+                    if (DISABLEEBRAKE && memory.Singletons.CharacterManager?.Player?.Car?.Speed >= 1)
+                        memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.GetOutCar);
+                    else
+                        memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.GetOutCar);
                 }  
             }
         }

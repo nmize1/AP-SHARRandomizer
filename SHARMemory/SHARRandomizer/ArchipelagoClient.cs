@@ -86,7 +86,7 @@ namespace SHARRandomizer
                     }
 
                     loginResult = _session.TryConnectAndLogin(
-                        "SimpsonsHitAndRun",
+                        "The Simpsons Hit And Run",
                         SLOTNAME,
                         ItemsHandlingFlags.AllItems,
                         new Version(MinArchipelagoVersion),

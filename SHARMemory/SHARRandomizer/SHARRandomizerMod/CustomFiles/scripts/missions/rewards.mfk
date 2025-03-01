@@ -13,18 +13,20 @@
 BindReward( "famil_v", "art\cars\famil_v.p3d", "car", "defaultcar", 1 );
 BindReward( "cletu_v", "art\cars\cletu_v.p3d", "car", "bonusmission", 1 );
 BindReward( "elect_v", "art\cars\elect_v.p3d", "car", "streetrace", 1 );
-BindReward( "APCar1", "art\cars\APCar1.p3d", "car", "forsale", 1, 150, "simpson" ); //Barney
-BindReward( "APCar2", "art\cars\APCar2.p3d", "car", "forsale", 1, 125, "gil" );
-BindReward( "APCar3", "art\cars\APCar3.p3d", "car", "forsale", 1, 100, "gil" );
-BindReward( "APCar4", "art\cars\APCar4.p3d", "car", "forsale", 1, 125, "gil" );
-BindReward( "APCar5", "art\cars\APCar5.p3d", "car", "forsale", 1, 100, "gil" );
-BindReward( "APCar6", "art\cars\APCar6.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "plowk_v", "art\cars\plowk_v.p3d", "car", "forsale", 1, 150, "simpson" ); //Barney
+BindReward( "cDuff", "art\cars\cDuff.p3d", "car", "forsale", 1, 125, "simpson" );
+BindReward( "cVan", "art\cars\cVan.p3d", "car", "forsale", 1, 100, "simpson" );
+BindReward( "APCar1", "art\cars\APCar1.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar2", "art\cars\APCar2.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar3", "art\cars\APCar3.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "homer", "art\chars\homer_m.p3d", "skin", "defaultskin", 1 );
-BindReward( "h_undrwr", "art\chars\h_undr_m.p3d", "skin", "forsale", 1, 100, "interior" );
-BindReward( "h_fat", "art\chars\h_fat_m.p3d", "skin", "forsale", 1, 125, "interior" );
-BindReward( "h_stcrobe", "art\chars\h_stcr_m.p3d", "skin", "forsale", 1, 150, "interior" );
-BindReward( "h_ap", "art\chars\h_ap_m.p3d", "skin", "forsale", 1, 150, "interior" );
+BindReward( "h_undrwr", "art\chars\h_undr_m.p3d", "skin", "forsale", 1, 999999, "interior" );
+BindReward( "h_fat", "art\chars\h_fat_m.p3d", "skin", "forsale", 1, 999999, "interior" );
+BindReward( "h_stcrobe", "art\chars\h_stcr_m.p3d", "skin", "forsale", 1, 999999, "interior" );
+BindReward( "h_ap1", "art\chars\h_ap1_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap2", "art\chars\h_ap2_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap3", "art\chars\h_ap3_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 1, 15 );
 
