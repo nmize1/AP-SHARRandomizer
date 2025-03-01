@@ -44,6 +44,12 @@ public sealed class Singletons
     /// </summary>
     public GameFlow GameFlow => GameFlowSingleton.Get();
 
+    private readonly Singleton<CGuiSystem> GuiSystemSingleton;
+    /// <summary>
+    /// A reference to SHAR's <see cref="Classes.CGuiSystem"/> singleton.
+    /// </summary>
+    public CGuiSystem GuiSystem => GuiSystemSingleton.Get();
+
     private readonly Singleton<HitNRunManager> HitNRunManagerSingleton;
     /// <summary>
     /// A reference to SHAR's <see cref="Classes.HitNRunManager"/> singleton.
@@ -130,6 +136,7 @@ public sealed class Singletons
         CoinManagerSingleton = new(memory, memory.SelectAddress(0x6C8450, 0x6C8410, 0x6C8410, 0x6C8448));
         GameFlowSingleton = new(memory, memory.SelectAddress(0x6C9014, 0x6C8FD4, 0x6C8FD4, 0x6C900C));
         GameDataManagerSingleton = new(memory, memory.SelectAddress(0x6C842C, 0x6C83EC, 0x6C83EC, 0x6C8424));
+        GuiSystemSingleton = new(memory, memory.SelectAddress(0x6C894C, 0x6C890C, 0x6C890C, 0x6C8944));
         HitNRunManagerSingleton = new(memory, memory.SelectAddress(0x6C84E0, 0x6C84A0, 0x6C84A0, 0x6C84D8));
         InputManagerSingleton = new(memory, memory.SelectAddress(0x6C9008, 0x6C8FC8, 0x6C8FC8, 0x6C9000));
         InteriorManagerSingleton = new(memory, memory.SelectAddress(0x6C8FF8, 0x6C8FB8, 0x6C8FB8, 0x6C8FF0));

@@ -51,7 +51,7 @@ public class TrafficManager : Class
     }
 
     internal const uint VehiclesOffset = NumTrafficOffset + sizeof(int);
-    public PointerArray<TrafficVehicle> Vehicles => new(Memory, ReadUInt32(VehiclesOffset), MaxTrafficValue);
+    public ClassArray<TrafficVehicle> Vehicles => new(Memory, ReadUInt32(VehiclesOffset), TrafficVehicle.Size, MaxTrafficValue);
 
     internal const uint CharactersToStopForOffset = VehiclesOffset + sizeof(uint);
     public PointerArray<Character> CharactersToStopFor => new(Memory, Address + CharactersToStopForOffset, MaxCharsToStopFor);

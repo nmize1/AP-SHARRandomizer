@@ -576,7 +576,11 @@ public sealed class Watcher
             else if (nowPlaying is Conversation nowPlayingConversation)
                 nowPlaying = nowPlayingConversation.CurrentLine;
 
-            if (nowPlaying.Address != lastDialogAddress)
+            if (nowPlaying == null)
+            {
+                lastDialogAddress = 0;
+            }
+            else if (nowPlaying.Address != lastDialogAddress)
             {
                 lastDialogAddress = nowPlaying.Address;
                 await DialogPlaying.InvokeAsync(Memory, new(nowPlaying), CancellationToken.None);
