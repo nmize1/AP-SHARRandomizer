@@ -18,6 +18,11 @@ public sealed partial class Globals
     public FeTextBible TextBible => Memory.ClassFactory.Create<FeTextBible>(Memory.ReadUInt32(Memory.SelectAddress(0x6C8944, 0x6C8904, 0x6C8904, 0x6C893C)));
 
     /// <summary>
+    /// A reference to SHAR's <see cref="Classes.RoadManager"/> static global.
+    /// </summary>
+    public RoadManager RoadManager => Memory.ClassFactory.Create<RoadManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6c85b0, 0, 0, 0)));
+
+    /// <summary>
     /// A reference to the handler for SHAR's <c>CharacterTune</c> statics.
     /// </summary>
     public CharacterTuneHandler CharacterTune { get; }
