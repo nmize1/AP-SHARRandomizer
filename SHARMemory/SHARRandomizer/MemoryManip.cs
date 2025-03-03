@@ -49,6 +49,7 @@ namespace SHARRandomizer
 
         bool DISABLEDOUBLEJUMPS = false;
         bool DISABLEEBRAKE = false;
+        bool DISABLEDEFAULT = false;
         string CURRENTLEVEL = "";
 
 
@@ -158,14 +159,27 @@ namespace SHARRandomizer
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
-        public void LockDefaultCarsOnLoad(Memory memory)
+        public void LockDefaultCarsOnLoad(Memory memory, int level)
         {
+            List<string> dcars = new List<string> { "Family Sedan", "Honor Roller", "Malibu Stacy Car", "Canyonero", "Longhorn", "Ferrini - Red", "70's Sports Car"  };
             var rewardsManager = memory.Singletons.RewardsManager;
+            int i = 0;
             foreach (var rewards in rewardsManager.RewardsList)
             {
-                var textBible = memory.Globals.TextBible.CurrentLanguage;
-                if (!UnlockedItems.Contains(rewards.DefaultCar.Name))
+                
+                if (!UnlockedItems.Contains(dcars[i]))
+                {
                     rewards.DefaultCar.Earned = false;
+
+                    if (i == level)
+                    {
+                        DISABLEDEFAULT = true;
+                    }
+                }
+                else if (i == level)
+                {
+                    DISABLEDEFAULT = false;
+                }
             }
         }
 
@@ -413,7 +427,13 @@ namespace SHARRandomizer
         }
 
         async void CheckActions(Memory memory)
-        {  
+        {
+            RewardsManager rewardsManager = null;
+            while (rewardsManager == null)
+            {
+                rewardsManager = memory.Singletons.RewardsManager;
+            }
+
             while (memory.IsRunning)
             {
                 await System.Threading.Tasks.Task.Delay(1);
@@ -425,11 +445,20 @@ namespace SHARRandomizer
                         if (DISABLEDOUBLEJUMPS)
                             jumpAction.JumpAgain = true;
                     }
-                    Console.WriteLine(memory.Singletons.CharacterManager?.Player?.Car?.Speed.ToString());
+
+                    //Commented out in case we need to check car speed again for debugging later.
+                    //Console.WriteLine(memory.Singletons.CharacterManager?.Player?.Car?.Speed.ToString()); 
                     if (DISABLEEBRAKE && memory.Singletons.CharacterManager?.Player?.Car?.Speed >= 1)
                         memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.GetOutCar);
                     else
                         memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.GetOutCar);
+
+                    Vehicle car = memory.Singletons.CharacterManager?.Player?.Car;
+                    List<String> defaults = rewardsManager.RewardsList.Select(reward => reward.DefaultCar.Name).ToList();
+                    if (DISABLEDEFAULT && car != null && defaults.Contains(car.Name))
+                        car.GasBrakeDisabled = true;
+                    else if (car != null)
+                        car.GasBrakeDisabled = false;
                 }  
             }
         }
@@ -495,7 +524,7 @@ namespace SHARRandomizer
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
-            LockDefaultCarsOnLoad(sender);
+            LockDefaultCarsOnLoad(sender, ((int)e.Level));
             return Task.CompletedTask;
         }
 
