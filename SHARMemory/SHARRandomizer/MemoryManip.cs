@@ -119,9 +119,10 @@ namespace SHARRandomizer
                     tempRewards.Add(rewards.BonusMission);
                     tempRewards.Add(rewards.StreetRace);
 
-                    for (int merchandiseIndex = 0; merchandiseIndex < rewardsManager.LevelTokenStoreList[merchandiseIndex].Counter; merchandiseIndex++)
+                    for (int merchandiseIndex = 0; merchandiseIndex < rewardsManager.LevelTokenStoreList[i].Counter; merchandiseIndex++)
                     {
                         var merchandise = memory.Functions.GetMerchandise(i, merchandiseIndex);
+
                         if (merchandise != null && merchandise.RewardType != Reward.RewardTypes.Null && merchandise.Name != "Null")
                         {
                             tempRewards.Add(merchandise);

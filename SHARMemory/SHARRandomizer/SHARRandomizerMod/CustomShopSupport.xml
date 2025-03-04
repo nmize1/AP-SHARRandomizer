@@ -1,0 +1,35 @@
+<CustomShopSupport>
+	<PhoneBooth>
+		<Selector Level="1" />
+		<Selector Level="2" />
+		<Selector Level="3" />
+		<Selector Level="4" />
+		<Selector Level="5" />
+		<Selector Level="6" />
+		<Selector Level="7" />
+
+		<ExcludedItems>
+			<Car>APCar1</Car>
+			<Car>APCar2</Car>
+			<Car>APCar3</Car>
+			<Car>APCar4</Car>
+			<Car>APCar5</Car>
+			<Car>APCar6</Car>
+			<Car>APCar7</Car>
+			<Car>APCar8</Car>
+			<Car>APCar9</Car>
+			<Car>APCar10</Car>
+			<Car>APCar11</Car>
+			<Car>APCar12</Car>
+			<Car>APCar13</Car>
+			<Car>APCar14</Car>
+			<Car>APCar15</Car>
+			<Car>APCar16</Car>
+			<Car>APCar17</Car>
+			<Car>APCar18</Car>
+			<Car>APCar19</Car>
+			<Car>APCar20</Car>
+			<Car>APCar21</Car>
+		</ExcludedItems>
+	</PhoneBooth>
+</CustomShopSupport>

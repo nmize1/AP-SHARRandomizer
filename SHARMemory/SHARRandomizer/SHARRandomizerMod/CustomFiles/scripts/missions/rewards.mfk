@@ -16,6 +16,7 @@ BindReward( "elect_v", "art\cars\elect_v.p3d", "car", "streetrace", 1 );
 BindReward( "plowk_v", "art\cars\plowk_v.p3d", "car", "forsale", 1, 150, "simpson" ); //Barney
 BindReward( "cDuff", "art\cars\cDuff.p3d", "car", "forsale", 1, 125, "simpson" );
 BindReward( "cVan", "art\cars\cVan.p3d", "car", "forsale", 1, 100, "simpson" );
+BindReward( "rocke_v", "art\cars\rocke_v.p3d", "car", "forsale", 1, 100, "simpson");
 BindReward( "APCar1", "art\cars\APCar1.p3d", "car", "forsale", 1, 125, "gil" );
 BindReward( "APCar2", "art\cars\APCar2.p3d", "car", "forsale", 1, 100, "gil" );
 BindReward( "APCar3", "art\cars\APCar3.p3d", "car", "forsale", 1, 125, "gil" ); 
@@ -36,13 +37,20 @@ BindReward( "honor_v", "art\cars\honor_v.p3d", "car", "defaultcar", 2 );
 BindReward( "gramp_v", "art\cars\gramp_v.p3d", "car", "bonusmission", 2 );
 BindReward( "moe_v", "art\cars\moe_v.p3d", "car", "streetrace", 2 );
 BindReward( "mrplo_v", "art\cars\mrplo_v.p3d", "car", "forsale", 2, 200, "simpson" ); //Homer
-BindReward( "cLimo", "art\cars\cLimo.p3d", "car", "forsale", 2, 150, "gil" );
-BindReward( "cFire_v", "art\cars\cFire_v.p3d", "car", "forsale", 2, 250, "gil" );
+BindReward( "cLimo", "art\cars\cLimo.p3d", "car", "forsale", 2, 150, "simpson" );
+BindReward( "cFire_v", "art\cars\cFire_v.p3d", "car", "forsale", 2, 250, "simpson" );
+BindReward( "mono_v", "art\cars\mono_v.p3d", "car", "forsale", 2, 250, "simpson" );
+BindReward( "APCar4", "art\cars\APCar4.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar5", "art\cars\APCar5.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar6", "art\cars\APCar6.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "bart", "art\chars\bart_m.p3d", "skin", "defaultskin", 2 );
-BindReward( "b_tall", "art\chars\b_tall_m.p3d", "skin", "forsale", 2, 150, "interior" );
-BindReward( "b_football", "art\chars\b_foot_m.p3d", "skin", "forsale", 2, 200, "interior" );
-BindReward( "b_ninja", "art\chars\b_ninj_m.p3d", "skin", "forsale", 2, 250, "interior" );
+BindReward( "b_tall", "art\chars\b_tall_m.p3d", "skin", "forsale", 2, 999999, "interior" );
+BindReward( "b_football", "art\chars\b_foot_m.p3d", "skin", "forsale", 2, 999999, "interior" );
+BindReward( "b_ninja", "art\chars\b_ninj_m.p3d", "skin", "forsale", 2, 999999, "interior" );
+BindReward( "h_ap4", "art\chars\h_ap4_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap5", "art\chars\h_ap5_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap6", "art\chars\h_ap6_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 2, 11 );
 
@@ -52,13 +60,20 @@ BindReward( "lisa_v", "art\cars\lisa_v.p3d", "car", "defaultcar", 3 );
 BindReward( "skinn_v", "art\cars\skinn_v.p3d", "car", "bonusmission", 3 );
 BindReward( "bookb_v", "art\cars\bookb_v.p3d", "car", "streetrace", 3 );
 BindReward( "otto_v", "art\cars\otto_v.p3d", "car", "forsale", 3, 300, "simpson" ); // Otto
-BindReward( "cDonut", "art\cars\cDonut.p3d", "car", "forsale", 3, 250, "gil" );
-BindReward( "cNerd", "art\cars\cNerd.p3d", "car", "forsale", 3, 250, "gil" );
+BindReward( "cDonut", "art\cars\cDonut.p3d", "car", "forsale", 3, 250, "simpson" );
+BindReward( "cNerd", "art\cars\cNerd.p3d", "car", "forsale", 3, 250, "simpson" );
+BindReward( "knigh_v", "art\cars\knigh_v.p3d", "car", "forsale", 1, 100, "simpson");
+BindReward( "APCar7", "art\cars\APCar7.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar8", "art\cars\APCar8.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar9", "art\cars\APCar9.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "lisa", "art\chars\lisa_m.p3d", "skin", "defaultskin", 3 );
-BindReward( "l_cool", "art\chars\l_cool_m.p3d", "skin", "forsale", 3, 250, "interior");
-BindReward( "l_florida", "art\chars\l_flor_m.p3d", "skin", "forsale", 3, 250, "interior");
-BindReward( "l_jersey", "art\chars\l_jers_m.p3d", "skin", "forsale", 3, 300, "interior");
+BindReward( "l_cool", "art\chars\l_cool_m.p3d", "skin", "forsale", 3, 999999999999, "interior");
+BindReward( "l_florida", "art\chars\l_flor_m.p3d", "skin", "forsale", 3, 999999999999, "interior");
+BindReward( "l_jersey", "art\chars\l_jers_m.p3d", "skin", "forsale", 3, 999999999999, "interior");
+BindReward( "h_ap7", "art\chars\h_ap7_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap8", "art\chars\h_ap8_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap9", "art\chars\h_ap9_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 3, 11 );
 
@@ -70,13 +85,20 @@ BindReward( "comic_v", "art\cars\comic_v.p3d", "car", "bonusmission", 4 );
 BindReward( "krust_v", "art\cars\krust_v.p3d", "car", "streetrace", 4 );
 //BindReward( "wiggu_v", "art\cars\wiggu_v.p3d", "car", "streetrace", 4 );
 BindReward( "willi_v", "art\cars\willi_v.p3d", "car", "forsale", 4, 400, "simpson" ); // Willie
-BindReward( "cKlimo", "art\cars\cKlimo.p3d", "car", "forsale", 4, 350, "gil" );
-BindReward( "cCurator", "art\cars\cCurator.p3d", "car", "forsale", 4, 300, "gil" );
+BindReward( "cKlimo", "art\cars\cKlimo.p3d", "car", "forsale", 4, 350, "simpson" );
+BindReward( "cCurator", "art\cars\cCurator.p3d", "car", "forsale", 4, 300, "simpson" );
+BindReward( "atv_v", "art\cars\atv_v.p3d", "car", "forsale", 1, 100, "simpson");
+BindReward( "APCar10", "art\cars\APCar10.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar11", "art\cars\APCar11.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar12", "art\cars\APCar12.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "marge", "art\chars\marge_m.p3d", "skin", "defaultskin", 4 );
-BindReward( "m_prison", "art\chars\m_pris_m.p3d", "skin", "forsale", 4, 300, "interior" );
-BindReward( "m_pink", "art\chars\m_pink_m.p3d", "skin", "forsale", 4, 350, "interior" );
-BindReward( "m_police", "art\chars\m_poli_m.p3d", "skin", "forsale", 4, 400, "interior" );
+BindReward( "m_prison", "art\chars\m_pris_m.p3d", "skin", "forsale", 4, 999999, "interior" );
+BindReward( "m_pink", "art\chars\m_pink_m.p3d", "skin", "forsale", 4, 999999, "interior" );
+BindReward( "m_police", "art\chars\m_poli_m.p3d", "skin", "forsale", 4, 999999, "interior" );
+BindReward( "h_ap10", "art\chars\h_ap10_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap11", "art\chars\h_ap11_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap12", "art\chars\h_ap12_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 4, 15 );
 
@@ -86,13 +108,20 @@ BindReward( "apu_v", "art\cars\apu_v.p3d", "car", "defaultcar", 5 );
 BindReward( "frink_v", "art\cars\frink_v.p3d", "car", "bonusmission", 5 );
 BindReward( "bbman_v", "art\cars\bbman_v.p3d", "car", "streetrace", 5 );
 BindReward( "carhom_v", "art\cars\carhom_v.p3d", "car", "forsale", 5, 500, "simpson" ); // Homer
-BindReward( "wiggu_v", "art\cars\wiggu_v.p3d", "car", "forsale", 5, 425, "gil" );
-BindReward( "cCola", "art\cars\cCola.p3d", "car", "forsale", 5, 350, "gil" );
+BindReward( "wiggu_v", "art\cars\wiggu_v.p3d", "car", "forsale", 5, 425, "simpson" );
+BindReward( "cCola", "art\cars\cCola.p3d", "car", "forsale", 5, 350, "simpson" );
+BindReward( "oblit_v", "art\cars\oblit_v.p3d", "car", "forsale", 1, 100, "simpson");
+BindReward( "APCar13", "art\cars\APCar13.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar14", "art\cars\APCar14.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar15", "art\cars\APCar15.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "apu", "art\chars\apu_m.p3d", "skin", "defaultskin", 5 );
-BindReward( "a_army", "art\chars\a_army_m.p3d", "skin", "forsale", 5, 375, "interior" );
-BindReward( "a_american", "art\chars\a_amer_m.p3d", "skin", "forsale", 5, 425, "interior" );
-BindReward( "a_besharp", "art\chars\a_besh_m.p3d", "skin", "forsale", 5, 475, "interior" );
+BindReward( "a_army", "art\chars\a_army_m.p3d", "skin", "forsale", 5, 999999, "interior" );
+BindReward( "a_american", "art\chars\a_amer_m.p3d", "skin", "forsale", 5, 999999, "interior" );
+BindReward( "a_besharp", "art\chars\a_besh_m.p3d", "skin", "forsale", 5, 999999, "interior" );
+BindReward( "h_ap13", "art\chars\h_ap13_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap14", "art\chars\h_ap14_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap15", "art\chars\h_ap15_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 5, 6 );
 
@@ -102,13 +131,20 @@ BindReward( "bart_v", "art\cars\bart_v.p3d", "car", "defaultcar", 6 );
 BindReward( "snake_v", "art\cars\snake_v.p3d", "car", "bonusmission", 6 );
 BindReward( "burns_v", "art\cars\burns_v.p3d", "car", "streetrace", 6 );
 BindReward( "scorp_v", "art\cars\scorp_v.p3d", "car", "forsale", 6, 600, "simpson" ); // Kearney
-BindReward( "cArmor", "art\cars\cArmor.p3d", "car", "forsale", 6, 400, "gil" );
-BindReward( "cSedan", "art\cars\cSedan.p3d", "car", "forsale", 6, 500, "gil" );
+BindReward( "cArmor", "art\cars\cArmor.p3d", "car", "forsale", 6, 400, "simpson" );
+BindReward( "cSedan", "art\cars\cSedan.p3d", "car", "forsale", 6, 500, "simpson" );
+BindReward( "hype_v", "art\cars\hype_v.p3d", "car", "forsale", 1, 100, "simpson");
+BindReward( "APCar16", "art\cars\APCar16.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar17", "art\cars\APCar17.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar18", "art\cars\APCar18.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "bart", "art\chars\bart_m.p3d", "skin", "defaultskin", 6 );
-BindReward( "b_hugo", "art\chars\b_hugo_m.p3d", "skin", "forsale", 6, 400, "interior" );
-BindReward( "b_military", "art\chars\b_mili_m.p3d", "skin", "forsale", 6, 500, "interior" );
-BindReward( "b_man", "art\chars\b_man_m.p3d", "skin", "forsale", 6, 600, "interior" );
+BindReward( "b_hugo", "art\chars\b_hugo_m.p3d", "skin", "forsale", 6, 999999, "interior" );
+BindReward( "b_military", "art\chars\b_mili_m.p3d", "skin", "forsale", 6, 999999, "interior" );
+BindReward( "b_man", "art\chars\b_man_m.p3d", "skin", "forsale", 6, 999999, "interior" );
+BindReward( "h_ap16", "art\chars\h_ap16_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap17", "art\chars\h_ap17_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap18", "art\chars\h_ap18_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 6, 11 );
 
@@ -118,14 +154,20 @@ BindReward( "homer_v", "art\cars\homer_v.p3d", "car", "defaultcar", 7 );
 BindReward( "smith_v", "art\cars\smith_v.p3d", "car", "bonusmission", 7 );
 BindReward( "fone_v", "art\cars\fone_v.p3d", "car", "streetrace", 7 );
 BindReward( "zombi_v", "art\cars\zombi_v.p3d", "car", "forsale", 7, 500, "simpson" ); // Zombie
-BindReward( "hbike_v", "art\cars\hbike_v.p3d", "car", "forsale", 7, 1000, "gil" );
-BindReward( "cHears", "art\cars\cHears.p3d", "car", "forsale", 7, 750, "gil" );
+BindReward( "hbike_v", "art\cars\hbike_v.p3d", "car", "forsale", 7, 1000, "simpson" );
+BindReward( "cHears", "art\cars\cHears.p3d", "car", "forsale", 7, 750, "simpson" );
+BindReward( "dune_v", "art\cars\dune_v.p3d", "car", "forsale", 1, 100, "simpson");
+BindReward( "APCar19", "art\cars\APCar19.p3d", "car", "forsale", 1, 125, "gil" );
+BindReward( "APCar20", "art\cars\APCar20.p3d", "car", "forsale", 1, 100, "gil" );
+BindReward( "APCar21", "art\cars\APCar21.p3d", "car", "forsale", 1, 125, "gil" ); 
 
 BindReward( "homer", "art\chars\homer_m.p3d", "skin", "defaultskin", 7 );
-
-BindReward( "h_scuzzy", "art\chars\h_scuz_m.p3d", "skin", "forsale", 7, 400, "interior" );
-BindReward( "h_evil", "art\chars\h_evil_m.p3d", "skin", "forsale", 7, 450, "interior" );
-BindReward( "h_donut", "art\chars\h_donu_m.p3d", "skin", "forsale", 7, 500, "interior" );
+BindReward( "h_scuzzy", "art\chars\h_scuz_m.p3d", "skin", "forsale", 7, 999999, "interior" );
+BindReward( "h_evil", "art\chars\h_evil_m.p3d", "skin", "forsale", 7, 999999, "interior" );
+BindReward( "h_donut", "art\chars\h_donu_m.p3d", "skin", "forsale", 7, 999999, "interior" );
+BindReward( "h_ap19", "art\chars\h_ap19_m.p3d", "skin", "forsale", 1, 100, "interior" );
+BindReward( "h_ap20", "art\chars\h_ap20_m.p3d", "skin", "forsale", 1, 125, "interior" );
+BindReward( "h_ap21", "art\chars\h_ap21_m.p3d", "skin", "forsale", 1, 150, "interior" );
 
 SetTotalGags( 7, 15 );
 
