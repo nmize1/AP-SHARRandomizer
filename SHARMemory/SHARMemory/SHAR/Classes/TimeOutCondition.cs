@@ -23,16 +23,16 @@ public class TimeOutCondition : MissionCondition
     {
         List<byte> classBytes = new((int)Size);
 
-        classBytes.AddRange(BitConverter.GetBytes(memory.SelectAddress(0x611288, 0x611330, 0x6112F8, 0x611388)));
-        classBytes.AddRange(BitConverter.GetBytes((int)ConditionTypes.TimeOut));
-        classBytes.Add((byte)(isViolated ? 1 : 0));
-        classBytes.Add((byte)(leaveInterior ? 1 : 0));
-        classBytes.Add(0);
-        classBytes.Add(0);
-        classBytes.Add((byte)(done ? 1 : 0));
-        classBytes.Add(0);
-        classBytes.Add(0);
-        classBytes.Add(0);
+        classBytes.AddRange(BitConverter.GetBytes(memory.SelectAddress(0x611288, 0x611330, 0x6112F8, 0x611388))); // VFTable
+        classBytes.AddRange(BitConverter.GetBytes((int)ConditionTypes.TimeOut)); // Type
+        classBytes.Add((byte)(isViolated ? 1 : 0)); // IsViolated
+        classBytes.Add((byte)(leaveInterior ? 1 : 0)); // LeaveInterior
+        classBytes.Add(0); // Padding
+        classBytes.Add(0); // Padding
+        classBytes.Add((byte)(done ? 1 : 0)); // Done
+        classBytes.Add(0); // Padding
+        classBytes.Add(0); // Padding
+        classBytes.Add(0); // Padding
 
         uint address = memory.AllocateAndWriteMemory([.. classBytes]);
         return memory.ClassFactory.Create<TimeOutCondition>(address);
