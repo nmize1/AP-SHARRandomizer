@@ -16,7 +16,7 @@ public class ClassHierarchyDescriptor : Class
 
     public ClassHierarchyDescriptor(ProcessMemory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator)
     {
-
+        memory.CheckValidMemoryAddress(address);
         Signature = ReadUInt32(0);
         Attributes = (Attributes2)ReadUInt32(4);
         NumBaseClasses = ReadUInt32(8);

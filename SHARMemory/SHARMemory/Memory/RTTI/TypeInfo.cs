@@ -9,8 +9,8 @@ public class TypeInfo : Class
 
     public TypeInfo(ProcessMemory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator)
     {
+        memory.CheckValidMemoryAddress(address);
         //VFTable = ReadUInt32(0);
-        memory.CheckValidMemoryAddress(address + 4);
         Spare = ReadUInt32(4);
         ClassName = ReadNullString(8, System.Text.Encoding.ASCII);
 

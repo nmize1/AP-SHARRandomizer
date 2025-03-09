@@ -207,8 +207,15 @@ public class ClassFactory
         var CompleteObjectLocatorAddress = (uint)(FuncTable + 0x4 * -1);
         if (!CompleteObjectLocatorCache.TryGetValue(CompleteObjectLocatorAddress, out CompleteObjectLocator CompleteObjectLocator))
         {
-            CompleteObjectLocator = Create<CompleteObjectLocator>(Memory.ReadUInt32(CompleteObjectLocatorAddress));
-            CompleteObjectLocatorCache.Add(CompleteObjectLocatorAddress, CompleteObjectLocator);
+            try
+            {
+                CompleteObjectLocator = Create<CompleteObjectLocator>(Memory.ReadUInt32(CompleteObjectLocatorAddress));
+                CompleteObjectLocatorCache.Add(CompleteObjectLocatorAddress, CompleteObjectLocator);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         if (CompleteObjectLocator.Signature != 0)
