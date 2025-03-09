@@ -131,7 +131,7 @@ SetBonusMissionDialoguePos("bm1","bm1_bart_talk","bm1_grampa_sd","bm1_carstart")
 //ADDING PURCHASE POINTS FOR VEHICLES AND SKINS
 //
 	AddPurchaseCarReward( "gil", "gil", "npd", "gil_loc", 1.3, "gil_car" );
-	AddPurchaseCarReward( "simpson", "homer", "npd", "homer_loc", 1.3, "homer_car" );
+	//AddPurchaseCarReward( "simpson", "homer", "npd", "homer_loc", 1.3, "homer_car" );
 
 //ADDING TRAFFIC GROUP FOR LEVEL 02//
 //

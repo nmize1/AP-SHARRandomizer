@@ -18,6 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
+using System.Numerics;
 
 namespace SHARRandomizer
 {
@@ -98,7 +99,7 @@ namespace SHARRandomizer
             watcher.StreetRaceComplete += Watcher_StreetRaceComplete;
             watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
             watcher.GagViewed += Watcher_GagViewed;
-            watcher.CarPurchased += Watcher_CarPurchased;
+            watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
 
             watcher.Start();
 
@@ -143,7 +144,7 @@ namespace SHARRandomizer
             Console.WriteLine("REWARDS:");
             foreach (var r in REWARDS)
             {
-                Console.WriteLine((textBible?.GetString(r.Name.ToUpper()) ?? r.Name));
+                Console.WriteLine($"{(textBible?.GetString(r.Name.ToUpper()) ?? r.Name)} : {r.Name }");
             }
 
 
@@ -152,6 +153,7 @@ namespace SHARRandomizer
                 language = memory.Globals?.TextBible?.CurrentLanguage;
             }
             InitializeMissionTitles();
+            InitializeShopItems();
 
             fillerInventory.Add("Hit N Run Reset", 0);
             fillerInventory.Add("Wrench", 0);
@@ -164,23 +166,20 @@ namespace SHARRandomizer
         {
             List<string> dcars = new List<string> { "Family Sedan", "Honor Roller", "Malibu Stacy Car", "Canyonero", "Longhorn", "Ferrini - Red", "70's Sports Car"  };
             var rewardsManager = memory.Singletons.RewardsManager;
+            var textBible = memory.Globals.TextBible.CurrentLanguage;
             int i = 0;
+            DISABLEDEFAULT = false;
             foreach (var rewards in rewardsManager.RewardsList)
             {
-                
-                if (!UnlockedItems.Contains(dcars[i]))
+                if (!UnlockedItems.Contains(rewards.DefaultCar.Name))
                 {
                     rewards.DefaultCar.Earned = false;
-
                     if (i == level)
                     {
                         DISABLEDEFAULT = true;
                     }
                 }
-                else if (i == level)
-                {
-                    DISABLEDEFAULT = false;
-                }
+                i++;
             }
         }
 
@@ -377,6 +376,19 @@ namespace SHARRandomizer
             }
         }
 
+        void InitializeShopItems()
+        {
+            for (int level = 0; level < 7; level++)
+            {
+                for (int check = 1; check <= 6; check++)
+                {
+                    string name = $"APCAR{6 * level + check}";
+                    language.SetString(name, $"test {6 * level + check}");
+                    Console.WriteLine(name);
+                }
+            }
+        }
+
         void CheckAvailableMoves(Memory memory, string level)
         {
             string character = "";
@@ -454,12 +466,16 @@ namespace SHARRandomizer
                     else
                         memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.GetOutCar);
 
-                    Vehicle car = memory.Singletons.CharacterManager?.Player?.Car;
+                    var player = memory.Singletons.CharacterManager?.Player;
+                    if (player == null)
+                        return;
+
                     List<String> defaults = rewardsManager.RewardsList.Select(reward => reward.DefaultCar.Name).ToList();
-                    if (DISABLEDEFAULT && car != null && defaults.Contains(car.Name))
-                        car.GasBrakeDisabled = true;
-                    else if (car != null)
-                        car.GasBrakeDisabled = false;
+                    if (DISABLEDEFAULT && player.Car != null && defaults.Contains(player.Car.Name))
+                    {
+                        player.Car.Stop();
+                        player.Controller.Intention = CharacterController.Intentions.GetOutCar;
+                    }
                 }  
             }
         }
@@ -504,7 +520,7 @@ namespace SHARRandomizer
                 if (fillerInventory["Wrench"] > 0)
                 {
                     //listener.memory.Globals.GameplayManager.RepairCurrentVehicle();
-
+                    listener.memory.Functions.TriggerEvent(Globals.Events.REPAIR_CAR);
                     fillerInventory["Wrench"]--;
                 }
                 
@@ -518,14 +534,13 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-
         Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
         {
             CURRENTLEVEL = e.Level.ToString();
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
-            LockDefaultCarsOnLoad(sender, ((int)e.Level));
+            LockDefaultCarsOnLoad(sender, ((int)e.Level)); 
             return Task.CompletedTask;
         }
 
@@ -551,9 +566,14 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        Task Watcher_CarPurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.CarPurchasedEventArgs e, CancellationToken token)
+        Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchased e, CancellationToken token)
         {
-            //Console.WriteLine($"Car Purchased: {e.}")
+            Console.WriteLine($"Car Purchased: {e.Merchandise.Name}"); 
+            if (Regex.IsMatch(e.Merchandise.Name, @"^APCAR\d{1,2}$"))
+            {
+                Console.WriteLine($"Sending check from {e.Merchandise.Name}");
+                ArchipelagoClient.sentLocations.Enqueue(lt.getAPID(e.Merchandise.Name, "shop"));
+            }
             return Task.CompletedTask;
         }
 

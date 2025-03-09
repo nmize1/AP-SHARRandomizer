@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="SHARRandomizerMod\CustomFiles\art\chars\" />
-    <Folder Include="SHARRandomizerMod\CustomFiles\scripts\missions\level01\" />
     <Folder Include="SHARRandomizerMod\Resources\art\frontend\dynaload\cars\" />
     <Folder Include="SHARRandomizerMod\Resources\art\frontend\scrooby\" />
   </ItemGroup>

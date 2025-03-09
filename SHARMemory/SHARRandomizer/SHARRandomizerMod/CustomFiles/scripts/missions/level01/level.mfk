@@ -11,6 +11,7 @@ AddBonusMission("sr2"); // street race 2 - circuit race
 AddBonusMission("sr3"); // street race 2 - waypoint race
 AddBonusMission("gr1"); // street race 2 - waypoint race
 AddBonusMission("bm1"); // bonus mission 1
+AddBonusMission("bm2"); // talk to barney
 
 AddTeleportDest("Simpsons' House", 220, 3.5, -172, "l1z1.p3d;l1r1.p3d;l1r7.p3d;");
 AddTeleportDest("Kwik E Mart", 209, 3.6, -285, "l1z2.p3d;l1r1.p3d;l1r2.p3d;");

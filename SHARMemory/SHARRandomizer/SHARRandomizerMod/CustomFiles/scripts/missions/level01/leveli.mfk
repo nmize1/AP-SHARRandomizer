@@ -103,6 +103,9 @@ SetNumChaseCars("1");
 	AddBonusMissionNPCWaypoint( "cletus", "bm1_cletus_walk2" );
 	AddBonusMissionNPCWaypoint( "cletus", "bm1_cletus_sd" );
 
+	AddNPCCharacterBonusMission("barney", "npd", "barney_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" );
+	SetBonusMissionDialoguePos("bm1","bm1_player","bm1_cletus_sd","level1_carstart");
+	AddBonusMissionNPCWaypoint( "barney", "barney_walk1" );
 
 //ADDING AMBIENT CHARACTERS
 	AddAmbientCharacter("apu", "m0_apu_place",  1.8);  //Kwik-E-Mart Interior
@@ -183,8 +186,7 @@ SetNumChaseCars("1");
 		AddAmbientNPCWaypoint( "moe", "moe_walk2" );
 		AddAmbientNPCWaypoint( "moe", "moe_walk1" );
 	
-	AddAmbientCharacter("barney", "barney_loc",  1.3); //zone 7
-		AddAmbientNPCWaypoint( "barney", "barney_walk1" );
+
 
 //ADDING VEHICLE PURCHASE POINTS
 //

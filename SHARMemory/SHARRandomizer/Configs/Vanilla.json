@@ -279,33 +279,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 1) COSTUME - Casual Homer",
-        "id": "",
+        "name": "(LVL 1) Shop Item 1",
+        "id": "APCar1",
         "apid": "122407"
       },
       {
-        "name": "(LVL 1) COSTUME - MuuMuu Homer",
-        "id": "",
+        "name": "(LVL 1) Shop Item 2",
+        "id": "APCar2",
         "apid": "122408"
       },
       {
-        "name": "(LVL 1) COSTUME - The Chosen One",
-        "id": "",
+        "name": "(LVL 1) Shop Item 3",
+        "id": "APCar3",
         "apid": "122409"
       },
       {
-        "name": "(LVL 1) CAR - Duff Truck",
-        "id": "",
+        "name": "(LVL 1)  Shop Item 4",
+        "id": "APCar4",
         "apid": "122410"
       },
       {
-        "name": "(LVL 1) CAR - Surveillance Van",
-        "id": "",
+        "name": "(LVL 1)  Shop Item 5",
+        "id": "APCar5",
         "apid": "122411"
       },
       {
-        "name": "(LVL 1) CAR - Plow King",
-        "id": "",
+        "name": "(LVL 1) Shop Item 6",
+        "id": "APCar6",
         "apid": "122412"
       }
     ]
@@ -575,33 +575,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 2) COSTUME - Tall Bart",
-        "id": "",
+        "name": "(LVL 2) Shop Check 1",
+        "id": "APCar7",
         "apid": "122451"
       },
       {
-        "name": "(LVL 2) COSTUME - Ninja Bart",
-        "id": "",
+        "name": "(LVL 2) Shop Check 2",
+        "id": "APCar8",
         "apid": "122452"
       },
       {
-        "name": "(LVL 2) COSTUME - Football Bart",
-        "id": "",
+        "name": "(LVL 2) Shop Check 3",
+        "id": "APCar9",
         "apid": "122453"
       },
       {
-        "name": "(LVL 2) CAR - Mr. Plow",
-        "id": "",
+        "name": "(LVL 2) Shop Check 4",
+        "id": "APCar10",
         "apid": "122454"
       },
       {
-        "name": "(LVL 2) CAR - Limo",
-        "id": "",
+        "name": "(LVL 2) Shop Check 5",
+        "id": "APCar11",
         "apid": "122455"
       },
       {
-        "name": "(LVL 2) CAR - Fire Truck",
-        "id": "",
+        "name": "(LVL 2) Shop Check 6",
+        "id": "APCar12",
         "apid": "122456"
       }
     ]
@@ -654,22 +654,22 @@
     "bonus missions": [
       {
         "name": "(L3BM) Princi-Pal",
-        "id": "2- bonus",
+        "id": "2 - bonus",
         "apid": "122318"
       },
       {
         "name": "(LVL 3) Time Trial Race",
-        "id": "2- 1",
+        "id": "2 - 1",
         "apid": "122319"
       },
       {
         "name": "(LVL 3) Circuit Race",
-        "id": "2- 2",
+        "id": "2 - 2",
         "apid": "122320"
       },
       {
         "name": "(LVL 3) Checkpoint Race",
-        "id": "2- 3",
+        "id": "2 - 3",
         "apid": "122321"
       }
     ],
@@ -871,33 +871,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 3) COSTUME - Cool Lisa",
-        "id": "",
+        "name": "(LVL 3) Shop Check 1",
+        "id": "APCar13",
         "apid": "122457"
       },
       {
-        "name": "(LVL 3) COSTUME - Floreda Lisa",
-        "id": "",
+        "name": "(LVL 3) Shop Check 2",
+        "id": "APCar14",
         "apid": "122458"
       },
       {
-        "name": "(LVL 3) COSTUME - Hockey Lisa",
-        "id": "",
+        "name": "(LVL 3) Shop Check 3",
+        "id": "APCar15",
         "apid": "122459"
       },
       {
-        "name": "(LVL 3) CAR - Nerd Car",
-        "id": "",
+        "name": "(LVL 3) Shop Check 4",
+        "id": "APCar16",
         "apid": "122460"
       },
       {
-        "name": "(LVL 3) CAR - Donut Truck",
-        "id": "",
+        "name": "(LVL 3) Shop Check 5",
+        "id": "APCar17",
         "apid": "122461"
       },
       {
-        "name": "(LVL 3) CAR - School Bus",
-        "id": "",
+        "name": "(LVL 3) Shop Check 6",
+        "id": "APCar18",
         "apid": "122462"
       }
     ]
@@ -1187,33 +1187,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 4) COSTUME - Inmate Marge",
-        "id": "",
+        "name": "(LVL 4) Shop Check 1",
+        "id": "APCar19",
         "apid": "122543"
       },
       {
-        "name": "(LVL 4) COSTUME - Classy Marge",
-        "id": "",
+        "name": "(LVL 4) Shop Check 2",
+        "id": "APCar20",
         "apid": "122544"
       },
       {
-        "name": "(LVL 4) COSTUME - Police Marge",
-        "id": "",
+        "name": "(LVL 4) Shop Check 3",
+        "id": "APCar21",
         "apid": "122545"
       },
       {
-        "name": "(LVL 4) CAR - Krusty’s Limo",
-        "id": "",
+        "name": "(LVL 4) Shop Check 4",
+        "id": "APCar22",
         "apid": "122546"
       },
       {
-        "name": "(LVL 4) CAR - Scottish Willy’s Tractor",
-        "id": "",
+        "name": "(LVL 4) Shop Check 5",
+        "id": "APCar23",
         "apid": "122547"
       },
       {
-        "name": "(LVL 4) CAR - Curator",
-        "id": "",
+        "name": "(LVL 4) Shop Check 6",
+        "id": "APCar24",
         "apid": "122548"
       }
     ]
@@ -1458,33 +1458,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 5) COSTUME - Army Apu",
-        "id": "",
+        "name": "(LVL 5) Shop Check 1",
+        "id": "APCar25",
         "apid": "122581"
       },
       {
-        "name": "(LVL 5) COSTUME - American Apu",
-        "id": "",
+        "name": "(LVL 5) Shop Check 2",
+        "id": "APCar26",
         "apid": "122582"
       },
       {
-        "name": "(LVL 5) COSTUME - B-Sharps Apu",
-        "id": "",
+        "name": "(LVL 5) Shop Check 3",
+        "id": "APCar27",
         "apid": "122583"
       },
       {
-        "name": "(LVL 5) CAR - Car Built for Homer",
-        "id": "",
+        "name": "(LVL 5) Shop Check 4",
+        "id": "APCar28",
         "apid": "122584"
       },
       {
-        "name": "(LVL 5) CAR - Police Car",
-        "id": "",
+        "name": "(LVL 5) Shop Check 5",
+        "id": "APCar29",
         "apid": "122585"
       },
       {
-        "name": "(LVL 5) CAR - Cola Truck",
-        "id": "",
+        "name": "(LVL 5) Shop Check 6",
+        "id": "APCar30",
         "apid": "122586"
       }
     ]
@@ -1755,33 +1755,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 6) COSTUME - Hugo Bart",
-        "id": "",
+        "name": "(LVL 6) Shop Check 1",
+        "id": "APCar31",
         "apid": "122628"
       },
       {
-        "name": "(LVL 6) COSTUME - Cadet Bart",
-        "id": "",
+        "name": "(LVL 6) Shop Check 2",
+        "id": "APCar32",
         "apid": "122629"
       },
       {
-        "name": "(LVL 6) COSTUME - Bartman",
-        "id": "",
+        "name": "(LVL 6) Shop Check 3",
+        "id": "APCar33",
         "apid": "122630"
       },
       {
-        "name": "(LVL 6) CAR - Armored Truck",
-        "id": "",
+        "name": "(LVL 6) Shop Check 4",
+        "id": "APCar34",
         "apid": "122587"
       },
       {
-        "name": "(LVL 6) CAR - Chase Sedan",
-        "id": "",
+        "name": "(LVL 6) Shop Check 5",
+        "id": "APCar35",
         "apid": "122588"
       },
       {
-        "name": "(LVL 6) CAR - Super Villain Globex Car",
-        "id": "",
+        "name": "(LVL 6) Shop Check 6",
+        "id": "APCar36",
         "apid": "122589"
       }
     ]
@@ -2071,33 +2071,33 @@
     ],
     "shops": [
       {
-        "name": "(LVL 7) COSTUME - Dirty Homer",
-        "id": "",
+        "name": "(LVL 7) Shop Check 1",
+        "id": "APCar37",
         "apid": "122676"
       },
       {
-        "name": "(LVL 7) COSTUME - Devil Homer",
-        "id": "",
+        "name": "(LVL 7) Shop Check 2",
+        "id": "APCar38",
         "apid": "122677"
       },
       {
-        "name": "(LVL 7) COSTUME - Donut Homer",
-        "id": "",
+        "name": "(LVL 7) Shop Check 3",
+        "id": "APCar39",
         "apid": "122678"
       },
       {
-        "name": "(LVL 7) CAR - Zombie Car",
-        "id": "",
+        "name": "(LVL 7) Shop Check 4",
+        "id": "APCar40",
         "apid": "122631"
       },
       {
-        "name": "(LVL 7) CAR - Hover Bike",
-        "id": "",
+        "name": "(LVL 7) Shop Check 5",
+        "id": "APCar41",
         "apid": "122632"
       },
       {
-        "name": "(LVL 7) CAR - Hearse",
-        "id": "",
+        "name": "(LVL 7) Shop Check 6",
+        "id": "APCar42",
         "apid": "122633"
       }
     ]
