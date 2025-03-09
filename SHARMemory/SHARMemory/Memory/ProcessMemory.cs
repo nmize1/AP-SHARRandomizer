@@ -60,6 +60,18 @@ public class ProcessMemory : IDisposable
         LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = 0x00001000
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct MEMORY_BASIC_INFORMATION
+    {
+        public UIntPtr BaseAddress;
+        public UIntPtr AllocationBase;
+        public uint AllocationProtect;
+        public UIntPtr RegionSize;
+        public uint State;
+        public uint Protect;
+        public uint Type;
+    }
+
     /*[Flags]
     internal enum AllocationType
     {
@@ -121,6 +133,9 @@ public class ProcessMemory : IDisposable
     [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
     internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
 
+    [DllImport("kernel32.dll")]
+    internal static extern int VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out MEMORY_BASIC_INFORMATION lpBuffer, UIntPtr dwLength);
+
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern bool WriteProcessMemory(IntPtr hProcess, UIntPtr lpBaseAddress, byte[] lpBuffer, IntPtr nSize, out UIntPtr lpNumberOfBytesWritten);
 
@@ -142,7 +157,19 @@ public class ProcessMemory : IDisposable
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern bool CloseHandle(IntPtr handle);
 
+
+    private struct Region
+    {
+        public UIntPtr Start;
+        public UIntPtr End;
+        public Region(UIntPtr start, UIntPtr end)
+        {
+            Start = start;
+            End = end;
+        }
+    }
     private readonly List<IntPtr> InjectedFunctions = [];
+    private readonly int BaseAddress;
 
     /// <summary>
     /// The <c>ProcessMemory</c> constructor.
@@ -153,6 +180,8 @@ public class ProcessMemory : IDisposable
     public ProcessMemory(Process Process)
     {
         this.Process = Process;
+        using var mainModule = Process.MainModule;
+        BaseAddress = mainModule.BaseAddress.ToInt32();
 
         ClassFactory = new(this);
     }
@@ -173,6 +202,26 @@ public class ProcessMemory : IDisposable
     }
 
     /// <summary>
+    /// Checks if the given <paramref name="address"/> is within the bounds of <see cref="Process"/>'s memory.
+    /// </summary>
+    /// <param name="address">The address to check</param>
+    /// <exception cref="InvalidOperationException">Throws if <see cref="Process"/> is invalid.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Throws if the address is out of range.</exception>
+    public void CheckValidMemoryAddress(uint address)
+    {
+        if (Process == null || Process.HasExited)
+            throw new InvalidOperationException("Process is not valid or has exited.");
+
+        if (address < BaseAddress)
+            throw new ArgumentOutOfRangeException(nameof(address), $"Address 0x{address:X} is too small. Minimum value: 0x{BaseAddress:X}.");
+
+        MEMORY_BASIC_INFORMATION mbi = new();
+        int result = VirtualQueryEx(Process.Handle, new UIntPtr(address), out mbi, (UIntPtr)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION)));
+        if (result == 0 || mbi.State != MEM_COMMIT)
+            throw new ArgumentOutOfRangeException(nameof(address), $"Address 0x{address:X} is outside allocated memory regions.");
+    }
+
+    /// <summary>
     /// Reads the memory of <see cref="Process"/>.
     /// </summary>
     /// <param name="Address">
@@ -189,6 +238,8 @@ public class ProcessMemory : IDisposable
     /// </exception>
     public void Read(uint Address, byte[] Buffer, out uint Read)
     {
+        //CheckValidMemoryAddress(Address);
+
         UIntPtr lpNumberOfBytesRead = default;
         if (!ReadProcessMemory(Process.Handle, new UIntPtr(Address), Buffer, new IntPtr(Buffer.Length), lpNumberOfBytesRead))
         {
@@ -214,6 +265,8 @@ public class ProcessMemory : IDisposable
     /// </exception>
     public void Write(uint Address, byte[] Buffer, out uint Written)
     {
+        //CheckValidMemoryAddress(Address);
+
         IntPtr intPtr = OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE, bInheritHandle: false, Process.Id);
         if (intPtr == IntPtr.Zero)
             throw new Win32Exception(Marshal.GetLastWin32Error());
