@@ -26,6 +26,7 @@ ac.SLOTNAME = SLOTNAME;
 ac.PASSWORD = PASSWORD;
 
 MemoryManip mm = new MemoryManip();
+mm.ac = ac;
 InputListener im = new InputListener();
 
 Thread connectThread = new Thread(ac.Connect);

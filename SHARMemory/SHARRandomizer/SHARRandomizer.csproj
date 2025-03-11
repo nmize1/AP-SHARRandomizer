@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Archipelago.MultiClient.Net" Version="6.5.0" />
+    <PackageReference Include="Archipelago.MultiClient.Net" Version="6.6.0" />
   </ItemGroup>
 
   <ItemGroup>

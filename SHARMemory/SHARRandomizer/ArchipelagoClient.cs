@@ -9,6 +9,14 @@ using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 using Archipelago.MultiClient.Net.Models;
 using SHARRandomizer.Classes;
+using SHARMemory.Memory;
+using SHARMemory.SHAR;
+using SHARMemory.SHAR.Classes;
+using SHARMemory.SHAR.Structs;
+using SHARRandomizer.Classes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace SHARRandomizer
 {
@@ -16,7 +24,7 @@ namespace SHARRandomizer
     {
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset"};
         private const string MinArchipelagoVersion = "0.5.0";
-        public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>();
+        public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>(); 
 
         public bool Connected => _session?.Socket.Connected ?? false;
         private bool _attemptingConnection;
@@ -27,6 +35,8 @@ namespace SHARRandomizer
         public string URI = "";
         public string SLOTNAME = "";
         public string PASSWORD = "";
+
+        public static string SaveName;
 
         public void Connect()
         {
@@ -115,8 +125,15 @@ namespace SHARRandomizer
             {
                 Console.WriteLine($"  {kvp.Key}: {kvp.Value}");
             }
-            MemoryManip.UUID = login.SlotData["id"].ToString();
+            SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
             _session.DataStorage["index"].Initialize(0);
+
+            foreach (var loc in _session.Locations.AllLocationsChecked)
+            {
+                Console.WriteLine(loc);
+            }
+
+            MemoryManip.APCONNECTED = true;
             while (true)
             {
                 await SendLocs();
@@ -236,7 +253,7 @@ namespace SHARRandomizer
             var storedIndex = await _session.DataStorage["index"].GetAsync<int>();
             if (storedIndex < index)
             {
-                _session.DataStorage["index"] = index;
+                _session.DataStorage[Scope.Slot, "index"] = index;
                 MemoryManip.itemsReceived.Enqueue(itemName);
             }
             else if (item.Flags != ItemFlags.Trap && !NORESEND.Contains(item.ItemName))
@@ -248,6 +265,24 @@ namespace SHARRandomizer
                 Console.WriteLine($"Didn't enqueue {itemName} which is {item.Flags}");
             }
             
+        }
+        
+        public async void ScoutShopLocationNoHint(Dictionary<long, string> locations, FeLanguage language)
+        {
+            Console.WriteLine("Scouting");
+            await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations.Keys.ToArray()).ContinueWith(t => 
+            {
+                foreach (ItemInfo item in t.Result.Values)
+                {
+                    string ret = $"{item.Player}'s {item.ItemName}"; 
+                    language.SetString(locations[item.LocationId].ToUpper(), ret);
+                }
+            });
+        }
+
+        public void ScoutShopLocation(long[] locations)
+        {
+            _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
         }
     }
 }

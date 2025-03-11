@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
 using System.Numerics;
+using Archipelago.MultiClient.Net.Models;
 
 namespace SHARRandomizer
 {
@@ -35,10 +36,11 @@ namespace SHARRandomizer
     class MemoryManip
     {
         Process? p;
-
+        public static bool APCONNECTED = false;
+        public ArchipelagoClient ac;
+        public static Queue<ScoutedItemInfo> ScoutedItems = new Queue<ScoutedItemInfo>();
         LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
         public static AwaitableQueue<string> itemsReceived = new AwaitableQueue<string>();
-        public static string UUID = "";
         List<Reward> REWARDS = new List<Reward>();
 
         List<string> UnlockedLevels = new List<string>();
@@ -53,6 +55,9 @@ namespace SHARRandomizer
         bool DISABLEDEFAULT = false;
         string CURRENTLEVEL = "";
 
+        public SaveData sd;
+        public int MINSHOPCOST = 100;
+        public int MAXSHOPCOST = 1000;
 
         public async Task MemoryStart()
         {
@@ -63,6 +68,9 @@ namespace SHARRandomizer
                 {
                     p = Memory.GetSHARProcess();
                 } while (p == null);
+                do { } while (!APCONNECTED);
+                sd = new SaveData();
+                sd.Load();
 
                 Console.WriteLine("Found SHAR process. Initialising memory manager...", "Main");
 
@@ -100,6 +108,7 @@ namespace SHARRandomizer
             watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
             watcher.GagViewed += Watcher_GagViewed;
             watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
+            watcher.DialogPlaying += Watcher_DialogPlaying; 
 
             watcher.Start();
 
@@ -109,8 +118,19 @@ namespace SHARRandomizer
 
             listener.Start();
 
+            /* Create default list of random shop costs, then replace it with the stored one if a stored one exists */
+            int s = 0;
+            Dictionary<int, int> tShopCosts = new Dictionary<int, int>();
+            for (; s < 42; s++) //42 shop checks
+            {
+                tShopCosts[s] = Random.Shared.Next(MINSHOPCOST, MAXSHOPCOST);
+            }
+            s = 0;
+            Dictionary<int, int> ShopCosts = sd.GetOrCreateShopCosts(tShopCosts);
+
             /* Get all rewards in a list for lookup purposes */
             int i = 0;
+           
             foreach (var rewards in rewardsManager.RewardsList)
             {
                 List<Reward> tempRewards = new List<Reward>();
@@ -119,14 +139,20 @@ namespace SHARRandomizer
                     tempRewards.Add(rewards.DefaultCar);
                     tempRewards.Add(rewards.BonusMission);
                     tempRewards.Add(rewards.StreetRace);
-
+                    Console.WriteLine($"Saving ShopCosts for level {i + 1}");
                     for (int merchandiseIndex = 0; merchandiseIndex < rewardsManager.LevelTokenStoreList[i].Counter; merchandiseIndex++)
                     {
                         var merchandise = memory.Functions.GetMerchandise(i, merchandiseIndex);
-
+                        
                         if (merchandise != null && merchandise.RewardType != Reward.RewardTypes.Null && merchandise.Name != "Null")
                         {
                             tempRewards.Add(merchandise);
+                            if (merchandise.Name.Contains("APCAR"))
+                            {
+                                merchandise.Cost = ShopCosts[s];
+                                Console.WriteLine($"MERCHANDISE {merchandise.Cost} ");
+                                s++;
+                            }
                         }
                     }
 
@@ -134,6 +160,8 @@ namespace SHARRandomizer
                 }
                 REWARDS.AddRange(tempRewards);
             }
+            
+
             Console.WriteLine("Waiting till gameplay starts.");
             while (!Extensions.InGame(memory))
             {
@@ -153,10 +181,20 @@ namespace SHARRandomizer
                 language = memory.Globals?.TextBible?.CurrentLanguage;
             }
             InitializeMissionTitles();
-            InitializeShopItems();
+            Task.Run(() => InitializeShopItems());
 
-            fillerInventory.Add("Hit N Run Reset", 0);
-            fillerInventory.Add("Wrench", 0);
+            var characterSheet = memory.Singletons.CharacterSheetManager;
+
+            if (characterSheet == null)
+            {
+                Console.WriteLine("Error getting character sheet.");
+            }
+            else
+            { 
+                fillerInventory.Add("Hit N Run Reset", sd.GetHitNRunReset());
+                fillerInventory.Add("Wrench", sd.GetWrench());
+            }
+
             traps.AddRange(new List<string> { "Car Brake", "Reset Car" });
             Task.Run(() => CheckActions(memory));
         }
@@ -234,6 +272,17 @@ namespace SHARRandomizer
 
                                 case string s when fillerInventory.Keys.Contains(s):
                                     fillerInventory[s]++;
+                                    switch (s)
+                                    {
+                                        case "Hit N Run Reset":
+                                            sd.SetHitNRunReset(fillerInventory[s]);
+                                            break;
+
+                                        case "Wrench":
+                                            sd.SetWrench(fillerInventory[s]);
+                                            break;
+
+                                    }
                                     Console.WriteLine($"Received {s}.");
                                     break;
 
@@ -376,18 +425,22 @@ namespace SHARRandomizer
             }
         }
 
-        void InitializeShopItems()
+        public async void InitializeShopItems()
         {
+            Dictionary<long, string> locsToScout = new Dictionary<long, string>();
             for (int level = 0; level < 7; level++)
             {
                 for (int check = 1; check <= 6; check++)
                 {
-                    string name = $"APCAR{6 * level + check}";
-                    language.SetString(name, $"test {6 * level + check}");
-                    Console.WriteLine(name);
+                    string name = $"APCar{6 * level + check}";
+                    long location = lt.getAPID(name, "shop");
+                    locsToScout.Add(location, name);
                 }
             }
+
+            ac.ScoutShopLocationNoHint(locsToScout, language);
         }
+
 
         void CheckAvailableMoves(Memory memory, string level)
         {
@@ -480,6 +533,11 @@ namespace SHARRandomizer
             }
         }
 
+        void CheckVictory()
+        {
+            
+        }
+
         async void HandleTraps(Memory memory, string trap)
         {
             Button button;
@@ -514,17 +572,17 @@ namespace SHARRandomizer
                     fillerInventory["Hit N Run Reset"]--;
                 }
                 Console.WriteLine($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}");
+                sd.SetHitNRunReset(fillerInventory["Hit N Run Reset"]);
             }
             if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
             {
                 if (fillerInventory["Wrench"] > 0)
-                {
-                    //listener.memory.Globals.GameplayManager.RepairCurrentVehicle();
+                { 
                     listener.memory.Functions.TriggerEvent(Globals.Events.REPAIR_CAR);
                     fillerInventory["Wrench"]--;
                 }
-                
                 Console.WriteLine($"Wrenches: {fillerInventory["Wrench"]}");
+                sd.SetWrench(fillerInventory["Wrench"]);
             }
         }
 
@@ -540,7 +598,8 @@ namespace SHARRandomizer
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
-            LockDefaultCarsOnLoad(sender, ((int)e.Level)); 
+            LockDefaultCarsOnLoad(sender, ((int)e.Level));
+            Console.WriteLine(e.Mission);
             return Task.CompletedTask;
         }
 
@@ -579,8 +638,11 @@ namespace SHARRandomizer
 
         Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Mission Complete: {e.Level} - {e.Mission}");
-            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission}", "mission"));
+            string mission = $"{e.Level} - {e.Mission}";
+            Console.WriteLine($"Mission Complete: {mission}");
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID(mission, "mission"));
+
+            
             return Task.CompletedTask;
         }
 
@@ -595,6 +657,27 @@ namespace SHARRandomizer
         {
             Console.WriteLine($"Race Complete: {e.Level} - {e.Race}");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Race}", "bonus_mission"));
+            return Task.CompletedTask;
+        }
+
+        Task Watcher_DialogPlaying(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.SoundManager.DialogPlaying e, CancellationToken token)
+        {
+            Console.WriteLine(e.Dialog.Event);
+            
+            if (e.Dialog.Event.ToString() == "HAGGLING_WITH_GIL")
+            {
+                Console.WriteLine($"Spoke to Gil on level {CURRENTLEVEL}");
+                Dictionary<long, string> locsToScout = new Dictionary<long, string>();
+                for (int check = 1; check <= 6; check++)
+                {
+                    string name = $"APCar{6 * (int.Parse(CURRENTLEVEL.Substring(1)) - 1) + check}";
+                    long location = lt.getAPID(name, "shop");
+                    locsToScout.Add(location, name);
+                }
+
+                ac.ScoutShopLocation(locsToScout.Keys.ToArray());
+            }
+
             return Task.CompletedTask;
         }
     }
