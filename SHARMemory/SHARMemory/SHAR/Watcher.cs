@@ -12,6 +12,7 @@ using System.Linq;
 using SHARMemory.SHAR.Events.CardGallery;
 using System.Collections.Generic;
 using SHARMemory.SHAR.Events.RewardsManager;
+using SHARMemory.SHAR.Events.Error;
 
 namespace SHARMemory.SHAR;
 
@@ -118,12 +119,12 @@ public sealed class Watcher
     /// <summary>
     /// An event handler for when a new Dialog starts playing.
     /// </summary>
-    public event AsyncEventHandler<DialogPlaying> DialogPlaying;
+    public event AsyncEventHandler<DialogPlayingEventArgs> DialogPlaying;
 
     /// <summary>
     /// An event handler for when Merchandise is purchased.
     /// </summary>
-    public event AsyncEventHandler<MerchandisePurchased> MerchandisePurchased;
+    public event AsyncEventHandler<MerchandisePurchasedEventArgs> MerchandisePurchased;
 
     private readonly Memory Memory;
 

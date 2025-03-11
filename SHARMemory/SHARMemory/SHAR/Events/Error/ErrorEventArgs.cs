@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SHARMemory.SHAR.Events;
+namespace SHARMemory.SHAR.Events.Error;
 
 public class ErrorEventArgs : EventArgs
 {
