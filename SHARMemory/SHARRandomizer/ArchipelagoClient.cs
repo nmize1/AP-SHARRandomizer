@@ -38,6 +38,18 @@ namespace SHARRandomizer
 
         public static string SaveName;
 
+        public enum VICTORY
+        {
+            FinalMission = 0,
+            AllStory = 1,
+            AllMissions = 2,
+            WaspsCards = 3
+        }
+
+        public VICTORY victory = VICTORY.FinalMission;
+        public int cardPercent = 0;
+        public int waspPercent = 0;
+
         public void Connect()
         {
             if (Connected || _attemptingConnection)
@@ -127,11 +139,9 @@ namespace SHARRandomizer
             }
             SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
             _session.DataStorage["index"].Initialize(0);
-
-            foreach (var loc in _session.Locations.AllLocationsChecked)
-            {
-                Console.WriteLine(loc);
-            }
+            victory = (VICTORY)login.SlotData["goal"];
+            waspPercent = (int)login.SlotData["EnableWaspPercent"] == 1 ? (int)login.SlotData["wasppercent"] : 0;
+            cardPercent = (int)login.SlotData["EnableCardPercent"] == 1 ? (int)login.SlotData["cardpercent"] : 0;
 
             MemoryManip.APCONNECTED = true;
             while (true)
@@ -189,6 +199,7 @@ namespace SHARRandomizer
             }
             Console.WriteLine(location);
             _session.Locations.CompleteLocationChecksAsync(location);
+            CheckVictory();
         }
 
         public bool IsLocationChecked(long location)
@@ -283,6 +294,70 @@ namespace SHARRandomizer
         public void ScoutShopLocation(long[] locations)
         {
             _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
+        }
+
+        void CheckVictory()
+        {
+            LocationTranslations lt = new LocationTranslations();
+
+            int missions = 0;
+            int bonus = 0;
+            int wasps = 0;
+            int cards = 0;
+
+            foreach (var loc in _session.Locations.AllLocationsChecked)
+            {
+                if (victory == VICTORY.FinalMission)
+                {
+                    if (loc == 122361)
+                    {
+                        SendCompletion();
+                        return;
+                    }
+                }
+                else
+                {
+                    (string type, _) = lt.getTypeAndNameByAPID(loc);
+
+                    switch (type)
+                    {
+                        case "mission":
+                            missions++;
+                            break;
+                        case "bonus_mission":
+                            bonus++;
+                            break;
+                        case "wasp":
+                            wasps++;
+                            break;
+                        case "card":
+                            cards++;
+                            break;
+                    }
+                }
+            }
+
+            if (((wasps / 140) * 100) < waspPercent)
+                return;
+            if (((cards / 49) * 100) < cardPercent)
+                return;
+
+            switch (victory)
+            {
+                case VICTORY.AllStory:
+                    if (missions >= 49)
+                        SendCompletion(); 
+                    return;
+
+                case VICTORY.AllMissions:
+                    if (missions >= 49 && bonus >= 28)
+                        SendCompletion(); 
+                    return;
+
+                case VICTORY.WaspsCards:
+                    SendCompletion();
+                    return;
+            }
         }
     }
 }

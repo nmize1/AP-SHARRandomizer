@@ -90,68 +90,66 @@ public class LocationTranslations
 
     public long getAPID(string id, string type)
     {
-        List<LevelData> Levels = new List<LevelData>{ level1, level2, level3, level4, level5, level6, level7 };
+        List<LevelData> Levels = new List<LevelData> { level1, level2, level3, level4, level5, level6, level7 };
+
+        var typeSelectors = new Dictionary<string, Func<LevelData, IEnumerable<dynamic>>>()
+        {
+            { "mission", l => l.missions },
+            { "bonus_mission", l => l.bonus_missions },
+            { "wasp", l => l.wasps },
+            { "card", l => l.cards },
+            { "gag", l => l.gags },
+            { "shop", l => l.shops }
+        };
+
+        if (!typeSelectors.TryGetValue(type.ToLower(), out var selector))
+            throw new ArgumentException("Invalid type specified.");
+
         foreach (var level in Levels)
         {
-            switch (type.ToLower())
-            {
-                case "mission":
-                    foreach (var mission in level.missions)
-                    {
-                        if (mission.id == id)
-                            return mission.apid;
-                    }
-                    break;
-
-                case "bonus_mission":
-                    foreach (var bonusMission in level.bonus_missions)
-                    {
-                        if (bonusMission.id == id)
-                            return bonusMission.apid;
-                    }
-                    break;
-
-                case "wasp":
-                    foreach (var wasp in level.wasps)
-                    {
-                        if (wasp.id == id)
-                            return wasp.apid;
-                    }
-                    break;
-
-                case "card":
-                    foreach (var card in level.cards)
-                    {
-
-                        if (card.id == id)
-                            return card.apid;
-
-                    }
-                    break;
-
-                case "gag":
-                    foreach (var gag in level.gags)
-                    {
-                        if (gag.id == id)
-                            return gag.apid;
-                    }
-                    break;
-
-                case "shop":
-                    foreach (var store in level.shops)
-                    {
-                        if (store.id == id)
-                            return store.apid;
-                    }
-                    break;
-
-                default:
-                    throw new ArgumentException("Invalid type specified.");
-            }
+            var collection = selector(level);
+            var item = collection?.FirstOrDefault(e => e.id == id);
+            if (item != null)
+                return item.apid;
         }
 
         return -1;
     }
+
+    public (string type, string name) getTypeAndNameByAPID(long apid)
+    {
+        List<LevelData> Levels = new List<LevelData> { level1, level2, level3, level4, level5, level6, level7 };
+
+        // Map each collection selector to its type name
+        var typeSelectors = new Dictionary<string, Func<LevelData, IEnumerable<dynamic>>>
+        {
+            { "mission", l => l.missions },
+            { "bonus_mission", l => l.bonus_missions },
+            { "wasp", l => l.wasps },
+            { "card", l => l.cards },
+            { "gag", l => l.gags },
+            { "shop", l => l.shops }
+        };
+
+        // Loop through each level and each collection type
+        foreach (var level in Levels)
+        {
+            foreach (var kvp in typeSelectors)
+            {
+                string typeName = kvp.Key;
+                var collection = kvp.Value(level);
+
+                var item = collection?.FirstOrDefault(e => e.apid == apid);
+                if (item != null)
+                    return (typeName, item.name);
+            }
+        }
+
+        // Not found, return empty or throw error depending on need
+        return (null, null);
+    }
+
+
 
 
     public void PrintData()

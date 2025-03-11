@@ -98,7 +98,7 @@ namespace SHARRandomizer
                 return;
             }
 
-            var watcher = memory.Watcher;
+            var watcher = memory.Watcher; 
             watcher.Error += Watcher_Error;
             watcher.CardCollected += Watcher_CardCollected;
             watcher.MissionStageChanged += Watcher_MissionStageChanged;
@@ -533,11 +533,6 @@ namespace SHARRandomizer
             }
         }
 
-        void CheckVictory()
-        {
-            
-        }
-
         async void HandleTraps(Memory memory, string trap)
         {
             Button button;
@@ -586,7 +581,7 @@ namespace SHARRandomizer
             }
         }
 
-        Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.ErrorEventArgs e, CancellationToken token)
+        Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.Error.ErrorEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Error: {e.Exception}");
             return Task.CompletedTask;
@@ -625,7 +620,7 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchased e, CancellationToken token)
+        Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchasedEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Car Purchased: {e.Merchandise.Name}"); 
             if (Regex.IsMatch(e.Merchandise.Name, @"^APCAR\d{1,2}$"))
@@ -638,9 +633,8 @@ namespace SHARRandomizer
 
         Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
-            string mission = $"{e.Level} - {e.Mission}";
-            Console.WriteLine($"Mission Complete: {mission}");
-            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID(mission, "mission"));
+            Console.WriteLine($"Mission Complete: {e.Level} - {e.Mission}");
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission}", "mission"));
 
             
             return Task.CompletedTask;
@@ -660,7 +654,7 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        Task Watcher_DialogPlaying(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.SoundManager.DialogPlaying e, CancellationToken token)
+        Task Watcher_DialogPlaying(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.SoundManager.DialogPlayingEventArgs e, CancellationToken token)
         {
             Console.WriteLine(e.Dialog.Event);
             
