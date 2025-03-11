@@ -209,6 +209,7 @@ public class ClassFactory
         {
             try
             {
+                Memory.CheckValidMemoryAddress(CompleteObjectLocatorAddress);
                 CompleteObjectLocator = Create<CompleteObjectLocator>(Memory.ReadUInt32(CompleteObjectLocatorAddress));
                 CompleteObjectLocatorCache.Add(CompleteObjectLocatorAddress, CompleteObjectLocator);
             }
