@@ -94,8 +94,8 @@ public class LocationTranslations
 
         var typeSelectors = new Dictionary<string, Func<LevelData, IEnumerable<dynamic>>>()
         {
-            { "mission", l => l.missions },
-            { "bonus_mission", l => l.bonus_missions },
+            { "missions", l => l.missions },
+            { "bonus missions", l => l.bonus_missions },
             { "wasp", l => l.wasps },
             { "card", l => l.cards },
             { "gag", l => l.gags },
@@ -124,7 +124,7 @@ public class LocationTranslations
         var typeSelectors = new Dictionary<string, Func<LevelData, IEnumerable<dynamic>>>
         {
             { "mission", l => l.missions },
-            { "bonus_mission", l => l.bonus_missions },
+            { "bonus missions", l => l.bonus_missions },
             { "wasp", l => l.wasps },
             { "card", l => l.cards },
             { "gag", l => l.gags },

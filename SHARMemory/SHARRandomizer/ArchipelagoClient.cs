@@ -139,9 +139,9 @@ namespace SHARRandomizer
             }
             SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
             _session.DataStorage["index"].Initialize(0);
-            victory = (VICTORY)login.SlotData["goal"];
-            waspPercent = (int)login.SlotData["EnableWaspPercent"] == 1 ? (int)login.SlotData["wasppercent"] : 0;
-            cardPercent = (int)login.SlotData["EnableCardPercent"] == 1 ? (int)login.SlotData["cardpercent"] : 0;
+            victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
+            waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
+            cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
 
             MemoryManip.APCONNECTED = true;
             while (true)

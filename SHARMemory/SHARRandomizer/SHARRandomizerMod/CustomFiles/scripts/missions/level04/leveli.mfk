@@ -119,6 +119,8 @@ AddNPCCharacterBonusMission("louie", "npd", "sr4_louie_sd", "gr1", "dice", "intr
 	SetCamBestSide("bm1_bestside",					"bm1" );
 	AddBonusMissionNPCWaypoint("cbg", "bm_cbg_walk_1");
 
+	AddNPCCharacterBonusMission("willie", "npd", "willie_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" );
+	AddBonusMissionNPCWaypoint("willie", "willie_walk1");
 
 //ADDING AMBIENT CHARACTERS
 	AddAmbientCharacter("apu", "m7_apu_sd",  1.8);  //Kwik-E-Mart Interior
@@ -168,8 +170,8 @@ AddNPCCharacterBonusMission("louie", "npd", "sr4_louie_sd", "gr1", "dice", "intr
 //
 AddPurchaseCarReward( "gil", "gil", "npd", "gil_loc", 1.3, "gil_car" );
 AddPurchaseCarNPCWaypoint("gil", "gil_walk1");
-AddPurchaseCarReward( "simpson", "willie", "npd", "willie_loc", 1.3, "willie_car" );
-AddPurchaseCarNPCWaypoint("willie", "willie_walk1");
+//AddPurchaseCarReward( "simpson", "willie", "npd", "willie_loc", 1.3, "willie_car" );
+//AddPurchaseCarNPCWaypoint("willie", "willie_walk1");
 
 //ADDING TRAFFIC GROUP FOR LEVEL 04//
 //

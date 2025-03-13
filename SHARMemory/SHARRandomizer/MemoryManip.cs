@@ -98,26 +98,6 @@ namespace SHARRandomizer
                 return;
             }
 
-            var watcher = memory.Watcher; 
-            watcher.Error += Watcher_Error;
-            watcher.CardCollected += Watcher_CardCollected;
-            watcher.MissionStageChanged += Watcher_MissionStageChanged;
-            watcher.MissionComplete += Watcher_MissionComplete;
-            watcher.BonusMissionComplete += Watcher_BonusMissionComplete;
-            watcher.StreetRaceComplete += Watcher_StreetRaceComplete;
-            watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
-            watcher.GagViewed += Watcher_GagViewed;
-            watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
-            watcher.DialogPlaying += Watcher_DialogPlaying; 
-
-            watcher.Start();
-
-            InputListener listener = new InputListener();
-            listener.memory = memory;
-            listener.ButtonDown += Listener_ButtonDown;
-
-            listener.Start();
-
             /* Create default list of random shop costs, then replace it with the stored one if a stored one exists */
             int s = 0;
             Dictionary<int, int> tShopCosts = new Dictionary<int, int>();
@@ -147,7 +127,7 @@ namespace SHARRandomizer
                         if (merchandise != null && merchandise.RewardType != Reward.RewardTypes.Null && merchandise.Name != "Null")
                         {
                             tempRewards.Add(merchandise);
-                            if (merchandise.Name.Contains("APCAR"))
+                            if (merchandise.Name.Contains("APCar"))
                             {
                                 merchandise.Cost = ShopCosts[s];
                                 Console.WriteLine($"MERCHANDISE {merchandise.Cost} ");
@@ -167,6 +147,26 @@ namespace SHARRandomizer
             {
 
             }
+
+            var watcher = memory.Watcher;
+            watcher.Error += Watcher_Error;
+            watcher.CardCollected += Watcher_CardCollected;
+            watcher.MissionStageChanged += Watcher_MissionStageChanged;
+            watcher.MissionComplete += Watcher_MissionComplete;
+            watcher.BonusMissionComplete += Watcher_BonusMissionComplete;
+            watcher.StreetRaceComplete += Watcher_StreetRaceComplete;
+            watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
+            watcher.GagViewed += Watcher_GagViewed;
+            watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
+            watcher.DialogPlaying += Watcher_DialogPlaying;
+
+            watcher.Start();
+
+            InputListener listener = new InputListener();
+            listener.memory = memory;
+            listener.ButtonDown += Listener_ButtonDown;
+
+            listener.Start();
 
             var textBible = memory.Globals.TextBible.CurrentLanguage;
             Console.WriteLine("REWARDS:");
@@ -195,7 +195,7 @@ namespace SHARRandomizer
                 fillerInventory.Add("Wrench", sd.GetWrench());
             }
 
-            traps.AddRange(new List<string> { "Car Brake", "Reset Car" });
+            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap" });
             Task.Run(() => CheckActions(memory));
         }
 
@@ -374,7 +374,7 @@ namespace SHARRandomizer
                 if (bonusMissionInfo.MissionNum < 0) continue; // Avoids empty bonus mission slots
 
                 var bonusMission = missions[bonusMissionInfo.MissionNum];
-                List<string> bms = new List<string> { "bm1", "sr1", "sr2", "sr3" };
+                List<string> bms = new List<string> { "bm1", "bm2", "sr1", "sr2", "sr3" };
                 
                 if (!bms.Contains(bonusMission.Name))
                     continue;
@@ -536,19 +536,38 @@ namespace SHARRandomizer
         async void HandleTraps(Memory memory, string trap)
         {
             Button button;
+            var buttonArray = memory.Singletons.InputManager.ControllerArray[0].ButtonArray;
             switch (trap)
             {
-                case "Rainbow":                  
-                    break;
                 case "Reset Car":
-                    button = memory.Singletons.InputManager.ControllerArray[0].ButtonArray[(int)InputManager.Buttons.ResetCar];
+                    button = buttonArray[(int)InputManager.Buttons.ResetCar];
                     button.Value = 1;
                     await Task.Delay(1);
                     button.Value = 0;
                     break;
                 case "Duff Trap":
+                    List<Button> buttons = new List<Button>
+                    {
+                        buttonArray[(int)InputManager.Buttons.SteerLeft],
+                        buttonArray[(int)InputManager.Buttons.SteerRight],
+                        buttonArray[(int)InputManager.Buttons.MoveLeft],
+                        buttonArray[(int)InputManager.Buttons.MoveRight]
+                    };
+                    var endTime = DateTime.UtcNow.AddSeconds(30);
+
+                    while (DateTime.UtcNow < endTime)
+                    {
+                        Button buttonToPress = buttons[Random.Shared.Next(4)];
+ 
+                        buttonToPress.Value = 1;
+                        await Task.Delay(Random.Shared.Next(50, 200)); 
+                        buttonToPress.Value = 0;
+ 
+                        await Task.Delay(Random.Shared.Next(100, 500));  
+                    }
                     break;
-                case "Flippable Cars":
+                case "Hit N Run":
+                    memory.Singletons.HitNRunManager.LastUpdateValue = 100f;
                     break;
                 default:
                     break;
@@ -594,7 +613,11 @@ namespace SHARRandomizer
             HandleCurrentBonusMissions(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
             LockDefaultCarsOnLoad(sender, ((int)e.Level));
-            Console.WriteLine(e.Mission);
+            if (e.Mission.ToString() == "BM2")
+            {
+                Console.WriteLine($"{(int)e.Level} - bonus2");
+                ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "bonus missions"));
+            }
             return Task.CompletedTask;
         }
 
@@ -633,8 +656,8 @@ namespace SHARRandomizer
 
         Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Mission Complete: {e.Level} - {e.Mission}");
-            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission}", "mission"));
+            Console.WriteLine($"Mission Complete: {e.Level} - {e.Mission + 1}");
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions"));
 
             
             return Task.CompletedTask;
@@ -642,15 +665,15 @@ namespace SHARRandomizer
 
         Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Mission Complete: {e.Level} - Bonus");
-            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - Bonus", "bonus_mission"));
+            Console.WriteLine($"Mission Complete: {e.Level} - bonus");
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - bonus", "bonus missions"));
             return Task.CompletedTask;
         }
 
         Task Watcher_StreetRaceComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.StreetRaceCompleteEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Race Complete: {e.Level} - {e.Race}");
-            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Race}", "bonus_mission"));
+            ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Race}", "bonus missions"));
             return Task.CompletedTask;
         }
 

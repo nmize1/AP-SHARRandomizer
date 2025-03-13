@@ -80,12 +80,16 @@ SetBonusMissionDialoguePos("bm1","bm_bart","bm_snake_walk_1","bm1_carstart");
 	AddBonusMissionNPCWaypoint("snake", "bm_snake_walk_1");
 	AddBonusMissionNPCWaypoint("snake", "bm1_snake_sd");
 
+	AddNPCCharacterBonusMission("kearney", "npd", "kearney_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" );
+	AddBonusMissionNPCWaypoint("kearney", "kearney_walk1");
+
+
 //ADDING PURCHASE POINTS FOR VEHICLES AND SKINS
 //
 AddPurchaseCarReward( "gil", "gil", "npd", "gil_loc", 1.3, "gil_car" );
 AddPurchaseCarNPCWaypoint("gil", "gil_walk1");
-AddPurchaseCarReward( "simpson", "kearney", "npd", "kearney_loc", 1.3, "kearney_car" );
-AddPurchaseCarNPCWaypoint("kearney", "kearney_walk1");
+//AddPurchaseCarReward( "simpson", "kearney", "npd", "kearney_loc", 1.3, "kearney_car" );
+//AddPurchaseCarNPCWaypoint("kearney", "kearney_walk1");
 
 //ADDING TRAFFIC GROUP FOR LEVEL 06//
 //

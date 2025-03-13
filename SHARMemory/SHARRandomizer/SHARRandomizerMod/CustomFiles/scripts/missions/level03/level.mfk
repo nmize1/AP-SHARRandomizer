@@ -11,6 +11,7 @@ AddBonusMission("sr3"); // street race 3 - waypoint race
 AddBonusMission("gr1"); // street race 4 - wager race
 AddBonusMission("bm1"); // bonus mission 1
 AddBonusMission("ismovie"); // itchy and scratchy movie
+AddBonusMission("bm2");
 
 AddTeleportDest("Android's Dungeon", 28.7, 6.9, -1.2, "l3z1.p3d;l3r1.p3d;l3r5.p3d;");
 AddTeleportDest("Aztec Theatre", -130, -32.2, -120.2, "l3z2.p3d;l3r1.p3d;l3r2.p3d;");

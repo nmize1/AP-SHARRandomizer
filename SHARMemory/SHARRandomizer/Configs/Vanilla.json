@@ -64,6 +64,11 @@
         "name": "(LVL1) Checkpoint Race",
         "id": "0 - 3",
         "apid": "122299"
+      },
+      {
+        "name": "Talk to Barney",
+        "id": "0 - bonus2",
+        "apid": "122679"
       }
     ],
     "wasps": [
@@ -375,6 +380,11 @@
         "name": "(LVL 2) Checkpoint Race",
         "id": "1 - 3",
         "apid": "122310"
+      },
+      {
+        "name": "Talk to Homer",
+        "id": "1 - bonus2",
+        "apid": "122680"
       }
     ],
     "wasps": [
@@ -671,6 +681,11 @@
         "name": "(LVL 3) Checkpoint Race",
         "id": "2 - 3",
         "apid": "122321"
+      },
+      {
+        "name": "Talk to Otto",
+        "id": "2 - bonus2",
+        "apid": "122681"
       }
     ],
     "wasps": [
@@ -967,6 +982,11 @@
         "name": "(LVL 4) Time Trial Race",
         "id": "3 - 3",
         "apid": "122332"
+      },
+      {
+        "name": "Talk to Willie",
+        "id": "3 - bonus2",
+        "apid": "122682"
       }
     ],
     "wasps": [
@@ -1283,6 +1303,11 @@
         "name": "(LVL 5) Time Trial",
         "id": "4 - 3",
         "apid": "122343"
+      },
+      {
+        "name": "Talk to Homer",
+        "id": "4 - bonus2",
+        "apid": "122683"
       }
     ],
     "wasps": [
@@ -1554,6 +1579,11 @@
         "name": "(LVL 6) Circuit Race",
         "id": "5 - 3",
         "apid": "122354"
+      },
+      {
+        "name": "Talk to Kearney",
+        "id": "5 - bonus2",
+        "apid": "122684"
       }
     ],
     "wasps": [
@@ -1851,6 +1881,11 @@
         "name": "(LVL 7) Circuit Race",
         "id": "6 - 3",
         "apid": "122365"
+      },
+      {
+        "name": "Talk to Graveyard Zombie",
+        "id": "6 - bonus2",
+        "apid": "122685"
       }
     ],
     "wasps": [

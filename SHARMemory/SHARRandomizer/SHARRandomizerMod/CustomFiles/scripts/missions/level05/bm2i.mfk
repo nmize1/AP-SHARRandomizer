@@ -1,0 +1,9 @@
+SelectMission("bm2");
+
+AddStage("final");
+		AddObjective("timer");
+			SetDurationTime(1);
+		CloseObjective();
+	CloseStage();
+
+CloseMission();

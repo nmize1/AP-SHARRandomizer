@@ -81,6 +81,9 @@ AddBonusMissionNPCWaypoint("frink", "bm_frink_walk_2");
 AddBonusMissionNPCWaypoint("frink", "bm_frink_walk_1");
 SetBonusMissionDialoguePos("bm1","bm1_apu","bm_frink_walk_1","bm1_carstart");
 
+AddNPCCharacterBonusMission("homer", "npd", "homer_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" );
+AddBonusMissionNPCWaypoint("homer", "homer_walk1");
+
 //ADDING AMBIENT CHARACTERS
 	AddAmbientCharacter("patty", "ambient_patty",  2.5);  //DMV
 	AddAmbientCharacter("selma", "ambient_selma",  0);  //DMV
@@ -122,8 +125,8 @@ SetBonusMissionDialoguePos("bm1","bm1_apu","bm_frink_walk_1","bm1_carstart");
 //
 AddPurchaseCarReward( "gil", "gil", "npd", "gil_loc", 1.3, "gil_car" );
 AddPurchaseCarNPCWaypoint("gil", "gil_walk1");
-AddPurchaseCarReward( "simpson", "homer", "npd", "homer_loc", 1.3, "homer_car" );
-AddPurchaseCarNPCWaypoint("homer", "homer_walk1");
+//AddPurchaseCarReward( "simpson", "homer", "npd", "homer_loc", 1.3, "homer_car" );
+//AddPurchaseCarNPCWaypoint("homer", "homer_walk1");
 
 //ADDING TRAFFIC GROUP FOR LEVEL 05//
 //

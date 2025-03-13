@@ -103,8 +103,7 @@ SetNumChaseCars("1");
 	AddBonusMissionNPCWaypoint( "cletus", "bm1_cletus_walk2" );
 	AddBonusMissionNPCWaypoint( "cletus", "bm1_cletus_sd" );
 
-	AddNPCCharacterBonusMission("barney", "npd", "barney_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" );
-	SetBonusMissionDialoguePos("bm1","bm1_player","bm1_cletus_sd","level1_carstart");
+	AddNPCCharacterBonusMission("barney", "npd", "barney_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" ); 
 	AddBonusMissionNPCWaypoint( "barney", "barney_walk1" );
 
 //ADDING AMBIENT CHARACTERS

@@ -52,12 +52,15 @@ ClearAmbientAnimations( "bm1" );
 	AddBonusMissionNPCWaypoint( "smithers", "bm1_smithers_walk2" );
 	AddBonusMissionNPCWaypoint( "smithers", "bm1_smithers_walk1" );
 
+	AddNPCCharacterBonusMission("zmale4", "npd", "zmale1_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" );
+	AddBonusMissionNPCWaypoint( "zmale4", "zmale1_walk1" );
+
 //ADDING PURCHASE POINTS FOR VEHICLES AND SKINS
 //
 AddPurchaseCarReward( "gil", "gil", "npd", "gil_loc", 1.3, "gil_car" );
 AddPurchaseCarNPCWaypoint("gil", "gil_walk1");
-AddPurchaseCarReward( "simpson", "zmale1", "npd", "zmale1_loc", 1.3, "zmale1_car" );
-AddPurchaseCarNPCWaypoint("zmale1", "zmale1_walk1");
+//AddPurchaseCarReward( "simpson", "zmale1", "npd", "zmale1_loc", 1.3, "zmale1_car" );
+//AddPurchaseCarNPCWaypoint("zmale1", "zmale1_walk1");
 
 //ADDING TRAFFIC GROUP FOR LEVEL 07//
 //

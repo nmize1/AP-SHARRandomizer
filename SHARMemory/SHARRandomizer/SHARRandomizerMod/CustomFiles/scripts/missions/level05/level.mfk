@@ -11,6 +11,7 @@ AddBonusMission("sr2"); // street race 2 - circuit race
 AddBonusMission("sr3"); // street race 3 - waypoint race
 AddBonusMission("gr1"); // street race 4 - waypoint race
 AddBonusMission("bm1"); // bonus mission 1
+AddBonusMission("bm2");
 
 AddTeleportDest("Town Square", 135.3, 8.0, 44.8, "l5z1.p3d;l5r1.p3d;l5r4.p3d;");
 AddTeleportDest("Moe's", -166, 7.3, 22.7, "l5z2.p3d;l5r1.p3d;l5r2.p3d;");

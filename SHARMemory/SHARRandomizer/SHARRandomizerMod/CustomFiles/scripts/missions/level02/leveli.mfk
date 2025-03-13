@@ -85,6 +85,8 @@ SetBonusMissionDialoguePos("bm1","bm1_bart_talk","bm1_grampa_sd","bm1_carstart")
 	AddBonusMissionNPCWaypoint( "grandpa", "bm1_grampa_walk2" );
 	AddBonusMissionNPCWaypoint( "grandpa", "bm1_grampa_sd" );
 
+	AddNPCCharacterBonusMission("homer", "npd", "homer_loc", "bm2", "exclamation", "", 0, "exclamation_shadow" ); 
+
 //ADDING AMBIENT CHARACTERS
 	AddAmbientCharacter("patty", "ambient_patty",  2.0); //DMV Interior
 	
