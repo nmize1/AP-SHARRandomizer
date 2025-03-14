@@ -307,6 +307,11 @@ namespace SHARRandomizer
 
             foreach (var loc in _session.Locations.AllLocationsChecked)
             {
+                if (((wasps / 140) * 100) < waspPercent)
+                    return;
+                if (((cards / 49) * 100) < cardPercent)
+                    return;
+
                 if (victory == VICTORY.FinalMission)
                 {
                     if (loc == 122361)
@@ -336,11 +341,6 @@ namespace SHARRandomizer
                     }
                 }
             }
-
-            if (((wasps / 140) * 100) < waspPercent)
-                return;
-            if (((cards / 49) * 100) < cardPercent)
-                return;
 
             switch (victory)
             {
