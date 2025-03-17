@@ -560,7 +560,7 @@ namespace SHARRandomizer
                     }
                     break;
                 case "Hit N Run":
-                    memory.Singletons.HitNRunManager.LastUpdateValue = 100f;
+                    memory.Singletons.HitNRunManager.CurrHitAndRun = 100f;
                     break;
                 default:
                     break;
