@@ -98,18 +98,18 @@ namespace SHARRandomizer
                 return;
             }
 
-            /* Create default list of random shop costs, then replace it with the stored one if a stored one exists */
-            int s = 0;
-            Dictionary<int, int> tShopCosts = new Dictionary<int, int>();
-            for (; s < 42; s++) //42 shop checks
+            Console.WriteLine("Waiting till gameplay starts.");
+            while (!Extensions.InGame(memory))
             {
-                tShopCosts[s] = Random.Shared.Next(MINSHOPCOST, MAXSHOPCOST);
+
             }
-            s = 0;
-            Dictionary<int, int> ShopCosts = sd.GetOrCreateShopCosts(tShopCosts);
+
+            /* Create default list of random shop costs, then replace it with the stored one if a stored one exists */
+            List<int> ShopCosts = ArchipelagoClient.ShopCosts;
 
             /* Get all rewards in a list for lookup purposes */
             int i = 0;
+            int s = 0;
            
             foreach (var rewards in rewardsManager.RewardsList)
             {
@@ -139,13 +139,6 @@ namespace SHARRandomizer
                     i++;
                 }
                 REWARDS.AddRange(tempRewards);
-            }
-            
-
-            Console.WriteLine("Waiting till gameplay starts.");
-            while (!Extensions.InGame(memory))
-            {
-
             }
 
             var watcher = memory.Watcher;
@@ -524,7 +517,7 @@ namespace SHARRandomizer
                         return;
 
                     List<String> defaults = rewardsManager.RewardsList.Select(reward => reward.DefaultCar.Name).ToList();
-                    if (DISABLEDEFAULT && player.Car != null && defaults.Contains(player.Car.Name))
+                    if (DISABLEDEFAULT && player.Car != null && defaults[(CURRENTLEVEL[1] - '0') - 1] == player.Car.Name)
                     {
                         player.Car.Stop();
                         player.Controller.Intention = CharacterController.Intentions.GetOutCar;

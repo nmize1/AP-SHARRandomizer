@@ -95,7 +95,7 @@ public class LocationTranslations
         var typeSelectors = new Dictionary<string, Func<LevelData, IEnumerable<dynamic>>>()
         {
             { "missions", l => l.missions },
-            { "bonus missions", l => l.bonus_missions },
+            { "bonus missions", l => l.bonus_missions},
             { "wasp", l => l.wasps },
             { "card", l => l.cards },
             { "gag", l => l.gags },
@@ -120,18 +120,16 @@ public class LocationTranslations
     {
         List<LevelData> Levels = new List<LevelData> { level1, level2, level3, level4, level5, level6, level7 };
 
-        // Map each collection selector to its type name
         var typeSelectors = new Dictionary<string, Func<LevelData, IEnumerable<dynamic>>>
         {
             { "mission", l => l.missions },
-            { "bonus missions", l => l.bonus_missions },
+            { "bonus missions", l => l.bonus_missions},
             { "wasp", l => l.wasps },
             { "card", l => l.cards },
             { "gag", l => l.gags },
             { "shop", l => l.shops }
         };
 
-        // Loop through each level and each collection type
         foreach (var level in Levels)
         {
             foreach (var kvp in typeSelectors)
@@ -145,7 +143,6 @@ public class LocationTranslations
             }
         }
 
-        // Not found, return empty or throw error depending on need
         return (null, null);
     }
 

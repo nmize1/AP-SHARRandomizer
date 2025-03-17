@@ -37,6 +37,8 @@ namespace SHARRandomizer
         public string PASSWORD = "";
 
         public static string SaveName;
+        LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
+        public static List<int> ShopCosts;
 
         public enum VICTORY
         {
@@ -143,6 +145,9 @@ namespace SHARRandomizer
             waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
             cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
 
+            JArray costsArray = (JArray)login.SlotData["costs"];
+            ShopCosts = costsArray.ToObject<List<int>>();
+
             MemoryManip.APCONNECTED = true;
             while (true)
             {
@@ -199,7 +204,7 @@ namespace SHARRandomizer
             }
             Console.WriteLine(location);
             _session.Locations.CompleteLocationChecksAsync(location);
-            CheckVictory();
+            CheckVictory(location);
         }
 
         public bool IsLocationChecked(long location)
@@ -296,67 +301,69 @@ namespace SHARRandomizer
             _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
         }
 
-        void CheckVictory()
+        void CheckVictory(long location)
         {
-            LocationTranslations lt = new LocationTranslations();
-
             int missions = 0;
             int bonus = 0;
             int wasps = 0;
             int cards = 0;
 
             foreach (var loc in _session.Locations.AllLocationsChecked)
-            {
-                if (((wasps / 140) * 100) < waspPercent)
-                    return;
-                if (((cards / 49) * 100) < cardPercent)
-                    return;
+            { 
+                (string type, _) = lt.getTypeAndNameByAPID(loc);
 
-                if (victory == VICTORY.FinalMission)
+                switch (type)
                 {
-                    if (loc == 122361)
-                    {
-                        SendCompletion();
-                        return;
-                    }
-                }
-                else
-                {
-                    (string type, _) = lt.getTypeAndNameByAPID(loc);
-
-                    switch (type)
-                    {
-                        case "mission":
-                            missions++;
-                            break;
-                        case "bonus_mission":
-                            bonus++;
-                            break;
-                        case "wasp":
-                            wasps++;
-                            break;
-                        case "card":
-                            cards++;
-                            break;
-                    }
+                    case "mission":
+                        missions++;
+                        break;
+                    case "bonus_mission":
+                        bonus++;
+                        break;
+                    case "wasp":
+                        wasps++;
+                        break;
+                    case "card":
+                        cards++;
+                        break;
                 }
             }
 
-            switch (victory)
+            double wp = ((double)wasps / 140) * 100;
+            Console.WriteLine($"Wasps: {wp}");
+            if (wp < waspPercent)
+                return;
+            double cp = ((double)cards / 49) * 100;
+            Console.WriteLine($"Cards: {cp}");
+            if (((cards / 49) * 100) < cardPercent)
+                return;
+
+            if (victory == VICTORY.FinalMission)
             {
-                case VICTORY.AllStory:
-                    if (missions >= 49)
-                        SendCompletion(); 
-                    return;
-
-                case VICTORY.AllMissions:
-                    if (missions >= 49 && bonus >= 28)
-                        SendCompletion(); 
-                    return;
-
-                case VICTORY.WaspsCards:
+                if (location == 122361)
+                {
                     SendCompletion();
                     return;
+                }
+            }
+            else
+            {
+                switch (victory)
+                {
+                    case VICTORY.AllStory:
+                        if (missions >= 49)
+                            SendCompletion();
+                        return;
+
+                    case VICTORY.AllMissions:
+                        if (missions >= 49 && bonus >= 28)
+                            SendCompletion();
+                        return;
+
+                    case VICTORY.WaspsCards:
+                        SendCompletion();
+                        return;
+                }
             }
         }
     }

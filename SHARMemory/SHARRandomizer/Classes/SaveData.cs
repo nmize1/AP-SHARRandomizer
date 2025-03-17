@@ -13,7 +13,6 @@ public class SaveData
     {
         public int HitNRunReset { get; set; }
         public int Wrench { get; set; }
-        public Dictionary<int, int> ShopCosts { get; set; } = new Dictionary<int, int>();
     }
 
     private SaveFileData Data = new SaveFileData();
@@ -56,25 +55,6 @@ public class SaveData
         Save();
     }
 
-    public void SetShopCosts(Dictionary<int, int> shopCosts)
-    {
-        Data.ShopCosts = shopCosts;
-        Save();
-    }
-
     public int GetHitNRunReset() => Data.HitNRunReset;
     public int GetWrench() => Data.Wrench;
-    public Dictionary<int, int> GetShopCosts() => Data.ShopCosts;
-
-    public Dictionary<int, int> GetOrCreateShopCosts(Dictionary<int, int> defaultValues)
-    {
-        if (Data.ShopCosts != null && Data.ShopCosts.Count > 0)
-        {
-            return Data.ShopCosts;
-        }
-
-        Data.ShopCosts = new Dictionary<int, int>(defaultValues);
-        Save();
-        return Data.ShopCosts;
-    }
 }
