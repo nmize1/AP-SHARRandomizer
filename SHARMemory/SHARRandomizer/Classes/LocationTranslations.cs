@@ -110,7 +110,10 @@ public class LocationTranslations
             var collection = selector(level);
             var item = collection?.FirstOrDefault(e => e.id == id);
             if (item != null)
+            {
+                Console.WriteLine($"Sending {item.apid}");
                 return item.apid;
+            }
         }
 
         return -1;

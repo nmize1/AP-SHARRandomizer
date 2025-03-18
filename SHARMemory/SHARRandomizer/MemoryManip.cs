@@ -639,7 +639,7 @@ namespace SHARRandomizer
         Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchasedEventArgs e, CancellationToken token)
         {
             Console.WriteLine($"Car Purchased: {e.Merchandise.Name}"); 
-            if (Regex.IsMatch(e.Merchandise.Name, @"^APCAR\d{1,2}$"))
+            if (e.Merchandise.Name.Contains("APCar"))
             {
                 Console.WriteLine($"Sending check from {e.Merchandise.Name}");
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID(e.Merchandise.Name, "shop"));
