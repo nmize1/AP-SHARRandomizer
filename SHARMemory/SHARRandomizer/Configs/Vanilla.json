@@ -52,17 +52,17 @@
       },
       {
         "name": "(LVL1) Time Trial Race",
-        "id": "0 - 1",
+        "id": "0 - 0",
         "apid": "122297"
       },
       {
         "name": "(LVL1) Circuit Race",
-        "id": "0 - 2",
+        "id": "0 - 1",
         "apid": "122298"
       },
       {
         "name": "(LVL1) Checkpoint Race",
-        "id": "0 - 3",
+        "id": "0 - 2",
         "apid": "122299"
       },
       {
@@ -368,17 +368,17 @@
       },
       {
         "name": "(LVL 2) Time Trial Race",
-        "id": "1 - 1",
+        "id": "1 - 0",
         "apid": "122308"
       },
       {
         "name": "(LVL 2) Circuit Race",
-        "id": "1 - 2",
+        "id": "1 - 1",
         "apid": "122309"
       },
       {
         "name": "(LVL 2) Checkpoint Race",
-        "id": "1 - 3",
+        "id": "1 - 2",
         "apid": "122310"
       },
       {
@@ -669,17 +669,17 @@
       },
       {
         "name": "(LVL 3) Time Trial Race",
-        "id": "2 - 1",
+        "id": "2 - 0",
         "apid": "122319"
       },
       {
         "name": "(LVL 3) Circuit Race",
-        "id": "2 - 2",
+        "id": "2 - 1",
         "apid": "122320"
       },
       {
         "name": "(LVL 3) Checkpoint Race",
-        "id": "2 - 3",
+        "id": "2 - 2",
         "apid": "122321"
       },
       {
@@ -732,7 +732,7 @@
       {
         "name": "(LVL 3) WASP - Duff Blimp 1",
         "id": "Level3 - 14",
-        "apid": "12246371"
+        "apid": "122471"
       },
       {
         "name": "(LVL 3) WASP - Duff Blimp 2",
@@ -970,17 +970,17 @@
       },
       {
         "name": "(LVL 4) CheckPoint Race",
-        "id": "3 - 1",
+        "id": "3 - 0",
         "apid": "122330"
       },
       {
         "name": "(LVL 4) Circuit Race",
-        "id": "3 - 2",
+        "id": "3 - 1",
         "apid": "122331"
       },
       {
         "name": "(LVL 4) Time Trial Race",
-        "id": "3 - 3",
+        "id": "3 - 2",
         "apid": "122332"
       },
       {
@@ -1291,17 +1291,17 @@
       },
       {
         "name": "(LVL 5) Checkpoint Race",
-        "id": "4 - 1",
+        "id": "4 - 0",
         "apid": "122341"
       },
       {
         "name": "(LVL 5) Circuit Race",
-        "id": "4 - 2",
+        "id": "4 - 1",
         "apid": "122342"
       },
       {
         "name": "(LVL 5) Time Trial",
-        "id": "4 - 3",
+        "id": "4 - 2",
         "apid": "122343"
       },
       {
@@ -1567,17 +1567,18 @@
       },
       {
         "name": "(LVL 6) Checkpoint Race",
-        "id": "5 - 1",
+        "id": "5 - 0",
         "apid": "122352"
       },
       {
         "name": "(LVL 6) Time Trial Race",
-        "id": "5 - 2",
+        "id": "5 - 1",
         "apid": "122353"
       },
       {
         "name": "(LVL 6) Circuit Race",
-        "id": "5 - 3",
+        "id": "5 - 2",
+        "id": "5 - 2",
         "apid": "122354"
       },
       {
@@ -1869,17 +1870,17 @@
       },
       {
         "name": "(LVL 7) CheckPoint Race",
-        "id": "6 - 1",
+        "id": "6 - 0",
         "apid": "122363"
       },
       {
         "name": "(LVL 7) Time Trial Race",
-        "id": "6 - 2",
+        "id": "6 - 1",
         "apid": "1223643"
       },
       {
         "name": "(LVL 7) Circuit Race",
-        "id": "6 - 3",
+        "id": "6 - 2",
         "apid": "122365"
       },
       {
