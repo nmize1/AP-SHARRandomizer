@@ -463,7 +463,7 @@ namespace SHARRandomizer
                     break;
             }
 
-            if (!moves.Contains($"{character} Kick"))
+            if (!moves.Contains($"{character} Attack"))
                 memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.Attack);
             else
                 memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.Attack);
