@@ -262,23 +262,23 @@ namespace SHARRandomizer
             itemName ??= item.ItemDisplayName;
 
             Console.WriteLine($"Received item #{index}: {item.ItemId} - {itemName}");
-            
+
             var player = item.Player;
             var playerName = player.Alias ?? player.Name ?? $"Player #{player.Slot}";
 
-            var storedIndex = await _session.DataStorage["index"].GetAsync<int>();
+            var storedIndex = await _session.DataStorage[Scope.Slot, "index"].GetAsync<int>();
             if (storedIndex < index)
             {
                 _session.DataStorage[Scope.Slot, "index"] = index;
                 MemoryManip.itemsReceived.Enqueue(itemName);
             }
-            else if (item.Flags != ItemFlags.Trap && !NORESEND.Contains(item.ItemName))
+            else if (item.Flags == ItemFlags.Trap || NORESEND.Contains(item.ItemName))
             {
-                MemoryManip.itemsReceived.Enqueue(itemName);
+                Console.WriteLine($"Didn't enqueue {itemName} which is {item.Flags}");
             }
             else
             {
-                Console.WriteLine($"Didn't enqueue {itemName} which is {item.Flags}");
+                MemoryManip.itemsReceived.Enqueue(itemName);
             }
             
         }

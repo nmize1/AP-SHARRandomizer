@@ -606,7 +606,7 @@ namespace SHARRandomizer
             HandleCurrentBonusMissions(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
             LockDefaultCarsOnLoad(sender, ((int)e.Level));
-            if (e.Mission.ToString() == "BM2")
+            if (e.Mission.ToString() == "BM2" || e.Mission.ToString() == "BM3")
             {
                 Console.WriteLine($"{(int)e.Level} - bonus2");
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "bonus missions"));
