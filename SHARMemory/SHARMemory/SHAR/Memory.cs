@@ -282,7 +282,7 @@ public class Memory : ProcessMemory
     /// </exception>
     public uint SelectAddress(uint ReleaseEnglishAddress, uint DemoAddress, uint ReleaseInternationalAddress, uint BestSellerSeriesAddress)
     {
-        return GameVersion switch
+        var address = GameVersion switch
         {
             GameVersions.ReleaseEnglish => ReleaseEnglishAddress,
             GameVersions.Demo => DemoAddress,
@@ -290,6 +290,9 @@ public class Memory : ProcessMemory
             GameVersions.BestSellerSeries => BestSellerSeriesAddress,
             _ => throw new Exception("Unrecognised game version."),
         };
+        if (address == 0)
+            throw new NotImplementedException($"This address is not supported on {GameVersion}.");
+        return address;
     }
 
     /// <summary>

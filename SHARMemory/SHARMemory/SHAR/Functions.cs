@@ -131,8 +131,8 @@ public sealed class Functions
 
         TriggerEventParams parameter = new()
         {
-            EventManagerGetInstanceFunc = (IntPtr)_memory.SelectAddress(0x4329A0, 0, 0, 0),
-            EventManagerTriggerEventFunc = (IntPtr)_memory.SelectAddress(0x432AD0, 0, 0, 0),
+            EventManagerGetInstanceFunc = (IntPtr)_memory.SelectAddress(0x4329A0, 0x433070, 0x432C20, 0x432830),
+            EventManagerTriggerEventFunc = (IntPtr)_memory.SelectAddress(0x432AD0, 0x4331A0, 0x432D50, 0x432960),
             Event = (int)@event,
             Param = (IntPtr)param
         };

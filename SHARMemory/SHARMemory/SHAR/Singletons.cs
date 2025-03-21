@@ -130,7 +130,7 @@ public sealed class Singletons
 
     internal Singletons(Memory memory)
     {
-        CardGallerySingleton = new(memory, memory.SelectAddress(0x6C9064, 0, 0, 0));
+        CardGallerySingleton = new(memory, memory.SelectAddress(0x6C9064, 0x6C9024, 0x6C9024, 0x6C905C));
         CharacterManagerSingleton = new(memory, memory.SelectAddress(0x6C8470, 0x6C8430, 0x6C8430, 0x6C8468));
         CharacterSheetManagerSingleton = new(memory, memory.SelectAddress(0x6C8984, 0x6C8944, 0x6C8944, 0x6C897C));
         CoinManagerSingleton = new(memory, memory.SelectAddress(0x6C8450, 0x6C8410, 0x6C8410, 0x6C8448));
