@@ -774,7 +774,10 @@ public class ProcessMemory : IDisposable
     {
         byte[] Bytes = Encoding.GetBytes(Value);
         Array.Resize(ref Bytes, Length);
-        Bytes[Length - 1] = 0;
+
+        var charLen = Encoding.GetByteCount(['\0']);
+        for (int i = 0; i < charLen; i++)
+            Bytes[Length - i - 1] = 0;
 
         return Bytes;
     }

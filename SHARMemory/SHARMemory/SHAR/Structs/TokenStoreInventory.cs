@@ -29,10 +29,22 @@ internal class TokenStoreInventoryStruct : Struct
     public override object FromBytes(ProcessMemory Memory, byte[] Bytes, int Offset = 0)
     {
         Merchandise[] Merchandises = new Merchandise[RewardsManager.MAX_INVENTORY];
-        for (int i = 0; i < RewardsManager.MAX_INVENTORY; i++)
+        // Horrific hacky bodge because it appears Windows 11 sometimes has random values in the `InventoryList` array when `IncreasedRewardLimits` is loaded
+        if (Memory is Memory SHARMemory && SHARMemory.IsHackLoaded("IncreasedRewardLimits"))
         {
-            Merchandises[i] = Memory.ClassFactory.Create<Merchandise>(BitConverter.ToUInt32(Bytes, Offset));
-            Offset += sizeof(uint);
+            for (int i = 0; i < RewardsManager.MAX_INVENTORY; i++)
+            {
+                Merchandises[i] = null;
+                Offset += sizeof(uint);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < RewardsManager.MAX_INVENTORY; i++)
+            {
+                Merchandises[i] = Memory.ClassFactory.Create<Merchandise>(BitConverter.ToUInt32(Bytes, Offset));
+                Offset += sizeof(uint);
+            }
         }
         int Counter = BitConverter.ToInt32(Bytes, Offset);
         return new TokenStoreInventory(Merchandises, Counter);

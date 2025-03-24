@@ -34,7 +34,7 @@ public class RewardsManager : Class
         set => WriteInt32(UpdateQueOffset, value);
     }
 
-    internal const uint LevelTokenStoreListOffset = UpdateQueOffset + sizeof(uint);
+    internal const uint LevelTokenStoreListOffset = UpdateQueOffset + sizeof(int);
     public StructArray<TokenStoreInventory> LevelTokenStoreList => new(Memory, Address + LevelTokenStoreListOffset, TokenStoreInventory.Size, CharacterSheet.MAX_LEVELS);
 
     internal const uint LevelTokenStoreSearchIndexOffset = LevelTokenStoreListOffset + TokenStoreInventory.Size * CharacterSheet.MAX_LEVELS;

@@ -162,6 +162,8 @@ public class Memory : ProcessMemory
         }
     }
 
+    private readonly Dictionary<string, bool> _isHackLoaded = [];
+
     /// <summary>
     /// If <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" /> is loaded, query loaded hacks.
     /// Credits: Lucas Cardellini
@@ -171,7 +173,7 @@ public class Memory : ProcessMemory
     /// </returns>
     public string[] GetLoadedHacks()
     {
-        if (!ModLauncherOrdinals.TryGetValue(3351, out uint EventHacks))
+        if (!ModLauncherOrdinals.TryGetValue(3151, out uint EventHacks))
             return null;
 
         uint HacksLoaded = ReadUInt32(EventHacks + 8);
@@ -192,6 +194,9 @@ public class Memory : ProcessMemory
             }
         }
 
+        foreach (var hack in Hacks)
+            _isHackLoaded[hack] = true;
+
         return Hacks;
     }
 
@@ -207,7 +212,10 @@ public class Memory : ProcessMemory
     /// </returns>
     public bool IsHackLoaded(string HackName)
     {
-        if (!ModLauncherOrdinals.TryGetValue(3351, out uint EventHacks))
+        if (_isHackLoaded.TryGetValue(HackName, out bool isHackLoaded))
+            return isHackLoaded;
+
+        if (!ModLauncherOrdinals.TryGetValue(3151, out uint EventHacks))
             return false;
 
         uint node = ReadUInt32(EventHacks);
@@ -215,11 +223,15 @@ public class Memory : ProcessMemory
         {
             uint hack = ReadUInt32(node + 12);
             if (ReadString(hack + 562, Encoding.Unicode, 128u).Equals(HackName, StringComparison.OrdinalIgnoreCase))
+            {
+                _isHackLoaded[HackName] = true;
                 return true;
+            }
 
             node = ReadUInt32(node + 8);
         }
 
+        _isHackLoaded[HackName] = false;
         return false;
     }
 

@@ -92,7 +92,7 @@ public class FeLanguage : Class
                 break;
         }
 
-        int maxLength = endPos - startPos;
+        int maxLength = endPos - startPos - 2;
 
         byte[] bytes = Encoding.Unicode.GetBytes(value);
         if (bytes.Length > maxLength)
