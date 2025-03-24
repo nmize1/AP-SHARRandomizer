@@ -280,6 +280,11 @@
         "name": "(LVL 1) GAG - Squishee Machine in Kwik-E-Mart",
         "id": "0 - 5",
         "apid": "122406"
+      },
+      {
+        "name": "(LVL 1) GAG - ATM in Kwik-E-Mart",
+        "id": "0 - 7",
+        "apid": "122689"
       }
     ],
     "shops": [
@@ -969,7 +974,7 @@
         "apid": "122329"
       },
       {
-        "name": "(LVL 4) CheckPoint Race",
+        "name": "(LVL 4) Checkpoint Race",
         "id": "3 - 0",
         "apid": "122330"
       },
@@ -1868,17 +1873,17 @@
         "apid": "122362"
       },
       {
-        "name": "(LVL 7) CheckPoint Race",
+        "name": "(LVL 7) Time Trial Race",
         "id": "6 - 0",
         "apid": "122363"
       },
       {
-        "name": "(LVL 7) Time Trial Race",
+        "name": "(LVL 7) Circuit Race",
         "id": "6 - 1",
-        "apid": "1223643"
+        "apid": "122364"
       },
       {
-        "name": "(LVL 7) Circuit Race",
+        "name": "(LVL 7) Checkpoint Race",
         "id": "6 - 2",
         "apid": "122365"
       },
@@ -2075,7 +2080,7 @@
       },
       {
         "name": "(LVL 7) GAG - Silent Alarm in Kwik-E-Mart",
-        "id": " 6 - 11",
+        "id": "6 - 11",
         "apid": "122670"
       },
       {

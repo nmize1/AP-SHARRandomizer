@@ -42,9 +42,9 @@ namespace SHARRandomizer
 
         public enum VICTORY
         {
-            FinalMission = 0,
+            AllMissions = 0,
             AllStory = 1,
-            AllMissions = 2,
+            FinalMission = 2,
             WaspsCards = 3
         }
 
@@ -140,7 +140,6 @@ namespace SHARRandomizer
                 Console.WriteLine($"  {kvp.Key}: {kvp.Value}");
             }
             SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
-            _session.DataStorage["index"].Initialize(0);
             victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
             waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
             cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
@@ -266,6 +265,7 @@ namespace SHARRandomizer
             var player = item.Player;
             var playerName = player.Alias ?? player.Name ?? $"Player #{player.Slot}";
 
+            _session.DataStorage[Scope.Slot, "index"].Initialize(0);
             var storedIndex = await _session.DataStorage[Scope.Slot, "index"].GetAsync<int>();
             if (storedIndex < index)
             {
@@ -301,6 +301,7 @@ namespace SHARRandomizer
             _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
         }
 
+        /* Maybe move summation loop to on connect then just do 1 ++ each check. More efficient. Also, maybe check game stats instead of locations? */
         void CheckVictory(long location)
         {
             int missions = 0;
@@ -331,11 +332,13 @@ namespace SHARRandomizer
 
             double wp = ((double)wasps / 140) * 100;
             Console.WriteLine($"Wasps: {wp}");
-            if (wp < waspPercent)
-                return;
+            
             double cp = ((double)cards / 49) * 100;
             Console.WriteLine($"Cards: {cp}");
-            if (((cards / 49) * 100) < cardPercent)
+
+            if (wp < waspPercent)
+                return;
+            if (cp < cardPercent)
                 return;
 
             if (victory == VICTORY.FinalMission)

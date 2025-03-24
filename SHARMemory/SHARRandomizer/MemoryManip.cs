@@ -78,7 +78,7 @@ namespace SHARRandomizer
                 Console.WriteLine($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Language: {memory.GameSubVersion}.", "Main");
                 GameFlow.GameState? state = memory.Singletons.GameFlow?.CurrentContext;
 
-                InitialGameState(memory);
+                await InitialGameState(memory);
                 await GetItems(memory);
 
                 memory.Dispose();
@@ -88,7 +88,7 @@ namespace SHARRandomizer
         }
 
         /* Setting things up */
-        public void InitialGameState(Memory memory)
+        public async Task InitialGameState(Memory memory)
         {
             Console.WriteLine("Setting up initial game state.", "Main");
             var rewardsManager = memory.Singletons.RewardsManager;
@@ -101,7 +101,7 @@ namespace SHARRandomizer
             Console.WriteLine("Waiting till gameplay starts.");
             while (!Extensions.InGame(memory))
             {
-
+                await Task.Delay(100);
             }
 
             /* Create default list of random shop costs, then replace it with the stored one if a stored one exists */
@@ -110,33 +110,38 @@ namespace SHARRandomizer
             /* Get all rewards in a list for lookup purposes */
             int i = 0;
             int s = 0;
-           
-            foreach (var rewards in rewardsManager.RewardsList)
+            
+            var rewardsList = rewardsManager.RewardsList.ToArray();
+            var tokenStoreList = rewardsManager.LevelTokenStoreList.ToArray();
+            for (int level = 0; level < memory.Globals.LevelCount; level++)
             {
                 List<Reward> tempRewards = new List<Reward>();
-                if (i < 7)
-                {
-                    tempRewards.Add(rewards.DefaultCar);
-                    tempRewards.Add(rewards.BonusMission);
-                    tempRewards.Add(rewards.StreetRace);
-                    Console.WriteLine($"Saving ShopCosts for level {i + 1}");
-                    for (int merchandiseIndex = 0; merchandiseIndex < rewardsManager.LevelTokenStoreList[i].Counter; merchandiseIndex++)
-                    {
-                        var merchandise = memory.Functions.GetMerchandise(i, merchandiseIndex);
-                        
-                        if (merchandise != null && merchandise.RewardType != Reward.RewardTypes.Null && merchandise.Name != "Null")
-                        {
-                            tempRewards.Add(merchandise);
-                            if (merchandise.Name.Contains("APCar"))
-                            {
-                                merchandise.Cost = ShopCosts[s];
-                                Console.WriteLine($"MERCHANDISE {merchandise.Cost} ");
-                                s++;
-                            }
-                        }
-                    }
+                var levelRewards = rewardsList[level];
+                tempRewards.Add(levelRewards.DefaultCar);
+                tempRewards.Add(levelRewards.BonusMission);
+                tempRewards.Add(levelRewards.StreetRace);
+                Console.WriteLine($"Saving ShopCosts for level {level + 1}");
 
-                    i++;
+                var levelTokenStoreList = tokenStoreList[level];
+                for (int merchandiseIndex = 0; merchandiseIndex < levelTokenStoreList.Counter; merchandiseIndex++)
+                {
+                    var merchandise = memory.Functions.GetMerchandise(level, merchandiseIndex);
+
+                    if (merchandise == null)
+                        continue;
+
+                    if (merchandise.RewardType == Reward.RewardTypes.Null)
+                        continue;
+
+                    if (merchandise.Name == "Null")
+                        continue;
+
+                    tempRewards.Add(merchandise);
+                    if (merchandise.Name.Contains("APCar"))
+                    {
+                        merchandise.Cost = ShopCosts[s++];
+                        Console.WriteLine($"MERCHANDISE {merchandise.Cost}");
+                    }
                 }
                 REWARDS.AddRange(tempRewards);
             }
@@ -168,12 +173,16 @@ namespace SHARRandomizer
                 Console.WriteLine($"{(textBible?.GetString(r.Name.ToUpper()) ?? r.Name)} : {r.Name }");
             }
 
-
-            while (language == null)
+            await Task.Run(async () =>
             {
-                language = memory.Globals?.TextBible?.CurrentLanguage;
-            }
-            InitializeMissionTitles();
+                while (language == null)
+                {
+                    language = memory.Globals?.TextBible?.CurrentLanguage;
+                    await Task.Delay(100);
+                }
+            });
+
+            InitializeMissionTitles(); 
             Task.Run(() => InitializeShopItems());
 
             var characterSheet = memory.Singletons.CharacterSheetManager;
@@ -341,7 +350,7 @@ namespace SHARRandomizer
         {
             UnlockedLevels.Add(level);
             int levelNum = int.Parse(Regex.Match(level, @"\d+").Value);
-
+            
             for (int mission = 0; mission < 7; mission++)
             {
                 string missionTitle = lt.getMissionName(mission, levelNum-1);
@@ -402,11 +411,11 @@ namespace SHARRandomizer
         }
 
         void InitializeMissionTitles()
-        { 
+        {
             string name = $"MISSION_TITLE_L{0}_M{0}";
             language.SetString(name, "LOCKED");
 
-
+            
             for (int level = 0; level < 7; level++)
             {
                 for (int mission = 0; mission < 7; mission++)
@@ -568,6 +577,19 @@ namespace SHARRandomizer
             }
         }
 
+        void LockBonusCars(Memory memory)
+        {
+            foreach (Reward reward in REWARDS)
+            {
+                var textBible = memory.Globals.TextBible.CurrentLanguage;
+                string name = textBible?.GetString(reward.Name.ToUpper()) ?? reward.Name;
+                if (reward.QuestType == Reward.QuestTypes.BonusMission && !UnlockedItems.Contains(name))
+                {
+                    reward.Earned = false;
+                }
+            }
+        }
+
         public void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
         {
             InputListener listener = (InputListener)sender;
@@ -610,6 +632,7 @@ namespace SHARRandomizer
             {
                 Console.WriteLine($"{(int)e.Level} - bonus2");
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "bonus missions"));
+                LockBonusCars(sender);
             }
             return Task.CompletedTask;
         }
@@ -660,6 +683,7 @@ namespace SHARRandomizer
         {
             Console.WriteLine($"Mission Complete: {e.Level} - bonus");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - bonus", "bonus missions"));
+            LockBonusCars(sender);
             return Task.CompletedTask;
         }
 
