@@ -6,7 +6,7 @@ public class Button : Class
 {
     public Button(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    public static uint TickCount(Memory memory) => memory.ReadUInt32(memory.SelectAddress(0x6C900C, 0, 0, 0));
+    public static uint TickCount(Memory memory) => memory.ReadUInt32(memory.SelectAddress(0x6C900C, 0x6C8FCC, 0x6C8FCC, 0x6C9004));
     public uint TickCount() => TickCount(Memory);
 
     internal const uint ValueOffset = 0;

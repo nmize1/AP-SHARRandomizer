@@ -20,7 +20,7 @@ public sealed partial class Globals
     /// <summary>
     /// A reference to SHAR's <see cref="Classes.RoadManager"/> static global.
     /// </summary>
-    public RoadManager RoadManager => Memory.ClassFactory.Create<RoadManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6c85b0, 0, 0, 0)));
+    public RoadManager RoadManager => Memory.ClassFactory.Create<RoadManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6C85B0, 0x6C8570, 0x6C8570, 0x6C85A8)));
 
     /// <summary>
     /// A reference to the handler for SHAR's <c>CharacterTune</c> statics.
