@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 /SHARMemory/SHARRandomizer/SHARRandomizerMod/SHARAP.lmlm
 /SHARMemory/SHARRandomizer/Saves
+*.lmlm

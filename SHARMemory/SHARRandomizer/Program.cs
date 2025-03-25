@@ -7,7 +7,9 @@ using SHARRandomizer.Classes;
 using System.Diagnostics;
 using System.Drawing;
 
+string VERSION = "Alpha 0.1.8";
 
+Console.WriteLine($"SHARRandomizer.exe version: {VERSION}");
 Console.WriteLine("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:");
 string URI = Console.ReadLine();
 if (int.TryParse(URI, out int porttest))
