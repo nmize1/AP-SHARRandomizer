@@ -78,7 +78,12 @@
         "id": "0 - 8",
         "apid": 122295,
         "index": 6,
-        "translations": null
+        "translations": [
+          "The Fat and Furious",
+          "Le gros et le furieux",
+          "The Fat and the Furious",
+          "El Gordo y el Furioso"
+        ]
       }
     ],
     "bonus missions": [
@@ -436,7 +441,12 @@
         "id": "1 - 7",
         "apid": 122306,
         "index": 6,
-        "translations": null
+        "translations": [
+          "Cell-Outs",
+          "Service interrompu",
+          "Kein Anschluss",
+          "Movilmanía"
+        ]
       }
     ],
     "bonus missions": [
@@ -774,7 +784,12 @@
         "id": "2 - 7",
         "apid": 122317,
         "index": 6,
-        "translations": null
+        "translations": [
+          "The Old Pirate and the Sea",
+          "Le vieux pirate et la mer",
+          "Der alte Pirat und das Meer",
+          "El viejo pirata y el mar"
+        ]
       }
     ],
     "bonus missions": [
@@ -1112,7 +1127,12 @@
         "id": "3 - 7",
         "apid": 122328,
         "index": 6,
-        "translations": null
+        "translations": [
+          "From Outer Space",
+          "Rencontre du 7ème type",
+          "Aus dem Weltall",
+          "Desde el espacio exterior"
+        ]
       }
     ],
     "bonus missions": [
@@ -1470,7 +1490,12 @@
         "id": "4 - 7",
         "apid": 122339,
         "index": 6,
-        "translations": null
+        "translations": [
+          "Curious Curator",
+          "Un curieux conservateur",
+          "Kurator-Katastrophen",
+          "Guarda jurado curioso"
+        ]
       }
     ],
     "bonus missions": [
@@ -1783,7 +1808,12 @@
         "id": "5 - 7",
         "apid": 122350,
         "index": 6,
-        "translations": null
+        "translations": [
+          "Kang and Kodos Strike Back",
+          "Kang et Kodos contre-attaquent",
+          "Kang und Kodos schlagen zurück",
+          "Kang y Kodos atacan de nuevo"
+        ]
       }
     ],
     "bonus missions": [
@@ -2121,7 +2151,12 @@
         "id": "6 - 7",
         "apid": 122361,
         "index": 6,
-        "translations": null
+        "translations": [
+          "Alien \"Auto\"topsy Part III",
+          "Autopsie extra-terrestre III",
+          "Die außerirdische Auto-topsie, Teil III",
+          "Autotopsia alienígena III"
+        ]
       }
     ],
     "bonus missions": [

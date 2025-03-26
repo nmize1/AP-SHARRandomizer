@@ -85,8 +85,9 @@ public class LocationTranslations
 
     public string getMissionName(int index, int level, int language = 0)
     {
-        List<LevelData> Levels = new List<LevelData> { level1, level2, level3, level4, level5, level6, level7 };
-        return Levels[level].missions[index].translations[language];
+        List<LevelData> Levels = [level1, level2, level3, level4, level5, level6, level7];
+        var mission = Levels[level].missions[index];
+        return mission.translations.Length > language ? mission.translations[language] : mission.name;
     }
 
     public long getAPID(string id, string type)
