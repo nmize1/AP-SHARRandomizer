@@ -4,319 +4,356 @@
       {
         "name": "S-M-R-T",
         "id": "0 - 2",
-        "apid": "122289",
-        "index": 0
+        "apid": 122289,
+        "index": 0,
+        "translations": [
+          "S-M-R-T",
+          "G-N-I-A-L",
+          "R-A-F-N-I-R-T",
+          "L-S-T-O"
+        ]
       },
       {
         "name": "Petty Theft Homer",
         "id": "0 - 3",
-        "apid": "122290",
-        "index": 1
+        "apid": 122290,
+        "index": 1,
+        "translations": [
+          "Petty Theft Homer",
+          "Le larcin d'Homer",
+          "Der Kleinkriminelle Homer",
+          "Homer el ladronzuelo"
+        ]
       },
       {
         "name": "Office Spaced",
         "id": "0 - 4",
-        "apid": "122291",
-        "index": 2
+        "apid": 122291,
+        "index": 2,
+        "translations": [
+          "Office Spaced",
+          "Bureaux séparés",
+          "Büro gesperrt",
+          "En la oficina"
+        ]
       },
       {
         "name": "Blind Big Brother",
         "id": "0 - 5",
-        "apid": "122292",
-        "index": 3
+        "apid": 122292,
+        "index": 3,
+        "translations": [
+          "Blind Big Brother",
+          "Aveugler Big Brother",
+          "Blinder Big Brother",
+          "Ciega al Gran Hermano"
+        ]
       },
       {
         "name": "Flowers By Irene",
         "id": "0 - 6",
-        "apid": "122293",
-        "index": 4
+        "apid": 122293,
+        "index": 4,
+        "translations": [
+          "Flowers By Irene",
+          "Les fleurs d'Irène",
+          "Blumen von Irene",
+          "Flores por Irene"
+        ]
       },
       {
         "name": "Bonestorm Storm",
         "id": "0 - 7",
-        "apid": "122294",
-        "index": 5
+        "apid": 122294,
+        "index": 5,
+        "translations": [
+          "Bonestorm Storm",
+          "La pluie de Bonestorm",
+          "Der Bonestorm-Sturm",
+          "La tormenta de Bonestorm"
+        ]
       },
       {
         "name": "The Fat and Furious",
         "id": "0 - 8",
-        "apid": "122295",
-        "index": 6
+        "apid": 122295,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L1BM) This Old Shanty",
         "id": "0 - bonus",
-        "apid": "122296"
+        "apid": 122296
       },
       {
         "name": "(LVL1) Time Trial Race",
         "id": "0 - 0",
-        "apid": "122297"
+        "apid": 122297
       },
       {
         "name": "(LVL1) Circuit Race",
         "id": "0 - 1",
-        "apid": "122298"
+        "apid": 122298
       },
       {
         "name": "(LVL1) Checkpoint Race",
         "id": "0 - 2",
-        "apid": "122299"
+        "apid": 122299
       },
       {
         "name": "Talk to Barney",
         "id": "0 - bonus2",
-        "apid": "122679"
+        "apid": 122679
       }
     ],
     "wasps": [
       {
         "name": "(LVL 1) WASP - Small Park Next to Simpsons House",
         "id": "Level1 - 0",
-        "apid": "122366"
+        "apid": 122366
       },
       {
         "name": "(LVL 1) WASP - Next to the Blue House Besides Simpsons House",
         "id": "Level1 - 10",
-        "apid": "122367"
+        "apid": 122367
       },
       {
         "name": "(LVL 1) WASP - Flanders Backyard",
         "id": "Level1 - 11",
-        "apid": "122368"
+        "apid": 122368
       },
       {
         "name": "(LVL 1) WASP - Wiggum's Backyard",
         "id": "Level1 - 12",
-        "apid": "122369"
+        "apid": 122369
       },
       {
         "name": "(LVL 1) WASP - Kwik-E-Mart Roof",
         "id": "Level1 - 13",
-        "apid": "122370"
+        "apid": 122370
       },
       {
         "name": "(LVL 1) WASP - Gas Pump Roof",
         "id": "Level1 - 15",
-        "apid": "122371"
+        "apid": 122371
       },
       {
         "name": "(LVL 1) WASP - Lard Lads Roof",
         "id": "Level1 - 14",
-        "apid": "122372"
+        "apid": 122372
       },
       {
         "name": "(LVL 1) WASP - School Yard Bus",
         "id": "Level1 - 17",
-        "apid": "122373"
+        "apid": 122373
       },
       {
         "name": "(LVL 1) WASP - Back Door of School",
         "id": "Level1 - 18",
-        "apid": "122374"
+        "apid": 122374
       },
       {
         "name": "(LVL 1) WASP - School Roof 1",
         "id": "Level1 - 1",
-        "apid": "122375"
+        "apid": 122375
       },
       {
         "name": "(LVL 1) WASP - School Roof 2",
         "id": "Level1 - 16",
-        "apid": "122376"
+        "apid": 122376
       },
       {
         "name": "(LVL 1) WASP - Top of Tower Before Broken Bridge",
         "id": "Level1 - 19",
-        "apid": "122377"
+        "apid": 122377
       },
       {
         "name": "(LVL 1) WASP - Rocket Car",
         "id": "Level1 - 2",
-        "apid": "122378"
+        "apid": 122378
       },
       {
         "name": "(LVL 1) WASP - StoneCutters Table 1",
         "id": "Level1 - 6",
-        "apid": "122379"
+        "apid": 122379
       },
       {
         "name": "(LVL 1) WASP - StoneCutters Table 2",
         "id": "Level1 - 3",
-        "apid": "122380"
+        "apid": 122380
       },
       {
         "name": "(LVL 1) WASP - Barn Haystack",
         "id": "Level1 - 9",
-        "apid": "122381"
+        "apid": 122381
       },
       {
         "name": "(LVL 1) WASP - Trailer Park 1",
         "id": "Level1 - 5",
-        "apid": "122382"
+        "apid": 122382
       },
       {
         "name": "(LVL 1) WASP - Trailer Park 2",
         "id": "Level1 - 4",
-        "apid": "122383"
+        "apid": 122383
       },
       {
         "name": "(LVL 1) WASP - Atop of Bridge Framework 1",
         "id": "Level1 - 7",
-        "apid": "122384"
+        "apid": 122384
       },
       {
         "name": "(LVL 1) WASP - Atop of Bridge Framework 2",
         "id": "Level1 - 8",
-        "apid": "122385"
+        "apid": 122385
       }
     ],
     "cards": [
       {
         "name": "(LVL 1) CARD - Simpsons Backyard",
         "id": "L1C1",
-        "apid": "122386"
+        "apid": 122386
       },
       {
         "name": "(LVL 1) CARD - Kwik-E-Mart Roof",
         "id": "L1C2",
-        "apid": "122387"
+        "apid": 122387
       },
       {
-        "name": "(LVL 1) CARD - Wiggum\u2019s Backyard",
+        "name": "(LVL 1) CARD - Wiggum’s Backyard",
         "id": "L1C3",
-        "apid": "122388"
+        "apid": 122388
       },
       {
         "name": "(LVL 1) CARD - Corner Outside Near StoneCutter Entrance",
         "id": "L1C4",
-        "apid": "122389"
+        "apid": 122389
       },
       {
         "name": "(LVL 1) CARD - Above StoneCutters Table",
         "id": "L1C5",
-        "apid": "122390"
+        "apid": 122390
       },
       {
         "name": "(LVL 1) CARD - Highest Platform in PowerPlant",
         "id": "L1C6",
-        "apid": "122391"
+        "apid": 122391
       },
       {
         "name": "(LVL 1) CARD - TrailerPark",
         "id": "L1C7",
-        "apid": "122392"
+        "apid": 122392
       }
     ],
     "gags": [
       {
         "name": "(LVL 1) GAG - Simpsons TV",
         "id": "0 - 8",
-        "apid": "122393"
+        "apid": 122393
       },
       {
         "name": "(LVL 1) GAG - Swings Besides Blue House",
         "id": "0 - 4",
-        "apid": "122394"
+        "apid": 122394
       },
       {
         "name": "(LVL 1) GAG - Simpsons Grill",
         "id": "0 - 0",
-        "apid": "122395"
+        "apid": 122395
       },
       {
         "name": "(LVL 1) GAG - Simpsons Swing",
         "id": "0 - 3",
-        "apid": "122396"
+        "apid": 122396
       },
       {
         "name": "(LVL 1) GAG - Simpsons FireBreathing Tiki",
         "id": "0 - 9",
-        "apid": "122397"
+        "apid": 122397
       },
       {
         "name": "(LVL 1) GAG - Flanders Bomb Shelter",
         "id": "0 - 2",
-        "apid": "122398"
+        "apid": 122398
       },
       {
         "name": "(LVL 1) GAG - Tank in Front of Power Plant",
         "id": "0 - 1",
-        "apid": "122399"
+        "apid": 122399
       },
       {
         "name": "(LVL 1) GAG - Homer's Workstation Meltdown",
         "id": "0 - 10",
-        "apid": "122400"
+        "apid": 122400
       },
       {
         "name": "(LVL 1) GAG - School Fire Extinguisher",
         "id": "0 - 11",
-        "apid": "122401"
+        "apid": 122401
       },
       {
         "name": "(LVL 1) GAG - School Fire Alarm",
         "id": "0 - 12",
-        "apid": "122402"
+        "apid": 122402
       },
       {
         "name": "(LVL 1) GAG - Man in Freezer at Kwik-E-Mart",
         "id": "0 - 6",
-        "apid": "122403"
+        "apid": 122403
       },
       {
         "name": "(LVL 1) GAG - Silent Alarm in Kwik-E-Mart",
         "id": "0 - 14",
-        "apid": "122404"
+        "apid": 122404
       },
       {
         "name": "(LVL 1) GAG - Arcade Cabinet in Kwik-E-Mart",
         "id": "0 - 13",
-        "apid": "122405"
+        "apid": 122405
       },
       {
         "name": "(LVL 1) GAG - Squishee Machine in Kwik-E-Mart",
         "id": "0 - 5",
-        "apid": "122406"
+        "apid": 122406
       },
       {
         "name": "(LVL 1) GAG - ATM in Kwik-E-Mart",
         "id": "0 - 7",
-        "apid": "122691"
+        "apid": 122691
       }
     ],
     "shops": [
       {
         "name": "(LVL 1) Shop Item 1",
         "id": "APCar1",
-        "apid": "122407"
+        "apid": 122407
       },
       {
         "name": "(LVL 1) Shop Item 2",
         "id": "APCar2",
-        "apid": "122408"
+        "apid": 122408
       },
       {
         "name": "(LVL 1) Shop Item 3",
         "id": "APCar3",
-        "apid": "122409"
+        "apid": 122409
       },
       {
         "name": "(LVL 1)  Shop Item 4",
         "id": "APCar4",
-        "apid": "122410"
+        "apid": 122410
       },
       {
         "name": "(LVL 1)  Shop Item 5",
         "id": "APCar5",
-        "apid": "122411"
+        "apid": 122411
       },
       {
         "name": "(LVL 1) Shop Item 6",
         "id": "APCar6",
-        "apid": "122412"
+        "apid": 122412
       }
     ]
   },
@@ -325,299 +362,336 @@
       {
         "name": "Detention Deficit Disorder",
         "id": "1 - 1",
-        "apid": "122300",
-        "index": 0
+        "apid": 122300,
+        "index": 0,
+        "translations": [
+          "Detention Deficit Disorder",
+          "Déficit de détention",
+          "Nachsitzdefizit-Störung",
+          "Trastorno de déficit de arrestos"
+        ]
       },
       {
         "name": "Weapons of Mass Delinquency",
         "id": "1 - 2",
-        "apid": "122301",
-        "index": 1
+        "apid": 122301,
+        "index": 1,
+        "translations": [
+          "Weapons of Mass Delinquency",
+          "Armes de délinquance massive",
+          "Massenkriminalitätswaffen",
+          "Armas de delincuencia masiva"
+        ]
       },
       {
         "name": "Vox Nerduli",
         "id": "1 - 3",
-        "apid": "122302",
-        "index": 2
+        "apid": 122302,
+        "index": 2,
+        "translations": [
+          "Vox Nerduli",
+          "Vox techy",
+          "Vox Streber",
+          "Vox Empollonuli"
+        ]
       },
       {
-        "name": "Bart \u0027n\u0027 Frink",
+        "name": "Bart 'n' Frink",
         "id": "1 - 4",
-        "apid": "122303",
-        "index": 3
+        "apid": 122303,
+        "index": 3,
+        "translations": [
+          "Bart 'n' Frink",
+          "Bart 'n' Frink",
+          "Bart und Frink",
+          "Bart y Frink"
+        ]
       },
       {
         "name": "Better Than Beef",
         "id": "1 - 5",
-        "apid": "122304",
-        "index": 4
+        "apid": 122304,
+        "index": 4,
+        "translations": [
+          "Better Than Beef",
+          "Mieux que le bœuf",
+          "Besser als Büffel",
+          "Mejor que la ternera"
+        ]
       },
       {
-        "name": "Monkey See Monkey D\u0027oh",
+        "name": "Monkey See Monkey D'oh",
         "id": "1 - 6",
-        "apid": "122305",
-        "index": 5
+        "apid": 122305,
+        "index": 5,
+        "translations": [
+          "Monkey See Monkey D'oh",
+          "Singe voit singe pue",
+          "Affentheater",
+          "Mono ve a Mono"
+        ]
       },
       {
         "name": "Cell-Outs",
         "id": "1 - 7",
-        "apid": "122306",
-        "index": 6
+        "apid": 122306,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L2BM) Dial B for Blood",
         "id": "1 - bonus",
-        "apid": "122307"
+        "apid": 122307
       },
       {
         "name": "(LVL 2) Time Trial Race",
         "id": "1 - 0",
-        "apid": "122308"
+        "apid": 122308
       },
       {
         "name": "(LVL 2) Circuit Race",
         "id": "1 - 1",
-        "apid": "122309"
+        "apid": 122309
       },
       {
         "name": "(LVL 2) Checkpoint Race",
         "id": "1 - 2",
-        "apid": "122310"
+        "apid": 122310
       },
       {
         "name": "Talk to Homer",
         "id": "1 - bonus2",
-        "apid": "122680"
+        "apid": 122680
       }
     ],
     "wasps": [
       {
         "name": "(LVL 2) WASP - CourtHouse Steps",
         "id": "Level2 - 17",
-        "apid": "122413"
+        "apid": 122413
       },
       {
         "name": "(LVL 2) WASP - Gazebo Between Museum and Courthouse",
         "id": "Level2 - 10",
-        "apid": "122414"
+        "apid": 122414
       },
       {
         "name": "(LVL 2) WASP - Museum Steps",
         "id": "Level2 - 1",
-        "apid": "122415"
+        "apid": 122415
       },
       {
         "name": "(LVL 2) WASP - Hospital Front Yard",
         "id": "Level2 - 0",
-        "apid": "122416"
+        "apid": 122416
       },
       {
         "name": "(LVL 2) WASP - Roof Across Monkey Building",
         "id": "Level2 - 11",
-        "apid": "122417"
+        "apid": 122417
       },
       {
         "name": "(LVL 2) WASP - Town Hall (Front)",
         "id": "Level2 - 9",
-        "apid": "122418"
+        "apid": 122418
       },
       {
         "name": "(LVL 2) WASP - Town Hall (Back)",
         "id": "Level2 - 8",
-        "apid": "122419"
+        "apid": 122419
       },
       {
         "name": "(LVL 2) WASP - Behind Downtown Krusty Burger",
         "id": "Level2 - 2",
-        "apid": "122420"
+        "apid": 122420
       },
       {
         "name": "(LVL 2) WASP - Monorail Stairs",
         "id": "Level2 - 6",
-        "apid": "122421"
+        "apid": 122421
       },
       {
         "name": "(LVL 2) WASP - UpStair Beside Monorail",
         "id": "Level2 - 18",
-        "apid": "122422"
+        "apid": 122422
       },
       {
         "name": "(LVL 2) WASP - Roof Across Monorail",
         "id": "Level2 - 19",
-        "apid": "122423"
+        "apid": 122423
       },
       {
         "name": "(LVL 2) WASP - Stairs Leading atop Trains",
         "id": "Level2 - 4",
-        "apid": "122424"
+        "apid": 122424
       },
       {
         "name": "(LVL 2) WASP - Across Moving Train",
         "id": "Level2 - 15",
-        "apid": "122425"
+        "apid": 122425
       },
       {
         "name": "(LVL 2) WASP - On Train Past Water Tank",
         "id": "Level2 - 5",
-        "apid": "122426"
+        "apid": 122426
       },
       {
         "name": "(LVL 2) WASP - Inside Trainyard Parking Spot",
         "id": "Level2 - 16",
-        "apid": "122427"
+        "apid": 122427
       },
       {
         "name": "(LVL 2) WASP - Car Wash",
         "id": "Level2 - 3",
-        "apid": "122428"
+        "apid": 122428
       },
       {
         "name": "(LVL 2) WASP - Legitimate Businessman's Rooftop 1",
         "id": "Level2 - 12",
-        "apid": "122429"
+        "apid": 122429
       },
       {
         "name": "(LVL 2) WASP - Legitimate Businessman's Rooftop 2",
         "id": "Level2 - 13",
-        "apid": "122430"
+        "apid": 122430
       },
       {
         "name": "(LVL 2) WASP - Roof Next to Moe's",
         "id": "Level2 - 14",
-        "apid": "122431"
+        "apid": 122431
       },
       {
         "name": "(LVL 2) WASP - Lard Lads Roof",
         "id": "Level2 - 7",
-        "apid": "122432"
+        "apid": 122432
       }
     ],
     "cards": [
       {
         "name": "(LVL 2) CARD - Statue",
         "id": "L2C1",
-        "apid": "122433"
+        "apid": 122433
       },
       {
         "name": "(LVL 2) CARD - Roof Across Monkey Building",
         "id": "L2C2",
-        "apid": "122434"
+        "apid": 122434
       },
       {
-        "name": "(LVL 2) CARD - Legitimate Businessman\u2019s Rooftop",
+        "name": "(LVL 2) CARD - Legitimate Businessman’s Rooftop",
         "id": "L2C3",
-        "apid": "122435"
+        "apid": 122435
       },
       {
         "name": "(LVL 2) CARD - Car Wash",
         "id": "L2C4",
-        "apid": "122436"
+        "apid": 122436
       },
       {
         "name": "(LVL 2) CARD - Train Wagon",
         "id": "L2C5",
-        "apid": "122437"
+        "apid": 122437
       },
       {
         "name": "(LVL 2) CARD - Alleyway Behind Krusty Burger",
         "id": "L2C6",
-        "apid": "122438"
+        "apid": 122438
       },
       {
         "name": "(LVL 2) CARD - Fountain At Stadium",
         "id": "L2C7",
-        "apid": "122439"
+        "apid": 122439
       }
     ],
     "gags": [
       {
         "name": "(LVL 2) GAG - CATapult",
         "id": "1 - 4",
-        "apid": "122440"
+        "apid": 122440
       },
       {
         "name": "(LVL 2) GAG - Cement Truck",
         "id": "1 - 5",
-        "apid": "122441"
+        "apid": 122441
       },
       {
         "name": "(LVL 2) GAG - Pickled Egg Jar at Moes",
         "id": "1 - 0",
-        "apid": "122442"
+        "apid": 122442
       },
       {
         "name": "(LVL 2) GAG - Slot Machine at Moes",
         "id": "1 - 3",
-        "apid": "122443"
+        "apid": 122443
       },
       {
         "name": "(LVL 2) GAG - Love Tester as Moes",
         "id": "1 - 2",
-        "apid": "122444"
+        "apid": 122444
       },
       {
         "name": "(LVL 2) GAG - Light up Drinks at Moes",
         "id": "1 - 1",
-        "apid": "122445"
+        "apid": 122445
       },
       {
         "name": "(LVL 2) GAG - Rat’s Milk Machine atop Legitimate Businessman’s Roof",
         "id": "1 - 7",
-        "apid": "122446"
+        "apid": 122446
       },
       {
         "name": "(LVL 2) GAG - Blinding Hans Moleman at the DMV",
         "id": "1 - 9",
-        "apid": "122447"
+        "apid": 122447
       },
       {
         "name": "(LVL 2) GAG - Car Ride at Try-N-Save",
         "id": "1 - 8",
-        "apid": "122448"
+        "apid": 122448
       },
       {
         "name": "(LVL 2) GAG - Missile Behind Military Antiques",
         "id": "1 - 6",
-        "apid": "122449"
+        "apid": 122449
       },
       {
         "name": "(LVL 2) GAG - Dumpster Behind Krusty Burger (Near Police Station)",
         "id": "1 - 10",
-        "apid": "122450"
+        "apid": 122450
       }
     ],
     "shops": [
       {
         "name": "(LVL 2) Shop Check 1",
         "id": "APCar7",
-        "apid": "122451"
+        "apid": 122451
       },
       {
         "name": "(LVL 2) Shop Check 2",
         "id": "APCar8",
-        "apid": "122452"
+        "apid": 122452
       },
       {
         "name": "(LVL 2) Shop Check 3",
         "id": "APCar9",
-        "apid": "122453"
+        "apid": 122453
       },
       {
         "name": "(LVL 2) Shop Check 4",
         "id": "APCar10",
-        "apid": "122454"
+        "apid": 122454
       },
       {
         "name": "(LVL 2) Shop Check 5",
         "id": "APCar11",
-        "apid": "122455"
+        "apid": 122455
       },
       {
         "name": "(LVL 2) Shop Check 6",
         "id": "APCar12",
-        "apid": "122456"
+        "apid": 122456
       }
     ]
   },
@@ -626,299 +700,336 @@
       {
         "name": "Nerd Race Queen",
         "id": "2 - 1",
-        "apid": "122311",
-        "index": 0
+        "apid": 122311,
+        "index": 0,
+        "translations": [
+          "Nerd Race Queen",
+          "Reine de la course des coincés",
+          "Renn-Königin der Streber",
+          "Carrera reina de empollones"
+        ]
       },
       {
         "name": "Clueless",
         "id": "2 - 2",
-        "apid": "122312",
-        "index": 1
+        "apid": 122312,
+        "index": 1,
+        "translations": [
+          "Clueless",
+          "Sans indices",
+          "Schnitzeljagd",
+          "Sin pistas"
+        ]
       },
       {
         "name": "Bonfire of the Manatees",
         "id": "2 - 3",
-        "apid": "122313",
-        "index": 2
+        "apid": 122313,
+        "index": 2,
+        "translations": [
+          "Bonfire of the Manatees",
+          "Le feu de joie des lamantins",
+          "Freudenfeuer der Seekühe",
+          "Hoguera de los manatíes"
+        ]
       },
       {
         "name": "Operation Hellfish",
         "id": "2 - 4",
-        "apid": "122314",
-        "index": 3
+        "apid": 122314,
+        "index": 3,
+        "translations": [
+          "Operation Hellfish",
+          "Opération poisson",
+          "Operation Höllenfisch",
+          "Operación pez del infierno"
+        ]
       },
       {
         "name": "Slithery Sleuthing",
         "id": "2 - 5",
-        "apid": "122315",
-        "index": 4
+        "apid": 122315,
+        "index": 4,
+        "translations": [
+          "Slithery Sleuthing",
+          "Un indicateur glissant",
+          "Glitschige Spuren",
+          "El sabueso escurridizo"
+        ]
       },
       {
         "name": "Fishy Deals",
         "id": "2 - 6",
-        "apid": "122316",
-        "index": 5
+        "apid": 122316,
+        "index": 5,
+        "translations": [
+          "Fishy Deals",
+          "Accords douteux",
+          "Fisch stinkt nicht",
+          "Acuerdos sospezchosos"
+        ]
       },
       {
         "name": "The Old Pirate and the Sea",
         "id": "2 - 7",
-        "apid": "122317",
-        "index": 6
+        "apid": 122317,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L3BM) Princi-Pal",
         "id": "2 - bonus",
-        "apid": "122318"
+        "apid": 122318
       },
       {
         "name": "(LVL 3) Time Trial Race",
         "id": "2 - 0",
-        "apid": "122319"
+        "apid": 122319
       },
       {
         "name": "(LVL 3) Circuit Race",
         "id": "2 - 1",
-        "apid": "122320"
+        "apid": 122320
       },
       {
         "name": "(LVL 3) Checkpoint Race",
         "id": "2 - 2",
-        "apid": "122321"
+        "apid": 122321
       },
       {
         "name": "Talk to Otto",
         "id": "2 - bonus2",
-        "apid": "122681"
+        "apid": 122681
       }
     ],
     "wasps": [
       {
         "name": "(LVL 3) WASP - Observatory",
         "id": "Level3 - 17",
-        "apid": "122463"
+        "apid": 122463
       },
       {
         "name": "(LVL 3) WASP - Broken Railing Below Dam",
         "id": "Level3 - 11",
-        "apid": "122464"
+        "apid": 122464
       },
       {
         "name": "(LVL 3) WASP - Broken Railing Above Dam (Exit)",
         "id": "Level3 - 16",
-        "apid": "122465"
+        "apid": 122465
       },
       {
         "name": "(LVL 3) WASP - Kamp Krusty Near Stage",
         "id": "Level3 - 18",
-        "apid": "122466"
+        "apid": 122466
       },
       {
         "name": "(LVL 3) WASP - Kamp Krusty Well",
         "id": "Level3 - 19",
-        "apid": "122467"
+        "apid": 122467
       },
       {
         "name": "(LVL 3) WASP - Exit of Kamp Krusty's Well",
         "id": "Level3 - 9",
-        "apid": "122468"
+        "apid": 122468
       },
       {
         "name": "(LVL 3) WASP - Motel Complex",
         "id": "Level3 - 10",
-        "apid": "122469"
+        "apid": 122469
       },
       {
         "name": "(LVL 3) WASP - Duff Brewery Behind Krusty Glass",
         "id": "Level3 - 5",
-        "apid": "122470"
+        "apid": 122470
       },
       {
         "name": "(LVL 3) WASP - Duff Blimp 1",
         "id": "Level3 - 14",
-        "apid": "122471"
+        "apid": 122471
       },
       {
         "name": "(LVL 3) WASP - Duff Blimp 2",
         "id": "Level3 - 15",
-        "apid": "122472"
+        "apid": 122472
       },
       {
         "name": "(LVL 3) WASP - Krusty Studio Left",
         "id": "Level3 - 6",
-        "apid": "122473"
+        "apid": 122473
       },
       {
         "name": "(LVL 3) WASP - Krusty Studio Right",
         "id": "Level3 - 8",
-        "apid": "122474"
+        "apid": 122474
       },
       {
         "name": "(LVL 3) WASP - (Boat) Front end of Boat",
         "id": "Level3 - 4",
-        "apid": "122475"
+        "apid": 122475
       },
       {
         "name": "(LVL 3) WASP - (Boat) Next to the Crane",
         "id": "Level3 - 3",
-        "apid": "122476"
+        "apid": 122476
       },
       {
         "name": "(LVL 3) WASP - (Boat) Stairs",
         "id": "Level3 - 13",
-        "apid": "122477"
+        "apid": 122477
       },
       {
         "name": "(LVL 3) WASP - LightHouse",
         "id": "Level3 - 2",
-        "apid": "122478"
+        "apid": 122478
       },
       {
         "name": "(LVL 3) WASP - Planet Hype",
         "id": "Level3 - 12",
-        "apid": "122479"
+        "apid": 122479
       },
       {
         "name": "(LVL 3) WASP - Beach",
         "id": "Level3 - 7",
-        "apid": "122480"
+        "apid": 122480
       },
       {
         "name": "(LVL 3) WASP - Bowling Rooftop",
         "id": "Level3 - 1",
-        "apid": "122481"
+        "apid": 122481
       },
       {
         "name": "(LVL 3) WASP - Comic Book Guy Rooftop",
         "id": "Level3 - 0",
-        "apid": "122482"
+        "apid": 122482
       }
     ],
     "cards": [
       {
         "name": "(LVL 3) CARD - Above Bowling",
         "id": "L3C2",
-        "apid": "122483"
+        "apid": 122483
       },
       {
         "name": "(LVL 3) CARD - Atop Lighthouse",
         "id": "L3C3",
-        "apid": "122484"
+        "apid": 122484
       },
       {
         "name": "(LVL 3) CARD - Edge of the Boat",
         "id": "L3C4",
-        "apid": "122485"
+        "apid": 122485
       },
       {
         "name": "(LVL 3) CARD - Balcony of Krusty Studio",
         "id": "L3C5",
-        "apid": "122486"
+        "apid": 122486
       },
       {
         "name": "(LVL 3) CARD - Above Below the Dam Railing",
         "id": "L3C6",
-        "apid": "122487"
+        "apid": 122487
       },
       {
         "name": "(LVL 3) CARD - Broken Bridge",
         "id": "L3C7",
-        "apid": "122488"
+        "apid": 122488
       },
       {
         "name": "(LVL 3) CARD - Comic Book Guy's Rooftop",
         "id": "L3C1",
-        "apid": "122489"
+        "apid": 122489
       }
     ],
     "gags": [
       {
         "name": "(LVL 3) GAG - Comic Book Guy Robot",
         "id": "2 - 1",
-        "apid": "122490"
+        "apid": 122490
       },
       {
         "name": "(LVL 3) GAG - Comic Book Guy Radioactive Man",
         "id": "2 - 0",
-        "apid": "122491"
+        "apid": 122491
       },
       {
         "name": "(LVL 3) GAG - Yellow Dumpster Across Krusty Burger",
         "id": "2 - 10",
-        "apid": "122492"
+        "apid": 122492
       },
       {
         "name": "(LVL 3) GAG - Kid Drowning in Ball Pit",
         "id": "2 - 8",
-        "apid": "122493"
+        "apid": 122493
       },
       {
         "name": "(LVL 3) GAG - Crane on Ship",
         "id": "2 - 7",
-        "apid": "122494"
+        "apid": 122494
       },
       {
         "name": "(LVL 3) GAG - Observatory Alarm",
         "id": "2 - 4",
-        "apid": "122495"
+        "apid": 122495
       },
       {
         "name": "(LVL 3) GAG - Perpetual Motion Machine at Observatory",
         "id": "2 - 6",
-        "apid": "122496"
+        "apid": 122496
       },
       {
         "name": "(LVL 3) GAG - Telescope at Observatory",
         "id": "2 - 9",
-        "apid": "122497"
+        "apid": 122497
       },
       {
         "name": "(LVL 3) GAG - (Observatory) Monkey",
         "id": "2 - 5",
-        "apid": "122498"
+        "apid": 122498
       },
       {
         "name": "(LVL 3) GAG - Kamp Krusty Flag",
         "id": "2 - 2",
-        "apid": "122499"
+        "apid": 122499
       },
       {
         "name": "(LVL 3) GAG - Boar’s Head at Kamp Krusty",
         "id": "2 - 3",
-        "apid": "122500"
+        "apid": 122500
       }
     ],
     "shops": [
       {
         "name": "(LVL 3) Shop Check 1",
         "id": "APCar13",
-        "apid": "122457"
+        "apid": 122457
       },
       {
         "name": "(LVL 3) Shop Check 2",
         "id": "APCar14",
-        "apid": "122458"
+        "apid": 122458
       },
       {
         "name": "(LVL 3) Shop Check 3",
         "id": "APCar15",
-        "apid": "122459"
+        "apid": 122459
       },
       {
         "name": "(LVL 3) Shop Check 4",
         "id": "APCar16",
-        "apid": "122460"
+        "apid": 122460
       },
       {
         "name": "(LVL 3) Shop Check 5",
         "id": "APCar17",
-        "apid": "122461"
+        "apid": 122461
       },
       {
         "name": "(LVL 3) Shop Check 6",
         "id": "APCar18",
-        "apid": "122462"
+        "apid": 122462
       }
     ]
   },
@@ -927,319 +1038,356 @@
       {
         "name": "For A Few Donuts More",
         "id": "3 - 1",
-        "apid": "122322",
-        "index": 0
+        "apid": 122322,
+        "index": 0,
+        "translations": [
+          "For A Few Donuts More",
+          "Pour une poignée de beignets de plus",
+          "Für ein paar Donuts mehr",
+          "Por unos pocos donuts más"
+        ]
       },
       {
         "name": "Redneck Roundup",
         "id": "3 - 2",
-        "apid": "122323",
-        "index": 1
+        "apid": 122323,
+        "index": 1,
+        "translations": [
+          "Redneck Roundup",
+          "Ramassage",
+          "Die Last mit dem Laster",
+          "Redada de rebeldes"
+        ]
       },
       {
         "name": "Ketchup Logic",
         "id": "3 - 3",
-        "apid": "122324",
-        "index": 2
+        "apid": 122324,
+        "index": 2,
+        "translations": [
+          "Ketchup Logic",
+          "Logique sauce tomate",
+          "Ketchup-Logik",
+          "Lógica del ketchup"
+        ]
       },
       {
         "name": "Return of the Nearly-Dead",
         "id": "3 - 4",
-        "apid": "122325",
-        "index": 3
+        "apid": 122325,
+        "index": 3,
+        "translations": [
+          "Return of the Nearly-Dead",
+          "Le retour des semi-morts",
+          "Rückkehr der Fast-Toten",
+          "El regreso de los casi-muertos"
+        ]
       },
       {
         "name": "Wolves Stole My Pills",
         "id": "3 - 5",
-        "apid": "122326",
-        "index": 4
+        "apid": 122326,
+        "index": 4,
+        "translations": [
+          "Wolves Stole My Pills",
+          "Les loups ont volé mes pilules",
+          "Wölfe haben meine Pillen gestohlen",
+          "Los lobos me robaron las pastillas"
+        ]
       },
       {
         "name": "The Cola Wars",
         "id": "3 - 6",
-        "apid": "122327",
-        "index": 5
+        "apid": 122327,
+        "index": 5,
+        "translations": [
+          "The Cola Wars",
+          "La guerre des colas",
+          "Die Cola-Kriege",
+          "Las guerras de la cola"
+        ]
       },
       {
         "name": "From Outer Space",
         "id": "3 - 7",
-        "apid": "122328",
-        "index": 6
+        "apid": 122328,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L4BM) Beached Love",
         "id": "3 - bonus",
-        "apid": "122329"
+        "apid": 122329
       },
       {
         "name": "(LVL 4) Checkpoint Race",
         "id": "3 - 0",
-        "apid": "122330"
+        "apid": 122330
       },
       {
         "name": "(LVL 4) Circuit Race",
         "id": "3 - 1",
-        "apid": "122331"
+        "apid": 122331
       },
       {
         "name": "(LVL 4) Time Trial Race",
         "id": "3 - 2",
-        "apid": "122332"
+        "apid": 122332
       },
       {
         "name": "Talk to Willie",
         "id": "3 - bonus2",
-        "apid": "122682"
+        "apid": 122682
       }
     ],
     "wasps": [
       {
         "name": "(LVL 4) WASP - Blue House Before Krusty Glass 1",
         "id": "Level4 - 10",
-        "apid": "122501"
+        "apid": 122501
       },
       {
         "name": "(LVL 4) WASP - Blue House Before Krusty Glass 2",
         "id": "Level4 - 12",
-        "apid": "122502"
+        "apid": 122502
       },
       {
         "name": "(LVL 4) WASP - Flander's Backyard",
         "id": "Level4 - 11",
-        "apid": "122503"
+        "apid": 122503
       },
       {
         "name": "(LVL 4) WASP - Wiggums Backyard",
         "id": "Level4 - 13",
-        "apid": "122504"
+        "apid": 122504
       },
       {
         "name": "(LVL 4) WASP - Wiggums Backyard 2",
         "id": "Level4 - 14",
-        "apid": "122505"
+        "apid": 122505
       },
       {
         "name": "(LVL 4) WASP - Kwik-E-Mart Rooftop",
         "id": "Level4 - 0",
-        "apid": "122506"
+        "apid": 122506
       },
       {
         "name": "(LVL 4) WASP - Gas Station Rooftop",
         "id": "Level4 - 15",
-        "apid": "122507"
+        "apid": 122507
       },
       {
         "name": "(LVL 4) WASP - Atop Gasoline Pump",
         "id": "Level4 - 1",
-        "apid": "122508"
+        "apid": 122508
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns Giant ChessBoard 1",
         "id": "Level4 - 6",
-        "apid": "122509"
+        "apid": 122509
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns Giant ChessBoard 2",
         "id": "Level4 - 7",
-        "apid": "122510"
+        "apid": 122510
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns StairCase",
         "id": "Level4 - 5",
-        "apid": "122511"
+        "apid": 122511
       },
       {
         "name": "(LVL 4) WASP - Mr. Burns Library",
         "id": "Level4 - 17",
-        "apid": "122512"
+        "apid": 122512
       },
       {
         "name": "(LVL 4) WASP - Outside of Homer's Workstation",
         "id": "Level4 - 18",
-        "apid": "122513"
+        "apid": 122513
       },
       {
         "name": "(LVL 4) WASP - Atop Trailer Park",
         "id": "Level4 - 8",
-        "apid": "122514"
+        "apid": 122514
       },
       {
         "name": "(LVL 4) WASP - In Trailer Park",
         "id": "Level4 - 9",
-        "apid": "122515"
+        "apid": 122515
       },
       {
         "name": "(LVL 4) WASP - Barn",
         "id": "Level4 - 19",
-        "apid": "122516"
+        "apid": 122516
       },
       {
         "name": "(LVL 4) WASP - Behind School Steps",
         "id": "Level4 - 16",
-        "apid": "122517"
+        "apid": 122517
       },
       {
         "name": "(LVL 4) WASP - School Rooftop 1",
         "id": "Level4 - 2",
-        "apid": "122518"
+        "apid": 122518
       },
       {
         "name": "(LVL 4) WASP - School Rooftop 2",
         "id": "Level4 - 3",
-        "apid": "122519"
+        "apid": 122519
       },
       {
         "name": "(LVL 4) WASP - Atop Tower Before Broken Bridge",
         "id": "Level4 - 4",
-        "apid": "122520"
+        "apid": 122520
       }
     ],
     "cards": [
       {
         "name": "(LVL 4) CARD - Far End of Gas Station Roof",
         "id": "L4C1",
-        "apid": "122521"
+        "apid": 122521
       },
       {
         "name": "(LVL 4) CARD - Mr. Burns Hidden Naked Picture behind Secret Passage",
         "id": "L4C2",
-        "apid": "122522"
+        "apid": 122522
       },
       {
         "name": "(LVL 4) CARD - Atop of Bridge Frame by Krusty Burger",
         "id": "L4C3",
-        "apid": "122523"
+        "apid": 122523
       },
       {
         "name": "(LVL 4) CARD - Tower By Broken Bridge",
         "id": "L4C4",
-        "apid": "122524"
+        "apid": 122524
       },
       {
         "name": "(LVL 4) CARD - Rooftop Jump Before Mansion",
         "id": "L4C5",
-        "apid": "122525"
+        "apid": 122525
       },
       {
         "name": "(LVL 4) CARD - Simpsons Treehouse",
         "id": "L4C6",
-        "apid": "122526"
+        "apid": 122526
       },
       {
         "name": "(LVL 4) CARD - TrailerPark",
         "id": "L4C7",
-        "apid": "122527"
+        "apid": 122527
       }
     ],
     "gags": [
       {
         "name": "(LVL 4) GAG - Simpson TV",
         "id": "3 - 7",
-        "apid": "122528"
+        "apid": 122528
       },
       {
         "name": "(LVL 4) GAG - Simpsons Swings",
         "id": "3 - 3",
-        "apid": "122529"
+        "apid": 122529
       },
       {
         "name": "(LVL 4) GAG - Simpsons Grill",
         "id": "3 - 0",
-        "apid": "122530"
+        "apid": 122530
       },
       {
         "name": "(LVL 4) GAG - Simpsons Fire Breathing Tiki",
         "id": "3 - 8",
-        "apid": "122531"
+        "apid": 122531
       },
       {
         "name": "(LVL 4) GAG - Krusty Lamp (Bart's Room)",
         "id": "3 - 12",
-        "apid": "122532"
+        "apid": 122532
       },
       {
         "name": "(LVL 4) GAG - Flanders Bomb Shelter",
         "id": "3 - 2",
-        "apid": "122533"
+        "apid": 122533
       },
       {
         "name": "(LVL 4) GAG - Tank Outside Power Plant",
         "id": "3 - 1",
-        "apid": "122534"
+        "apid": 122534
       },
       {
         "name": "(LVL 4) GAG - Homer’s Workstation Meltdown",
         "id": "3 - 9",
-        "apid": "122535"
+        "apid": 122535
       },
       {
         "name": "(LVL 4) GAG - School Fire Extinguisher",
         "id": "3 - 10",
-        "apid": "122536"
+        "apid": 122536
       },
       {
         "name": "(LVL 4) GAG - School Fire Alarm",
         "id": "3 - 11",
-        "apid": "122537"
+        "apid": 122537
       },
       {
         "name": "(LVL 4) GAG - Frozen man in Kwik-E-Mart",
         "id": "3 - 5",
-        "apid": "122538"
+        "apid": 122538
       },
       {
         "name": "(LVL 4) GAG - Silent Alarm in Kwik-E-Mart",
         "id": "3 - 14",
-        "apid": "122539"
+        "apid": 122539
       },
       {
         "name": "(LVL 4) GAG - ATM in Kwik-E-Mart",
         "id": "3 - 6",
-        "apid": "122540"
+        "apid": 122540
       },
       {
         "name": "(LVL 4) GAG - Arcade Cabinet in Kwik-E-Mart",
         "id": "3 - 13",
-        "apid": "122541"
+        "apid": 122541
       },
       {
         "name": "(LVL 4) GAG - Squishee Machine in Kwik-E-Mart",
         "id": "3 - 4",
-        "apid": "122542"
+        "apid": 122542
       }
     ],
     "shops": [
       {
         "name": "(LVL 4) Shop Check 1",
         "id": "APCar19",
-        "apid": "122543"
+        "apid": 122543
       },
       {
         "name": "(LVL 4) Shop Check 2",
         "id": "APCar20",
-        "apid": "122544"
+        "apid": 122544
       },
       {
         "name": "(LVL 4) Shop Check 3",
         "id": "APCar21",
-        "apid": "122545"
+        "apid": 122545
       },
       {
         "name": "(LVL 4) Shop Check 4",
         "id": "APCar22",
-        "apid": "122546"
+        "apid": 122546
       },
       {
         "name": "(LVL 4) Shop Check 5",
         "id": "APCar23",
-        "apid": "122547"
+        "apid": 122547
       },
       {
         "name": "(LVL 4) Shop Check 6",
         "id": "APCar24",
-        "apid": "122548"
+        "apid": 122548
       }
     ]
   },
@@ -1248,576 +1396,649 @@
       {
         "name": "Incriminating Caffeine",
         "id": "4 - 1",
-        "apid": "122333",
-        "index": 0
+        "apid": 122333,
+        "index": 0,
+        "translations": [
+          "Incriminating Caffeine",
+          "Caféine dangereuse",
+          "Belastendes Koffein",
+          "La cafeína comprometedora"
+        ]
       },
       {
         "name": ". . . and Baby Makes 8",
         "id": "4 - 2",
-        "apid": "122334",
-        "index": 1
+        "apid": 122334,
+        "index": 1,
+        "translations": [
+          ". . . and Baby Makes 8",
+          ". . . et de 8 pour bébé",
+          "... macht zusammen 8",
+          "... y con el bebé somos 8"
+        ]
       },
       {
         "name": "Eight is Too Much",
         "id": "4 - 3",
-        "apid": "122335",
-        "index": 2
+        "apid": 122335,
+        "index": 2,
+        "translations": [
+          "Eight is Too Much",
+          "Huit c'est trop",
+          "Acht ist einer zu viel",
+          "Ocho son demasiados"
+        ]
       },
       {
         "name": "This Little Piggy",
         "id": "4 - 4",
-        "apid": "122336",
-        "index": 3
+        "apid": 122336,
+        "index": 3,
+        "translations": [
+          "This Little Piggy",
+          "Ce petit cochon",
+          "Das kleine Schweinchen",
+          "Este cerdito"
+        ]
       },
       {
         "name": "Never Trust a Snake",
         "id": "4 - 5",
-        "apid": "122337",
-        "index": 4
+        "apid": 122337,
+        "index": 4,
+        "translations": [
+          "Never Trust a Snake",
+          "Ne fais pas confiance à un serpent",
+          "Trau niemals einer Schlange",
+          "Nunca te fíes de un delincuente"
+        ]
       },
       {
         "name": "Kwik Cash",
         "id": "4 - 6",
-        "apid": "122338",
-        "index": 5
+        "apid": 122338,
+        "index": 5,
+        "translations": [
+          "Kwik Cash",
+          "Argent facile",
+          "Kwik-Cash",
+          "Dinero rápido"
+        ]
       },
       {
         "name": "Curious Curator",
         "id": "4 - 7",
-        "apid": "122339",
-        "index": 6
+        "apid": 122339,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L5BM) Kinky Frinky",
         "id": "4 - bonus",
-        "apid": "122340"
+        "apid": 122340
       },
       {
         "name": "(LVL 5) Checkpoint Race",
         "id": "4 - 0",
-        "apid": "122341"
+        "apid": 122341
       },
       {
         "name": "(LVL 5) Circuit Race",
         "id": "4 - 1",
-        "apid": "122342"
+        "apid": 122342
       },
       {
         "name": "(LVL 5) Time Trial",
         "id": "4 - 2",
-        "apid": "122343"
+        "apid": 122343
       },
       {
         "name": "Talk to Homer",
         "id": "4 - bonus2",
-        "apid": "122683"
+        "apid": 122683
       }
     ],
     "wasps": [
       {
         "name": "(LVL 5) WASP - Front of Hospital",
         "id": "Level5 - 1",
-        "apid": "122549"
+        "apid": 122549
       },
       {
         "name": "(LVL 5) WASP - Gazebo Between Museum & Court House",
         "id": "Level5 - 12",
-        "apid": "122550"
+        "apid": 122550
       },
       {
         "name": "(LVL 5) WASP - Steps of Town Hall",
         "id": "Level5 - 11",
-        "apid": "122551"
+        "apid": 122551
       },
       {
         "name": "(LVL 5) WASP - Museum Steps",
         "id": "Level5 - 2",
-        "apid": "122552"
+        "apid": 122552
       },
       {
         "name": "(LVL 5) WASP - Rooftop Next to Moes",
         "id": "Level5 - 15",
-        "apid": "122553"
+        "apid": 122553
       },
       {
         "name": "(LVL 5) WASP - Legitimate Businessman's Rooftop 1",
         "id": "Level5 - 13",
-        "apid": "122554"
+        "apid": 122554
       },
       {
         "name": "(LVL 5) WASP - Legitimate Businessman's Rooftop 2",
         "id": "Level5 - 14",
-        "apid": "122555"
+        "apid": 122555
       },
       {
         "name": "(LVL 5) WASP - Trainyard Stairs",
         "id": "Level5 - 3",
-        "apid": "122556"
+        "apid": 122556
       },
       {
         "name": "(LVL 5) WASP - Other Side of Moving Train",
         "id": "Level5 - 16",
-        "apid": "122557"
+        "apid": 122557
       },
       {
         "name": "(LVL 5) WASP - Watertower 1",
         "id": "Level5 - 5",
-        "apid": "122558"
+        "apid": 122558
       },
       {
         "name": "(LVL 5) WASP - Watertower 2",
         "id": "Level5 - 4",
-        "apid": "122559"
+        "apid": 122559
       },
       {
         "name": "(LVL 5) WASP - Police Station Steps",
         "id": "Level5 - 17",
-        "apid": "122560"
+        "apid": 122560
       },
       {
         "name": "(LVL 5) WASP - Monorail Stairs",
         "id": "Level5 - 6",
-        "apid": "122561"
+        "apid": 122561
       },
       {
         "name": "(LVL 5) WASP - Monorail",
         "id": "Level5 - 18",
-        "apid": "122562"
+        "apid": 122562
       },
       {
         "name": "(LVL 5) WASP - Otherside of Monorail 1",
         "id": "Level5 - 19",
-        "apid": "122563"
+        "apid": 122563
       },
       {
         "name": "(LVL 5) WASP - Otherside of Monorail 2",
         "id": "Level5 - 7",
-        "apid": "122564"
+        "apid": 122564
       },
       {
         "name": "(LVL 5) WASP - Under Giant Purple Beams 1",
         "id": "Level5 - 8",
-        "apid": "122565"
+        "apid": 122565
       },
       {
         "name": "(LVL 5) WASP - Under Giant Purple Beams 2",
         "id": "Level5 - 9",
-        "apid": "122566"
+        "apid": 122566
       },
       {
         "name": "(LVL 5) WASP - Alleyway Rooftop",
         "id": "Level5 - 0",
-        "apid": "122567"
+        "apid": 122567
       },
       {
         "name": "(LVL 5) WASP - Fountain in from Stadium",
         "id": "Level5 - 10",
-        "apid": "122568"
+        "apid": 122568
       }
     ],
     "cards": [
       {
         "name": "(LVL 5) CARD - Construction Beam Platforming",
         "id": "L5C1",
-        "apid": "122569"
+        "apid": 122569
       },
       {
         "name": "(LVL 5) CARD - The Legitimate Businessman's Stairs",
         "id": "L5C2",
-        "apid": "122570"
+        "apid": 122570
       },
       {
-        "name": "(LVL 5) CARD - Moe\u2019s Rooftop",
+        "name": "(LVL 5) CARD - Moe’s Rooftop",
         "id": "L5C3",
-        "apid": "122571"
+        "apid": 122571
       },
       {
         "name": "(LVL 5) CARD - Watertower",
         "id": "L5C4",
-        "apid": "122572"
+        "apid": 122572
       },
       {
         "name": "(LVL 5) CARD - Unfinished Highway One Way Ramp",
         "id": "L5C5",
-        "apid": "122573"
+        "apid": 122573
       },
       {
         "name": "(LVL 5) CARD - Firetruck",
         "id": "L5C6",
-        "apid": "122574"
+        "apid": 122574
       },
       {
         "name": "(LVL 5) CARD - Monorail",
         "id": "L5C7",
-        "apid": "122575"
+        "apid": 122575
       }
     ],
     "gags": [
       {
         "name": "(LVL 5) GAG - Pickled Egg in Moe's",
         "id": "4 - 0",
-        "apid": "122576"
+        "apid": 122576
       },
       {
         "name": "(LVL 5) GAG - Slot Machine in Moe's",
         "id": "4 - 3",
-        "apid": "122577"
+        "apid": 122577
       },
       {
         "name": "(LVL 5) GAG - Love Tester in Moe's",
         "id": "4 - 2",
-        "apid": "122578"
+        "apid": 122578
       },
       {
         "name": "(LVL 5) GAG - Blind an Hans Moleman at the DMV",
         "id": "4 - 4",
-        "apid": "122579"
+        "apid": 122579
       },
       {
         "name": "(LVL 5) GAG - Dumpster Behind Krusty Burger (Near Police Station)",
         "id": "4 - 5",
-        "apid": "122580"
+        "apid": 122580
       },
       {
         "name": "(LVL 5) GAG - Light Up Drinks in Moe's",
         "id": "4 - 1",
-        "apid": "122690"
+        "apid": 122690
       }
     ],
     "shops": [
       {
         "name": "(LVL 5) Shop Check 1",
         "id": "APCar25",
-        "apid": "122581"
+        "apid": 122581
       },
       {
         "name": "(LVL 5) Shop Check 2",
         "id": "APCar26",
-        "apid": "122582"
+        "apid": 122582
       },
       {
         "name": "(LVL 5) Shop Check 3",
         "id": "APCar27",
-        "apid": "122583"
+        "apid": 122583
       },
       {
         "name": "(LVL 5) Shop Check 4",
         "id": "APCar28",
-        "apid": "122584"
+        "apid": 122584
       },
       {
         "name": "(LVL 5) Shop Check 5",
         "id": "APCar29",
-        "apid": "122585"
+        "apid": 122585
       },
       {
         "name": "(LVL 5) Shop Check 6",
         "id": "APCar30",
-        "apid": "122586"
+        "apid": 122586
       }
     ]
   },
   "level6": {
     "missions": [
       {
-        "name": "Going to the Lu\u0027",
+        "name": "Going to the Lu'",
         "id": "5 - 1",
-        "apid": "122344",
-        "index": 0
+        "apid": 122344,
+        "index": 0,
+        "translations": [
+          "Going to the Lu'",
+          "Direction les studios",
+          "Neues von Krusty",
+          "Vamos a los Lu"
+        ]
       },
       {
         "name": "Getting Down with the Clown",
         "id": "5 - 2",
-        "apid": "122345",
-        "index": 1
+        "apid": 122345,
+        "index": 1,
+        "translations": [
+          "Getting Down with the Clown",
+          "En finir avec le clown",
+          "Ansichten eines Clowns",
+          "Abajo con el payaso"
+        ]
       },
       {
         "name": "Lab Coat Caper",
         "id": "5 - 3",
-        "apid": "122346",
-        "index": 2
+        "apid": 122346,
+        "index": 2,
+        "translations": [
+          "Lab Coat Caper",
+          "Le rat de laboratoire",
+          "Was geht vor im Labor?",
+          "Abrigo de laboratorio saltarín"
+        ]
       },
       {
         "name": "Duff for Me, Duff for You",
         "id": "5 - 4",
-        "apid": "122347",
-        "index": 3
+        "apid": 122347,
+        "index": 3,
+        "translations": [
+          "Duff for Me, Duff for You",
+          "Plus pour moi, plus pour toi",
+          "Mein Duff, dein Duff",
+          "Duff para mí, Duff para ti"
+        ]
       },
       {
         "name": "Full Metal Jackass",
         "id": "5 - 5",
-        "apid": "122348",
-        "index": 4
+        "apid": 122348,
+        "index": 4,
+        "translations": [
+          "Full Metal Jackass",
+          "Le chien-chien de guerre",
+          "Full Metal Jackass",
+          "Zopenco metal total"
+        ]
       },
       {
         "name": "Set to Kill",
         "id": "5 - 6",
-        "apid": "122349",
-        "index": 5
+        "apid": 122349,
+        "index": 5,
+        "translations": [
+          "Set to Kill",
+          "Né pour détruire",
+          "Lasershow",
+          "Preparado para matar"
+        ]
       },
       {
         "name": "Kang and Kodos Strike Back",
         "id": "5 - 7",
-        "apid": "122350",
-        "index": 6
+        "apid": 122350,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L6BM) Milking The Pigs",
         "id": "5 - bonus",
-        "apid": "122351"
+        "apid": 122351
       },
       {
         "name": "(LVL 6) Checkpoint Race",
         "id": "5 - 0",
-        "apid": "122352"
+        "apid": 122352
       },
       {
         "name": "(LVL 6) Time Trial Race",
         "id": "5 - 1",
-        "apid": "122353"
+        "apid": 122353
       },
       {
         "name": "(LVL 6) Circuit Race",
         "id": "5 - 2",
-        "apid": "122354"
+        "apid": 122354
       },
       {
         "name": "Talk to Kearney",
         "id": "5 - bonus2",
-        "apid": "122684"
+        "apid": 122684
       }
     ],
     "wasps": [
       {
         "name": "(LVL 6) WASP - Observatory 1",
         "id": "Level6 - 8",
-        "apid": "122590"
+        "apid": 122590
       },
       {
         "name": "(LVL 6) WASP - Observatory 2",
         "id": "Level6 - 9",
-        "apid": "122591"
+        "apid": 122591
       },
       {
         "name": "(LVL 6) WASP - Kamp Krusty 1",
         "id": "Level6 - 10",
-        "apid": "122592"
+        "apid": 122592
       },
       {
         "name": "(LVL 6) WASP - Kamp Krusty 2",
         "id": "Level6 - 11",
-        "apid": "122593"
+        "apid": 122593
       },
       {
         "name": "(LVL 6) WASP - Broken Railing Below Dam",
         "id": "Level6 - 18",
-        "apid": "122594"
+        "apid": 122594
       },
       {
         "name": "(LVL 6) WASP - Broken Railing Exit",
         "id": "Level6 - 19",
-        "apid": "122595"
+        "apid": 122595
       },
       {
         "name": "(LVL 6) WASP - Motel",
         "id": "Level6 - 7",
-        "apid": "122596"
+        "apid": 122596
       },
       {
         "name": "(LVL 6) WASP - Duff Brewery Krusty Glass",
         "id": "Level6 - 16",
-        "apid": "122597"
+        "apid": 122597
       },
       {
         "name": "(LVL 6) WASP - Under Duff Blimp",
         "id": "Level6 - 17",
-        "apid": "122598"
+        "apid": 122598
       },
       {
         "name": "(LVL 6) WASP - Krusty Studio Left",
         "id": "Level6 - 4",
-        "apid": "122599"
+        "apid": 122599
       },
       {
         "name": "(LVL 6) WASP - Krusty Studio Right",
         "id": "Level6 - 6",
-        "apid": "122600"
+        "apid": 122600
       },
       {
         "name": "(LVL 6) WASP - Krusty Studio Balcony",
         "id": "Level6 - 5",
-        "apid": "122601"
+        "apid": 122601
       },
       {
         "name": "(LVL 6) WASP - (Boat) Crane",
         "id": "Level6 - 3",
-        "apid": "122602"
+        "apid": 122602
       },
       {
         "name": "(LVL 6) WASP - (Boat) Staircase 1",
         "id": "Level6 - 14",
-        "apid": "122603"
+        "apid": 122603
       },
       {
         "name": "(LVL 6) WASP - (Boat) Staircase 2",
         "id": "Level6 - 15",
-        "apid": "122604"
+        "apid": 122604
       },
       {
         "name": "(LVL 6) WASP - Lighthouse",
         "id": "Level6 - 2",
-        "apid": "122605"
+        "apid": 122605
       },
       {
         "name": "(LVL 6) WASP - Planet Hype Rooftop",
         "id": "Level6 - 13",
-        "apid": "122606"
+        "apid": 122606
       },
       {
         "name": "(LVL 6) WASP - Bowling Rooftop",
         "id": "Level6 - 1",
-        "apid": "122607"
+        "apid": 122607
       },
       {
         "name": "(LVL 6) WASP - Comic Book Guy Rooftop 1",
         "id": "Level6 - 0",
-        "apid": "122608"
+        "apid": 122608
       },
       {
         "name": "(LVL 6) WASP - Comic Book Guy Rooftop 2",
         "id": "Level6 - 12",
-        "apid": "122609"
+        "apid": 122609
       }
     ],
     "cards": [
       {
         "name": "(LVL 6) CARD - High Above Street BallPit House",
         "id": "L6C1",
-        "apid": "122610"
+        "apid": 122610
       },
       {
         "name": "(LVL 6) CARD - Casino Ramp",
         "id": "L6C2",
-        "apid": "122611"
+        "apid": 122611
       },
       {
         "name": "(LVL 6) CARD - Planet Hype Sign",
         "id": "L6C3",
-        "apid": "122612"
+        "apid": 122612
       },
       {
         "name": "(LVL 6) CARD - Atop Front of Boat",
         "id": "L6C4",
-        "apid": "122613"
+        "apid": 122613
       },
       {
         "name": "(LVL 6) CARD - Duff Blimp",
         "id": "L6C5",
-        "apid": "122614"
+        "apid": 122614
       },
       {
         "name": "(LVL 6) CARD - Hidden in Bush Next to Kamp Krusty Well Exit",
         "id": "L6C6",
-        "apid": "122615"
+        "apid": 122615
       },
       {
         "name": "(LVL 6) CARD - Broken Bridge",
         "id": "L6C7",
-        "apid": "122616"
+        "apid": 122616
       }
     ],
     "gags": [
       {
         "name": "(LVL 6) GAG - Comic Book Guy Robot",
         "id": "5 - 1",
-        "apid": "122617"
+        "apid": 122617
       },
       {
         "name": "(LVL 6) GAG - Comic Book Guy Radioactive Man",
         "id": "5 - 0",
-        "apid": "122618"
+        "apid": 122618
       },
       {
         "name": "(LVL 6) GAG - Yellow Dumpster Across Krusty Burger",
         "id": "5 - 10",
-        "apid": "122619"
+        "apid": 122619
       },
       {
         "name": "(LVL 6) GAG - Kid Drowning in Ball Pit",
         "id": "5 - 8",
-        "apid": "122620"
+        "apid": 122620
       },
       {
         "name": "(LVL 6) GAG - Crane on Ship",
         "id": "5 - 7",
-        "apid": "122621",
-        "requires": "|Bart Double Jump| OR {YamlDisabled(moverandomizer)}"
+        "apid": 122621
       },
       {
         "name": "(LVL 6) GAG - Observatory Alarm",
         "id": "5 - 4",
-        "apid": "122622"
+        "apid": 122622
       },
       {
         "name": "(LVL 6) GAG - Perpetual Motion Machine at Observatory",
         "id": "5 - 6",
-        "apid": "122623"
+        "apid": 122623
       },
       {
         "name": "(LVL 6) GAG - Telescope at Observatory",
         "id": "5 - 9",
-        "apid": "122624"
+        "apid": 122624
       },
       {
         "name": "(LVL 6) GAG - (Observatory) Monkey",
         "id": "5 - 5",
-        "apid": "122625"
+        "apid": 122625
       },
       {
         "name": "(LVL 6) GAG - Kamp Krusty Flag",
         "id": "5 - 2",
-        "apid": "122626"
+        "apid": 122626
       },
       {
         "name": "(LVL 6) GAG - Boar’s Head at Kamp Krusty",
         "id": "5 - 3",
-        "apid": "122627"
+        "apid": 122627
       }
     ],
     "shops": [
       {
         "name": "(LVL 6) Shop Check 1",
         "id": "APCar31",
-        "apid": "122628"
+        "apid": 122628
       },
       {
         "name": "(LVL 6) Shop Check 2",
         "id": "APCar32",
-        "apid": "122629"
+        "apid": 122629
       },
       {
         "name": "(LVL 6) Shop Check 3",
         "id": "APCar33",
-        "apid": "122630"
+        "apid": 122630
       },
       {
         "name": "(LVL 6) Shop Check 4",
         "id": "APCar34",
-        "apid": "122587"
+        "apid": 122587
       },
       {
         "name": "(LVL 6) Shop Check 5",
         "id": "APCar35",
-        "apid": "122588"
+        "apid": 122588
       },
       {
         "name": "(LVL 6) Shop Check 6",
         "id": "APCar36",
-        "apid": "122589"
+        "apid": 122589
       }
     ]
   },
@@ -1826,319 +2047,356 @@
       {
         "name": "Rigor Motors",
         "id": "6 - 1",
-        "apid": "122355",
-        "index": 0
+        "apid": 122355,
+        "index": 0,
+        "translations": [
+          "Rigor Motors",
+          "Voitures et sépultures",
+          "Motodrom",
+          "Motores rígidos"
+        ]
       },
       {
         "name": "Long Black Probes",
         "id": "6 - 2",
-        "apid": "122356",
-        "index": 1
+        "apid": 122356,
+        "index": 1,
+        "translations": [
+          "Long Black Probes",
+          "Incognito",
+          "Schwarzseher",
+          "Largas sondas negras"
+        ]
       },
       {
         "name": "Pocket Protector",
         "id": "6 - 3",
-        "apid": "122357",
-        "index": 2
+        "apid": 122357,
+        "index": 2,
+        "translations": [
+          "Pocket Protector",
+          "Protecteur de poche",
+          "Taschenschutz",
+          "Protector de bolsillo"
+        ]
       },
       {
-        "name": "There\u0027s Something About Monty",
+        "name": "There's Something About Monty",
         "id": "6 - 4",
-        "apid": "122358",
-        "index": 3
+        "apid": 122358,
+        "index": 3,
+        "translations": [
+          "There's Something About Monty",
+          "Monty à tout prix",
+          "Geld regiert die Welt",
+          "Algo pasa con Monty"
+        ]
       },
       {
-        "name": "Alien \u0022Auto\u0022topsy Part I",
+        "name": "Alien \"Auto\"topsy Part I",
         "id": "6 - 5",
-        "apid": "122359",
-        "index": 4
+        "apid": 122359,
+        "index": 4,
+        "translations": [
+          "Alien \"Auto\"topsy Part I",
+          "Autopsie extra-terrestre I",
+          "Die außerirdische Auto-topsie, Teil I",
+          "\"Auto\"topsia alienígena I"
+        ]
       },
       {
-        "name": "Alien \u0022Auto\u0022topsy Part II",
+        "name": "Alien \"Auto\"topsy Part II",
         "id": "6 - 6",
-        "apid": "122360",
-        "index": 5
+        "apid": 122360,
+        "index": 5,
+        "translations": [
+          "Alien \"Auto\"topsy Part II",
+          "Autopsie extra-terrestre II",
+          "Die außerirdische Auto-topsie, Teil II",
+          "Autotopsia alienígena II"
+        ]
       },
       {
-        "name": "Alien \u0022Auto\u0022topsy Part III",
+        "name": "Alien \"Auto\"topsy Part III",
         "id": "6 - 7",
-        "apid": "122361",
-        "index": 6
+        "apid": 122361,
+        "index": 6,
+        "translations": null
       }
     ],
     "bonus missions": [
       {
         "name": "(L7BM) Flaming Tires",
         "id": "6 - bonus",
-        "apid": "122362"
+        "apid": 122362
       },
       {
         "name": "(LVL 7) Time Trial Race",
         "id": "6 - 0",
-        "apid": "122363"
+        "apid": 122363
       },
       {
         "name": "(LVL 7) Circuit Race",
         "id": "6 - 1",
-        "apid": "122364"
+        "apid": 122364
       },
       {
         "name": "(LVL 7) Checkpoint Race",
         "id": "6 - 2",
-        "apid": "122365"
+        "apid": 122365
       },
       {
         "name": "Talk to Graveyard Zombie",
         "id": "6 - bonus2",
-        "apid": "122685"
+        "apid": 122685
       }
     ],
     "wasps": [
       {
         "name": "(LVL 7) WASP - Blue House Haunted Playground",
         "id": "Level7 - 0",
-        "apid": "122634"
+        "apid": 122634
       },
       {
         "name": "(LVL 7) WASP - Blue House Backyard",
         "id": "Level7 - 10",
-        "apid": "122635"
+        "apid": 122635
       },
       {
         "name": "(LVL 7) WASP - Simpsons' Backyard",
         "id": "Level7 - 11",
-        "apid": "122636"
+        "apid": 122636
       },
       {
         "name": "(LVL 7) WASP - Flanders' Backyard",
         "id": "Level7 - 12",
-        "apid": "122637"
+        "apid": 122637
       },
       {
         "name": "(LVL 7) WASP - Wiggums' Backyard",
         "id": "Level7 - 13",
-        "apid": "122638"
+        "apid": 122638
       },
       {
         "name": "(LVL 7) WASP - Atop of Kwik-E-Mart",
         "id": "Level7 - 14",
-        "apid": "122639"
+        "apid": 122639
       },
       {
         "name": "(LVL 7) WASP - Atop of Gasoline",
         "id": "Level7 - 15",
-        "apid": "122640"
+        "apid": 122640
       },
       {
         "name": "(LVL 7) WASP - Lard Lad Rooftop",
         "id": "Level7 - 2",
-        "apid": "122641"
+        "apid": 122641
       },
       {
         "name": "(LVL 7) WASP - Krusty Burger Rooftop",
         "id": "Level7 - 1",
-        "apid": "122642"
+        "apid": 122642
       },
       {
         "name": "(LVL 7) WASP - School playground",
         "id": "Level7 - 3",
-        "apid": "122643"
+        "apid": 122643
       },
       {
         "name": "(LVL 7) WASP - The One Being Abducted",
         "id": "Level7 - 4",
-        "apid": "122644"
+        "apid": 122644
       },
       {
         "name": "(LVL 7) WASP - School Roof 1",
         "id": "Level7 - 5",
-        "apid": "122645"
+        "apid": 122645
       },
       {
         "name": "(LVL 7) WASP - School Roof 2",
         "id": "Level7 - 6",
-        "apid": "122646"
+        "apid": 122646
       },
       {
         "name": "(LVL 7) WASP - Bridge Barricade",
         "id": "Level7 - 7",
-        "apid": "122647"
+        "apid": 122647
       },
       {
         "name": "(LVL 7) WASP - Bridge Frame by Cletus",
         "id": "Level7 - 16",
-        "apid": "122648"
+        "apid": 122648
       },
       {
         "name": "(LVL 7) WASP - TrailerPark 1",
         "id": "Level7 - 18",
-        "apid": "122649"
+        "apid": 122649
       },
       {
         "name": "(LVL 7) WASP - TrailerPark 2",
         "id": "Level7 - 19",
-        "apid": "122650"
+        "apid": 122650
       },
       {
         "name": "(LVL 7) WASP - Barn Silo",
         "id": "Level7 - 8",
-        "apid": "122651"
+        "apid": 122651
       },
       {
         "name": "(LVL 7) WASP - Power Plant Parking lot",
         "id": "Level7 - 9",
-        "apid": "122652"
+        "apid": 122652
       },
       {
         "name": "(LVL 7) WASP - Mr. Burns Office",
         "id": "Level7 - 17",
-        "apid": "122653"
+        "apid": 122653
       }
     ],
     "cards": [
       {
-        "name": "(LVL 7) CARD - Flanders\u2019 Bomb Shelter",
+        "name": "(LVL 7) CARD - Flanders’ Bomb Shelter",
         "id": "L7C1",
-        "apid": "122654"
+        "apid": 122654
       },
       {
         "name": "(LVL 7) CARD - Blue House Haunted Playground",
         "id": "L7C2",
-        "apid": "122655"
+        "apid": 122655
       },
       {
         "name": "(LVL 7) CARD - School Playground",
         "id": "L7C3",
-        "apid": "122656"
+        "apid": 122656
       },
       {
         "name": "(LVL 7) CARD - Atop of Lard Lad",
         "id": "L7C4",
-        "apid": "122657"
+        "apid": 122657
       },
       {
         "name": "(LVL 7) CARD - Cemetery Moat",
         "id": "L7C5",
-        "apid": "122658"
+        "apid": 122658
       },
       {
         "name": "(LVL 7) CARD - Barn Silo",
         "id": "L7C6",
-        "apid": "122659"
+        "apid": 122659
       },
       {
         "name": "(LVL 7) CARD - Mr. Burns Office",
         "id": "L7C7",
-        "apid": "122660"
+        "apid": 122660
       }
     ],
     "gags": [
       {
         "name": "(LVL 7) GAG - Simpsons TV",
         "id": "6 - 6",
-        "apid": "122661"
+        "apid": 122661
       },
       {
         "name": "(LVL 7) GAG - Simpsons Swing",
         "id": "6 - 1",
-        "apid": "122662"
+        "apid": 122662
       },
       {
         "name": "(LVL 7) GAG - Simpsons Fire Breathing Tiki",
         "id": "6 - 7",
-        "apid": "122663"
+        "apid": 122663
       },
       {
         "name": "(LVL 7) GAG - Krusty Lamp (Bart’s Room)",
         "id": "6 - 12",
-        "apid": "122664"
+        "apid": 122664
       },
       {
         "name": "(LVL 7) GAG - Clown Bed (Bart’s Room)",
         "id": "6 - 13",
-        "apid": "122665"
+        "apid": 122665
       },
       {
         "name": "(LVL 7) GAG - Flanders’ Bomb Shelter",
         "id": "6 - 14",
-        "apid": "122666"
+        "apid": 122666
       },
       {
         "name": "(LVL 7) GAG - Blue House Haunted Swing",
         "id": "6 - 2",
-        "apid": "122667"
+        "apid": 122667
       },
       {
         "name": "(LVL 7) GAG - Tank in Power Plant Parking Lot",
         "id": "6 - 0",
-        "apid": "122668"
+        "apid": 122668
       },
       {
         "name": "(LVL 7) GAG - Frozen Man in Kwik-E-Mart",
         "id": "6 - 4",
-        "apid": "122669"
+        "apid": 122669
       },
       {
         "name": "(LVL 7) GAG - Silent Alarm in Kwik-E-Mart",
         "id": "6 - 11",
-        "apid": "122670"
+        "apid": 122670
       },
       {
         "name": "(LVL 7) GAG - Squishee Machine in Kwik-E-Mart",
         "id": "6 - 3",
-        "apid": "122671"
+        "apid": 122671
       },
       {
         "name": "(LVL 7) GAG - ATM in Kwik-E-Mart",
         "id": "6 - 5",
-        "apid": "122672"
+        "apid": 122672
       },
       {
         "name": "(LVL 7) GAG - Arcade Cabinet in Kwik-E-Mart",
         "id": "6 - 10",
-        "apid": "122673"
+        "apid": 122673
       },
       {
         "name": "(LVL 7) GAG - School Fire Extinguisher",
         "id": "6 - 9",
-        "apid": "122674"
+        "apid": 122674
       },
       {
         "name": "(LVL 7) GAG - School Fire Alarm",
         "id": "6 - 8",
-        "apid": "122675"
+        "apid": 122675
       }
     ],
     "shops": [
       {
         "name": "(LVL 7) Shop Check 1",
         "id": "APCar37",
-        "apid": "122676"
+        "apid": 122676
       },
       {
         "name": "(LVL 7) Shop Check 2",
         "id": "APCar38",
-        "apid": "122677"
+        "apid": 122677
       },
       {
         "name": "(LVL 7) Shop Check 3",
         "id": "APCar39",
-        "apid": "122678"
+        "apid": 122678
       },
       {
         "name": "(LVL 7) Shop Check 4",
         "id": "APCar40",
-        "apid": "122631"
+        "apid": 122631
       },
       {
         "name": "(LVL 7) Shop Check 5",
         "id": "APCar41",
-        "apid": "122632"
+        "apid": 122632
       },
       {
         "name": "(LVL 7) Shop Check 6",
         "id": "APCar42",
-        "apid": "122633"
+        "apid": 122633
       }
     ]
   }

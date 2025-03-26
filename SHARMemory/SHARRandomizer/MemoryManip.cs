@@ -59,6 +59,8 @@ namespace SHARRandomizer
         public int MINSHOPCOST = 100;
         public int MAXSHOPCOST = 1000;
 
+        int gameLanguage;
+
         public async Task MemoryStart()
         {
             Console.WriteLine("Waiting for SHAR process...", "Main");
@@ -76,6 +78,7 @@ namespace SHARRandomizer
 
                 Memory memory = new(p);
                 Console.WriteLine($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Language: {memory.GameSubVersion}.", "Main");
+                gameLanguage = (int)memory.GameSubVersion;
                 GameFlow.GameState? state = memory.Singletons.GameFlow?.CurrentContext;
 
                 await InitialGameState(memory);
@@ -353,7 +356,7 @@ namespace SHARRandomizer
             
             for (int mission = 0; mission < 7; mission++)
             {
-                string missionTitle = lt.getMissionName(mission, levelNum-1);
+                string missionTitle = lt.getMissionName(mission, levelNum-1, gameLanguage);
                 Console.WriteLine(missionTitle);
                 string name = $"MISSION_TITLE_L{levelNum}_M{mission + 1}";
                 language.SetString(name, missionTitle.Trim());
