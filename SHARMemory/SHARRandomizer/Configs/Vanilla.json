@@ -798,37 +798,37 @@
     "cards": [
       {
         "name": "(LVL 3) CARD - Above Bowling",
-        "id": "L3C1",
+        "id": "L3C2",
         "apid": "122483"
       },
       {
         "name": "(LVL 3) CARD - Atop Lighthouse",
-        "id": "L3C2",
+        "id": "L3C3",
         "apid": "122484"
       },
       {
         "name": "(LVL 3) CARD - Edge of the Boat",
-        "id": "L3C3",
+        "id": "L3C4",
         "apid": "122485"
       },
       {
         "name": "(LVL 3) CARD - Balcony of Krusty Studio",
-        "id": "L3C4",
+        "id": "L3C5",
         "apid": "122486"
       },
       {
         "name": "(LVL 3) CARD - Above Below the Dam Railing",
-        "id": "L3C5",
+        "id": "L3C6",
         "apid": "122487"
       },
       {
         "name": "(LVL 3) CARD - Broken Bridge",
-        "id": "L3C6",
+        "id": "L3C7",
         "apid": "122488"
       },
       {
         "name": "(LVL 3) CARD - Comic Book Guy's Rooftop",
-        "id": "L3C7",
+        "id": "L3C1",
         "apid": "122489"
       }
     ],
