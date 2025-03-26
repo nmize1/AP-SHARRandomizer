@@ -10,6 +10,8 @@ using System.Drawing;
 
 string VERSION = "Alpha 0.1.9";
 
+Console.Title = $"SHAR AP Version {VERSION}";
+
 try
 {
     using HttpClient _http = new();
