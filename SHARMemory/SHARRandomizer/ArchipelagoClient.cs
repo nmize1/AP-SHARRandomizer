@@ -344,7 +344,7 @@ namespace SHARRandomizer
             //Console.WriteLine($"GOAL: {victory.ToString()}. WASPS: {wp} / {waspPercent} ({wasps}). CARDS: {cp} / {cardPercent} ({cards}). MISSIONS: {missions} / 49. BONUS MISSIONS: {bonus} / 28.");
             if (victory == VICTORY.FinalMission)
             {
-                if (location == 122361)
+                if (IsLocationChecked(122361))
                 {
                     SendCompletion();
                     return;
