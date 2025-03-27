@@ -881,7 +881,7 @@
   },
   {
     "Name": "Apu - Normal",
-    "InternalName": "apu_h",
+    "InternalName": "apu",
     "Translations": [
       "Apu - Normal",
       "Apu - Normal",
@@ -889,9 +889,8 @@
       "Apu - Normal"
     ]
   },
-  {
-    "Name": null,
-    "InternalName": "askinner_h",
+  {    "Name": null,
+    "InternalName": "askinner",
     "Translations": [
       null,
       null,
@@ -901,7 +900,7 @@
   },
   {
     "Name": "Apu - American",
-    "InternalName": "a_american_h",
+    "InternalName": "a_american",
     "Translations": [
       "Apu - American",
       "Apu - Américain",
@@ -911,7 +910,7 @@
   },
   {
     "Name": "Apu - Army",
-    "InternalName": "a_army_h",
+    "InternalName": "a_army",
     "Translations": [
       "Apu - Army",
       "Apu - Armée",
@@ -921,7 +920,7 @@
   },
   {
     "Name": "Apu - B-sharps",
-    "InternalName": "a_besharp_h",
+    "InternalName": "a_besharp",
     "Translations": [
       "Apu - B-sharps",
       "Apu - B-sharp",
@@ -931,7 +930,7 @@
   },
   {
     "Name": null,
-    "InternalName": "barney_h",
+    "InternalName": "barney",
     "Translations": [
       null,
       null,
@@ -941,7 +940,7 @@
   },
   {
     "Name": "Bart - Normal",
-    "InternalName": "bart_h",
+    "InternalName": "bart",
     "Translations": [
       "Bart - Normal",
       "Bart - Normal",
@@ -951,7 +950,7 @@
   },
   {
     "Name": null,
-    "InternalName": "beeman_h",
+    "InternalName": "beeman",
     "Translations": [
       null,
       null,
@@ -961,7 +960,7 @@
   },
   {
     "Name": null,
-    "InternalName": "boy1_h",
+    "InternalName": "boy1",
     "Translations": [
       null,
       null,
@@ -971,7 +970,7 @@
   },
   {
     "Name": null,
-    "InternalName": "boy2_h",
+    "InternalName": "boy2",
     "Translations": [
       null,
       null,
@@ -981,7 +980,7 @@
   },
   {
     "Name": null,
-    "InternalName": "boy3_h",
+    "InternalName": "boy3",
     "Translations": [
       null,
       null,
@@ -991,7 +990,7 @@
   },
   {
     "Name": null,
-    "InternalName": "boy4_h",
+    "InternalName": "boy4",
     "Translations": [
       null,
       null,
@@ -1001,7 +1000,7 @@
   },
   {
     "Name": null,
-    "InternalName": "brn_unf_h",
+    "InternalName": "brn_unf",
     "Translations": [
       null,
       null,
@@ -1011,7 +1010,7 @@
   },
   {
     "Name": null,
-    "InternalName": "bum_h",
+    "InternalName": "bum",
     "Translations": [
       null,
       null,
@@ -1021,7 +1020,7 @@
   },
   {
     "Name": null,
-    "InternalName": "burns_h",
+    "InternalName": "burns",
     "Translations": [
       null,
       null,
@@ -1031,7 +1030,7 @@
   },
   {
     "Name": null,
-    "InternalName": "busm1_h",
+    "InternalName": "busm1",
     "Translations": [
       null,
       null,
@@ -1041,7 +1040,7 @@
   },
   {
     "Name": null,
-    "InternalName": "busm2_h",
+    "InternalName": "busm2",
     "Translations": [
       null,
       null,
@@ -1051,7 +1050,7 @@
   },
   {
     "Name": null,
-    "InternalName": "busw1_h",
+    "InternalName": "busw1",
     "Translations": [
       null,
       null,
@@ -1061,7 +1060,7 @@
   },
   {
     "Name": "Bart - Football",
-    "InternalName": "b_football_h",
+    "InternalName": "b_football",
     "Translations": [
       "Bart - Football",
       "Bart - Footballeur",
@@ -1071,7 +1070,7 @@
   },
   {
     "Name": "Bart - Hugo",
-    "InternalName": "b_hugo_h",
+    "InternalName": "bugo",
     "Translations": [
       "Bart - Hugo",
       "Bart - Hugo",
@@ -1081,7 +1080,7 @@
   },
   {
     "Name": "Bart - Bartman",
-    "InternalName": "b_man_h",
+    "InternalName": "b_man",
     "Translations": [
       "Bart - Bartman",
       "Bart - Bartman",
@@ -1091,7 +1090,7 @@
   },
   {
     "Name": "Bart - Cadet",
-    "InternalName": "b_military_h",
+    "InternalName": "b_military",
     "Translations": [
       "Bart - Cadet",
       "Bart - Militaire",
@@ -1101,7 +1100,7 @@
   },
   {
     "Name": "Bart - Ninja",
-    "InternalName": "b_ninja_h",
+    "InternalName": "b_ninja",
     "Translations": [
       "Bart - Ninja",
       "Bart - Ninja",
@@ -1111,7 +1110,7 @@
   },
   {
     "Name": "Bart - Tall",
-    "InternalName": "b_tall_h",
+    "InternalName": "b_tall",
     "Translations": [
       "Bart - Tall",
       "Bart - Grand",
@@ -1121,7 +1120,7 @@
   },
   {
     "Name": null,
-    "InternalName": "captain_h",
+    "InternalName": "captain",
     "Translations": [
       null,
       null,
@@ -1131,7 +1130,7 @@
   },
   {
     "Name": null,
-    "InternalName": "carl_h",
+    "InternalName": "carl",
     "Translations": [
       null,
       null,
@@ -1141,7 +1140,7 @@
   },
   {
     "Name": null,
-    "InternalName": "cbg_h",
+    "InternalName": "cbg",
     "Translations": [
       null,
       null,
@@ -1151,7 +1150,7 @@
   },
   {
     "Name": null,
-    "InternalName": "cletus_h",
+    "InternalName": "cletus",
     "Translations": [
       null,
       null,
@@ -1161,7 +1160,7 @@
   },
   {
     "Name": null,
-    "InternalName": "const1_h",
+    "InternalName": "const1",
     "Translations": [
       null,
       null,
@@ -1171,7 +1170,7 @@
   },
   {
     "Name": null,
-    "InternalName": "const2_h",
+    "InternalName": "const2",
     "Translations": [
       null,
       null,
@@ -1181,7 +1180,7 @@
   },
   {
     "Name": null,
-    "InternalName": "dolph_h",
+    "InternalName": "dolph",
     "Translations": [
       null,
       null,
@@ -1191,7 +1190,7 @@
   },
   {
     "Name": null,
-    "InternalName": "eddie_h",
+    "InternalName": "eddie",
     "Translations": [
       null,
       null,
@@ -1201,7 +1200,7 @@
   },
   {
     "Name": null,
-    "InternalName": "farmr1_h",
+    "InternalName": "farmr1",
     "Translations": [
       null,
       null,
@@ -1211,7 +1210,7 @@
   },
   {
     "Name": null,
-    "InternalName": "fem1_h",
+    "InternalName": "fem1",
     "Translations": [
       null,
       null,
@@ -1221,7 +1220,7 @@
   },
   {
     "Name": null,
-    "InternalName": "fem2_h",
+    "InternalName": "fem2",
     "Translations": [
       null,
       null,
@@ -1231,7 +1230,7 @@
   },
   {
     "Name": null,
-    "InternalName": "fem3_h",
+    "InternalName": "fem3",
     "Translations": [
       null,
       null,
@@ -1241,7 +1240,7 @@
   },
   {
     "Name": null,
-    "InternalName": "fem4_h",
+    "InternalName": "fem4",
     "Translations": [
       null,
       null,
@@ -1251,7 +1250,7 @@
   },
   {
     "Name": null,
-    "InternalName": "frankenstein_h",
+    "InternalName": "frankenstein",
     "Translations": [
       null,
       null,
@@ -1261,7 +1260,7 @@
   },
   {
     "Name": null,
-    "InternalName": "frink_h",
+    "InternalName": "frink",
     "Translations": [
       null,
       null,
@@ -1271,7 +1270,7 @@
   },
   {
     "Name": null,
-    "InternalName": "gil_h",
+    "InternalName": "gil",
     "Translations": [
       null,
       null,
@@ -1281,7 +1280,7 @@
   },
   {
     "Name": null,
-    "InternalName": "girl1_h",
+    "InternalName": "girl1",
     "Translations": [
       null,
       null,
@@ -1291,7 +1290,7 @@
   },
   {
     "Name": null,
-    "InternalName": "girl2_h",
+    "InternalName": "girl2",
     "Translations": [
       null,
       null,
@@ -1301,7 +1300,7 @@
   },
   {
     "Name": null,
-    "InternalName": "girl3_h",
+    "InternalName": "girl3",
     "Translations": [
       null,
       null,
@@ -1311,7 +1310,7 @@
   },
   {
     "Name": null,
-    "InternalName": "girl4_h",
+    "InternalName": "girl4",
     "Translations": [
       null,
       null,
@@ -1321,7 +1320,7 @@
   },
   {
     "Name": null,
-    "InternalName": "grandpa_h",
+    "InternalName": "grandpa",
     "Translations": [
       null,
       null,
@@ -1331,7 +1330,7 @@
   },
   {
     "Name": null,
-    "InternalName": "hibbert_h",
+    "InternalName": "hibbert",
     "Translations": [
       null,
       null,
@@ -1341,7 +1340,7 @@
   },
   {
     "Name": "Homer - Normal",
-    "InternalName": "homer_h",
+    "InternalName": "homer",
     "Translations": [
       "Homer - Normal",
       "Homer - Normal",
@@ -1351,7 +1350,7 @@
   },
   {
     "Name": null,
-    "InternalName": "hooker_h",
+    "InternalName": "hooker",
     "Translations": [
       null,
       null,
@@ -1361,7 +1360,7 @@
   },
   {
     "Name": "Homer - Donut",
-    "InternalName": "h_donut_h",
+    "InternalName": "h_donut",
     "Translations": [
       "Homer - Donut",
       "Homer - Beignet",
@@ -1371,7 +1370,7 @@
   },
   {
     "Name": "Homer - Evil",
-    "InternalName": "h_evil_h",
+    "InternalName": "h_evil",
     "Translations": [
       "Homer - Evil",
       "Homer - Maléfique",
@@ -1381,7 +1380,7 @@
   },
   {
     "Name": "Homer - Muumuu",
-    "InternalName": "h_fat_h",
+    "InternalName": "h_fat",
     "Translations": [
       "Homer - Muumuu",
       "Homer - Muumuu",
@@ -1391,7 +1390,7 @@
   },
   {
     "Name": "Homer - Dirty",
-    "InternalName": "h_scuzzy_h",
+    "InternalName": "h_scuzzy",
     "Translations": [
       "Homer - Dirty",
       "Homer - Crado",
@@ -1401,7 +1400,7 @@
   },
   {
     "Name": "Homer - Chosen One",
-    "InternalName": "h_stcrobe_h",
+    "InternalName": "h_stcrobe",
     "Translations": [
       "Homer - Chosen One",
       "Homer - Elu",
@@ -1411,7 +1410,7 @@
   },
   {
     "Name": "Homer - Casual",
-    "InternalName": "h_undrwr_h",
+    "InternalName": "h_undrwr",
     "Translations": [
       "Homer - Casual",
       "Homer - Standard",
@@ -1421,7 +1420,7 @@
   },
   {
     "Name": null,
-    "InternalName": "jasper_h",
+    "InternalName": "jasper",
     "Translations": [
       null,
       null,
@@ -1431,7 +1430,7 @@
   },
   {
     "Name": null,
-    "InternalName": "jimbo_h",
+    "InternalName": "jimbo",
     "Translations": [
       null,
       null,
@@ -1441,7 +1440,7 @@
   },
   {
     "Name": null,
-    "InternalName": "joger1_h",
+    "InternalName": "joger1",
     "Translations": [
       null,
       null,
@@ -1451,7 +1450,7 @@
   },
   {
     "Name": null,
-    "InternalName": "joger2_h",
+    "InternalName": "joger2",
     "Translations": [
       null,
       null,
@@ -1461,7 +1460,7 @@
   },
   {
     "Name": null,
-    "InternalName": "kearney_h",
+    "InternalName": "kearney",
     "Translations": [
       null,
       null,
@@ -1471,7 +1470,7 @@
   },
   {
     "Name": null,
-    "InternalName": "krusty_h",
+    "InternalName": "krusty",
     "Translations": [
       null,
       null,
@@ -1481,7 +1480,7 @@
   },
   {
     "Name": null,
-    "InternalName": "lenny_h",
+    "InternalName": "lenny",
     "Translations": [
       null,
       null,
@@ -1491,7 +1490,7 @@
   },
   {
     "Name": "Lisa - Normal",
-    "InternalName": "lisa_h",
+    "InternalName": "lisa",
     "Translations": [
       "Lisa - Normal",
       "Lisa - Normale",
@@ -1501,7 +1500,7 @@
   },
   {
     "Name": null,
-    "InternalName": "louie_h",
+    "InternalName": "louie",
     "Translations": [
       null,
       null,
@@ -1511,7 +1510,7 @@
   },
   {
     "Name": null,
-    "InternalName": "lou_h",
+    "InternalName": "lou",
     "Translations": [
       null,
       null,
@@ -1521,7 +1520,7 @@
   },
   {
     "Name": "Lisa - Cool",
-    "InternalName": "l_cool_h",
+    "InternalName": "l_cool",
     "Translations": [
       "Lisa - Cool",
       "Lisa - Cool",
@@ -1531,7 +1530,7 @@
   },
   {
     "Name": "Lisa - Floreda",
-    "InternalName": "l_florida_h",
+    "InternalName": "l_florida",
     "Translations": [
       "Lisa - Floreda",
       "Lisa - Floreda",
@@ -1541,7 +1540,7 @@
   },
   {
     "Name": "Lisa - Hockey",
-    "InternalName": "l_jersey_h",
+    "InternalName": "l_jersey",
     "Translations": [
       "Lisa - Hockey",
       "Lisa - Hockey",
@@ -1551,7 +1550,7 @@
   },
   {
     "Name": null,
-    "InternalName": "male1_h",
+    "InternalName": "male1",
     "Translations": [
       null,
       null,
@@ -1561,7 +1560,7 @@
   },
   {
     "Name": null,
-    "InternalName": "male2_h",
+    "InternalName": "male2",
     "Translations": [
       null,
       null,
@@ -1571,7 +1570,7 @@
   },
   {
     "Name": null,
-    "InternalName": "male3_h",
+    "InternalName": "male3",
     "Translations": [
       null,
       null,
@@ -1581,7 +1580,7 @@
   },
   {
     "Name": null,
-    "InternalName": "male4_h",
+    "InternalName": "male4",
     "Translations": [
       null,
       null,
@@ -1591,7 +1590,7 @@
   },
   {
     "Name": null,
-    "InternalName": "male5_h",
+    "InternalName": "male5",
     "Translations": [
       null,
       null,
@@ -1601,7 +1600,7 @@
   },
   {
     "Name": null,
-    "InternalName": "male6_h",
+    "InternalName": "male6",
     "Translations": [
       null,
       null,
@@ -1611,7 +1610,7 @@
   },
   {
     "Name": "Marge - Normal",
-    "InternalName": "marge_h",
+    "InternalName": "marge",
     "Translations": [
       "Marge - Normal",
       "Marge - Normale",
@@ -1621,7 +1620,7 @@
   },
   {
     "Name": null,
-    "InternalName": "milhouse_h",
+    "InternalName": "milhouse",
     "Translations": [
       null,
       null,
@@ -1631,7 +1630,7 @@
   },
   {
     "Name": null,
-    "InternalName": "mobstr_h",
+    "InternalName": "mobstr",
     "Translations": [
       null,
       null,
@@ -1641,7 +1640,7 @@
   },
   {
     "Name": null,
-    "InternalName": "moe_h",
+    "InternalName": "moe",
     "Translations": [
       null,
       null,
@@ -1651,7 +1650,7 @@
   },
   {
     "Name": null,
-    "InternalName": "moleman_h",
+    "InternalName": "moleman",
     "Translations": [
       null,
       null,
@@ -1661,7 +1660,7 @@
   },
   {
     "Name": "Marge - Classy",
-    "InternalName": "m_pink_h",
+    "InternalName": "m_pink",
     "Translations": [
       "Marge - Classy",
       "Marge - Classe",
@@ -1671,7 +1670,7 @@
   },
   {
     "Name": "Marge - Police",
-    "InternalName": "m_police_h",
+    "InternalName": "m_police",
     "Translations": [
       "Marge - Police",
       "Marge - Police",
@@ -1681,7 +1680,7 @@
   },
   {
     "Name": "Marge - Inmate",
-    "InternalName": "m_prison_h",
+    "InternalName": "m_prison",
     "Translations": [
       "Marge - Inmate",
       "Marge - Prison",
@@ -1691,7 +1690,7 @@
   },
   {
     "Name": null,
-    "InternalName": "ned_h",
+    "InternalName": "ned",
     "Translations": [
       null,
       null,
@@ -1701,7 +1700,7 @@
   },
   {
     "Name": null,
-    "InternalName": "nelson_h",
+    "InternalName": "nelson",
     "Translations": [
       null,
       null,
@@ -1711,7 +1710,7 @@
   },
   {
     "Name": null,
-    "InternalName": "nriviera_h",
+    "InternalName": "nriviera",
     "Translations": [
       null,
       null,
@@ -1721,7 +1720,7 @@
   },
   {
     "Name": null,
-    "InternalName": "nuclear_h",
+    "InternalName": "nuclear",
     "Translations": [
       null,
       null,
@@ -1731,7 +1730,7 @@
   },
   {
     "Name": null,
-    "InternalName": "olady1_h",
+    "InternalName": "olady1",
     "Translations": [
       null,
       null,
@@ -1741,7 +1740,7 @@
   },
   {
     "Name": null,
-    "InternalName": "olady2_h",
+    "InternalName": "olady2",
     "Translations": [
       null,
       null,
@@ -1751,7 +1750,7 @@
   },
   {
     "Name": null,
-    "InternalName": "olady3_h",
+    "InternalName": "olady3",
     "Translations": [
       null,
       null,
@@ -1761,7 +1760,7 @@
   },
   {
     "Name": null,
-    "InternalName": "otto_h",
+    "InternalName": "otto",
     "Translations": [
       null,
       null,
@@ -1771,7 +1770,7 @@
   },
   {
     "Name": null,
-    "InternalName": "patty_h",
+    "InternalName": "patty",
     "Translations": [
       null,
       null,
@@ -1781,7 +1780,7 @@
   },
   {
     "Name": null,
-    "InternalName": "ralph_h",
+    "InternalName": "ralph",
     "Translations": [
       null,
       null,
@@ -1791,7 +1790,7 @@
   },
   {
     "Name": null,
-    "InternalName": "rednk1_h",
+    "InternalName": "rednk1",
     "Translations": [
       null,
       null,
@@ -1801,7 +1800,7 @@
   },
   {
     "Name": null,
-    "InternalName": "rednk2_h",
+    "InternalName": "rednk2",
     "Translations": [
       null,
       null,
@@ -1811,7 +1810,7 @@
   },
   {
     "Name": null,
-    "InternalName": "sail1_h",
+    "InternalName": "sail1",
     "Translations": [
       null,
       null,
@@ -1821,7 +1820,7 @@
   },
   {
     "Name": null,
-    "InternalName": "sail2_h",
+    "InternalName": "sail2",
     "Translations": [
       null,
       null,
@@ -1831,7 +1830,7 @@
   },
   {
     "Name": null,
-    "InternalName": "sail3_h",
+    "InternalName": "sail3",
     "Translations": [
       null,
       null,
@@ -1841,7 +1840,7 @@
   },
   {
     "Name": null,
-    "InternalName": "sail4_h",
+    "InternalName": "sail4",
     "Translations": [
       null,
       null,
@@ -1851,7 +1850,7 @@
   },
   {
     "Name": null,
-    "InternalName": "selma_h",
+    "InternalName": "selma",
     "Translations": [
       null,
       null,
@@ -1861,7 +1860,7 @@
   },
   {
     "Name": null,
-    "InternalName": "skinner_h",
+    "InternalName": "skinner",
     "Translations": [
       null,
       null,
@@ -1871,7 +1870,7 @@
   },
   {
     "Name": null,
-    "InternalName": "smithers_h",
+    "InternalName": "smithers",
     "Translations": [
       null,
       null,
@@ -1881,7 +1880,7 @@
   },
   {
     "Name": null,
-    "InternalName": "snake_h",
+    "InternalName": "snake",
     "Translations": [
       null,
       null,
@@ -1891,7 +1890,7 @@
   },
   {
     "Name": null,
-    "InternalName": "teen_h",
+    "InternalName": "teen",
     "Translations": [
       null,
       null,
@@ -1901,7 +1900,7 @@
   },
   {
     "Name": null,
-    "InternalName": "wiggum_h",
+    "InternalName": "wiggum",
     "Translations": [
       null,
       null,
@@ -1911,7 +1910,7 @@
   },
   {
     "Name": null,
-    "InternalName": "willie_h",
+    "InternalName": "willie",
     "Translations": [
       null,
       null,
@@ -1921,7 +1920,7 @@
   },
   {
     "Name": null,
-    "InternalName": "witch_h",
+    "InternalName": "witch",
     "Translations": [
       null,
       null,
@@ -1931,7 +1930,7 @@
   },
   {
     "Name": null,
-    "InternalName": "zfem1_h",
+    "InternalName": "zfem1",
     "Translations": [
       null,
       null,
@@ -1941,7 +1940,7 @@
   },
   {
     "Name": null,
-    "InternalName": "zfem5_h",
+    "InternalName": "zfem5",
     "Translations": [
       null,
       null,
@@ -1951,7 +1950,7 @@
   },
   {
     "Name": null,
-    "InternalName": "zmale1_h",
+    "InternalName": "zmale1",
     "Translations": [
       null,
       null,
@@ -1961,7 +1960,7 @@
   },
   {
     "Name": null,
-    "InternalName": "zmale3_h",
+    "InternalName": "zmale3",
     "Translations": [
       null,
       null,
@@ -1971,7 +1970,7 @@
   },
   {
     "Name": null,
-    "InternalName": "zmale4_h",
+    "InternalName": "zmale4",
     "Translations": [
       null,
       null,

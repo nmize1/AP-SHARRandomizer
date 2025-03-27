@@ -8,7 +8,7 @@ using SHARRandomizer.Classes;
 using System.Diagnostics;
 using System.Drawing;
 
-string VERSION = "Alpha 0.1.9";
+string VERSION = "Alpha 0.1.10";
 
 Console.Title = $"SHAR AP Version {VERSION}";
 
