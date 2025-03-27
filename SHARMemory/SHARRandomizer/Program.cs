@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
-using SHARMemory.Memory;
-using SHARMemory.SHAR;
-using SHARMemory.SHAR.Classes;
-using SHARMemory.SHAR.Structs;
 using SHARRandomizer;
 using SHARRandomizer.Classes;
 using System.Diagnostics;
-using System.Drawing;
 
 string VERSION = "Alpha 0.1.10";
 
@@ -21,35 +16,44 @@ try
     var latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(latestReleaseJson);
     if (latestRelease != null && latestRelease.Name != VERSION)
     {
-        Console.WriteLine("ARE YOU ON THE LATEST VERSION?");
-        Console.WriteLine($"YOU ARE RUNNING VERSION: {VERSION}.");
-        Console.WriteLine($"THE LATEST VERSION ON GITHUB IS: {latestRelease.Name}");
-        Console.WriteLine($"Do you want to continue? [y/n]");
+        Common.WriteLog("ARE YOU ON THE LATEST VERSION?", "GitHub");
+        Common.WriteLog($"YOU ARE RUNNING VERSION: {VERSION}.", "GitHub");
+        Common.WriteLog($"THE LATEST VERSION ON GITHUB IS: {latestRelease.Name}", "GitHub");
+        Common.WriteLog($"Do you want to continue? [y/n]", "GitHub");
         while (true)
         {
             var key = Console.ReadKey(true);
+
             if (key.Key == ConsoleKey.Y)
                 break;
+
             if (key.Key == ConsoleKey.N)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://github.com/nmize1/AP-SHARRandomizer/releases/latest",
+                    UseShellExecute = true
+                });
                 return;
+            }
         }
     }
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"Error checking latest version: {ex}");
+    Common.WriteLog($"Error checking latest version: {ex}", "GitHub");
 }
 
-Console.WriteLine($"SHARRandomizer.exe version: {VERSION}");
-Console.WriteLine("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:");
+Common.WriteLog($"SHARRandomizer.exe version: {VERSION}", "Main");
+Common.WriteLog("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:", "Main");
 string URI = Console.ReadLine();
 if (int.TryParse(URI, out int porttest))
     URI = $"archipelago.gg:{URI}";
 
-Console.WriteLine("Enter slot name:");
+Common.WriteLog("Enter slot name:", "Main");
 string SLOTNAME = Console.ReadLine();
 
-Console.WriteLine("Enter password:");
+Common.WriteLog("Enter password:", "Main");
 string PASSWORD = Console.ReadLine();
 
 

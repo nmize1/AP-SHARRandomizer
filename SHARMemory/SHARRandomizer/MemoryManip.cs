@@ -1,31 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.IO;
-using System.Text.Json;
-using SHARMemory.Memory;
 using SHARMemory.SHAR;
 using SHARMemory.SHAR.Classes;
-using SHARMemory.SHAR.Structs;
 using SHARRandomizer.Classes;
-using static System.Net.Mime.MediaTypeNames;
-using Newtonsoft.Json.Linq;
-using System.Diagnostics.Tracing;
-using System.Runtime.CompilerServices;
-using System.Numerics;
 using Archipelago.MultiClient.Net.Models;
 
 namespace SHARRandomizer
 {
     static class Extensions
     {
-        public static bool InGame(this SHARMemory.SHAR.Memory memory) => memory.IsRunning && memory.Singletons.GameFlow?.NextContext switch
+        public static bool InGame(this Memory memory) => memory.IsRunning && memory.Singletons.GameFlow?.NextContext switch
         {
             GameFlow.GameState.NormalInGame or GameFlow.GameState.DemoInGame or GameFlow.GameState.BonusInGame => true,
             _ => false,
@@ -59,11 +43,11 @@ namespace SHARRandomizer
         public int MINSHOPCOST = 100;
         public int MAXSHOPCOST = 1000;
 
-        int gameLanguage;
+        uint gameLanguage;
 
         public async Task MemoryStart()
         {
-            Console.WriteLine("Waiting for SHAR process...", "Main");
+            Common.WriteLog("Waiting for SHAR process...", "Main");
             while (true)
             {
                 do
@@ -74,34 +58,41 @@ namespace SHARRandomizer
                 sd = new SaveData();
                 sd.Load();
 
-                Console.WriteLine("Found SHAR process. Initialising memory manager...", "Main");
+                Common.WriteLog("Found SHAR process. Initialising memory manager...", "MemoryStart");
 
                 Memory memory = new(p);
-                Console.WriteLine($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Language: {memory.GameSubVersion}.", "Main");
-                gameLanguage = (int)memory.GameSubVersion;
-                GameFlow.GameState? state = memory.Singletons.GameFlow?.CurrentContext;
+                Common.WriteLog($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Sub Version: {memory.GameSubVersion}.", "MemoryStart");
+
+                var state = memory.Singletons.GameFlow?.CurrentContext;
+                while (state == null || state == GameFlow.GameState.PreLicence || state == GameFlow.GameState.Licence)
+                {
+                    await Task.Delay(100);
+                    state = memory.Singletons.GameFlow?.CurrentContext;
+                }
+                gameLanguage = memory.Globals.FeTextBible.LanguageIndex;
+                Common.WriteLog($"SHAR language: {gameLanguage}", "MemoryStart");
 
                 await InitialGameState(memory);
                 await GetItems(memory);
 
                 memory.Dispose();
                 p.Dispose();
-                Console.WriteLine("SHAR closed. Waiting for SHAR process...", "Main");
+                Common.WriteLog("SHAR closed. Waiting for SHAR process...", "MemoryStart");
             }
         }
 
         /* Setting things up */
         public async Task InitialGameState(Memory memory)
         {
-            Console.WriteLine("Setting up initial game state.", "Main");
+            Common.WriteLog("Setting up initial game state.", "InitialGameState");
             var rewardsManager = memory.Singletons.RewardsManager;
             if (rewardsManager == null)
             {
-                Console.WriteLine("Error setting up initial game state. Things will not work correctly.", "Main");
+                Common.WriteLog("Error setting up initial game state. Things will not work correctly.", "InitialGameState");
                 return;
             }
 
-            Console.WriteLine("Waiting till gameplay starts.");
+            Common.WriteLog("Waiting till gameplay starts.", "InitialGameState");
             while (!Extensions.InGame(memory))
             {
                 await Task.Delay(100);
@@ -111,7 +102,6 @@ namespace SHARRandomizer
             List<int> ShopCosts = ArchipelagoClient.ShopCosts;
 
             /* Get all rewards in a list for lookup purposes */
-            int i = 0;
             int s = 0;
             
             var rewardsList = rewardsManager.RewardsList.ToArray();
@@ -123,7 +113,7 @@ namespace SHARRandomizer
                 tempRewards.Add(levelRewards.DefaultCar);
                 tempRewards.Add(levelRewards.BonusMission);
                 tempRewards.Add(levelRewards.StreetRace);
-                Console.WriteLine($"Saving ShopCosts for level {level + 1}");
+                Common.WriteLog($"Saving ShopCosts for level {level + 1}", "InitialGameState");
 
                 var levelTokenStoreList = tokenStoreList[level];
                 for (int merchandiseIndex = 0; merchandiseIndex < levelTokenStoreList.Counter; merchandiseIndex++)
@@ -143,7 +133,7 @@ namespace SHARRandomizer
                     if (merchandise.Name.Contains("APCar"))
                     {
                         merchandise.Cost = ShopCosts[s++];
-                        Console.WriteLine($"MERCHANDISE {merchandise.Cost}");
+                        Common.WriteLog($"MERCHANDISE {merchandise.Cost}", "InitialGameState");
                     }
                 }
                 REWARDS.AddRange(tempRewards);
@@ -170,29 +160,28 @@ namespace SHARRandomizer
             listener.Start();
 
             var textBible = memory.Globals.TextBible.CurrentLanguage;
-            Console.WriteLine("REWARDS:");
+            Common.WriteLog("REWARDS:", "InitialGameState");
             foreach (var r in REWARDS)
             {
-                Console.WriteLine($"{(textBible?.GetString(r.Name.ToUpper()) ?? r.Name)} : {r.Name }");
+                Common.WriteLog($"{textBible?.GetString(r.Name.ToUpper()) ?? r.Name} : {r.Name }", "InitialGameState");
             }
 
-            await Task.Run(async () =>
+            var lang = memory.Globals?.TextBible?.CurrentLanguage;
+            while (lang == null)
             {
-                while (language == null)
-                {
-                    language = memory.Globals?.TextBible?.CurrentLanguage;
-                    await Task.Delay(100);
-                }
-            });
+                await Task.Delay(100);
+                lang = memory.Globals?.TextBible?.CurrentLanguage;
+            }
+            language = lang;
 
-            InitializeMissionTitles(); 
-            Task.Run(() => InitializeShopItems());
+            InitializeMissionTitles();
+            InitializeShopItems();
 
             var characterSheet = memory.Singletons.CharacterSheetManager;
 
             if (characterSheet == null)
             {
-                Console.WriteLine("Error getting character sheet.");
+                Common.WriteLog("Error getting character sheet.", "InitialGameState");
             }
             else
             { 
@@ -241,15 +230,15 @@ namespace SHARRandomizer
                         var rewardsManager = memory.Singletons.RewardsManager;
                         if (rewardsManager == null)
                         {
-                            Console.WriteLine("Error retrieving items from AP. Will retry.", "Main");
+                            Common.WriteLog("Error retrieving items from AP. Will retry.", "Main");
                             return;
                         }
 
                         var textBible = memory.Globals.TextBible.CurrentLanguage; 
-                        Reward matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
+                        var matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
                         if (matchingReward != null)
                         {
-                            Console.WriteLine($"Unlocking {(textBible?.GetString(matchingReward.Name.ToUpper()) ?? matchingReward.Name)}");
+                            Common.WriteLog($"Unlocking {textBible?.GetString(matchingReward.Name.ToUpper()) ?? matchingReward.Name}", "GetItems");
                             matchingReward.Earned = true;
                             UnlockedItems.Add(matchingReward.Name);
                         }
@@ -258,7 +247,7 @@ namespace SHARRandomizer
                             switch (item)
                             {
                                 case string s when s.StartsWith("Level"):
-                                    Console.WriteLine($"Unlocking {item}");
+                                    Common.WriteLog($"Unlocking {item}", "GetItems");
                                     UnlockMissionsPerLevel(item);
                                     break;
 
@@ -268,11 +257,11 @@ namespace SHARRandomizer
                                     
                                     if (characterSheet == null)
                                     {
-                                        Console.WriteLine("Error getting character sheet.");
+                                        Common.WriteLog("Error getting character sheet.", "GetItems");
                                         break;
                                     }
                                     characterSheet.CharacterSheet.Coins += amount;
-                                    Console.WriteLine($"Received {amount} coins.");
+                                    Common.WriteLog($"Received {amount} coins.", "GetItems");
                                     break;
 
                                 case string s when fillerInventory.Keys.Contains(s):
@@ -288,22 +277,22 @@ namespace SHARRandomizer
                                             break;
 
                                     }
-                                    Console.WriteLine($"Received {s}.");
+                                    Common.WriteLog($"Received {s}.", "GetItems");
                                     break;
 
                                 case string s when traps.Contains(s):
-                                    Console.WriteLine($"Received TRAP {s}.");
+                                    Common.WriteLog($"Received TRAP {s}.", "GetItems");
                                     HandleTraps(memory, s);
                                     break;
 
                                 case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake"):
-                                    Console.WriteLine($"Received {s}");
+                                    Common.WriteLog($"Received {s}", "GetItems");
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
                                     break;
 
                                 default:
-                                    Console.WriteLine($"Error unlocking reward: {item}.");
+                                    Common.WriteLog($"Error unlocking reward: {item}.", "GetItems");
                                     break;
                             }
                             
@@ -312,14 +301,14 @@ namespace SHARRandomizer
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Common.WriteLog($"Error getting items: {ex}", "GetItems");
                 }
             }
         }
 
-        bool UnlockCurrentMission(Memory memory, MissionStage stage = null)
+        bool UnlockCurrentMission(Memory memory, MissionStage? stage = null)
         {
-            Console.WriteLine("Checking to unlock current mission.");
+            Common.WriteLog("Checking to unlock current mission.", "UnlockCurrentMission");
             if (memory?.Globals?.GameplayManager is not MissionManager missionManager)
                 return false;
 
@@ -345,7 +334,7 @@ namespace SHARRandomizer
                 return false;
 
             objective.Finished = true;
-            Console.WriteLine($"Skipped dummy objective for L{level + 1}SD{index + 1}");
+            Common.WriteLog($"Skipped dummy objective for L{level + 1}SD{index + 1}", "UnlockCurrentMission");
             return true;
         }
 
@@ -357,7 +346,7 @@ namespace SHARRandomizer
             for (int mission = 0; mission < 7; mission++)
             {
                 string missionTitle = lt.getMissionName(mission, levelNum-1, gameLanguage);
-                Console.WriteLine(missionTitle);
+                Common.WriteLog(missionTitle, "UnlockMissionsPerLevel");
                 string name = $"MISSION_TITLE_L{levelNum}_M{mission + 1}";
                 language.SetString(name, missionTitle.Trim());
             }
@@ -386,7 +375,7 @@ namespace SHARRandomizer
 
                 if (unlocked)
                 {
-                    Console.WriteLine($"Unlocking {bonusMission.Name}");
+                    Common.WriteLog($"Unlocking {bonusMission.Name}", "HandleCurrentBonusMissions");
                     bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.Active;
                     if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
                     {
@@ -398,7 +387,7 @@ namespace SHARRandomizer
                 }
                 else
                 {
-                    Console.WriteLine($"Locking {bonusMission.Name}");
+                    Common.WriteLog($"Locking {bonusMission.Name}", "HandleCurrentBonusMissions");
                     bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.None;
                     if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
                     {
@@ -425,12 +414,12 @@ namespace SHARRandomizer
                 {
                     name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
                     language.SetString(name, "LOCKED");
-                    Console.WriteLine($"{name} is LOCKED");
+                    Common.WriteLog($"{name} is LOCKED", "InitializeMissionTitles");
                 }
             }
         }
 
-        public async void InitializeShopItems()
+        public void InitializeShopItems()
         {
             Dictionary<long, string> locsToScout = new Dictionary<long, string>();
             for (int level = 0; level < 7; level++)
@@ -518,7 +507,7 @@ namespace SHARRandomizer
                     }
 
                     //Commented out in case we need to check car speed again for debugging later.
-                    //Console.WriteLine(memory.Singletons.CharacterManager?.Player?.Car?.Speed.ToString()); 
+                    //Common.WriteLog(memory.Singletons.CharacterManager?.Player?.Car?.Speed.ToString()); 
                     if (DISABLEEBRAKE && memory.Singletons.CharacterManager?.Player?.Car?.Speed >= 1)
                         memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.GetOutCar);
                     else
@@ -595,7 +584,9 @@ namespace SHARRandomizer
 
         public void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
         {
-            InputListener listener = (InputListener)sender;
+            if (sender is not InputListener listener)
+                return;
+
             if (e.Button.ToString() == "DPadUp" || e.Button.ToString() ==  "D1")
             {
                 if (fillerInventory["Hit N Run Reset"] > 0 && listener.memory.Singletons.HitNRunManager.CurrHitAndRun > 0f)
@@ -603,7 +594,7 @@ namespace SHARRandomizer
                     listener.memory.Singletons.HitNRunManager.CurrHitAndRun = 0f;
                     fillerInventory["Hit N Run Reset"]--;
                 }
-                Console.WriteLine($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}");
+                Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
                 sd.SetHitNRunReset(fillerInventory["Hit N Run Reset"]);
             }
             if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
@@ -613,14 +604,14 @@ namespace SHARRandomizer
                     listener.memory.Functions.TriggerEvent(Globals.Events.REPAIR_CAR);
                     fillerInventory["Wrench"]--;
                 }
-                Console.WriteLine($"Wrenches: {fillerInventory["Wrench"]}");
+                Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
                 sd.SetWrench(fillerInventory["Wrench"]);
             }
         }
 
         Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.Error.ErrorEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Error: {e.Exception}");
+            Common.WriteLog($"Error: {e.Exception}", "Watcher_Error");
             return Task.CompletedTask;
         }
 
@@ -633,7 +624,7 @@ namespace SHARRandomizer
             LockDefaultCarsOnLoad(sender, ((int)e.Level));
             if (e.Mission.ToString() == "BM2" || e.Mission.ToString() == "BM3")
             {
-                Console.WriteLine($"{(int)e.Level} - bonus2");
+                Common.WriteLog($"{(int)e.Level} - bonus2", "Watcher_MissionStageChanged");
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "bonus missions"));
                 LockBonusCars(sender);
             }
@@ -642,7 +633,7 @@ namespace SHARRandomizer
 
         Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"L{e.Level + 1}C{e.Card + 1} collected.");
+            Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"L{e.Level + 1}C{e.Card + 1}", "card"));
 
             return Task.CompletedTask;
@@ -650,24 +641,24 @@ namespace SHARRandomizer
 
         Task Watcher_PersistentObjectDestroyed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.PersistentObjectDestroyedEventArts e, CancellationToken token)
         {
-            Console.WriteLine($"Destroyed object: {e.Sector} - {e.Index}");
+            Common.WriteLog($"Destroyed object: {e.Sector} - {e.Index}", "Watcher_PersistentObjectDestroyed");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Sector} - {e.Index}", "wasp"));
             return Task.CompletedTask;
         }
 
         Task Watcher_GagViewed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.GagViewedEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Gag Viewed: {e.Level} - {e.Gag}");
+            Common.WriteLog($"Gag Viewed: {e.Level} - {e.Gag}", "Watcher_GagViewed");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Gag}", "gag"));
             return Task.CompletedTask;
         }
 
         Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchasedEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Car Purchased: {e.Merchandise.Name}"); 
+            Common.WriteLog($"Car Purchased: {e.Merchandise.Name}", "Watcher_MerchandisePurchased"); 
             if (e.Merchandise.Name.Contains("APCar"))
             {
-                Console.WriteLine($"Sending check from {e.Merchandise.Name}");
+                Common.WriteLog($"Sending check from {e.Merchandise.Name}", "Watcher_MerchandisePurchased");
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID(e.Merchandise.Name, "shop"));
             }
             return Task.CompletedTask;
@@ -675,7 +666,7 @@ namespace SHARRandomizer
 
         Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Mission Complete: {e.Level} - {e.Mission + 1}");
+            Common.WriteLog($"Mission Complete: {e.Level} - {e.Mission + 1}", "Watcher_MissionComplete");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions"));
 
             
@@ -684,7 +675,7 @@ namespace SHARRandomizer
 
         Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Mission Complete: {e.Level} - bonus");
+            Common.WriteLog($"Mission Complete: {e.Level} - bonus", "Watcher_BonusMissionComplete");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - bonus", "bonus missions"));
             LockBonusCars(sender);
             return Task.CompletedTask;
@@ -692,18 +683,18 @@ namespace SHARRandomizer
 
         Task Watcher_StreetRaceComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.StreetRaceCompleteEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Race Complete: {e.Level} - {e.Race}");
+            Common.WriteLog($"Race Complete: {e.Level} - {e.Race}", "Watcher_StreetRaceComplete");
             ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{e.Level} - {e.Race}", "bonus missions"));
             return Task.CompletedTask;
         }
 
         Task Watcher_DialogPlaying(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.SoundManager.DialogPlayingEventArgs e, CancellationToken token)
         {
-            Console.WriteLine(e.Dialog.Event);
+            Common.WriteLog(e.Dialog.Event, "Watcher_DialogPlaying");
             
             if (e.Dialog.Event.ToString() == "HAGGLING_WITH_GIL")
             {
-                Console.WriteLine($"Spoke to Gil on level {CURRENTLEVEL}");
+                Common.WriteLog($"Spoke to Gil on level {CURRENTLEVEL}", "Watcher_DialogPlaying");
                 Dictionary<long, string> locsToScout = new Dictionary<long, string>();
                 for (int check = 1; check <= 6; check++)
                 {

@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Archipelago.MultiClient.Net;
-using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
+﻿using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 using Archipelago.MultiClient.Net.Models;
 using SHARRandomizer.Classes;
-using SHARMemory.Memory;
-using SHARMemory.SHAR;
 using SHARMemory.SHAR.Classes;
-using SHARMemory.SHAR.Structs;
-using SHARRandomizer.Classes;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
@@ -72,7 +62,7 @@ namespace SHARRandomizer
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Common.WriteLog($"Error connecting: {e}", "ArchipelagoClient::Connect");
             }
 
             TryConnect();
@@ -105,7 +95,7 @@ namespace SHARRandomizer
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e);
+                            Common.WriteLog($"Error creating session: {e}", "ArchipelagoClient::TryConnect");
                         }
                     }
 
@@ -125,19 +115,19 @@ namespace SHARRandomizer
                 if (loginResult is LoginFailure loginFailure)
                 {
                     _attemptingConnection = false;
-                    Console.WriteLine("AP connection failed: " + string.Join("\n", loginFailure.Errors));
+                    Common.WriteLog("AP connection failed: " + string.Join("\n", loginFailure.Errors), "ArchipelagoClient::TryConnect");
                     _session = null;
-                    Console.WriteLine("Reattempting connecting in 5 seconds.");
+                    Common.WriteLog("Reattempting connecting in 5 seconds.", "ArchipelagoClient::TryConnect");
                     await Task.Delay(5000);
                 }
             } while (loginResult is LoginFailure);
 
             var login = loginResult as LoginSuccessful;
-            Console.WriteLine($"Successfully connected to {URI} as {SLOTNAME}");
-            Console.WriteLine("Slot Data:");
+            Common.WriteLog($"Successfully connected to {URI} as {SLOTNAME}", "ArchipelagoClient::TryConnect");
+            Common.WriteLog("Slot Data:", "ArchipelagoClient::TryConnect");
             foreach (var kvp in login.SlotData)
             {
-                Console.WriteLine($"  {kvp.Key}: {kvp.Value}");
+                Common.WriteLog($"  {kvp.Key}: {kvp.Value}", "ArchipelagoClient::TryConnect");
             }
             SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
             victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
@@ -168,16 +158,16 @@ namespace SHARRandomizer
 
         public void Session_SocketClosed(string reason)
         {
-            Console.WriteLine("Connection to Archipelago lost: " + reason);
+            Common.WriteLog("Connection to Archipelago lost: " + reason, "ArchipelagoClient::Session_SocketClosed");
             Disconnect();
         }
 
         public void Session_ErrorReceived(Exception e, string message)
         {
-            Console.WriteLine(message);
+            Common.WriteLog(message, "ArchipelagoClient::Session_ErrorReceived");
             if (e != null)
             {
-                Console.WriteLine(e.ToString());
+                Common.WriteLog(e, "ArchipelagoClient::Session_ErrorReceived");
             }
 
             Disconnect();
@@ -185,7 +175,7 @@ namespace SHARRandomizer
 
         public void Session_OnMessageReceived(LogMessage message)
         {
-            Console.WriteLine(message);
+            Common.WriteLog(message, "ArchipelagoClient::Session_OnMessageReceived");
         }
 
         async Task SendLocs()
@@ -198,10 +188,10 @@ namespace SHARRandomizer
         {
             if (!Connected)
             {
-                Console.WriteLine($"Trying to send location {location} when there's no connection");
+                Common.WriteLog($"Trying to send location {location} when there's no connection", "ArchipelagoClient::SendLocation");
                 return;
             }
-            Console.WriteLine(location);
+            Common.WriteLog(location, "ArchipelagoClient::SendLocation");
             _session.Locations.CompleteLocationChecksAsync(location);
             CheckVictory(location);
         }
@@ -223,7 +213,7 @@ namespace SHARRandomizer
                 return false;
             }
 
-            Console.WriteLine($"Sending location checks: {string.Join(", ", locations)}");
+            Common.WriteLog($"Sending location checks: {string.Join(", ", locations)}", "ArchipelagoClient::SyncLocations");
             _session.Locations.CompleteLocationChecksAsync(locations.ToArray());
             return true;
         }
@@ -260,7 +250,7 @@ namespace SHARRandomizer
             var itemName = item.ItemName;
             itemName ??= item.ItemDisplayName;
 
-            Console.WriteLine($"Received item #{index}: {item.ItemId} - {itemName}");
+            Common.WriteLog($"Received item #{index}: {item.ItemId} - {itemName}", "ArchipelagoClient::Session_ItemReceived");
 
             var player = item.Player;
             var playerName = player.Alias ?? player.Name ?? $"Player #{player.Slot}";
@@ -274,7 +264,7 @@ namespace SHARRandomizer
             }
             else if (item.Flags == ItemFlags.Trap || NORESEND.Contains(item.ItemName))
             {
-                Console.WriteLine($"Didn't enqueue {itemName} which is {item.Flags}");
+                Common.WriteLog($"Didn't enqueue {itemName} which is {item.Flags}", "ArchipelagoClient::Session_ItemReceived");
             }
             else
             {
@@ -285,7 +275,7 @@ namespace SHARRandomizer
         
         public async void ScoutShopLocationNoHint(Dictionary<long, string> locations, FeLanguage language)
         {
-            Console.WriteLine("Scouting");
+            Common.WriteLog("Scouting", "ArchipelagoClient::ScoutShopLocationNoHint");
             await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations.Keys.ToArray()).ContinueWith(t => 
             {
                 foreach (ItemInfo item in t.Result.Values)
@@ -331,17 +321,17 @@ namespace SHARRandomizer
             }
 
             double wp = ((double)wasps / 140) * 100;
-            Console.WriteLine($"Wasps: {wp}");
+            Common.WriteLog($"Wasps: {wp}", "ArchipelagoClient::CheckVictory");
             
             double cp = ((double)cards / 49) * 100;
-            Console.WriteLine($"Cards: {cp}");
+            Common.WriteLog($"Cards: {cp}", "ArchipelagoClient::CheckVictory");
 
             if (wp < waspPercent)
                 return;
             if (cp < cardPercent)
                 return;
             
-            //Console.WriteLine($"GOAL: {victory.ToString()}. WASPS: {wp} / {waspPercent} ({wasps}). CARDS: {cp} / {cardPercent} ({cards}). MISSIONS: {missions} / 49. BONUS MISSIONS: {bonus} / 28.");
+            //Common.WriteLog($"GOAL: {victory.ToString()}. WASPS: {wp} / {waspPercent} ({wasps}). CARDS: {cp} / {cardPercent} ({cards}). MISSIONS: {missions} / 49. BONUS MISSIONS: {bonus} / 28.");
             if (victory == VICTORY.FinalMission)
             {
                 if (IsLocationChecked(122361))

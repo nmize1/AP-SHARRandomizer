@@ -72,7 +72,7 @@ namespace SHARRandomizer
         {
             if (_listening) return;
 
-            Console.WriteLine("Listening for controller input...");
+            Common.WriteLog("Listening for controller input...", "InputListener::Start");
 
             _listening = true;
             Task.Run(ListenXInput);

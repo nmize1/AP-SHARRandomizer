@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using SHARRandomizer;
 
 public class RewardTranslations
 {
@@ -28,12 +29,12 @@ public class RewardTranslations
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading JSON: {ex.Message}");
+            Common.WriteLog($"Error loading JSON: {ex.Message}", "RewardTranslations::LoadFromJson");
             return new RewardTranslations();
         }
     }
 
-    public string GetInternalName(string name)
+    public string? GetInternalName(string name)
     {
         if (string.IsNullOrEmpty(name))
             return null;
@@ -87,27 +88,27 @@ public class RewardTranslations
     {
         if (Entries == null || !Entries.Any())
         {
-            Console.WriteLine("No entries loaded.");
+            Common.WriteLog("No entries loaded.", "RewardTranslations::PrintEntries");
             return;
         }
 
         foreach (var entry in Entries)
         {
-            Console.WriteLine($"Name: {entry.Name ?? "N/A"}");
-            Console.WriteLine($"Internal Name: {entry.InternalName ?? "N/A"}");
-            Console.WriteLine("Translations:");
+            Common.WriteLog($"Name: {entry.Name ?? "N/A"}", "RewardTranslations::PrintEntries");
+            Common.WriteLog($"Internal Name: {entry.InternalName ?? "N/A"}", "RewardTranslations::PrintEntries");
+            Common.WriteLog("Translations:", "RewardTranslations::PrintEntries");
             if (entry.Translations != null)
             {
                 foreach (var translation in entry.Translations)
                 {
-                    Console.WriteLine($"  - {translation ?? "N/A"}");
+                    Common.WriteLog($"  - {translation ?? "N/A"}", "RewardTranslations::PrintEntries");
                 }
             }
             else
             {
-                Console.WriteLine("  No translations");
+                Common.WriteLog("  No translations", "RewardTranslations::PrintEntries");
             }
-            Console.WriteLine();
+            Common.WriteLog("", "RewardTranslations::PrintEntries");
         }
     }
 }

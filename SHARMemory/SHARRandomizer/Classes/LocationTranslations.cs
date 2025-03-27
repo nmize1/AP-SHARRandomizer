@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SHARRandomizer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,12 +79,12 @@ public class LocationTranslations
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading JSON: {ex.Message}");
+            Common.WriteLog($"Error loading JSON: {ex}", "LocationTranslations::LoadFromJson");
             return null;
         }
     }
 
-    public string getMissionName(int index, int level, int language = 0)
+    public string getMissionName(int index, int level, uint language = 0)
     {
         List<LevelData> Levels = [level1, level2, level3, level4, level5, level6, level7];
         var mission = Levels[level].missions[index];
@@ -113,7 +114,7 @@ public class LocationTranslations
             var item = collection?.FirstOrDefault(e => e.id == id);
             if (item != null)
             {
-                Console.WriteLine($"Sending {item.apid}");
+                Common.WriteLog($"Sending {item.apid}", "LocationTranslations::getAPID");
                 return item.apid;
             }
         }
@@ -156,64 +157,64 @@ public class LocationTranslations
 
     public void PrintData()
     {
-        Console.WriteLine("Level 1 Data:");
+        Common.WriteLog("Level 1 Data:", "PrintData");
         PrintLevelData(level1);
 
-        Console.WriteLine("\nLevel 2 Data:");
+        Common.WriteLog("\nLevel 2 Data:", "PrintData");
         PrintLevelData(level2);
 
-        Console.WriteLine("\nLevel 3 Data:");
+        Common.WriteLog("\nLevel 3 Data:", "PrintData");
         PrintLevelData(level3);
 
-        Console.WriteLine("\nLevel 4 Data:");
+        Common.WriteLog("\nLevel 4 Data:", "PrintData");
         PrintLevelData(level4);
 
-        Console.WriteLine("\nLevel 5 Data:");
+        Common.WriteLog("\nLevel 5 Data:", "PrintData");
         PrintLevelData(level5);
 
-        Console.WriteLine("\nLevel 6 Data:");
+        Common.WriteLog("\nLevel 6 Data:", "PrintData");
         PrintLevelData(level6);
 
-        Console.WriteLine("\nLevel 7 Data:");
+        Common.WriteLog("\nLevel 7 Data:", "PrintData");
         PrintLevelData(level7);
     }
 
     private void PrintLevelData(LevelData levelData)
     {
-        Console.WriteLine("  Missions:");
+        Common.WriteLog("  Missions:", "PrintLevelData");
         foreach (var mission in levelData.missions)
         {
-            Console.WriteLine($"    - Name: {mission.name}, APID: {mission.apid}, Index: {mission.index}");
+            Common.WriteLog($"    - Name: {mission.name}, APID: {mission.apid}, Index: {mission.index}", "PrintLevelData");
         }
 
-        Console.WriteLine("  Bonus Missions:");
+        Common.WriteLog("  Bonus Missions:", "PrintLevelData");
         foreach (var bonusMission in levelData.bonus_missions)
         {
-            Console.WriteLine($"    - Name: {bonusMission.name}, APID: {bonusMission.apid}");
+            Common.WriteLog($"    - Name: {bonusMission.name}, APID: {bonusMission.apid}", "PrintLevelData");
         }
 
-        Console.WriteLine("  Wasps:");
+        Common.WriteLog("  Wasps:", "PrintLevelData");
         foreach (var wasp in levelData.wasps)
         {
-            Console.WriteLine($"    - Name: {wasp.name}, ID: {wasp.id}, APID: {wasp.apid}");
+            Common.WriteLog($"    - Name: {wasp.name}, ID: {wasp.id}, APID: {wasp.apid}", "PrintLevelData");
         }
 
-        Console.WriteLine("  Cards:");
+        Common.WriteLog("  Cards:", "PrintLevelData");
         foreach (var card in levelData.cards)
         {
-            Console.WriteLine($"    - Name: {card.name}, ID: {card.id}, APID: {card.apid}");
+            Common.WriteLog($"    - Name: {card.name}, ID: {card.id}, APID: {card.apid}", "PrintLevelData");
         }
 
-        Console.WriteLine("  Gags:");
+        Common.WriteLog("  Gags:", "PrintLevelData");
         foreach (var gag in levelData.gags)
         {
-            Console.WriteLine($"    - Name: {gag.name}, APID: {gag.apid}");
+            Common.WriteLog($"    - Name: {gag.name}, APID: {gag.apid}", "PrintLevelData");
         }
 
-        Console.WriteLine("  Shops:");
+        Common.WriteLog("  Shops:", "PrintLevelData");
         foreach (var shop in levelData.shops)
         {
-            Console.WriteLine($"    - Name: {shop.name}, APID: {shop.apid}");
+            Common.WriteLog($"    - Name: {shop.name}, APID: {shop.apid}", "PrintLevelData");
         }
     }
 }
