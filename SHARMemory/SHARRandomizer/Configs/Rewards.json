@@ -1,0 +1,1982 @@
+[
+  {
+    "Name": "Ambulance",
+    "InternalName": "ambul",
+    "Translations": [
+      "Ambulance",
+      "Ambulance",
+      "Notarztwagen",
+      "Ambulancia"
+    ]
+  },
+  {
+    "Name": "Longhorn",
+    "InternalName": "apu_v",
+    "Translations": [
+      "Longhorn",
+      "Cornu",
+      "Longhorn",
+      "Longhorn"
+    ]
+  },
+  {
+    "Name": "ATV",
+    "InternalName": "atv_v",
+    "Translations": [
+      "ATV",
+      "VTT",
+      "ATV",
+      "Todo terreno"
+    ]
+  },
+  {
+    "Name": "Ferrini - Red",
+    "InternalName": "bart_v",
+    "Translations": [
+      "Ferrini - Red",
+      "Ferrini - Rouge",
+      "Ferrini - Rot",
+      "Ferrini rojo"
+    ]
+  },
+  {
+    "Name": "El Carro Loco",
+    "InternalName": "bbman_v",
+    "Translations": [
+      "El Carro Loco",
+      "El Carro Loco",
+      "El Carro Loco",
+      "El carro loco"
+    ]
+  },
+  {
+    "Name": "Book Burning Van",
+    "InternalName": "bookb_v",
+    "Translations": [
+      "Book Burning Van",
+      "Van Brûle Livre",
+      "Bücherverbrennungsmobil",
+      "Furgoneta quemalibros"
+    ]
+  },
+  {
+    "Name": "Burns Armored Truck",
+    "InternalName": "burnsarm",
+    "Translations": [
+      "Burns Armored Truck",
+      "Camion blindé de Burns",
+      "Burns' Panzerwagen",
+      "El camión blindado de Burns"
+    ]
+  },
+  {
+    "Name": "36 Stutz Bearcat",
+    "InternalName": "burns_v",
+    "Translations": [
+      "36 Stutz Bearcat",
+      "36 Stutz Bearcat",
+      "36 Stutz Bearcat",
+      "Stutz Bearcat del 36"
+    ]
+  },
+  {
+    "Name": "Car Built For Homer",
+    "InternalName": "carhom_v",
+    "Translations": [
+      "Car Built For Homer",
+      "Voiture faite pour Homer",
+      "Von Homer entworfenes Auto",
+      "Coche hecho de encargo para Homer"
+    ]
+  },
+  {
+    "Name": "Armored Truck",
+    "InternalName": "cArmor",
+    "Translations": [
+      "Armored Truck",
+      "Camion blindé",
+      "Panzerwagen",
+      "Camión blindado"
+    ]
+  },
+  {
+    "Name": "Ferrini - Black",
+    "InternalName": "cBlbart",
+    "Translations": [
+      "Ferrini - Black",
+      "Ferrini - Noire",
+      "Ferrini - Schwarz",
+      "Ferrini negro"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "cBone",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Cell Phone Car A",
+    "InternalName": "cCellA",
+    "Translations": [
+      "Cell Phone Car A",
+      "Voiture téléphone A",
+      "Handy - Auto A",
+      "Coche con móvil A"
+    ]
+  },
+  {
+    "Name": "Cell Phone Car B",
+    "InternalName": "cCellB",
+    "Translations": [
+      "Cell Phone Car B",
+      "Voiture téléphone B",
+      "Handy - Auto B",
+      "Coche con móvil B"
+    ]
+  },
+  {
+    "Name": "Cell Phone Car C",
+    "InternalName": "cCellC",
+    "Translations": [
+      "Cell Phone Car C",
+      "Voiture téléphone C",
+      "Handy - Auto C",
+      "Coche con móvil C"
+    ]
+  },
+  {
+    "Name": "Cell Phone Car D",
+    "InternalName": "cCellD",
+    "Translations": [
+      "Cell Phone Car D",
+      "Voiture téléphone D",
+      "Handy - Auto D",
+      "Coche con móvil D"
+    ]
+  },
+  {
+    "Name": "Cola Truck",
+    "InternalName": "cCola",
+    "Translations": [
+      "Cola Truck",
+      "Camion de cola",
+      "Cola-Laster",
+      "Camión de cola"
+    ]
+  },
+  {
+    "Name": "Cube Van",
+    "InternalName": "cCube",
+    "Translations": [
+      "Cube Van",
+      "Van cube",
+      "Geschlossener Van",
+      "Furgoneta de cubo"
+    ]
+  },
+  {
+    "Name": "Curator",
+    "InternalName": "cCurator",
+    "Translations": [
+      "Curator",
+      "Voiture du conservateur",
+      "Kurator",
+      "Coche del guarda jurado"
+    ]
+  },
+  {
+    "Name": "Donut Truck",
+    "InternalName": "cDonut",
+    "Translations": [
+      "Donut Truck",
+      "Camion de beignets",
+      "Donut-Laster",
+      "Camión de donuts"
+    ]
+  },
+  {
+    "Name": "Duff Truck",
+    "InternalName": "cDuff",
+    "Translations": [
+      "Duff Truck",
+      "Camion de Duff",
+      "Duff-Laster",
+      "Camión de Duff"
+    ]
+  },
+  {
+    "Name": "Fire Truck",
+    "InternalName": "cFire_v",
+    "Translations": [
+      "Fire Truck",
+      "Camion de pompiers",
+      "Feuerwehrwagen",
+      "Camión de bomberos"
+    ]
+  },
+  {
+    "Name": "Hearse",
+    "InternalName": "cHears",
+    "Translations": [
+      "Hearse",
+      "Corbillard",
+      "Leichenwagen",
+      "Coche fúnebre"
+    ]
+  },
+  {
+    "Name": "Krusty's Limo",
+    "InternalName": "cKlimo",
+    "Translations": [
+      "Krusty's Limo",
+      "Limo de Krusty",
+      "Krustys Limousine",
+      "Limusina de Krusty"
+    ]
+  },
+  {
+    "Name": "Pickup Truck",
+    "InternalName": "cletu_v",
+    "Translations": [
+      "Pickup Truck",
+      "Camion Pickup",
+      "Kleinlaster",
+      "Furgoneta"
+    ]
+  },
+  {
+    "Name": "Limo",
+    "InternalName": "cLimo",
+    "Translations": [
+      "Limo",
+      "Limo",
+      "Limousine",
+      "Limusina"
+    ]
+  },
+  {
+    "Name": "Milk Truck",
+    "InternalName": "cMilk",
+    "Translations": [
+      "Milk Truck",
+      "Camion de lait",
+      "Milchlaster",
+      "Camión de leche"
+    ]
+  },
+  {
+    "Name": "Nerd Car",
+    "InternalName": "cNerd",
+    "Translations": [
+      "Nerd Car",
+      "Voiture de techy",
+      "Streberauto",
+      "Coche de empollón"
+    ]
+  },
+  {
+    "Name": "Nonuplets Minivan",
+    "InternalName": "cNonup",
+    "Translations": [
+      "Nonuplets Minivan",
+      "Minivan Nonuplés",
+      "Neunlings-Minivan",
+      "Camioneta de nonillizos"
+    ]
+  },
+  {
+    "Name": "Coffin Car",
+    "InternalName": "coffin",
+    "Translations": [
+      "Coffin Car",
+      "Voiture cercueil",
+      "Sargwagen",
+      "Coche ataúd"
+    ]
+  },
+  {
+    "Name": "Kremlin",
+    "InternalName": "comic_v",
+    "Translations": [
+      "Kremlin",
+      "Kremlin",
+      "Kremlin",
+      "Kremlin"
+    ]
+  },
+  {
+    "Name": "Compact Car",
+    "InternalName": "compactA",
+    "Translations": [
+      "Compact Car",
+      "Coupé",
+      "Kompaktwagen",
+      "Coche compacto"
+    ]
+  },
+  {
+    "Name": "Police Car",
+    "InternalName": "cPolice",
+    "Translations": [
+      "Police Car",
+      "Voiture de police",
+      "Polizeiauto",
+      "Coche de policía"
+    ]
+  },
+  {
+    "Name": "Chase Sedan",
+    "InternalName": "cSedan",
+    "Translations": [
+      "Chase Sedan",
+      "Berline de poursuite",
+      "Verfolgungswagen",
+      "Sedán rápido"
+    ]
+  },
+  {
+    "Name": "Surveillance Van",
+    "InternalName": "cVan",
+    "Translations": [
+      "Surveillance Van",
+      "Van de surveillance",
+      "Überwachungsauto",
+      "Furgoneta de vigilancia"
+    ]
+  },
+  {
+    "Name": "R/C Buggy",
+    "InternalName": "dune_v",
+    "Translations": [
+      "R/C Buggy",
+      "Buggy télécommandé",
+      "R/C-Buggy",
+      "Coche teledirigido "
+    ]
+  },
+  {
+    "Name": "Electaurus",
+    "InternalName": "elect_v",
+    "Translations": [
+      "Electaurus",
+      "Electaurus",
+      "Electaurus",
+      "Electaurus"
+    ]
+  },
+  {
+    "Name": "Family Sedan",
+    "InternalName": "famil_v",
+    "Translations": [
+      "Family Sedan",
+      "Berline familiale",
+      "Familienkutsche",
+      "Sedán familiar"
+    ]
+  },
+  {
+    "Name": "Fish Van",
+    "InternalName": "fishtruc",
+    "Translations": [
+      "Fish Van",
+      "Van de pêche",
+      "Fischwagen",
+      "Furgoneta de pescado"
+    ]
+  },
+  {
+    "Name": "Open Wheel Race Car",
+    "InternalName": "fone_v",
+    "Translations": [
+      "Open Wheel Race Car",
+      "Voiture de course",
+      "Rennauto",
+      "Coche de carreras"
+    ]
+  },
+  {
+    "Name": "Hover Car",
+    "InternalName": "frink_v",
+    "Translations": [
+      "Hover Car",
+      "Aéroglisseur",
+      "Schwebe-Wagen",
+      "Coche aerodeslizador"
+    ]
+  },
+  {
+    "Name": "Garbage Truck",
+    "InternalName": "garbage",
+    "Translations": [
+      "Garbage Truck",
+      "Camion poubelle",
+      "Müllwagen",
+      "Camión de la basura"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "glastruc",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "WWII Vehicle",
+    "InternalName": "gramp_v",
+    "Translations": [
+      "WWII Vehicle",
+      "Jeep 2GM",
+      "WK2-Fahrzeug",
+      "Vehículo WWII"
+    ]
+  },
+  {
+    "Name": "WWII Vehicle w/Rocket",
+    "InternalName": "gramR_v",
+    "Translations": [
+      "WWII Vehicle w/Rocket",
+      "Jeep/roquette 2GM",
+      "WK2-Fahrzeug mit Rakete",
+      "Vehículo WWII con cohete"
+    ]
+  },
+  {
+    "Name": "Hallo Hearse",
+    "InternalName": "hallo",
+    "Translations": [
+      "Hallo Hearse",
+      "Corbillard Halloween",
+      "Halloween-Leichenwagen",
+      "Coche fúnebre Halloween"
+    ]
+  },
+  {
+    "Name": "Hover Bike",
+    "InternalName": "hbike_v",
+    "Translations": [
+      "Hover Bike",
+      "Aérocycle",
+      "Schwebe-Motorrad",
+      "Moto aerodeslizadora"
+    ]
+  },
+  {
+    "Name": "70's Sports Car",
+    "InternalName": "homer_v",
+    "Translations": [
+      "70's Sports Car",
+      "Voiture de sport années 70",
+      "70er-Jahre-Sportwagen",
+      "Deportivo de los 70"
+    ]
+  },
+  {
+    "Name": "Honor Roller",
+    "InternalName": "honor_v",
+    "Translations": [
+      "Honor Roller",
+      "La fusée",
+      "Ehrenroller",
+      "Corredor de honor"
+    ]
+  },
+  {
+    "Name": "Charred Husk",
+    "InternalName": "huskA",
+    "Translations": [
+      "Charred Husk",
+      "Charred Husk",
+      "Verkohlte Hülse",
+      "Cáscara carbonizada"
+    ]
+  },
+  {
+    "Name": "Planet Hype 50's Car",
+    "InternalName": "hype_v",
+    "Translations": [
+      "Planet Hype 50's Car",
+      "Voiture années 50",
+      "50er-Jahre-Auto Marke \"Planet Hype\"",
+      "Coche de los 50 de Planeta Hiper"
+    ]
+  },
+  {
+    "Name": "Ice Cream Truck",
+    "InternalName": "icecream",
+    "Translations": [
+      "Ice Cream Truck",
+      "Camion de glaces",
+      "Eiswagen",
+      "Camión de helados"
+    ]
+  },
+  {
+    "Name": "Itchy and Scratchy Movie Truck",
+    "InternalName": "IStruck",
+    "Translations": [
+      "Itchy and Scratchy Movie Truck",
+      "Camion cinéma Itchy et Scratchy",
+      "Itchy-und-Scratchy-Übertragungswagen",
+      "Camión de cine de Pica y Rasca"
+    ]
+  },
+  {
+    "Name": "Knight Boat",
+    "InternalName": "knigh_v",
+    "Translations": [
+      "Knight Boat",
+      "Bateau de chevalier",
+      "Knight Boat",
+      "Barco de caballero"
+    ]
+  },
+  {
+    "Name": "Clown Car",
+    "InternalName": "krust_v",
+    "Translations": [
+      "Clown Car",
+      "Voiture de clown",
+      "Clown-Auto",
+      "Coche de payaso"
+    ]
+  },
+  {
+    "Name": "Malibu Stacy Car",
+    "InternalName": "lisa_v",
+    "Translations": [
+      "Malibu Stacy Car",
+      "Voiture de Stacy",
+      "Malibu-Stacy-Auto",
+      "Coche de Stacy Malibú"
+    ]
+  },
+  {
+    "Name": "Canyonero",
+    "InternalName": "marge_v",
+    "Translations": [
+      "Canyonero",
+      "Canyonero",
+      "Canyonero",
+      "Cañonero"
+    ]
+  },
+  {
+    "Name": "Minivan",
+    "InternalName": "minivanA",
+    "Translations": [
+      "Minivan",
+      "Minivan",
+      "Minivan",
+      "Furgoneta"
+    ]
+  },
+  {
+    "Name": "Sedan",
+    "InternalName": "moe_v",
+    "Translations": [
+      "Sedan",
+      "Berline",
+      "Wagen",
+      "Sedán"
+    ]
+  },
+  {
+    "Name": "Monorail Car",
+    "InternalName": "mono_v",
+    "Translations": [
+      "Monorail Car",
+      "Monorail",
+      "Einschienenbahn-Waggon",
+      "Coche monorraíl"
+    ]
+  },
+  {
+    "Name": "Mr. Plow",
+    "InternalName": "mrplo_v",
+    "Translations": [
+      "Mr. Plow",
+      "M. Chasse -neige",
+      "Mr. Schneepflug",
+      "El señor quitanieves"
+    ]
+  },
+  {
+    "Name": "Nuclear Waste Truck",
+    "InternalName": "nuctruck",
+    "Translations": [
+      "Nuclear Waste Truck",
+      "Camion de déchets nucléaires",
+      "Atommüll-Laster",
+      "Camión de residuos nucleares"
+    ]
+  },
+  {
+    "Name": "Obliteratatron Big Wheel Truck",
+    "InternalName": "oblit_v",
+    "Translations": [
+      "Obliteratatron Big Wheel Truck",
+      "camion Monster Oblitératron",
+      "Truck der Vernichtung",
+      "Camión de ruedas grandes Arrasador"
+    ]
+  },
+  {
+    "Name": "School Bus",
+    "InternalName": "otto_v",
+    "Translations": [
+      "School Bus",
+      "Bus scolaire",
+      "Schulbus",
+      "Autobús escolar"
+    ]
+  },
+  {
+    "Name": "Pickup",
+    "InternalName": "pickupA",
+    "Translations": [
+      "Pickup",
+      "Pickup",
+      "Lieferwagen",
+      "Furgoneta"
+    ]
+  },
+  {
+    "Name": "Pizza Van",
+    "InternalName": "pizza",
+    "Translations": [
+      "Pizza Van",
+      "Camion pizza",
+      "Pizza-Van",
+      "Furgoneta de pizzas"
+    ]
+  },
+  {
+    "Name": "Plow King",
+    "InternalName": "plowk_v",
+    "Translations": [
+      "Plow King",
+      "Super Chasse-neige",
+      "Schneepflug",
+      "El rey de los quitanieves"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "redbrick",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Speed Rocket",
+    "InternalName": "rocke_v",
+    "Translations": [
+      "Speed Rocket",
+      "Speed rocket",
+      "Speed Rocket",
+      "Cohete veloz"
+    ]
+  },
+  {
+    "Name": "Mini School Bus",
+    "InternalName": "schoolbu",
+    "Translations": [
+      "Mini School Bus",
+      "Mini bus scolaire",
+      "Kleiner Schulbus",
+      "Mini autobús escolar"
+    ]
+  },
+  {
+    "Name": "Globex Super Villain Car",
+    "InternalName": "scorp_v",
+    "Translations": [
+      "Globex Super Villain Car",
+      "Voiture de Globex le super-méchant",
+      "Globex-Superschurken-Auto",
+      "El coche de Globex el súper villano"
+    ]
+  },
+  {
+    "Name": "Sedan A",
+    "InternalName": "sedanA",
+    "Translations": [
+      "Sedan A",
+      "Berline A",
+      "Wagen A",
+      "Sedán A"
+    ]
+  },
+  {
+    "Name": "Sedan B",
+    "InternalName": "sedanB",
+    "Translations": [
+      "Sedan B",
+      "Berline B",
+      "Wagen B",
+      "Sedán B"
+    ]
+  },
+  {
+    "Name": "Ghost Ship",
+    "InternalName": "ship",
+    "Translations": [
+      "Ghost Ship",
+      "Vaisseau fantôme",
+      "Geisterschiff",
+      "Barco fantasma"
+    ]
+  },
+  {
+    "Name": "Sedan",
+    "InternalName": "skinn_v",
+    "Translations": [
+      "Sedan",
+      "Berline",
+      "Wagen",
+      "Sedán"
+    ]
+  },
+  {
+    "Name": "Mr. Burns' Limo",
+    "InternalName": "smith_v",
+    "Translations": [
+      "Mr. Burns' Limo",
+      "Limo de Burns",
+      "Mr. Burns' Limousine",
+      "Limusina del señor Burns"
+    ]
+  },
+  {
+    "Name": "Bandit",
+    "InternalName": "snake_v",
+    "Translations": [
+      "Bandit",
+      "Bandit",
+      "Bandit",
+      "Bandido"
+    ]
+  },
+  {
+    "Name": "Sports Car A",
+    "InternalName": "sportsA",
+    "Translations": [
+      "Sports Car A",
+      "Voiture de sport A",
+      "Sportwagen A",
+      "Coche deportivo A"
+    ]
+  },
+  {
+    "Name": "Sports Car B",
+    "InternalName": "sportsB",
+    "Translations": [
+      "Sports Car B",
+      "Voiture de sport B",
+      "Sportwagen B",
+      "Coche deportivo B"
+    ]
+  },
+  {
+    "Name": "SUV",
+    "InternalName": "SUVA",
+    "Translations": [
+      "SUV",
+      "VUL",
+      "Geländewagen",
+      "Todo terreno de ciudad"
+    ]
+  },
+  {
+    "Name": "Taxi",
+    "InternalName": "taxiA",
+    "Translations": [
+      "Taxi",
+      "Taxi",
+      "Taxi",
+      "Taxi"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "tt",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "\"Vote Quimby\" Truck",
+    "InternalName": "votetruc",
+    "Translations": [
+      "\"Vote Quimby\" Truck",
+      "Camion \"Voter Quimby\"",
+      "Wählt Quimby-Laster",
+      "Camión \"vote a Quimby\""
+    ]
+  },
+  {
+    "Name": "Station Wagon",
+    "InternalName": "wagonA",
+    "Translations": [
+      "Station Wagon",
+      "Break",
+      "Kombiwagen",
+      "Ranchera"
+    ]
+  },
+  {
+    "Name": "Police Car",
+    "InternalName": "wiggu_v",
+    "Translations": [
+      "Police Car",
+      "Voiture de police",
+      "Polizeiauto",
+      "Coche de policía"
+    ]
+  },
+  {
+    "Name": "Tractor",
+    "InternalName": "willi_v",
+    "Translations": [
+      "Tractor",
+      "Tracteur",
+      "Traktor",
+      "Tractor"
+    ]
+  },
+  {
+    "Name": "Witch Broom",
+    "InternalName": "witchcar",
+    "Translations": [
+      "Witch Broom",
+      "Balai de sorcière",
+      "Hexenbesen",
+      "Escoba de la bruja"
+    ]
+  },
+  {
+    "Name": "Zombie Car",
+    "InternalName": "zombi_v",
+    "Translations": [
+      "Zombie Car",
+      "Zombiemobile",
+      "Zombie-Wagen",
+      "Zombimóvil"
+    ]
+  },
+  {
+    "Name": "Apu - Normal",
+    "InternalName": "apu_h",
+    "Translations": [
+      "Apu - Normal",
+      "Apu - Normal",
+      "Apu - Normal",
+      "Apu - Normal"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "askinner_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Apu - American",
+    "InternalName": "a_american_h",
+    "Translations": [
+      "Apu - American",
+      "Apu - Américain",
+      "Apu - Amerikaner",
+      "Apu - Americano"
+    ]
+  },
+  {
+    "Name": "Apu - Army",
+    "InternalName": "a_army_h",
+    "Translations": [
+      "Apu - Army",
+      "Apu - Armée",
+      "Apu - Armee",
+      "Apu - Ejército"
+    ]
+  },
+  {
+    "Name": "Apu - B-sharps",
+    "InternalName": "a_besharp_h",
+    "Translations": [
+      "Apu - B-sharps",
+      "Apu - B-sharp",
+      "Apu - Sänger",
+      "Apu - B-sharps"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "barney_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Bart - Normal",
+    "InternalName": "bart_h",
+    "Translations": [
+      "Bart - Normal",
+      "Bart - Normal",
+      "Bart - Normal",
+      "Bart - Normal"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "beeman_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "boy1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "boy2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "boy3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "boy4_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "brn_unf_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "bum_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "burns_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "busm1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "busm2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "busw1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Bart - Football",
+    "InternalName": "b_football_h",
+    "Translations": [
+      "Bart - Football",
+      "Bart - Footballeur",
+      "Bart - Football",
+      "Bart - Fútbol"
+    ]
+  },
+  {
+    "Name": "Bart - Hugo",
+    "InternalName": "b_hugo_h",
+    "Translations": [
+      "Bart - Hugo",
+      "Bart - Hugo",
+      "Bart - Hugo",
+      "Bart - Hugo"
+    ]
+  },
+  {
+    "Name": "Bart - Bartman",
+    "InternalName": "b_man_h",
+    "Translations": [
+      "Bart - Bartman",
+      "Bart - Bartman",
+      "Bart - Bartman",
+      "Bart - Bartman"
+    ]
+  },
+  {
+    "Name": "Bart - Cadet",
+    "InternalName": "b_military_h",
+    "Translations": [
+      "Bart - Cadet",
+      "Bart - Militaire",
+      "Bart - Kadett",
+      "Bart - Cadete"
+    ]
+  },
+  {
+    "Name": "Bart - Ninja",
+    "InternalName": "b_ninja_h",
+    "Translations": [
+      "Bart - Ninja",
+      "Bart - Ninja",
+      "Bart - Ninja",
+      "Bart -Ninja"
+    ]
+  },
+  {
+    "Name": "Bart - Tall",
+    "InternalName": "b_tall_h",
+    "Translations": [
+      "Bart - Tall",
+      "Bart - Grand",
+      "Bart - Groß",
+      "Bart - Alto"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "captain_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "carl_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "cbg_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "cletus_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "const1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "const2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "dolph_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "eddie_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "farmr1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "fem1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "fem2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "fem3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "fem4_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "frankenstein_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "frink_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "gil_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "girl1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "girl2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "girl3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "girl4_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "grandpa_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "hibbert_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Homer - Normal",
+    "InternalName": "homer_h",
+    "Translations": [
+      "Homer - Normal",
+      "Homer - Normal",
+      "Homer - Normal",
+      "Homer - Normal"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "hooker_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Homer - Donut",
+    "InternalName": "h_donut_h",
+    "Translations": [
+      "Homer - Donut",
+      "Homer - Beignet",
+      "Homer - Donut",
+      "Homer - Donut"
+    ]
+  },
+  {
+    "Name": "Homer - Evil",
+    "InternalName": "h_evil_h",
+    "Translations": [
+      "Homer - Evil",
+      "Homer - Maléfique",
+      "Homer - Böse",
+      "Homer - Malo"
+    ]
+  },
+  {
+    "Name": "Homer - Muumuu",
+    "InternalName": "h_fat_h",
+    "Translations": [
+      "Homer - Muumuu",
+      "Homer - Muumuu",
+      "Homer - Muumuu",
+      "Homer - Muumuu"
+    ]
+  },
+  {
+    "Name": "Homer - Dirty",
+    "InternalName": "h_scuzzy_h",
+    "Translations": [
+      "Homer - Dirty",
+      "Homer - Crado",
+      "Homer - Schmutzig",
+      "Homer - Sucio"
+    ]
+  },
+  {
+    "Name": "Homer - Chosen One",
+    "InternalName": "h_stcrobe_h",
+    "Translations": [
+      "Homer - Chosen One",
+      "Homer - Elu",
+      "Homer - Der Erwählte",
+      "Homer - El elegido"
+    ]
+  },
+  {
+    "Name": "Homer - Casual",
+    "InternalName": "h_undrwr_h",
+    "Translations": [
+      "Homer - Casual",
+      "Homer - Standard",
+      "Homer - Leger",
+      "Homer - Informal"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "jasper_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "jimbo_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "joger1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "joger2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "kearney_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "krusty_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "lenny_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Lisa - Normal",
+    "InternalName": "lisa_h",
+    "Translations": [
+      "Lisa - Normal",
+      "Lisa - Normale",
+      "Lisa - Normal",
+      "Lisa - Normal"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "louie_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "lou_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Lisa - Cool",
+    "InternalName": "l_cool_h",
+    "Translations": [
+      "Lisa - Cool",
+      "Lisa - Cool",
+      "Lisa - Cool",
+      "Lisa - Guay"
+    ]
+  },
+  {
+    "Name": "Lisa - Floreda",
+    "InternalName": "l_florida_h",
+    "Translations": [
+      "Lisa - Floreda",
+      "Lisa - Floreda",
+      "Lisa - Floreda",
+      "Lisa - Floreada"
+    ]
+  },
+  {
+    "Name": "Lisa - Hockey",
+    "InternalName": "l_jersey_h",
+    "Translations": [
+      "Lisa - Hockey",
+      "Lisa - Hockey",
+      "Lisa - Hockey",
+      "Lisa - Hockey"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "male1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "male2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "male3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "male4_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "male5_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "male6_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Marge - Normal",
+    "InternalName": "marge_h",
+    "Translations": [
+      "Marge - Normal",
+      "Marge - Normale",
+      "Marge - Normal",
+      "Marge - Normal"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "milhouse_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "mobstr_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "moe_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "moleman_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": "Marge - Classy",
+    "InternalName": "m_pink_h",
+    "Translations": [
+      "Marge - Classy",
+      "Marge - Classe",
+      "Marge - Aufgemotzt",
+      "Marge - Elegante"
+    ]
+  },
+  {
+    "Name": "Marge - Police",
+    "InternalName": "m_police_h",
+    "Translations": [
+      "Marge - Police",
+      "Marge - Police",
+      "Marge - Polizei",
+      "Marge - Policía"
+    ]
+  },
+  {
+    "Name": "Marge - Inmate",
+    "InternalName": "m_prison_h",
+    "Translations": [
+      "Marge - Inmate",
+      "Marge - Prison",
+      "Marge - Gefängnisinsassin",
+      "Marge - Presidiaria"
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "ned_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "nelson_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "nriviera_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "nuclear_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "olady1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "olady2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "olady3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "otto_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "patty_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "ralph_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "rednk1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "rednk2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "sail1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "sail2_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "sail3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "sail4_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "selma_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "skinner_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "smithers_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "snake_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "teen_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "wiggum_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "willie_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "witch_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "zfem1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "zfem5_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "zmale1_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "zmale3_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "Name": null,
+    "InternalName": "zmale4_h",
+    "Translations": [
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+]

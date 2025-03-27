@@ -40,9 +40,9 @@ namespace SHARRandomizer
         public ArchipelagoClient ac;
         public static Queue<ScoutedItemInfo> ScoutedItems = new Queue<ScoutedItemInfo>();
         LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
+        RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
         public static AwaitableQueue<string> itemsReceived = new AwaitableQueue<string>();
         List<Reward> REWARDS = new List<Reward>();
-
         List<string> UnlockedLevels = new List<string>();
         List<string> UnlockedItems = new List<string>();
         public Dictionary<string, int> fillerInventory = new Dictionary<string, int>();
@@ -242,8 +242,8 @@ namespace SHARRandomizer
                             return;
                         }
 
-                        var textBible = memory.Globals.TextBible.CurrentLanguage;
-                        Reward matchingReward = REWARDS.FirstOrDefault(reward => (textBible?.GetString(reward.Name.ToUpper()) ?? reward.Name) == item);
+                        var textBible = memory.Globals.TextBible.CurrentLanguage; 
+                        Reward matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
                         if (matchingReward != null)
                         {
                             Console.WriteLine($"Unlocking {(textBible?.GetString(matchingReward.Name.ToUpper()) ?? matchingReward.Name)}");
