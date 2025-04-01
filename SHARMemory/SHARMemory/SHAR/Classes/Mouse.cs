@@ -92,7 +92,7 @@ public class Mouse : RealController
         }
     }
 
-    public override void DisableButton(int mapType, int buttonId)
+    public override void DisableButton(int mapType, int buttonId, DirectionType dir)
     {
         if (mapType < 0 || mapType > InputManager.NUM_MAPTYPES)
             throw new ArgumentOutOfRangeException(nameof(mapType), $"{nameof(mapType)} must be greater than 0 and less than {InputManager.NUM_MAPTYPES}.");
@@ -101,10 +101,10 @@ public class Mouse : RealController
         if (mouseButton == NUM_MOUSE_BUTTONS)
             return;
 
-        WriteInt32((uint)(ButtonMapOffset + mapType * NUM_MOUSE_BUTTONS * NUM_DIRECTION_TYPES * sizeof(int) + mouseButton * NUM_DIRECTION_TYPES * sizeof(int)), -1);
+        WriteInt32((uint)(ButtonMapOffset + mapType * NUM_MOUSE_BUTTONS * NUM_DIRECTION_TYPES * sizeof(int) + mouseButton * NUM_DIRECTION_TYPES * sizeof(int) + (int)dir * sizeof(int)), -1);
     }
 
-    public override void EnableButton(int mapType, int buttonId, InputManager.Buttons button)
+    public override void EnableButton(int mapType, int buttonId, DirectionType dir, InputManager.Buttons button)
     {
         if (mapType < 0 || mapType > InputManager.NUM_MAPTYPES)
             throw new ArgumentOutOfRangeException(nameof(mapType), $"{nameof(mapType)} must be greater than 0 and less than {InputManager.NUM_MAPTYPES}.");
@@ -113,6 +113,6 @@ public class Mouse : RealController
         if (mouseButton == NUM_MOUSE_BUTTONS)
             return;
 
-        WriteInt32((uint)(ButtonMapOffset + mapType * NUM_MOUSE_BUTTONS * NUM_DIRECTION_TYPES * sizeof(int) + mouseButton * NUM_DIRECTION_TYPES * sizeof(int)), (int)button);
+        WriteInt32((uint)(ButtonMapOffset + mapType * NUM_MOUSE_BUTTONS * NUM_DIRECTION_TYPES * sizeof(int) + mouseButton * NUM_DIRECTION_TYPES * sizeof(int) + (int)dir * sizeof(int)), (int)button);
     }
 }

@@ -60,7 +60,7 @@ public class RealController : Class
         set => WriteInt32(NumInputPointsOffset, value);
     }
 
-    public virtual void DisableButton(int mapType, int buttonId) { }
+    public virtual void DisableButton(int mapType, int buttonId, DirectionType dir) { }
 
-    public virtual void EnableButton(int mapType, int buttonId, InputManager.Buttons button) { }
+    public virtual void EnableButton(int mapType, int buttonId, DirectionType dir, InputManager.Buttons button) { }
 }

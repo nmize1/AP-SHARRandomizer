@@ -182,9 +182,10 @@ public class UserController : Class
                 continue;
 
             var buttonId = code & 0xFFFFFF;
+            RealController.DirectionType dir = (RealController.DirectionType)((code >> 0x18) & 0xF);
 
             foreach (var controller in Controller)
-                controller.DisableButton((int)mapType, buttonId);
+                controller.DisableButton((int)mapType, buttonId, dir);
         }
     }
 
@@ -201,9 +202,10 @@ public class UserController : Class
                 continue;
 
             var buttonId = code & 0xFFFFFF;
+            RealController.DirectionType dir = (RealController.DirectionType)((code >> 0x18) & 0xF);
 
             foreach (var controller in Controller)
-                controller.EnableButton((int)mapType, buttonId, button);
+                controller.EnableButton((int)mapType, buttonId, dir, button);
         }
     }
 }
