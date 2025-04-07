@@ -11,6 +11,10 @@
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Archipelago.MultiClient.Net" Version="6.6.0" />
   </ItemGroup>

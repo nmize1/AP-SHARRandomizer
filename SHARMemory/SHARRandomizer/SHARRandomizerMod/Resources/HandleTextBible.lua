@@ -25,5 +25,11 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
     end
 end
 
+for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
+	if lang == nil or chunk.Language == lang then
+		chunk:AddValue("APLog", string.rep(" ", 500))
+	end
+end
+
 TextBibleCache = tostring(P3DFile)
 Output(TextBibleCache)

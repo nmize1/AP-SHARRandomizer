@@ -11,8 +11,12 @@ public class SaveData
 
     public class SaveFileData
     {
-        public int HitNRunReset { get; set; }
-        public int Wrench { get; set; }
+        public int HitNRunReset { get; set; } = 0;
+        public int Wrench { get; set; } = 0;
+        public int Missions { get; set; } = 0;
+        public int BonusMissions { get; set; } = 0;
+        public int Wasps { get; set; } = 0;
+        public int Cards { get; set; } = 0;
     }
 
     private SaveFileData Data = new SaveFileData();
@@ -55,6 +59,34 @@ public class SaveData
         Save();
     }
 
+    public void SetMissions(int value)
+    {
+        Data.Missions = value; 
+        Save();
+    }
+
+    public void SetBonusMissions(int value)
+    {
+        Data.BonusMissions = value;
+        Save();
+    }
+
+    public void SetWasps(int value)
+    {
+        Data.Wasps = value;
+        Save();
+    }
+
+    public void SetCards(int value)
+    {
+        Data.Cards = value;
+        Save();
+    }
+
     public int GetHitNRunReset() => Data.HitNRunReset;
     public int GetWrench() => Data.Wrench;
+    public int GetMissions() => Data.Missions;
+    public int GetBonusMissions() => Data.BonusMissions;
+    public int GetWasps() => Data.Wasps;
+    public int GetCards() => Data.Cards;
 }

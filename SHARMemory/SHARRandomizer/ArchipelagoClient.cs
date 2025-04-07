@@ -13,7 +13,7 @@ namespace SHARRandomizer
     public class ArchipelagoClient
     {
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset"};
-        private const string MinArchipelagoVersion = "0.5.0";
+        private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
         public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>(); 
 
         public bool Connected => _session?.Socket.Connected ?? false;
@@ -117,7 +117,7 @@ namespace SHARRandomizer
                     _attemptingConnection = false;
                     Common.WriteLog("AP connection failed: " + string.Join("\n", loginFailure.Errors), "ArchipelagoClient::TryConnect");
                     _session = null;
-                    Common.WriteLog("Reattempting connecting in 5 seconds.", "ArchipelagoClient::TryConnect");
+                    Common.WriteLog("Reattempting connection in 5 seconds.", "ArchipelagoClient::TryConnect");
                     await Task.Delay(5000);
                 }
             } while (loginResult is LoginFailure);
@@ -176,6 +176,7 @@ namespace SHARRandomizer
         public void Session_OnMessageReceived(LogMessage message)
         {
             Common.WriteLog(message, "ArchipelagoClient::Session_OnMessageReceived");
+            MemoryManip.APLog.Enqueue(message.ToString());
         }
 
         async Task SendLocs()
@@ -193,7 +194,6 @@ namespace SHARRandomizer
             }
             Common.WriteLog(location, "ArchipelagoClient::SendLocation");
             _session.Locations.CompleteLocationChecksAsync(location);
-            CheckVictory(location);
         }
 
         public bool IsLocationChecked(long location)
@@ -291,47 +291,13 @@ namespace SHARRandomizer
             _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
         }
 
-        /* Maybe move summation loop to on connect then just do 1 ++ each check. More efficient. Also, maybe check game stats instead of locations? */
-        void CheckVictory(long location)
+        public void CheckVictory(double wp, double cp, int missions, int bonus)
         {
-            int missions = 0;
-            int bonus = 0;
-            int wasps = 0;
-            int cards = 0;
-
-            foreach (var loc in _session.Locations.AllLocationsChecked)
-            { 
-                (string type, _) = lt.getTypeAndNameByAPID(loc);
-
-                switch (type)
-                {
-                    case "mission":
-                        missions++;
-                        break;
-                    case "bonus_mission":
-                        bonus++;
-                        break;
-                    case "wasp":
-                        wasps++;
-                        break;
-                    case "card":
-                        cards++;
-                        break;
-                }
-            }
-
-            double wp = ((double)wasps / 140) * 100;
-            Common.WriteLog($"Wasps: {wp}", "ArchipelagoClient::CheckVictory");
-            
-            double cp = ((double)cards / 49) * 100;
-            Common.WriteLog($"Cards: {cp}", "ArchipelagoClient::CheckVictory");
-
             if (wp < waspPercent)
                 return;
             if (cp < cardPercent)
                 return;
-            
-            //Common.WriteLog($"GOAL: {victory.ToString()}. WASPS: {wp} / {waspPercent} ({wasps}). CARDS: {cp} / {cardPercent} ({cards}). MISSIONS: {missions} / 49. BONUS MISSIONS: {bonus} / 28.");
+
             if (victory == VICTORY.FinalMission)
             {
                 if (IsLocationChecked(122361))

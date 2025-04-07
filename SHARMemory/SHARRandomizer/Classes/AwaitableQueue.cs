@@ -7,24 +7,18 @@ using System.Threading.Tasks;
 
 namespace SHARRandomizer.Classes
 {
-    /* Implementation of a thread safe queue that will allow us to wait until an item is received and the dequeue */
+    /* Implementation of a thread safe queue that will allow us to wait until an item is received and then dequeue */
     public class AwaitableQueue<T>
     {
         private readonly ConcurrentQueue<T> _queue = new ConcurrentQueue<T>();
         private readonly SemaphoreSlim _signal = new SemaphoreSlim(0);
 
-        /// <summary>
-        /// Enqueues an item and signals waiting tasks.
-        /// </summary>
         public void Enqueue(T item)
         {
             _queue.Enqueue(item);
             _signal.Release();
         }
 
-        /// <summary>
-        /// Asynchronously waits until an item is available and then dequeues it.
-        /// </summary>
         public async Task<T> DequeueAsync(CancellationToken cancellationToken = default)
         {
             await _signal.WaitAsync(cancellationToken);
