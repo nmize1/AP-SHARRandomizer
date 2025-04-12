@@ -6,6 +6,8 @@ using Archipelago.MultiClient.Net.Models;
 using SHARRandomizer.Classes;
 using SHARMemory.SHAR.Classes;
 using Newtonsoft.Json.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
 
 
 namespace SHARRandomizer
@@ -41,6 +43,16 @@ namespace SHARRandomizer
         public VICTORY victory = VICTORY.FinalMission;
         public int cardPercent = 0;
         public int waspPercent = 0;
+
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
+
+        private const int SM_CXSCREEN = 0; // Width of primary screen in pixels
+
+        private static int GetScreenWidthInPixels()
+        {
+            return GetSystemMetrics(SM_CXSCREEN);
+        }
 
         public void Connect()
         {
@@ -176,8 +188,41 @@ namespace SHARRandomizer
         public void Session_OnMessageReceived(LogMessage message)
         {
             Common.WriteLog(message, "ArchipelagoClient::Session_OnMessageReceived");
-            MemoryManip.APLog.Enqueue(message.ToString());
+
+            int screenWidthPixels = GetScreenWidthInPixels();
+
+            int approxCharWidth = 25; //gained by guessing
+            int maxCharsPerLine = screenWidthPixels / approxCharWidth;
+
+            foreach (var line in WrapTextByWord(message.ToString(), maxCharsPerLine))
+            {
+                MemoryManip.APLog.Enqueue(line);
+            }
         }
+
+        private IEnumerable<string> WrapTextByWord(string text, int maxCharsPerLine)
+        {
+            var words = text.Split(' ');
+            var line = new StringBuilder();
+
+            foreach (var word in words)
+            {
+                if (line.Length + word.Length + 1 > maxCharsPerLine)
+                {
+                    yield return line.ToString();
+                    line.Clear();
+                }
+
+                if (line.Length > 0)
+                    line.Append(' ');
+
+                line.Append(word);
+            }
+
+            if (line.Length > 0)
+                yield return line.ToString();
+        }
+
 
         async Task SendLocs()
         {

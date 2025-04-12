@@ -593,8 +593,8 @@ namespace SHARRandomizer
             foreach (Reward reward in REWARDS)
             {
                 var textBible = memory.Globals.TextBible.CurrentLanguage;
-                string name = textBible?.GetString(reward.Name.ToUpper()) ?? reward.Name;
-                if (reward.QuestType == Reward.QuestTypes.BonusMission && !UnlockedItems.Contains(name))
+                
+                if (reward.QuestType == Reward.QuestTypes.BonusMission && !UnlockedItems.Contains(reward.Name))
                 {
                     reward.Earned = false;
                 }

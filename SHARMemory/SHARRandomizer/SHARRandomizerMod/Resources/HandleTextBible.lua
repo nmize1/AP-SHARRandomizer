@@ -27,7 +27,8 @@ end
 
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
-		chunk:AddValue("APLog", string.rep(" ", 500))
+        local Default = "APLog will show here." .. string.rep(" ", 475)
+		chunk:AddValue("APLog", Default)
 	end
 end
 
