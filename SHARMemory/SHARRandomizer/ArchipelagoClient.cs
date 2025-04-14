@@ -8,6 +8,7 @@ using SHARMemory.SHAR.Classes;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using System;
 
 
 namespace SHARRandomizer
@@ -149,6 +150,14 @@ namespace SHARRandomizer
             JArray costsArray = (JArray)login.SlotData["costs"];
             ShopCosts = costsArray.ToObject<List<int>>();
 
+            _session.DataStorage[Scope.Slot, "missions"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "wasps"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "cards"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "hnr"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] {(long)1});
+
             MemoryManip.APCONNECTED = true;
             while (true)
             {
@@ -239,6 +248,7 @@ namespace SHARRandomizer
             }
             Common.WriteLog(location, "ArchipelagoClient::SendLocation");
             _session.Locations.CompleteLocationChecksAsync(location);
+            CheckVictory();
         }
 
         public bool IsLocationChecked(long location)
@@ -249,6 +259,23 @@ namespace SHARRandomizer
             }
 
             return _session.Locations.AllLocationsChecked.Contains(location);
+        }
+
+        
+        public bool IsLocationCheckedLocally(long location)
+        {
+            if (!Connected)
+            {
+                throw new Exception("Not connected.");
+            }
+
+            var localChecks = _session.DataStorage[Scope.Slot, "localchecks"].To<List<long>>();
+
+            bool ret = localChecks.Contains(location);
+            if (!ret)
+                _session.DataStorage[Scope.Slot, "localchecks"] += new[] { (long)location };
+
+            return ret;
         }
 
         public bool SyncLocations(List<long> locations)
@@ -301,6 +328,7 @@ namespace SHARRandomizer
             var playerName = player.Alias ?? player.Name ?? $"Player #{player.Slot}";
 
             _session.DataStorage[Scope.Slot, "index"].Initialize(0);
+
             var storedIndex = await _session.DataStorage[Scope.Slot, "index"].GetAsync<int>();
             if (storedIndex < index)
             {
@@ -336,8 +364,35 @@ namespace SHARRandomizer
             _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
         }
 
-        public void CheckVictory(double wp, double cp, int missions, int bonus)
+        public async Task<int> GetDataStorage(string type)
         {
+           return await _session.DataStorage[Scope.Slot, type].GetAsync<int>();
+        }
+
+        public void SetDataStorage(string type, int amount)
+        {
+            _session.DataStorage[Scope.Slot, type] = amount;
+        }
+        public async Task IncrementDataStorage(string type)
+        {
+            _session.DataStorage[Scope.Slot, type] = await _session.DataStorage[Scope.Slot, type].GetAsync<int>() + 1;
+        }
+
+        public async void CheckVictory()
+        {
+            int missions = await _session.DataStorage[Scope.Slot, "missions"].GetAsync<int>();
+            int bonus = await _session.DataStorage[Scope.Slot, "bonus"].GetAsync<int>();
+            int wasps = await _session.DataStorage[Scope.Slot, "wasps"].GetAsync<int>();
+            int cards = await _session.DataStorage[Scope.Slot, "cards"].GetAsync<int>();
+
+            Common.WriteLog($"Completed:\nMissions: {missions}\nBonus Missions: {bonus}\nWasps: {wasps}\nCards: {cards}", "ArchipelagoClient::CheckVictory");
+
+            double wp = ((double)wasps / 140) * 100;
+            Common.WriteLog($"Wasps: {wp}", "ArchipelagoClient::CheckVictory");
+
+            double cp = ((double)cards / 49) * 100;
+            Common.WriteLog($"Cards: {cp}", "ArchipelagoClient::CheckVictory");
+
             if (wp < waspPercent)
                 return;
             if (cp < cardPercent)

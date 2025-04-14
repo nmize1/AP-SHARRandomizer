@@ -43,7 +43,6 @@ namespace SHARRandomizer
         bool DISABLEDEFAULT = false;
         string CURRENTLEVEL = "";
 
-        public SaveData sd;
         public int MINSHOPCOST = 100;
         public int MAXSHOPCOST = 1000;
 
@@ -59,8 +58,6 @@ namespace SHARRandomizer
                     p = Memory.GetSHARProcess();
                 } while (p == null);
                 do { } while (!APCONNECTED);
-                sd = new SaveData();
-                sd.Load();
 
                 Common.WriteLog("Found SHAR process. Initialising memory manager...", "MemoryStart");
 
@@ -192,8 +189,8 @@ namespace SHARRandomizer
             }
             else
             { 
-                fillerInventory.Add("Hit N Run Reset", sd.GetHitNRunReset());
-                fillerInventory.Add("Wrench", sd.GetWrench());
+                fillerInventory.Add("Hit N Run Reset", ac.GetDataStorage("hnr").Result);
+                fillerInventory.Add("Wrench", ac.GetDataStorage("wrench").Result);
             }
 
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap" });
@@ -276,11 +273,11 @@ namespace SHARRandomizer
                                     switch (s)
                                     {
                                         case "Hit N Run Reset":
-                                            sd.SetHitNRunReset(fillerInventory[s]);
+                                            ac.IncrementDataStorage("hnr");
                                             break;
 
                                         case "Wrench":
-                                            sd.SetWrench(fillerInventory[s]);
+                                            ac.IncrementDataStorage("wrench");
                                             break;
 
                                     }
@@ -601,22 +598,6 @@ namespace SHARRandomizer
             }
         }
 
-        void CheckVictoryCounts(long location)
-        {
-            int missions = sd.GetMissions();
-            int bonus = sd.GetBonusMissions();
-            int wasps = sd.GetWasps();
-            int cards = sd.GetCards();
-
-            double wp = ((double)wasps / 140) * 100;
-            Common.WriteLog($"Wasps: {wp}", "ArchipelagoClient::CheckVictory");
-
-            double cp = ((double)cards / 49) * 100;
-            Common.WriteLog($"Cards: {cp}", "ArchipelagoClient::CheckVictory");
-
-            ac.CheckVictory(wp, cp, missions, bonus);
-        }
-
         public void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
         {
             if (sender is not InputListener listener)
@@ -633,7 +614,7 @@ namespace SHARRandomizer
                     fillerInventory["Hit N Run Reset"]--;
                 }
                 Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
-                sd.SetHitNRunReset(fillerInventory["Hit N Run Reset"]);
+                ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
             }
             if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
             {
@@ -643,7 +624,7 @@ namespace SHARRandomizer
                     fillerInventory["Wrench"]--;
                 }
                 Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
-                sd.SetWrench(fillerInventory["Wrench"]);
+                ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
             }
         }
 
@@ -674,10 +655,9 @@ namespace SHARRandomizer
             Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
             long location = lt.getAPID($"L{e.Level + 1}C{e.Card + 1}", "card");
             ArchipelagoClient.sentLocations.Enqueue(location);
-            if(location != -1)
-                sd.SetMissions(sd.GetCards() + 1);
+            if (!ac.IsLocationCheckedLocally(location))
+                ac.IncrementDataStorage("cards");
 
-            CheckVictoryCounts(location);
             return Task.CompletedTask;
         }
 
@@ -688,8 +668,8 @@ namespace SHARRandomizer
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (location != -1)
             {
-                sd.SetWasps(sd.GetWasps() + 1);
-                CheckVictoryCounts(location);
+                if(!ac.IsLocationCheckedLocally(location))
+                    ac.IncrementDataStorage("wasps");
             }
 
             return Task.CompletedTask;
@@ -722,10 +702,9 @@ namespace SHARRandomizer
             Common.WriteLog($"Mission Complete: {e.Level} - {e.Mission + 1}", "Watcher_MissionComplete");
             long location = lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
-            if (location != -1)
-                sd.SetMissions(sd.GetMissions() + 1);
+            if(!ac.IsLocationCheckedLocally(location))
+                ac.IncrementDataStorage("missions");
 
-            CheckVictoryCounts(location);
             return Task.CompletedTask;
         }
 
@@ -734,11 +713,10 @@ namespace SHARRandomizer
             Common.WriteLog($"Mission Complete: {e.Level} - bonus", "Watcher_BonusMissionComplete");
             long location = lt.getAPID($"{e.Level} - bonus", "bonus missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
-            if (location != -1)
-                sd.SetBonusMissions(sd.GetBonusMissions() + 1);
+            if (!ac.IsLocationCheckedLocally(location))
+                ac.IncrementDataStorage("bonus");
 
             LockBonusCars(sender);
-            CheckVictoryCounts(location);
             return Task.CompletedTask;
         }
 
@@ -747,6 +725,8 @@ namespace SHARRandomizer
             Common.WriteLog($"Race Complete: {e.Level} - {e.Race}", "Watcher_StreetRaceComplete");
             long location = lt.getAPID($"{e.Level} - {e.Race}", "bonus missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
+            if (!ac.IsLocationCheckedLocally(location))
+                ac.IncrementDataStorage("bonus");
 
             return Task.CompletedTask;
         }
