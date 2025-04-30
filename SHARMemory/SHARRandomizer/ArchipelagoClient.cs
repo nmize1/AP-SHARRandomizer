@@ -380,10 +380,45 @@ namespace SHARRandomizer
 
         public async void CheckVictory()
         {
+            /*
             int missions = await _session.DataStorage[Scope.Slot, "missions"].GetAsync<int>();
             int bonus = await _session.DataStorage[Scope.Slot, "bonus"].GetAsync<int>();
             int wasps = await _session.DataStorage[Scope.Slot, "wasps"].GetAsync<int>();
             int cards = await _session.DataStorage[Scope.Slot, "cards"].GetAsync<int>();
+            */
+            var localChecks = _session.DataStorage[Scope.Slot, "localchecks"].To<List<long>>();
+
+            int missions = 0;
+            int bonus = 0;
+            int wasps = 0;
+            int cards = 0;
+
+            foreach (long id in localChecks)
+            {
+                string type, name;
+                (type, name) = lt.getTypeAndNameByAPID(id);
+
+                if (name != null && !name.Contains("Talk to"))
+                {
+                    switch (type)
+                    {
+                        case "mission":
+                            missions++;
+                            break;
+                        case "bonus missions":
+                            bonus++;
+                            break;
+                        case "wasp":
+                            wasps++;
+                            break;
+                        case "card":
+                            cards++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
 
             Common.WriteLog($"Completed:\nMissions: {missions}\nBonus Missions: {bonus}\nWasps: {wasps}\nCards: {cards}", "ArchipelagoClient::CheckVictory");
 
@@ -398,32 +433,26 @@ namespace SHARRandomizer
             if (cp < cardPercent)
                 return;
 
-            if (victory == VICTORY.FinalMission)
+            switch (victory)
             {
-                if (IsLocationChecked(122361))
-                {
+                case VICTORY.FinalMission:
+                    if (IsLocationChecked(122361))
+                        SendCompletion();
+                    return;
+                
+                case VICTORY.AllStory:
+                    if (missions >= 49)
+                        SendCompletion();
+                    return;
+
+                case VICTORY.AllMissions:
+                    if (missions >= 49 && bonus >= 28)
+                        SendCompletion();
+                    return;
+
+                case VICTORY.WaspsCards:
                     SendCompletion();
                     return;
-                }
-            }
-            else
-            {
-                switch (victory)
-                {
-                    case VICTORY.AllStory:
-                        if (missions >= 49)
-                            SendCompletion();
-                        return;
-
-                    case VICTORY.AllMissions:
-                        if (missions >= 49 && bonus >= 28)
-                            SendCompletion();
-                        return;
-
-                    case VICTORY.WaspsCards:
-                        SendCompletion();
-                        return;
-                }
             }
         }
     }

@@ -644,7 +644,7 @@ namespace SHARRandomizer
             if (e.Mission.ToString() == "BM2" || e.Mission.ToString() == "BM3")
             {
                 Common.WriteLog($"{(int)e.Level} - bonus2", "Watcher_MissionStageChanged");
-                ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "bonus missions"));
+                ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "gag"));
                 LockBonusCars(sender);
             }
             return Task.CompletedTask;

@@ -106,11 +106,6 @@
         "name": "(LVL1) Checkpoint Race",
         "id": "0 - 2",
         "apid": 122299
-      },
-      {
-        "name": "Talk to Barney",
-        "id": "0 - bonus2",
-        "apid": 122679
       }
     ],
     "wasps": [
@@ -327,6 +322,11 @@
         "name": "(LVL 1) GAG - ATM in Kwik-E-Mart",
         "id": "0 - 7",
         "apid": 122691
+      },
+      {
+        "name": "Talk to Barney",
+        "id": "0 - bonus2",
+        "apid": 122679
       }
     ],
     "shops": [
@@ -469,11 +469,6 @@
         "name": "(LVL 2) Checkpoint Race",
         "id": "1 - 2",
         "apid": 122310
-      },
-      {
-        "name": "Talk to Homer",
-        "id": "1 - bonus2",
-        "apid": 122680
       }
     ],
     "wasps": [
@@ -670,6 +665,11 @@
         "name": "(LVL 2) GAG - Dumpster Behind Krusty Burger (Near Police Station)",
         "id": "1 - 10",
         "apid": 122450
+      },
+      {
+        "name": "Talk to Homer",
+        "id": "1 - bonus2",
+        "apid": 122680
       }
     ],
     "shops": [
@@ -812,11 +812,6 @@
         "name": "(LVL 3) Checkpoint Race",
         "id": "2 - 2",
         "apid": 122321
-      },
-      {
-        "name": "Talk to Otto",
-        "id": "2 - bonus2",
-        "apid": 122681
       }
     ],
     "wasps": [
@@ -1013,6 +1008,11 @@
         "name": "(LVL 3) GAG - Boar’s Head at Kamp Krusty",
         "id": "2 - 3",
         "apid": 122500
+      },
+      {
+        "name": "Talk to Otto",
+        "id": "2 - bonus2",
+        "apid": 122681
       }
     ],
     "shops": [
@@ -1155,11 +1155,6 @@
         "name": "(LVL 4) Time Trial Race",
         "id": "3 - 2",
         "apid": 122332
-      },
-      {
-        "name": "Talk to Willie",
-        "id": "3 - bonus2",
-        "apid": 122682
       }
     ],
     "wasps": [
@@ -1376,6 +1371,11 @@
         "name": "(LVL 4) GAG - Squishee Machine in Kwik-E-Mart",
         "id": "3 - 4",
         "apid": 122542
+      },
+      {
+        "name": "Talk to Willie",
+        "id": "3 - bonus2",
+        "apid": 122682
       }
     ],
     "shops": [
@@ -1518,11 +1518,6 @@
         "name": "(LVL 5) Time Trial",
         "id": "4 - 2",
         "apid": 122343
-      },
-      {
-        "name": "Talk to Homer",
-        "id": "4 - bonus2",
-        "apid": 122683
       }
     ],
     "wasps": [
@@ -1694,6 +1689,11 @@
         "name": "(LVL 5) GAG - Light Up Drinks in Moe's",
         "id": "4 - 1",
         "apid": 122690
+      },
+      {
+        "name": "Talk to Homer",
+        "id": "4 - bonus2",
+        "apid": 122683
       }
     ],
     "shops": [
@@ -1836,11 +1836,6 @@
         "name": "(LVL 6) Circuit Race",
         "id": "5 - 2",
         "apid": 122354
-      },
-      {
-        "name": "Talk to Kearney",
-        "id": "5 - bonus2",
-        "apid": 122684
       }
     ],
     "wasps": [
@@ -2037,6 +2032,11 @@
         "name": "(LVL 6) GAG - Boar’s Head at Kamp Krusty",
         "id": "5 - 3",
         "apid": 122627
+      },
+      {
+        "name": "Talk to Kearney",
+        "id": "5 - bonus2",
+        "apid": 122684
       }
     ],
     "shops": [
@@ -2179,11 +2179,6 @@
         "name": "(LVL 7) Checkpoint Race",
         "id": "6 - 2",
         "apid": 122365
-      },
-      {
-        "name": "Talk to Graveyard Zombie",
-        "id": "6 - bonus2",
-        "apid": 122685
       }
     ],
     "wasps": [
@@ -2400,6 +2395,11 @@
         "name": "(LVL 7) GAG - School Fire Alarm",
         "id": "6 - 8",
         "apid": 122675
+      },
+      {
+        "name": "Talk to Graveyard Zombie",
+        "id": "6 - bonus2",
+        "apid": 122685
       }
     ],
     "shops": [
