@@ -8,7 +8,7 @@ public class VehicleCentral : Class
 {
     public VehicleCentral(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator)
     {
-        if (memory.ModLauncherOrdinals.TryGetValue(3360, out uint MaxVehiclesAddress) && memory.ModLauncherOrdinals.TryGetValue(3364, out uint ActiveVehiclesOffsetAddress))
+        if (memory.ModLauncherOrdinalAddresses.TryGetValue(Memory.ModLauncherOrdinals.MaxCars, out uint MaxVehiclesAddress) && memory.ModLauncherOrdinalAddresses.TryGetValue(Memory.ModLauncherOrdinals.CarsOffset, out uint ActiveVehiclesOffsetAddress))
         {
             MaxVehicles = memory.ReadInt32(MaxVehiclesAddress);
             ActiveVehiclesOffset = memory.ReadUInt32(ActiveVehiclesOffsetAddress);

@@ -18,7 +18,7 @@ public class Mission : Class
 
     public Mission(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator)
     {
-        if (memory.ModLauncherOrdinals.TryGetValue(3947, out uint MaxStagesAddress) && memory.ModLauncherOrdinals.TryGetValue(3948, out uint StagesOffsetAddress))
+        if (memory.ModLauncherOrdinalAddresses.TryGetValue(Memory.ModLauncherOrdinals.MaxStages, out uint MaxStagesAddress) && memory.ModLauncherOrdinalAddresses.TryGetValue(Memory.ModLauncherOrdinals.StagesOffset, out uint StagesOffsetAddress))
         {
             MaxStages = memory.ReadUInt32(MaxStagesAddress);
             StagesOffset = memory.ReadUInt32(StagesOffsetAddress);
