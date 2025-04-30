@@ -113,22 +113,23 @@ public class Memory : ProcessMemory
     /// </summary>
     public bool IsModLauncherLoaded { get; }
 
-    private static readonly uint[] ModLauncherOrdinalKeys =
-    [
-        3151, // Event Hacks
+    internal enum ModLauncherOrdinals : uint
+    {
+        EventHacks = 3151,
+        InjectedData = 3154,
 
-        3360, // Max Cars
-        3364, // Cars Offset
+        MaxCars = 3360,
+        CarsOffset = 3364,
 
-        3362, // Max Traffic
+        MaxTraffic = 3362,
 
-        3947, // Max Stages
-        3948, // Stages Offset
-    ];
+        MaxStages = 3947,
+        StagesOffset = 3948,
+    }
     /// <summary>
     /// A <c>Dictionary</c> containing a list of ordinals used by <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" /> and their addresses.
     /// </summary>
-    internal Dictionary<uint, uint> ModLauncherOrdinals { get; } = new Dictionary<uint, uint>(ModLauncherOrdinalKeys.Length);
+    internal Dictionary<ModLauncherOrdinals, uint> ModLauncherOrdinalAddresses { get; } = new Dictionary<ModLauncherOrdinals, uint>(Enum.GetValues(typeof(ModLauncherOrdinals)).Length);
     private void LoadModLauncherOrdinals(ProcessModule hacksModule)
     {
         IntPtr dll = LoadLibraryEx(hacksModule.FileName, IntPtr.Zero, LoadLibraryFlags.DONT_RESOLVE_DLL_REFERENCES);
@@ -140,9 +141,9 @@ public class Memory : ProcessMemory
 
         try
         {
-            foreach (uint ordinal in ModLauncherOrdinalKeys)
+            foreach (var ordinal in Enum.GetValues(typeof(ModLauncherOrdinals)))
             {
-                UIntPtr method = GetProcAddressOrdinal(dll, new UIntPtr(ordinal));
+                UIntPtr method = GetProcAddressOrdinal(dll, new UIntPtr((uint)ordinal));
                 if (method == UIntPtr.Zero)
                 {
                     Debug.WriteLine($"Couldn't find method: {ordinal}");
@@ -153,7 +154,7 @@ public class Memory : ProcessMemory
 
                 uint address = (uint)(hacksModule.BaseAddress.ToInt32() + offset);
 
-                ModLauncherOrdinals.Add(ordinal, address);
+                ModLauncherOrdinalAddresses.Add((ModLauncherOrdinals)ordinal, address);
             }
         }
         finally
@@ -173,7 +174,7 @@ public class Memory : ProcessMemory
     /// </returns>
     public string[] GetLoadedHacks()
     {
-        if (!ModLauncherOrdinals.TryGetValue(3151, out uint EventHacks))
+        if (!ModLauncherOrdinalAddresses.TryGetValue(ModLauncherOrdinals.EventHacks, out uint EventHacks))
             return null;
 
         uint HacksLoaded = ReadUInt32(EventHacks + 8);
@@ -201,6 +202,22 @@ public class Memory : ProcessMemory
     }
 
     /// <summary>
+    /// If <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" /> is loaded, and a main mod is enabled, return its name.
+    /// </summary>
+    /// <returns>The main mod's name, or <c>null</c>.</returns>
+    public string GetMainMod()
+    {
+        if (!ModLauncherOrdinalAddresses.TryGetValue(ModLauncherOrdinals.InjectedData, out uint injectedData))
+            return null;
+
+        var MainModLoaded = ReadByte(injectedData + 0xBD2);
+        if (MainModLoaded == 0)
+            return null;
+
+        return ReadString(injectedData + 0xBD4, Encoding.Unicode, 2048);
+    }
+
+    /// <summary>
     /// If <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" /> is loaded, check if a hack is loaded.
     /// Credits: Lucas Cardellini
     /// </summary>
@@ -215,7 +232,7 @@ public class Memory : ProcessMemory
         if (_isHackLoaded.TryGetValue(HackName, out bool isHackLoaded))
             return isHackLoaded;
 
-        if (!ModLauncherOrdinals.TryGetValue(3151, out uint EventHacks))
+        if (!ModLauncherOrdinalAddresses.TryGetValue(ModLauncherOrdinals.EventHacks, out uint EventHacks))
             return false;
 
         uint node = ReadUInt32(EventHacks);

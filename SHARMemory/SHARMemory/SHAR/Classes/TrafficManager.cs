@@ -17,7 +17,7 @@ public class TrafficManager : Class
     private readonly int MaxTrafficValue;
     public TrafficManager(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator)
     {
-        if (memory.ModLauncherOrdinals.TryGetValue(3362, out uint MaxTrafficAddress))
+        if (memory.ModLauncherOrdinalAddresses.TryGetValue(Memory.ModLauncherOrdinals.MaxTraffic, out uint MaxTrafficAddress))
         {
             MaxTrafficValue = memory.ReadInt32(MaxTrafficAddress);
         }

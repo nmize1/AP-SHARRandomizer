@@ -447,8 +447,8 @@ public sealed class Watcher
         var newCoins = characterSheet.Coins;
         if (newCoins != lastCoins)
         {
-            lastCoins = newCoins;
             await CoinsChanged.InvokeAsync(Memory, new(lastCoins, newCoins), CancellationToken.None);
+            lastCoins = newCoins;
         }
     }
 
