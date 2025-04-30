@@ -146,6 +146,7 @@ namespace SHARRandomizer
             victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
             waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
             cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
+            MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
 
             JArray costsArray = (JArray)login.SlotData["costs"];
             ShopCosts = costsArray.ToObject<List<int>>();
