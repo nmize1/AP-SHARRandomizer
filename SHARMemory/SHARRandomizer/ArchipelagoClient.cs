@@ -147,6 +147,7 @@ namespace SHARRandomizer
             waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
             cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
             MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
+            MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
 
             JArray costsArray = (JArray)login.SlotData["costs"];
             ShopCosts = costsArray.ToObject<List<int>>();
@@ -424,10 +425,10 @@ namespace SHARRandomizer
             Common.WriteLog($"Completed:\nMissions: {missions}\nBonus Missions: {bonus}\nWasps: {wasps}\nCards: {cards}", "ArchipelagoClient::CheckVictory");
 
             double wp = ((double)wasps / 140) * 100;
-            Common.WriteLog($"Wasps: {wp}", "ArchipelagoClient::CheckVictory");
+            Common.WriteLog($"Wasps: {wp}%", "ArchipelagoClient::CheckVictory");
 
             double cp = ((double)cards / 49) * 100;
-            Common.WriteLog($"Cards: {cp}", "ArchipelagoClient::CheckVictory");
+            Common.WriteLog($"Cards: {cp}%", "ArchipelagoClient::CheckVictory");
 
             if (wp < waspPercent)
                 return;

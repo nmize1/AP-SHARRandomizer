@@ -48,6 +48,7 @@ namespace SHARRandomizer
 
         public int WalletLevel = 1;
         public static int maxCoins;
+        public static int coinScale;
         bool _updatingCoins = false;
 
         uint gameLanguage;
@@ -784,7 +785,7 @@ namespace SHARRandomizer
                     Common.WriteLog("Character sheet missing", "Watcher_CoinsChanged");
                     return Task.CompletedTask;
                 }
-                int amount = (WalletLevel - 1);
+                int amount = WalletLevel == 1 ? 0 : (WalletLevel * coinScale) - 1;
 
                 _updatingCoins = true;
                 characterSheet.CharacterSheet.Coins += amount;
@@ -792,14 +793,13 @@ namespace SHARRandomizer
                 if (amount != 0)
                 {
                     var remainder = e.NewCoins - e.LastCoins - amount;
-                    amount = 0;
                     if (remainder > 0)
                     {
                         _updatingCoins = true;
-                        amount = (WalletLevel - 1);
                         characterSheet.CharacterSheet.Coins += (remainder * amount);
                         Common.WriteLog($"Added {remainder * amount} coins.", "Watcher_CoinsChanged");
                     }
+                    amount = 0;
                 }
 
                 if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= (maxCoins * WalletLevel))
