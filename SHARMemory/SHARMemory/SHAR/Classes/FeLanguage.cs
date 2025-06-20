@@ -42,7 +42,7 @@ public class FeLanguage : FeEntity
     public StructArray<uint> Hashes => new(Memory, ReadUInt32(HashesOffset), sizeof(uint), (int)NumStrings);
 
     internal const uint OffsetsOffset = HashesOffset + sizeof(uint);
-    public StructArray<uint> Offsets => new(Memory, ReadUInt32(HashesOffset), sizeof(uint), (int)NumStrings);
+    public StructArray<uint> Offsets => new(Memory, ReadUInt32(OffsetsOffset), sizeof(uint), (int)NumStrings);
 
     internal const uint BufferOffset = OffsetsOffset + sizeof(uint);
     public byte[] Buffer
