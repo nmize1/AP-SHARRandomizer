@@ -6,31 +6,54 @@ using System.Text;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVFeLanguage@@")]
-public class FeLanguage : Class
+public class FeLanguage : FeEntity
 {
     public FeLanguage(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    public char LanguageID => (char)ReadByte(16);
+    internal const uint LanguageIDOffset = NameOffset + sizeof(long);
+    public char LanguageID
+    {
+        get => (char)ReadByte(LanguageIDOffset);
+        set => WriteByte(LanguageIDOffset, (byte)value);
+    }
 
-    public uint Modulo => ReadUInt32(20);
+    internal const uint ModuloOffset = LanguageIDOffset + 4; // Padding
+    public uint Modulo
+    {
+        get => ReadUInt32(ModuloOffset);
+        set => WriteUInt32(ModuloOffset, value);
+    }
 
-    public uint BufferSize => ReadUInt32(24);
+    internal const uint BufferSizeOffset = ModuloOffset + sizeof(uint);
+    public uint BufferSize
+    {
+        get => ReadUInt32(BufferSizeOffset);
+        set => WriteUInt32(BufferSizeOffset, value);
+    }
 
-    public uint NumStrings => ReadUInt32(28);
+    internal const uint NumStringsOffset = BufferSizeOffset + sizeof(uint);
+    public uint NumStrings
+    {
+        get => ReadUInt32(NumStringsOffset);
+        set => WriteUInt32(NumStringsOffset, value);
+    }
 
-    public StructArray<uint> Hashes => new(Memory, ReadUInt32(32), sizeof(uint), (int)NumStrings);
+    internal const uint HashesOffset = NumStringsOffset + sizeof(uint);
+    public StructArray<uint> Hashes => new(Memory, ReadUInt32(HashesOffset), sizeof(uint), (int)NumStrings);
 
-    public StructArray<uint> Offsets => new(Memory, ReadUInt32(36), sizeof(uint), (int)NumStrings);
+    internal const uint OffsetsOffset = HashesOffset + sizeof(uint);
+    public StructArray<uint> Offsets => new(Memory, ReadUInt32(HashesOffset), sizeof(uint), (int)NumStrings);
 
+    internal const uint BufferOffset = OffsetsOffset + sizeof(uint);
     public byte[] Buffer
     {
-        get => Memory.ReadBytes(ReadUInt32(40), BufferSize);
+        get => Memory.ReadBytes(ReadUInt32(BufferOffset), BufferSize);
         set
         {
             if (value.Length != BufferSize)
-                throw new ArgumentException($"{nameof(value)} must be of equal length to \"BufferSize\" ({BufferSize}).", nameof(value));
+                throw new ArgumentException($"{nameof(value)} must be of equal length to \"{nameof(BufferSize)}\" ({BufferSize}).", nameof(value));
 
-            Memory.WriteBytes(ReadUInt32(40), value);
+            Memory.WriteBytes(ReadUInt32(BufferOffset), value);
         }
     }
 
@@ -59,7 +82,7 @@ public class FeLanguage : Class
         while (endPos < buffer.Length && buffer[endPos] != 0)
             endPos += 2;
 
-        return ProcessMemory.NullTerminate(Encoding.Unicode.GetString(Buffer, startPos, endPos - startPos));
+        return ProcessMemory.NullTerminate(Encoding.Unicode.GetString(buffer, startPos, endPos - startPos));
     }
 
     public string GetString(string name) => GetString(GetHash(name));
@@ -101,21 +124,21 @@ public class FeLanguage : Class
         byte[] paddedBytes = new byte[maxLength];
         bytes.CopyTo(paddedBytes, 0);
 
-        Memory.WriteBytes(ReadUInt32(40) + (uint)startPos, paddedBytes);
+        Memory.WriteBytes(ReadUInt32(BufferOffset) + (uint)startPos, paddedBytes);
 
         return true;
     }
 
     public bool SetString(string name, string value) => SetString(GetHash(name), value);
 
-    public uint GetHash(string name)
+    public static uint GetHash(string name, uint modulo)
     {
         uint Hash = 0;
 
-        var modulo = Modulo;
         foreach (char c in name)
             Hash = ((byte)c + (Hash << 6)) % modulo;
 
         return Hash;
     }
+    public uint GetHash(string name) => GetHash(name, Modulo);
 }

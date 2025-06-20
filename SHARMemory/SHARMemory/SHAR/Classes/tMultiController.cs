@@ -1,7 +1,6 @@
 ﻿using SHARMemory.Memory;
 using SHARMemory.Memory.RTTI;
 using SHARMemory.SHAR.Structs.tMultiController;
-using System;
 
 namespace SHARMemory.SHAR.Classes;
 
