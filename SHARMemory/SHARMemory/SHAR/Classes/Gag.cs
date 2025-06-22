@@ -67,7 +67,7 @@ public class Gag : ButtonHandler
     internal const uint LoadingOffset = LoadedOffset + 1;
     public bool Loading
     {
-        get => Memory.ReadBoolean(LoadingOffset);
+        get => ReadBoolean(LoadingOffset);
         set => WriteBoolean(LoadingOffset, value);
     }
 

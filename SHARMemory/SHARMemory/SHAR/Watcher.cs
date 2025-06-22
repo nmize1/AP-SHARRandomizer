@@ -100,6 +100,10 @@ public sealed class Watcher
     public event AsyncEventHandler<CardCollectedEventArgs> CardCollected;
 
     /// <summary>
+    /// An event handler for when the Level changes.
+    /// </summary>
+    public event AsyncEventHandler<LevelChangedEventArgs> LevelChanged;
+    /// <summary>
     /// An event handler for when the Mission Index changes.
     /// </summary>
     public event AsyncEventHandler<MissionIndexChangedEventArgs> MissionIndexChanged;
@@ -498,9 +502,11 @@ public sealed class Watcher
         var missionIndex = gameplayManager.GetCurrentMissionIndex();
         if (!lastLevel.HasValue || lastLevel.Value != levelData.Level || lastMissionIndex != missionIndex)
         {
+            if (!lastLevel.HasValue || lastLevel.Value != levelData.Level)
+                await LevelChanged.InvokeAsync(Memory, new(lastLevel, levelData.Level), CancellationToken.None);
+            await MissionIndexChanged.InvokeAsync(Memory, new(lastLevel, lastMissionIndex, levelData.Level, missionIndex), CancellationToken.None);
             lastLevel = levelData.Level;
             lastMissionIndex = missionIndex;
-            await MissionIndexChanged.InvokeAsync(Memory, new(lastLevel, lastMissionIndex, levelData.Level, missionIndex), CancellationToken.None);
         }
 
         if (gameplayManager is MissionManager missionManager)
