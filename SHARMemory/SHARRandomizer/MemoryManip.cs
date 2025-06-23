@@ -640,7 +640,7 @@ namespace SHARRandomizer
                             await Task.Delay(100);
 
                         var gags = interiorManager.Gags.ToArray();
-                        Console.WriteLine($"{CURRENTLEVEL + 1}: Gags loadad: {string.Join("; ", gags.ToArray().Where(x => x is not null).Select(x => x.Binding!.Value.GagFileName))}");
+                        //Console.WriteLine($"{CURRENTLEVEL + 1}: Gags loadad: {string.Join("; ", gags.ToArray().Where(x => x is not null).Select(x => x.Binding!.Value.GagFileName))}");
 
                         foreach (var gag in gags)
                         {
