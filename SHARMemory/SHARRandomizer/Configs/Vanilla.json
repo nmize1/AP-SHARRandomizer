@@ -1153,7 +1153,7 @@
       },
       {
         "name": "(LVL 4) Time Trial Race",
-        "id": "3 - 2",
+        "id": "3 - 0",
         "apid": 122332
       }
     ],
@@ -1824,17 +1824,17 @@
       },
       {
         "name": "(LVL 6) Checkpoint Race",
-        "id": "5 - 0",
+        "id": "5 - 2",
         "apid": 122352
       },
       {
         "name": "(LVL 6) Time Trial Race",
-        "id": "5 - 1",
+        "id": "5 - 0",
         "apid": 122353
       },
       {
         "name": "(LVL 6) Circuit Race",
-        "id": "5 - 2",
+        "id": "5 - 1",
         "apid": 122354
       }
     ],

@@ -203,6 +203,7 @@ namespace SHARRandomizer
 
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap" });
             Task.Run(() => CheckActions(memory));
+            Task.Run(() => CheckGags(memory));
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
@@ -258,7 +259,7 @@ namespace SHARRandomizer
                         {
                             switch (item)
                             {
-                                case string s when s.StartsWith("Level"):
+                                case string s when s.Contains("Level"):
                                     Common.WriteLog($"Unlocking {item}", "GetItems");
                                     UnlockMissionsPerLevel(item);
                                     break;
@@ -369,6 +370,11 @@ namespace SHARRandomizer
 
         bool UnlockMissionsPerLevel(string level)
         {
+            if (level.Contains("Progressive"))
+            {
+                int nextLevel = UnlockedLevels.Count + 1;
+                level = $"Level {nextLevel}";
+            }
             UnlockedLevels.Add(level);
             int levelNum = int.Parse(Regex.Match(level, @"\d+").Value);
 
@@ -611,6 +617,42 @@ namespace SHARRandomizer
             }
         }
 
+        async void CheckGags(Memory memory)
+        {
+            
+
+            while (memory.IsRunning)
+            {
+                await System.Threading.Tasks.Task.Delay(100);
+                if (memory.InGame())
+                {
+                    if (memory?.Globals?.GameplayManager is not MissionManager missionManager)
+                        break;
+
+                    if (memory.Singletons.InteriorManager is not InteriorManager interiorManager)
+                        break;
+
+                    int? level = (int)missionManager.LevelData.Level;
+
+                    if (!UnlockedLevels.Contains($"Level {level + 1}"))
+                    {
+                        while (interiorManager.GagCount == 0)
+                            await Task.Delay(100);
+
+                        var gags = interiorManager.Gags.ToArray();
+                        Console.WriteLine($"{CURRENTLEVEL + 1}: Gags loadad: {string.Join("; ", gags.ToArray().Where(x => x is not null).Select(x => x.Binding!.Value.GagFileName))}");
+
+                        foreach (var gag in gags)
+                        {
+                            var locator = gag?.Locator;
+                            if (locator != null)
+                                locator.Flags = Locator.LocatorFlags.None;
+                        }
+                    }
+                }
+            }
+        }
+
         public void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
         {
             if (sender is not InputListener listener)
@@ -811,11 +853,5 @@ namespace SHARRandomizer
 
             return Task.CompletedTask;
         }
-
-        void AddCoins(Memory memory, int amount)
-        {
-            
-        }
-
     }
 }
