@@ -94,7 +94,7 @@ public class Mouse : RealController
 
     public override void DisableButton(int mapType, int buttonId, DirectionType dir)
     {
-        if (mapType < 0 || mapType > InputManager.NUM_MAPTYPES)
+        if (mapType < 0 || mapType >= InputManager.NUM_MAPTYPES)
             throw new ArgumentOutOfRangeException(nameof(mapType), $"{nameof(mapType)} must be greater than 0 and less than {InputManager.NUM_MAPTYPES}.");
 
         var mouseButton = KeyToMouseMap(buttonId);
@@ -106,7 +106,7 @@ public class Mouse : RealController
 
     public override void EnableButton(int mapType, int buttonId, DirectionType dir, InputManager.Buttons button)
     {
-        if (mapType < 0 || mapType > InputManager.NUM_MAPTYPES)
+        if (mapType < 0 || mapType >= InputManager.NUM_MAPTYPES)
             throw new ArgumentOutOfRangeException(nameof(mapType), $"{nameof(mapType)} must be greater than 0 and less than {InputManager.NUM_MAPTYPES}.");
 
         var mouseButton = KeyToMouseMap(buttonId);

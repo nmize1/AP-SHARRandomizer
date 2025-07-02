@@ -35,10 +35,10 @@ public class Keyboard : RealController
 
     public override void DisableButton(int mapType, int buttonId, DirectionType dir)
     {
-        if (mapType < 0 || mapType > InputManager.NUM_MAPTYPES)
+        if (mapType < 0 || mapType >= InputManager.NUM_MAPTYPES)
             throw new ArgumentOutOfRangeException(nameof(mapType), $"{nameof(mapType)} must be greater than 0 and less than {InputManager.NUM_MAPTYPES}.");
 
-        if (buttonId < 0 || buttonId > NUM_KEYBOARD_BUTTONS)
+        if (buttonId < 0 || buttonId >= NUM_KEYBOARD_BUTTONS)
             throw new ArgumentOutOfRangeException(nameof(buttonId), $"{nameof(buttonId)} must be greater than 0 and less than {NUM_KEYBOARD_BUTTONS}.");
 
         if (dir != DirectionType.Up)
@@ -49,10 +49,10 @@ public class Keyboard : RealController
 
     public override void EnableButton(int mapType, int buttonId, DirectionType dir, InputManager.Buttons button)
     {
-        if (mapType < 0 || mapType > InputManager.NUM_MAPTYPES)
+        if (mapType < 0 || mapType >= InputManager.NUM_MAPTYPES)
             throw new ArgumentOutOfRangeException(nameof(mapType), $"{nameof(mapType)} must be greater than 0 and less than {InputManager.NUM_MAPTYPES}.");
 
-        if (buttonId < 0 || buttonId > NUM_KEYBOARD_BUTTONS)
+        if (buttonId < 0 || buttonId >= NUM_KEYBOARD_BUTTONS)
             throw new ArgumentOutOfRangeException(nameof(buttonId), $"{nameof(buttonId)} must be greater than 0 and less than {NUM_KEYBOARD_BUTTONS}.");
 
         if (dir != DirectionType.Up)
