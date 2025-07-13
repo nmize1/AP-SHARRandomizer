@@ -19,5 +19,12 @@ public class CardGallery : Class
     public CardsDB CardsDB => Memory.ClassFactory.Create<CardsDB>(ReadUInt32(CardsDBOffset));
 
     internal const uint CollectedCardsOffset = CardsDBOffset + sizeof(uint);
-    public StructArray<CardList> CollectedCards => new(Memory, Address + CollectedCardsOffset, CardList.Size, 7);
+    public StructArray<CardList> CollectedCards => new(Memory, Address + CollectedCardsOffset, CardList.Size, NUM_LEVELS);
+
+    internal const uint NumCollectedCardsOffset = CollectedCardsOffset + CardList.Size * NUM_LEVELS;
+    public int NumCollectedCards
+    {
+        get => ReadInt32(NumCollectedCardsOffset);
+        set => WriteInt32(NumCollectedCardsOffset, value);
+    }
 }
