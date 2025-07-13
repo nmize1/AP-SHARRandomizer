@@ -9,6 +9,7 @@ using static SHARRandomizer.ArchipelagoClient;
 using System;
 using System.Reflection;
 using System.Drawing;
+using SHARMemory.SHAR.Structs;
 
 namespace SHARRandomizer
 {
@@ -76,6 +77,24 @@ namespace SHARRandomizer
                     await Task.Delay(100);
                     state = memory.Singletons.GameFlow?.CurrentContext;
                 }
+
+                var watcher = memory.Watcher;
+                _watcher = watcher;
+                watcher.Error += Watcher_Error;
+                watcher.CardCollected += Watcher_CardCollected;
+                watcher.MissionStageChanged += Watcher_MissionStageChanged;
+                watcher.MissionComplete += Watcher_MissionComplete;
+                watcher.BonusMissionComplete += Watcher_BonusMissionComplete;
+                watcher.StreetRaceComplete += Watcher_StreetRaceComplete;
+                watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
+                watcher.GagViewed += Watcher_GagViewed;
+                watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
+                watcher.DialogPlaying += Watcher_DialogPlaying;
+                watcher.CoinsChanged += Watcher_CoinsChanged;
+
+                watcher.Start();
+                await LoadState(memory);
+
                 gameLanguage = memory.Globals.FeTextBible.LanguageIndex;
                 Common.WriteLog($"SHAR language: {gameLanguage}", "MemoryStart");
 
@@ -112,6 +131,7 @@ namespace SHARRandomizer
             /* Get all rewards in a list for lookup purposes */
             int s = 0;
 
+
             var rewardsList = rewardsManager.RewardsList.ToArray();
             var tokenStoreList = rewardsManager.LevelTokenStoreList.ToArray();
             for (int level = 0; level < memory.Globals.LevelCount; level++)
@@ -147,22 +167,6 @@ namespace SHARRandomizer
                 REWARDS.AddRange(tempRewards);
             }
 
-            var watcher = memory.Watcher;
-            _watcher = watcher;
-            watcher.Error += Watcher_Error;
-            watcher.CardCollected += Watcher_CardCollected;
-            watcher.MissionStageChanged += Watcher_MissionStageChanged;
-            watcher.MissionComplete += Watcher_MissionComplete;
-            watcher.BonusMissionComplete += Watcher_BonusMissionComplete;
-            watcher.StreetRaceComplete += Watcher_StreetRaceComplete;
-            watcher.PersistentObjectDestroyed += Watcher_PersistentObjectDestroyed;
-            watcher.GagViewed += Watcher_GagViewed;
-            watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
-            watcher.DialogPlaying += Watcher_DialogPlaying;
-            watcher.CoinsChanged += Watcher_CoinsChanged;
-
-            watcher.Start();
-
             InputListener listener = new InputListener();
             listener.memory = memory;
             listener.ButtonDown += Listener_ButtonDown;
@@ -190,20 +194,210 @@ namespace SHARRandomizer
             InitializeShopItems();
 
             var characterSheet = memory.Singletons.CharacterSheetManager;
-
             if (characterSheet == null)
             {
                 Common.WriteLog("Error getting character sheet.", "InitialGameState");
             }
             else
             {
-                fillerInventory.Add("Hit N Run Reset", ac.GetDataStorage("hnr").Result);
-                fillerInventory.Add("Wrench", ac.GetDataStorage("wrench").Result);
+                fillerInventory.Add("Hit N Run Reset", ac.GetDataStorage<int>("hnr").Result);
+                fillerInventory.Add("Wrench", ac.GetDataStorage<int>("wrench").Result);
             }
 
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap" });
             Task.Run(() => CheckActions(memory));
             Task.Run(() => CheckGags(memory));
+        }
+
+        async Task LoadState(Memory memory)
+        {
+            var characterSheet = memory.Singletons.CharacterSheetManager;
+
+            if (characterSheet == null)
+            {
+                Common.WriteLog("Character sheet missing", "LoadState");
+                return;
+            }
+
+            characterSheet.CharacterSheet.Coins = await ac.GetDataStorage<int>("coins");
+            Common.WriteLog($"Restoring coins to {characterSheet.CharacterSheet.Coins}", "LoadState");
+            List<long> locations = await ac.GetDataStorage<List<long>>("localchecks");
+            
+            /* get struct from characterSheet.LevelList.ToArray() to update below */
+            LevelRecord[] record = characterSheet.CharacterSheet.LevelList.ToArray();
+            int[] waspCounters = new int[7];
+            int[] gagCounters = new int[7];
+            uint[] gagmask = new uint[7];
+            List<string> purchased = new List<string>();
+
+            foreach (var l in locations.Skip(1))
+            {
+                var check = lt.getTypeAndNameByAPID(l);
+                string id = lt.GetIDByAPID(l);
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    Common.WriteLog($"Invalid ID format: {id}", "LoadState");
+                }
+                int level;
+
+                Common.WriteLog($"Restoring {check.name}", "LoadState");
+                switch (check.type)
+                {
+                    case "mission":
+                        {
+                            int mission;
+                            int.TryParse(id[0].ToString(), out level);
+                            int.TryParse(id[4].ToString(), out mission);
+
+                            MissionList missions = record[level].Missions;
+                            missions.List[mission - 1].Completed = true;
+                            break;
+                        }
+                    case "bonus missions":
+                        {
+                            int.TryParse(id[0].ToString(), out level);
+                            if (id.EndsWith("bonus"))
+                            {
+                                record[level].BonusMission.Completed = true;
+                            }
+                            else
+                            {
+                                int race;
+                                int.TryParse(id[4].ToString(), out race);
+
+                                StreetRaceList races = record[level].StreetRaces;
+                                races.List[race].Completed = true;
+                            }
+                            break;
+                        }
+                    case "wasp":
+                        {
+                            var parts = id.Split(" - ");
+                            if (parts.Length == 2 && Enum.TryParse(parts[0], out CharacterSheet.PersistentObjectStateSector sector) && int.TryParse(parts[1], out int index))
+                            {
+                                characterSheet.CharacterSheet.SetPersistentObjectDestroyed(sector, index, true);
+                                waspCounters[(int)sector - 75]++;
+                            }
+                            else
+                                Common.WriteLog($"Invalid wasp ID format: {id}", "LoadState");
+                            break;
+                        }
+                    case "card":
+                        {
+                            int.TryParse(id[1].ToString(), out level);
+                            int card;
+                            int.TryParse(id[3].ToString(), out card);
+
+                            CharCardList cards = record[level - 1].Cards;
+                            cards.List[card - 1].Completed = true;
+                            cards.List[card - 1].Name = $"card{level + 1}{card + 1}";
+                            record[level - 1].Cards = cards;
+
+                            break;
+                        }
+                    case "gag":
+                        {
+                            int.TryParse(id[0].ToString(), out level);
+                            int gag;
+                            int.TryParse(id[4].ToString(), out gag);
+
+                            gagmask[level] |= (uint)1 << gag;
+                            gagCounters[level]++;
+                            break;
+                        }
+                    case "shop":
+                        {
+                            purchased.Add(id);
+                            break;
+                        }
+                    default:
+                        break;
+
+                }
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                record[i].WaspsDestroyed = waspCounters[i];
+                record[i].GagsViewed = gagCounters[i];
+                record[i].GagMask = gagmask[i];
+            }
+
+            var rewardsManager = memory.Singletons.RewardsManager;
+            var levelTokenStores = rewardsManager.LevelTokenStoreList.ToArray();
+
+            for (var level = 0; level < 7; level++)
+            {
+                Console.WriteLine($"Level {level + 1}");
+                var levelMerchCount = levelTokenStores[level].Counter;
+
+                for (var merchIndex = 0; merchIndex < levelMerchCount; merchIndex++)
+                {
+                    var merchandise = memory.Functions.GetMerchandise(level, merchIndex);
+                    if (purchased.Contains(merchandise.Name))
+                        merchandise.Earned = true;
+                }
+            }
+
+            characterSheet.CharacterSheet.LevelList.FromArray(record);
+            try
+            {
+                SyncCardGalleryWithCharacterSheet(memory);
+            }
+            catch (Exception ex)
+            {
+                Common.WriteLog($"Error syncing Card Gallery:\n{ex}", "LoadState");
+            }
+
+            return;
+        }
+
+        /* Proddy wrote this */
+        void SyncCardGalleryWithCharacterSheet(SHARMemory.SHAR.Memory mem)
+        {
+            var characterSheet = mem.Singletons.CharacterSheetManager?.CharacterSheet;
+            if (characterSheet == null)
+                return;
+
+            var cardGallery = mem.Singletons.CardGallery;
+            if (cardGallery == null)
+                return;
+
+            var cardsDB = cardGallery.CardsDB;
+            if (cardsDB == null)
+                return;
+            var cards = cardsDB.Cards.ToArray();
+
+            var characterSheetLevels = characterSheet.LevelList.ToArray();
+            var cardGalleryLevels = cardGallery.CollectedCards.ToArray();
+            if (characterSheetLevels.Length != cardGalleryLevels.Length)
+                return;
+
+            for (var level = 0; level < characterSheetLevels.Length; level++)
+            {
+                var characterSheetCards = characterSheetLevels[level].Cards.List;
+                var cardGalleryLevel = cardGalleryLevels[level];
+
+                cardGalleryLevel.NumCards = 0;
+                for (var card = 0; card < 7; card++)
+                {
+                    if (characterSheetCards[card].Completed)
+                    {
+                        cardGalleryLevel.Cards[card] = cards[level * 7 + card];
+                        cardGalleryLevel.NumCards++;
+                    }
+                    else
+                    {
+                        cardGalleryLevel.Cards[card] = null;
+                    }
+                }
+
+                cardGalleryLevels[level] = cardGalleryLevel;
+            }
+            cardGallery.NumCollectedCards = cardGalleryLevels.Sum(x => x.NumCards);
+
+            cardGallery.CollectedCards.FromArray(cardGalleryLevels);
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
@@ -619,7 +813,7 @@ namespace SHARRandomizer
 
         async void CheckGags(Memory memory)
         {
-            
+
 
             while (memory.IsRunning)
             {
@@ -681,6 +875,18 @@ namespace SHARRandomizer
                 Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
                 ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
             }
+            if (e.Button.ToString() == "DPadLeft" || e.Button.ToString() == "D4")
+            {
+                var characterSheet = listener.memory.Singletons.CharacterSheetManager;
+
+                if (characterSheet == null)
+                {
+                    Common.WriteLog("Character sheet missing", "Listener_ButtonDown");
+                    return;
+                }
+
+                ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
+            }
         }
 
         Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.Error.ErrorEventArgs e, CancellationToken token)
@@ -702,6 +908,14 @@ namespace SHARRandomizer
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "gag"));
                 LockBonusCars(sender);
             }
+            var characterSheet = sender.Singletons.CharacterSheetManager;
+
+            if (characterSheet == null)
+            {
+                Common.WriteLog("Character sheet missing", "Watcher_CoinsChanged");
+                return Task.CompletedTask;
+            }
+            ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
             return Task.CompletedTask;
         }
 
@@ -735,6 +949,8 @@ namespace SHARRandomizer
             Common.WriteLog($"Gag Viewed: {e.Level} - {e.Gag}", "Watcher_GagViewed");
             long location = lt.getAPID($"{e.Level} - {e.Gag}", "gag");
             ArchipelagoClient.sentLocations.Enqueue(location);
+            if (!ac.IsLocationCheckedLocally(location))
+                ac.IncrementDataStorage("gags");
 
             return Task.CompletedTask;
         }
@@ -747,6 +963,8 @@ namespace SHARRandomizer
                 Common.WriteLog($"Sending check from {e.Merchandise.Name}", "Watcher_MerchandisePurchased");
                 long location = lt.getAPID(e.Merchandise.Name, "shop");
                 ArchipelagoClient.sentLocations.Enqueue(location);
+                if (!ac.IsLocationCheckedLocally(location))
+                    ac.IncrementDataStorage("shops");
             }
 
             return Task.CompletedTask;
@@ -851,6 +1069,12 @@ namespace SHARRandomizer
                 }
             }
 
+            return Task.CompletedTask;
+        }
+
+        Task Watcher_NewGame(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameDataManager.NewGameEventArgs e, CancellationToken token)
+        {
+            LoadState(sender);
             return Task.CompletedTask;
         }
     }

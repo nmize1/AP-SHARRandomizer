@@ -69,10 +69,8 @@ InputListener im = new InputListener();
 Thread connectThread = new Thread(ac.Connect);
 connectThread.Start();
 
-Task memoryTask = Task.Run(() => mm.MemoryStart());
-
-
-memoryTask.Wait();
+Task memoryTask = mm.MemoryStart();
+await memoryTask;
 
 connectThread.Join();
 

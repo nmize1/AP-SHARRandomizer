@@ -152,8 +152,33 @@ public class LocationTranslations
         return (null, null);
     }
 
+    public string GetIDByAPID(long apid)
+    {
+        List<LevelData> Levels = new List<LevelData> { level1, level2, level3, level4, level5, level6, level7 };
 
+        var typeSelectors = new List<Func<LevelData, IEnumerable<dynamic>>>
+    {
+        l => l.missions,
+        l => l.bonus_missions,
+        l => l.wasps,
+        l => l.cards,
+        l => l.gags,
+        l => l.shops
+    };
 
+        foreach (var level in Levels)
+        {
+            foreach (var selector in typeSelectors)
+            {
+                var collection = selector(level);
+                var item = collection?.FirstOrDefault(e => e.apid == apid);
+                if (item != null)
+                    return item.id;
+            }
+        }
+
+        return null;
+    }
 
     public void PrintData()
     {

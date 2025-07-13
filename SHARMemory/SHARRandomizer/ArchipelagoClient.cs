@@ -156,8 +156,11 @@ namespace SHARRandomizer
             _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
             _session.DataStorage[Scope.Slot, "wasps"].Initialize(0);
             _session.DataStorage[Scope.Slot, "cards"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "gags"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "shops"].Initialize(0);
             _session.DataStorage[Scope.Slot, "hnr"].Initialize(0);
             _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
+            _session.DataStorage[Scope.Slot, "coins"].Initialize(0);
             _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] {(long)1});
 
             MemoryManip.APCONNECTED = true;
@@ -366,9 +369,9 @@ namespace SHARRandomizer
             _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
         }
 
-        public async Task<int> GetDataStorage(string type)
+        public async Task<T> GetDataStorage<T>(string type)
         {
-           return await _session.DataStorage[Scope.Slot, type].GetAsync<int>();
+           return await _session.DataStorage[Scope.Slot, type].GetAsync<T>();
         }
 
         public void SetDataStorage(string type, int amount)
