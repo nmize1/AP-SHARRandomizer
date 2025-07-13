@@ -16,7 +16,7 @@ public class CardGallery : Class
     internal const uint ICheatEnteredCallbackVFTableOffset = GameDataHandlerVFTableOffset + sizeof(uint);
 
     internal const uint CardsDBOffset = ICheatEnteredCallbackVFTableOffset + sizeof(uint);
-    public SHARMemory.Memory.Class CardsDB => Memory.ClassFactory.Create<SHARMemory.Memory.Class>(ReadUInt32(CardsDBOffset));
+    public CardsDB CardsDB => Memory.ClassFactory.Create<CardsDB>(ReadUInt32(CardsDBOffset));
 
     internal const uint CollectedCardsOffset = CardsDBOffset + sizeof(uint);
     public StructArray<CardList> CollectedCards => new(Memory, Address + CollectedCardsOffset, CardList.Size, 7);

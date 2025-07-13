@@ -1,6 +1,5 @@
 ﻿using SHARMemory.Memory;
 using SHARMemory.Memory.RTTI;
-using System;
 
 namespace SHARMemory.SHAR.Classes;
 
