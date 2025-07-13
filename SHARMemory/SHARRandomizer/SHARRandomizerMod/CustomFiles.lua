@@ -2,6 +2,7 @@ Paths = {}
 Paths.ModPath = GetModPath()
 Paths.Resources = Paths.ModPath .. "/Resources/"
 Paths.Lib = Paths.Resources .. "lib/"
+Paths.Img = Paths.Resources .. "img/"
 
 dofile(Paths.Lib .. "MFKLexer.lua")
 dofile(GetModPath() .. "/Resources/lib/P3D2.lua")

@@ -18,17 +18,20 @@ end
 
 local default = "If you can read this, then you are not running the Archipelago client. You can probably also access a bunch of other things you should not do."
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
-    if lang == nil or chunk.Language == lang then -- If we can't find game lang, or if lang is the current game lang, add the entries
-        for i=1,42 do
-            chunk:AddValue("APCAR" .. i, default)
-        end
-    end
+	if lang == nil or chunk.Language == lang then -- If we can't find game lang, or if lang is the current game lang, add the entries
+		for i=1,42 do
+			chunk:AddValue("APCAR" .. i, default)
+		end
+	end
 end
 
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
-        local Default = "APLog will show here." .. string.rep(" ", 475)
+		local Default = "APLog will show here." .. string.rep(" ", 475)
 		chunk:AddValue("APLog", Default)
+		
+		chunk:AddValue("APWrench", "0         ")
+		chunk:AddValue("APHnR", "0         ")
 	end
 end
 
