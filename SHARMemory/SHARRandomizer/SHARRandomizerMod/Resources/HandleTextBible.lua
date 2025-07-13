@@ -30,8 +30,8 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		local Default = "APLog will show here." .. string.rep(" ", 475)
 		chunk:AddValue("APLog", Default)
 		
-		chunk:AddValue("APWrench", "0         ")
-		chunk:AddValue("APHnR", "0         ")
+		chunk:AddValue("APWrench", "00")
+		chunk:AddValue("APHnR", "00")
 	end
 end
 

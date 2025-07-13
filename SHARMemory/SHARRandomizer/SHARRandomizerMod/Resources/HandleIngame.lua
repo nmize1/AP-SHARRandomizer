@@ -50,15 +50,15 @@ if GetSetting("APLog") then
 		local APLogTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APLog")
 		APLogMultiTextChunk:AddChunk(APLogTextChunk)
 		
-		local WrenchSprite = P3D.SpriteP3DChunk("Wrench.png", 640, 480, "", 16, 16, 1)
-		local WrenchImage = P3D.ImageP3DChunk("Wrench.png", 14000, 16, 16, 32, 0, 1, P3D.ImageP3DChunk.Formats.PNG)
+		local WrenchSprite = P3D.SpriteP3DChunk("Wrench.png", 640, 480, "", 32, 32, 1)
+		local WrenchImage = P3D.ImageP3DChunk("Wrench.png", 14000, 32, 32, 32, 0, 1, P3D.ImageP3DChunk.Formats.PNG)
 		WrenchSprite:AddChunk(WrenchImage)
 		local WrenchImageData = P3D.ImageDataP3DChunk(ReadFile(Paths.Img .. "Wrench.png"))
 		WrenchImage:AddChunk(WrenchImageData)
 		P3DFile:AddChunk(WrenchSprite, 1)
 		
-		local HnRSprite = P3D.SpriteP3DChunk("HnR.png", 640, 480, "", 16, 16, 1)
-		local HnRImage = P3D.ImageP3DChunk("HnR.png", 14000, 16, 16, 32, 0, 1, P3D.ImageP3DChunk.Formats.PNG)
+		local HnRSprite = P3D.SpriteP3DChunk("HnR.png", 640, 480, "", 32, 32, 1)
+		local HnRImage = P3D.ImageP3DChunk("HnR.png", 14000, 32, 32, 32, 0, 1, P3D.ImageP3DChunk.Formats.PNG)
 		HnRSprite:AddChunk(HnRImage)
 		local HnRImageData = P3D.ImageDataP3DChunk(ReadFile(Paths.Img .. "HnR.png"))
 		HnRImage:AddChunk(HnRImageData)
@@ -70,19 +70,19 @@ if GetSetting("APLog") then
 		local HnRImageResource = P3D.FrontendImageResourceP3DChunk("HnR", 1, "img\\HnR.png")
 		Hud:AddChunk(HnRImageResource, 1)
 		
-		local WrenchMultiSprite = P3D.FrontendMultiSpriteP3DChunk("Wrench", 1, {X = 490, Y = 25}, {X = 16, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, {"Wrench"})
+		local WrenchMultiSprite = P3D.FrontendMultiSpriteP3DChunk("Wrench", 1, {X = 465, Y = 25}, {X = 16, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, {"Wrench"})
 		GroupChunk:AddChunk(WrenchMultiSprite)
 		
-		local HnRMultiSprite = P3D.FrontendMultiSpriteP3DChunk("HnR", 1, {X = 530, Y = 25}, {X = 16, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, {"HnR"})
+		local HnRMultiSprite = P3D.FrontendMultiSpriteP3DChunk("HnR", 1, {X = 540, Y = 25}, {X = 16, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, {"HnR"})
 		GroupChunk:AddChunk(HnRMultiSprite)
 		
-		local APWrenchMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APWrench", 17, {X = 510, Y = 25}, {X = 64, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, "font1_14", 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
+		local APWrenchMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APWrench", 17, {X = 500, Y = 20}, {X = 64, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, "font1_14", 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
 		GroupChunk:AddChunk(APWrenchMultiTextChunk)
 		
 		local APWrenchTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APWrench")
 		APWrenchMultiTextChunk:AddChunk(APWrenchTextChunk)
 		
-		local APHnRMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APHnR", 17, {X = 550, Y = 25}, {X = 64, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, "font1_14", 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
+		local APHnRMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APHnR", 17, {X = 575, Y = 20}, {X = 64, Y = 16}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, "font1_14", 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
 		GroupChunk:AddChunk(APHnRMultiTextChunk)
 		
 		local APHnRTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APHnR")
