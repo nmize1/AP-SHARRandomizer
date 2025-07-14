@@ -70,6 +70,13 @@ namespace SHARRandomizer
 
                 Memory memory = new(p);
                 Common.WriteLog($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Sub Version: {memory.GameSubVersion}.", "MemoryStart");
+                string mod = memory.GetMainMod() ?? "No Mod";
+                Common.WriteLog($"Main Mod: {mod}", "MemoryStart");
+                if (mod != "APSHARRandomizer")
+                {
+                    Common.WriteLog($"Main Mod should be APSHARRandomizer, detected {mod}. Exiting.", "MemoryStart");
+                    Environment.Exit(1);
+                }
 
                 var state = memory.Singletons.GameFlow?.CurrentContext;
                 while (state == null || state == GameFlow.GameState.PreLicence || state == GameFlow.GameState.Licence)
@@ -471,16 +478,18 @@ namespace SHARRandomizer
                                     Common.WriteLog($"Received {amount} coins.", "GetItems");
                                     break;
 
-                                case string s when fillerInventory.Keys.Contains(s):
+                                case string s when fillerInventory.ContainsKey(s):
                                     fillerInventory[s]++;
                                     switch (s)
                                     {
                                         case "Hit N Run Reset":
                                             ac.IncrementDataStorage("hnr");
+                                            language.SetString("APHnR", $"{fillerInventory[s]}:D2");
                                             break;
 
                                         case "Wrench":
                                             ac.IncrementDataStorage("wrench");
+                                            language.SetString("APWrench", $"{fillerInventory[s]:D2}");
                                             break;
 
                                     }
@@ -813,8 +822,6 @@ namespace SHARRandomizer
 
         async void CheckGags(Memory memory)
         {
-
-
             while (memory.IsRunning)
             {
                 await System.Threading.Tasks.Task.Delay(100);
@@ -864,6 +871,7 @@ namespace SHARRandomizer
                 }
                 Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
                 ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
+                language.SetString("APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
             }
             if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
             {
@@ -874,6 +882,7 @@ namespace SHARRandomizer
                 }
                 Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
                 ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
+                language.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
             }
             if (e.Button.ToString() == "DPadLeft" || e.Button.ToString() == "D4")
             {
