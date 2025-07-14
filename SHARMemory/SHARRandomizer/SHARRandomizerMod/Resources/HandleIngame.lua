@@ -49,6 +49,18 @@ if GetSetting("APLog") then
 		
 		local APLogTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APLog")
 		APLogMultiTextChunk:AddChunk(APLogTextChunk)
+	end
+end
+if GetSetting("FillerIcons") then
+	if Hud then
+		P3DFile:AddChunk(FontChunk, 1)
+	
+		local TextStyleChunk = P3D.FrontendTextStyleResourceP3DChunk:new(FontName, 1, "fonts\\" .. FontName .. ".p3d", FontName)
+		Hud:AddChunk(TextStyleChunk, 1)
+	
+		local LayerChunk = Hud:GetChunk(P3D.Identifiers.Frontend_Layer)
+		local GroupChunk = P3D.FrontendGroupP3DChunk("Archipelago", 0, 255)
+		LayerChunk:AddChunk(GroupChunk)
 		
 		local WrenchSprite = P3D.SpriteP3DChunk("Wrench.png", 640, 480, "", 32, 32, 1)
 		local WrenchImage = P3D.ImageP3DChunk("Wrench.png", 14000, 32, 32, 32, 0, 1, P3D.ImageP3DChunk.Formats.PNG)
