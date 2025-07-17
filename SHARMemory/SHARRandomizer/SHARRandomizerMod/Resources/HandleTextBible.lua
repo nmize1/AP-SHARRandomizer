@@ -52,6 +52,8 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		chunk:AddValue("APWrench", "00")
 		chunk:AddValue("APHnR", "00")
 		
+		chunk:AddValue("APMaxCoins", "       ")
+		
 		for k,v in pairs(TranslationMap[chunk.Language]) do
 			chunk:SetValue(k, v)
 		end
