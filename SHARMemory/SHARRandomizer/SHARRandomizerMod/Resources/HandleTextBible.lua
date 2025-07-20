@@ -1,6 +1,6 @@
 ﻿if TextBibleCache then -- Game loads the textbible 4 times for some reason, may as well cache it
-    Output(TextBibleCache)
-    return
+	Output(TextBibleCache)
+	return
 end
 
 local Path = GetPath()
@@ -8,12 +8,12 @@ local Path = GetPath()
 local P3DFile = P3D.P3DFile("/GameData/" .. Path)
 local BibleChunk = P3DFile:GetChunk(P3D.Identifiers.Frontend_Text_Bible)
 if not BibleChunk then -- This file is fucked
-    return
+	return
 end
 
 local lang
 if GetGameLanguage then -- Older versions of the launcher don't have this function
-    lang = GetGameLanguage()
+	lang = GetGameLanguage()
 end
 
 local default = "If you can read this, then you are not running the Archipelago client. You can probably also access a bunch of other things you should not do."
@@ -25,6 +25,25 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	end
 end
 
+local TranslationMap = {
+	["E"] = {
+		["SKINN_V"] = "Skinner's Sedan",
+		["MOE_V"] = "Moe's Sedan",
+	},
+	["F"] = {
+		["SKINN_V"] = "La Berline de Skinner",
+		["MOE_V"] = "La Berline de Moe",
+	},
+	["G"] = {
+		["SKINN_V"] = "Skinners Wagen",
+		["MOE_V"] = "Moes Wagen",
+	},
+	["S"] = {
+		["SKINN_V"] = "El Sedán de Skinner",
+		["MOE_V"] = "El Sedán de Moe",
+	},
+}
+
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
 		local Default = "APLog will show here." .. string.rep(" ", 475)
@@ -32,6 +51,12 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		
 		chunk:AddValue("APWrench", "00")
 		chunk:AddValue("APHnR", "00")
+		
+		chunk:AddValue("APMaxCoins", "       ")
+		
+		for k,v in pairs(TranslationMap[chunk.Language]) do
+			chunk:SetValue(k, v)
+		end
 	end
 end
 
