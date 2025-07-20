@@ -46,8 +46,7 @@ local TranslationMap = {
 
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
-		local Default = "APLog will show here." .. string.rep(" ", 475)
-		chunk:AddValue("APLog", Default)
+		chunk:AddValue("APLog", "APLog will show here." .. string.rep(" ", 475))
 		
 		chunk:AddValue("APWrench", "XX")
 		chunk:AddValue("APHnR", "XX")
@@ -57,8 +56,11 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		chunk:AddValue("APProgressTitle", "Progress:")
 		chunk:AddValue("APProgress", "AP NOT LOADED" .. string.rep(" ", 475))
 		
-		for k,v in pairs(TranslationMap[chunk.Language]) do
-			chunk:SetValue(k, v)
+		local translations = TranslationMap[chunk.Language]
+		if translations then
+			for k,v in pairs(translations) do
+				chunk:SetValue(k, v)
+			end
 		end
 	end
 end
