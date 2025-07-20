@@ -54,6 +54,9 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		
 		chunk:AddValue("APMaxCoins", "       ")
 		
+		chunk:AddValue("APProgressTitle", "Progress:")
+		chunk:AddValue("APProgress", "AP NOT LOADED" .. string.rep(" ", 475))
+		
 		for k,v in pairs(TranslationMap[chunk.Language]) do
 			chunk:SetValue(k, v)
 		end
