@@ -26,6 +26,7 @@ GroupChunk:AddChunk(P3D.FrontendPure3DObjectP3DChunk("PreviewWindow", 1, {X = 29
 
 local Hud = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "Hud.pag")
 local PauseSunday = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseSunday.pag")
+local PauseMission = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseMission.pag")
 
 if Hud then
 	local LayerChunk = Hud:GetChunk(P3D.Identifiers.Frontend_Layer)
@@ -95,8 +96,8 @@ if Hud then
 	end
 end
 
-if PauseSunday then
-	local LayerChunk = PauseSunday:GetChunk(P3D.Identifiers.Frontend_Layer)
+local function ModifyPause(Page)
+	local LayerChunk = Page:GetChunk(P3D.Identifiers.Frontend_Layer)
 	assert(LayerChunk, "What the fuck your game is broken")
 	
 	local APMaxCoinsMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APMaxCoins", 17, {X = 500, Y = 390}, {X = 200, Y = 20}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=240,G=225,B=20}, 0, 0, "font0_16", 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
@@ -104,6 +105,14 @@ if PauseSunday then
 	
 	local APMaxCoinsTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APMaxCoins")
 	APMaxCoinsMultiTextChunk:AddChunk(APMaxCoinsTextChunk)
+end
+
+if PauseSunday then
+	ModifyPause(PauseSunday)
+end
+
+if PauseMission then
+	ModifyPause(PauseMission)
 end
 
 Ingame = tostring(P3DFile)
