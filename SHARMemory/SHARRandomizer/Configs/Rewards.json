@@ -320,16 +320,6 @@
     ]
   },
   {
-    "Name": "Police Car",
-    "InternalName": "cPolice",
-    "Translations": [
-      "Police Car",
-      "Voiture de police",
-      "Polizeiauto",
-      "Coche de policía"
-    ]
-  },
-  {
     "Name": "Chase Sedan",
     "InternalName": "cSedan",
     "Translations": [
@@ -580,7 +570,7 @@
     ]
   },
   {
-    "Name": "Sedan",
+    "Name": "Moe's Sedan",
     "InternalName": "moe_v",
     "Translations": [
       "Sedan",
@@ -740,7 +730,7 @@
     ]
   },
   {
-    "Name": "Sedan",
+    "Name": "Skinner's Sedan",
     "InternalName": "skinn_v",
     "Translations": [
       "Sedan",

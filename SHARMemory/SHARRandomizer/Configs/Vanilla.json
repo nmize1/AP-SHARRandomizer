@@ -331,32 +331,32 @@
     ],
     "shops": [
       {
-        "name": "(LVL 1) Shop Item 1",
+        "name": "(LVL 1) Shop Check 1",
         "id": "APCar1",
         "apid": 122407
       },
       {
-        "name": "(LVL 1) Shop Item 2",
+        "name": "(LVL 1) Shop Check 2",
         "id": "APCar2",
         "apid": 122408
       },
       {
-        "name": "(LVL 1) Shop Item 3",
+        "name": "(LVL 1) Shop Check 3",
         "id": "APCar3",
         "apid": 122409
       },
       {
-        "name": "(LVL 1)  Shop Item 4",
+        "name": "(LVL 1)  Shop Check 4",
         "id": "APCar4",
         "apid": 122410
       },
       {
-        "name": "(LVL 1)  Shop Item 5",
+        "name": "(LVL 1)  Shop Check 5",
         "id": "APCar5",
         "apid": 122411
       },
       {
-        "name": "(LVL 1) Shop Item 6",
+        "name": "(LVL 1) Shop Check 6",
         "id": "APCar6",
         "apid": 122412
       }
@@ -1174,12 +1174,12 @@
         "apid": 122503
       },
       {
-        "name": "(LVL 4) WASP - Wiggums Backyard",
+        "name": "(LVL 4) WASP - Wiggum's Backyard 1",
         "id": "Level4 - 13",
         "apid": 122504
       },
       {
-        "name": "(LVL 4) WASP - Wiggums Backyard 2",
+        "name": "(LVL 4) WASP - Wiggum's Backyard 2",
         "id": "Level4 - 14",
         "apid": 122505
       },
@@ -2203,7 +2203,7 @@
         "apid": 122637
       },
       {
-        "name": "(LVL 7) WASP - Wiggums' Backyard",
+        "name": "(LVL 7) WASP - Wiggum's Backyard",
         "id": "Level7 - 13",
         "apid": 122638
       },

@@ -484,7 +484,7 @@ namespace SHARRandomizer
                                     {
                                         case "Hit N Run Reset":
                                             ac.IncrementDataStorage("hnr");
-                                            language.SetString("APHnR", $"{fillerInventory[s]}:D2");
+                                            language.SetString("APHnR", $"{fillerInventory[s]:D2}");
                                             break;
 
                                         case "Wrench":
@@ -1074,7 +1074,7 @@ namespace SHARRandomizer
                 if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= (maxCoins * WalletLevel))
                 {
                     _updatingCoins = true;
-                    characterSheet.CharacterSheet.Coins = maxCoins * WalletLevel;
+                    characterSheet.CharacterSheet.Coins = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
                 }
             }
 
