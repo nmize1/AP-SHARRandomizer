@@ -199,7 +199,7 @@ namespace SHARRandomizer
 
             InitializeMissionTitles();
             InitializeShopItems();
-
+            language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : (maxCoins * WalletLevel * coinScale).ToString()));
             var characterSheet = memory.Singletons.CharacterSheetManager;
             if (characterSheet == null)
             {
@@ -510,6 +510,7 @@ namespace SHARRandomizer
                                 case string s when s.Contains("Wallet"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     WalletLevel++;
+                                    language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : (maxCoins * WalletLevel * coinScale).ToString()));
                                     break;
 
                                 default:
@@ -1071,7 +1072,7 @@ namespace SHARRandomizer
                     amount = 0;
                 }
 
-                if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= (maxCoins * WalletLevel))
+                if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= (maxCoins * WalletLevel * coinScale))
                 {
                     _updatingCoins = true;
                     characterSheet.CharacterSheet.Coins = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
