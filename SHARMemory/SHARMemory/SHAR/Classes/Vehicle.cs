@@ -250,7 +250,7 @@ public class Vehicle : DynaPhysDSG
 
     public RenderEnums.LayerEnum RenderLayerEnum
     {
-        get => (Globals.RenderEnums.LayerEnum)ReadInt32(412);
+        get => (RenderEnums.LayerEnum)ReadInt32(412);
         set => WriteInt32(412, (int)value);
     }
 
