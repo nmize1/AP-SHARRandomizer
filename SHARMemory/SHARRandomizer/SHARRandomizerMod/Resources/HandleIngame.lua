@@ -44,6 +44,7 @@ P3DFile:AddChunk(HnRSprite, 1)
 local Hud = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "Hud.pag")
 local PauseSunday = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseSunday.pag")
 local PauseMission = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseMission.pag")
+local SmallBoard = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "SmallBoard.pag")
 
 if Hud then
 	local LayerChunk = Hud:GetChunk(P3D.Identifiers.Frontend_Layer)
@@ -102,6 +103,84 @@ end
 local function ModifyPause(Page)
 	local LayerChunk = Page:GetChunk(P3D.Identifiers.Frontend_Layer)
 	assert(LayerChunk, "What the fuck your game is broken")
+	
+	-- Begin Background
+	if SmallBoard then
+		for FrontendImageResourceChunk in SmallBoard:GetChunks(P3D.Identifiers.Frontend_Image_Resource, true) do
+			Page:AddChunk(FrontendImageResourceChunk:Clone(), 1)
+		end
+		local BoardGroup = SmallBoard:GetChunk(P3D.Identifiers.Frontend_Layer):GetChunk(P3D.Identifiers.Frontend_Group):Clone()
+		LayerChunk:AddChunk(BoardGroup)
+		
+		local FrameBgd = BoardGroup:GetChunk(P3D.Identifiers.Frontend_Polygon, false, "Frame_Bgd")
+		FrameBgd.Points[1] = { X = 12, Y = 150, Z = 0 } -- Bottom Left
+		FrameBgd.Points[2] = { X = 12, Y = 354, Z = 0 } -- Top Left
+		FrameBgd.Points[3] = { X = 147, Y = 354, Z = 0 } -- Top Right
+		FrameBgd.Points[4] = { X = 147, Y = 150, Z = 0 } -- Bottom Right
+		
+		local FrameLeft
+		local FrameTop
+		local FrameRight
+		local FrameBottom
+		for FrontendMultiSpriteChunk in BoardGroup:GetChunks(P3D.Identifiers.Frontend_Multi_Sprite) do
+			FrontendMultiSpriteChunk.Position = { X = 2, Y = 143 }
+			FrontendMultiSpriteChunk.Dimension = { X = 147, Y = 220 }
+			if FrontendMultiSpriteChunk.Name == "Frame_Left" then
+				FrameLeft = FrontendMultiSpriteChunk
+			elseif FrontendMultiSpriteChunk.Name == "Frame_Top" then
+				FrameTop = FrontendMultiSpriteChunk
+			elseif FrontendMultiSpriteChunk.Name == "Frame_Right" then
+				FrameRight = FrontendMultiSpriteChunk
+			elseif FrontendMultiSpriteChunk.Name == "Frame_Bottom" then
+				FrameBottom = FrontendMultiSpriteChunk
+			end
+		end
+		
+		local FrameTop2 = FrameTop:Clone()
+		BoardGroup:AddChunk(FrameTop2)
+		FrameTop2.Position.X = FrameTop2.Position.X - 19
+		
+		local FrameTop3 = FrameTop:Clone()
+		BoardGroup:AddChunk(FrameTop3)
+		FrameTop3.Position.X = FrameTop3.Position.X + 19
+		
+		local FrameBottom2 = FrameBottom:Clone()
+		BoardGroup:AddChunk(FrameBottom2)
+		FrameBottom2.Position.X = FrameBottom2.Position.X - 19
+		
+		local FrameBottom3 = FrameBottom:Clone()
+		BoardGroup:AddChunk(FrameBottom3)
+		FrameBottom3.Position.X = FrameBottom3.Position.X + 19
+		
+		local FrameLeft2 = FrameLeft:Clone()
+		BoardGroup:AddChunk(FrameLeft2)
+		FrameLeft2.Position.Y = FrameLeft2.Position.Y - 55
+		
+		local FrameLeft3 = FrameLeft:Clone()
+		BoardGroup:AddChunk(FrameLeft3)
+		FrameLeft3.Position.Y = FrameLeft3.Position.Y + 55
+		
+		local FrameLeft4 = FrameLeft:Clone()
+		BoardGroup:AddChunk(FrameLeft4)
+		FrameLeft4.Position.Y = FrameLeft4.Position.Y + 18
+		
+		FrameLeft.Position.Y = FrameLeft.Position.Y - 18
+		
+		local FrameRight2 = FrameRight:Clone()
+		BoardGroup:AddChunk(FrameRight2)
+		FrameRight2.Position.Y = FrameRight2.Position.Y - 55
+		
+		local FrameRight3 = FrameRight:Clone()
+		BoardGroup:AddChunk(FrameRight3)
+		FrameRight3.Position.Y = FrameRight3.Position.Y + 55
+		
+		local FrameRight4 = FrameRight:Clone()
+		BoardGroup:AddChunk(FrameRight4)
+		FrameRight4.Position.Y = FrameRight4.Position.Y + 18
+		
+		FrameRight.Position.Y = FrameRight.Position.Y - 18
+	end
+	-- End Background
 	
 	local GroupChunk = P3D.FrontendGroupP3DChunk("Archipelago", 0, 255)
 	LayerChunk:AddChunk(GroupChunk)
