@@ -23,7 +23,7 @@ namespace SHARRandomizer
 
     }
 
-    class MemoryManip
+    public class MemoryManip
     {
         Process? p;
         public static bool APCONNECTED = false;
@@ -98,6 +98,7 @@ namespace SHARRandomizer
                 watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
                 watcher.DialogPlaying += Watcher_DialogPlaying;
                 watcher.CoinsChanged += Watcher_CoinsChanged;
+                watcher.
 
                 watcher.Start();
                 await LoadState(memory);
@@ -199,7 +200,10 @@ namespace SHARRandomizer
 
             InitializeMissionTitles();
             InitializeShopItems();
-            language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : (maxCoins * WalletLevel * coinScale).ToString()));
+            language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}"));
+            language.SetString("APHnR", "00");
+            language.SetString("APWrench", "00");
+            UpdateProgress(0, 0, 0, 0, 0, 0, 0, 0);
             var characterSheet = memory.Singletons.CharacterSheetManager;
             if (characterSheet == null)
             {
@@ -510,7 +514,7 @@ namespace SHARRandomizer
                                 case string s when s.Contains("Wallet"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     WalletLevel++;
-                                    language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : (maxCoins * WalletLevel * coinScale).ToString()));
+                                    language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}")); 
                                     break;
 
                                 default:
@@ -1012,6 +1016,44 @@ namespace SHARRandomizer
                 ac.IncrementDataStorage("bonus");
 
             return Task.CompletedTask;
+        }
+
+        public void UpdateProgress(int missions, int bonus, int wasps, int cards, int gags, ArchipelagoClient.VICTORY victory, int rwp, int rcp)
+        {
+            string ret = "";
+            int wp = (int)Math.Ceiling(140 * rwp / 100.0);
+            int cp = (int)Math.Ceiling(49 * rcp / 100.0); 
+            
+
+            switch (victory)
+            {
+                case VICTORY.FinalMission:
+                    ret += "Final Mission\n";
+                    break;
+                case VICTORY.AllStory:
+                    ret += "Story Missions\n";
+                    ret += $"Missions: {missions:D2}/49\n";
+                    break;
+                case VICTORY.AllMissions:
+                    ret = "All Missions\n";
+                    ret += $"Missions: {missions:D2}/49\n";
+                    ret += $"Bonus: { bonus: D2}/ 28\n";
+                    break;
+                case VICTORY.WaspsCards:
+                    ret += "Wasps & Cards\n";
+                    break;
+                default:
+                    ret += "Goal failed to load?\n";
+                    break;
+            }
+
+            if (wp > 0)
+                ret += $"Wasps: {wasps:D2}/{wp:D2}\n";
+            if (cp > 0)
+                ret += $"Cards: {cards:D2}/{cp:D2}";
+
+            if (language != null)
+                language.SetString("APProgress", ret);
         }
 
         Task Watcher_DialogPlaying(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.SoundManager.DialogPlayingEventArgs e, CancellationToken token)

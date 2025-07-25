@@ -53,7 +53,7 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		
 		chunk:AddValue("APMaxCoins", "       ")
 		
-		chunk:AddValue("APProgressTitle", "Progress:")
+		chunk:AddValue("APProgressTitle", "Goals:")
 		chunk:AddValue("APProgress", "AP NOT LOADED" .. string.rep(" ", 475))
 		
 		local translations = TranslationMap[chunk.Language]

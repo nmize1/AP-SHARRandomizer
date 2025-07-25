@@ -64,6 +64,7 @@ ac.PASSWORD = PASSWORD;
 
 MemoryManip mm = new MemoryManip();
 mm.ac = ac;
+ac.mm = mm;
 InputListener im = new InputListener();
 
 Thread connectThread = new Thread(ac.Connect);

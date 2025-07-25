@@ -15,6 +15,7 @@ namespace SHARRandomizer
 {
     public class ArchipelagoClient
     {
+        public MemoryManip mm;
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset"};
         private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
         public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>(); 
@@ -244,7 +245,7 @@ namespace SHARRandomizer
             SendLocation(location);
         }
 
-        public void SendLocation(long location)
+        void SendLocation(long location)
         {
             if (!Connected)
             {
@@ -397,6 +398,7 @@ namespace SHARRandomizer
             int bonus = 0;
             int wasps = 0;
             int cards = 0;
+            int gags = 0;
 
             foreach (long id in localChecks)
             {
@@ -419,11 +421,16 @@ namespace SHARRandomizer
                         case "card":
                             cards++;
                             break;
+                        case "gag":
+                            gags++;
+                            break;
                         default:
                             break;
                     }
                 }
             }
+
+            mm.UpdateProgress(missions, bonus, wasps, cards, gags, victory, waspPercent, cardPercent);
 
             Common.WriteLog($"Completed:\nMissions: {missions}\nBonus Missions: {bonus}\nWasps: {wasps}\nCards: {cards}", "ArchipelagoClient::CheckVictory");
 
