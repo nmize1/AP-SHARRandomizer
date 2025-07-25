@@ -98,7 +98,7 @@ namespace SHARRandomizer
                 watcher.MerchandisePurchased += Watcher_MerchandisePurchased;
                 watcher.DialogPlaying += Watcher_DialogPlaying;
                 watcher.CoinsChanged += Watcher_CoinsChanged;
-                watcher.
+                watcher.RewardUnlocked += Watcher_RewardUnlocked;
 
                 watcher.Start();
                 await LoadState(memory);
@@ -211,8 +211,13 @@ namespace SHARRandomizer
             }
             else
             {
-                fillerInventory.Add("Hit N Run Reset", ac.GetDataStorage<int>("hnr").Result);
-                fillerInventory.Add("Wrench", ac.GetDataStorage<int>("wrench").Result);
+                int h, w;
+                w = ac.GetDataStorage<int>("wrench").Result;
+                h = ac.GetDataStorage<int>("hnr").Result;
+                fillerInventory.Add("Hit N Run Reset", h);
+                fillerInventory.Add("Wrench", w);
+                language.SetString("APHnR", $"{h:D2}");
+                language.SetString("APWrench", $"{w:D2}");
             }
 
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap" });
@@ -1037,7 +1042,7 @@ namespace SHARRandomizer
                 case VICTORY.AllMissions:
                     ret = "All Missions\n";
                     ret += $"Missions: {missions:D2}/49\n";
-                    ret += $"Bonus: { bonus: D2}/ 28\n";
+                    ret += $"Bonus: { bonus:D2}/28\n";
                     break;
                 case VICTORY.WaspsCards:
                     ret += "Wasps & Cards\n";
@@ -1127,6 +1132,14 @@ namespace SHARRandomizer
         Task Watcher_NewGame(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameDataManager.NewGameEventArgs e, CancellationToken token)
         {
             LoadState(sender);
+            return Task.CompletedTask;
+        }
+
+        Task Watcher_RewardUnlocked(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.RewardUnlockedEventArgs e, CancellationToken token)
+        {
+            if (e.Type is SHARMemory.SHAR.Events.RewardsManager.RewardUnlockedEventArgs.RewardType.StreetRace or SHARMemory.SHAR.Events.RewardsManager.RewardUnlockedEventArgs.RewardType.BonusMission)
+                if(!UnlockedItems.Contains(e.Reward.Name))
+                    e.Reward.Earned = false;
             return Task.CompletedTask;
         }
     }
