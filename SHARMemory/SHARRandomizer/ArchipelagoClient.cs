@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System;
+using System.Runtime.CompilerServices;
 
 
 namespace SHARRandomizer
@@ -109,7 +110,15 @@ namespace SHARRandomizer
                         }
                         catch (Exception e)
                         {
-                            Common.WriteLog($"Error creating session: {e}", "ArchipelagoClient::TryConnect");
+                            Common.WriteLog($"Error creating session.", "ArchipelagoClient::TryConnect");
+                            loginResult = new LoginFailure("Session creation failed.");
+                            if (await HandleRetryDelayAsync())
+                            {
+                                URI = GetURI();
+                                SLOTNAME = GetSlotName();
+                                PASSWORD = GetPassword();
+                            }
+                            continue;
                         }
                     }
 
@@ -129,10 +138,15 @@ namespace SHARRandomizer
                 if (loginResult is LoginFailure loginFailure)
                 {
                     _attemptingConnection = false;
-                    Common.WriteLog("AP connection failed: " + string.Join("\n", loginFailure.Errors), "ArchipelagoClient::TryConnect");
+                    Common.WriteLog("AP connection failed.", "ArchipelagoClient::TryConnect");
                     _session = null;
-                    Common.WriteLog("Reattempting connection in 5 seconds.", "ArchipelagoClient::TryConnect");
-                    await Task.Delay(5000);
+
+                    if (await HandleRetryDelayAsync())
+                    {
+                        URI = GetURI();
+                        SLOTNAME = GetSlotName();
+                        PASSWORD = GetPassword();
+                    }
                 }
             } while (loginResult is LoginFailure);
 
@@ -170,6 +184,46 @@ namespace SHARRandomizer
                 await SendLocs();
             }
         }
+
+        static async Task<bool> HandleRetryDelayAsync()
+        {
+            Common.WriteLog("Reattempting connection in 5 seconds. Press any key to re-enter connection info.", "ArchipelagoClient::TryConnect");
+
+            int steps = 50;
+            for (int i = 0; i < steps; i++)
+            {
+                if (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true); 
+                    return true; 
+                }
+                await Task.Delay(100);
+            }
+
+            return false; 
+        }
+
+        static string GetURI()
+        {
+            Common.WriteLog("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:", "Main");
+            string uri = Console.ReadLine();
+            if (int.TryParse(uri, out int porttest))
+                uri = $"archipelago.gg:{uri}";
+            return uri;
+        }
+
+        static string GetSlotName()
+        {
+            Common.WriteLog("Enter slot name:", "Main");
+            return Console.ReadLine();
+        }
+
+        static string GetPassword()
+        {
+            Common.WriteLog("Enter password:", "Main");
+            return Console.ReadLine();
+        }
+
 
         public void Disconnect()
         {
@@ -372,16 +426,96 @@ namespace SHARRandomizer
 
         public async Task<T> GetDataStorage<T>(string type)
         {
-           return await _session.DataStorage[Scope.Slot, type].GetAsync<T>();
+            var attempts = 0;
+            while (attempts++ < 5)
+            {
+                try
+                {
+                    return await _session.DataStorage[Scope.Slot, type].GetAsync<T>();
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog("GetDataStorage", $"Failed to get data for {type}. Retrying in 5 seconds");
+                }
+                await Task.Delay(5000);
+            }
+            // TODO: Change in-game strings
+            Common.WriteLog("GetDataStorage", $"Failed to get data for {type}. Data is desynced, please restart.");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            Environment.Exit(1);
+            return default(T);
         }
 
-        public void SetDataStorage(string type, int amount)
+        public async Task SetDataStorage(string type, int amount)
         {
-            _session.DataStorage[Scope.Slot, type] = amount;
+            var attempts = 0;
+            while (attempts++ < 5)
+            {
+                try
+                {
+                    _session.DataStorage[Scope.Slot, type] = amount;
+                    return; 
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog("SetDataStorage", $"Failed to set data for {type}. Retrying in 5 seconds");
+                    await Task.Delay(5000); 
+                }
+            }
+            // TODO: Change in-game strings
+            Common.WriteLog("SetDataStorage", $"Failed to set data for {type}. Data is desynced, please restart.");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            Environment.Exit(1);
         }
+
         public async Task IncrementDataStorage(string type)
         {
-            _session.DataStorage[Scope.Slot, type] = await _session.DataStorage[Scope.Slot, type].GetAsync<int>() + 1;
+            var attempts = 0;
+            while (attempts++ < 5)
+            {
+                try
+                {
+                    int currentValue = await _session.DataStorage[Scope.Slot, type].GetAsync<int>();
+                    _session.DataStorage[Scope.Slot, type] = currentValue + 1;
+                    return; 
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog("IncrementDataStorage", $"Failed to increment data for {type}. Retrying in 5 seconds");
+                    await Task.Delay(5000);
+                }
+            }
+            // TODO: Change in-game strings
+            Common.WriteLog("IncrementDataStorage", $"Failed to increment data for {type}. Data is desynced, please restart.");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            Environment.Exit(1);
+        }
+
+        public async Task<List<long>> GetLocalChecks()
+        {
+            var attempts = 0;
+            while (attempts++ < 5)
+            {
+                try
+                {       
+                    return _session.DataStorage[Scope.Slot, "localchecks"].To<List<long>>();
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog("IncrementDataStorage", $"Failed to get localchecks. Retrying in 5 seconds");
+                    await Task.Delay(5000);
+                }
+            }
+            // TODO: Change in-game strings
+            Common.WriteLog("IncrementDataStorage", $"Failed to get localchecks. Data is desynced, please restart.");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            Environment.Exit(1);
+
+            return null;
         }
 
         public async void CheckVictory()
@@ -392,7 +526,7 @@ namespace SHARRandomizer
             int wasps = await _session.DataStorage[Scope.Slot, "wasps"].GetAsync<int>();
             int cards = await _session.DataStorage[Scope.Slot, "cards"].GetAsync<int>();
             */
-            var localChecks = _session.DataStorage[Scope.Slot, "localchecks"].To<List<long>>();
+            var localChecks = await GetLocalChecks();
 
             int missions = 0;
             int bonus = 0;

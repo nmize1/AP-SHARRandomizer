@@ -1142,5 +1142,11 @@ namespace SHARRandomizer
                     e.Reward.Earned = false;
             return Task.CompletedTask;
         }
+
+        public void textDC()
+        {
+            language.SetString("APProgress", "Disconnected.");
+            language.SetString("APLog", "Disconnected.");
+        }
     }
 }
