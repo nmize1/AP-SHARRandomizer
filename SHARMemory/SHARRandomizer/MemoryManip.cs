@@ -1146,10 +1146,7 @@ namespace SHARRandomizer
 
         private Task Watcher_ButtonBound(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.InputManager.ButtonBoundEventArgs e, CancellationToken token)
         {
-            if (e.Button == SHARMemory.SHAR.Classes.InputManager.Buttons.Attack && AttackShouldBeBlocked && e.NewMapping != null)
-            {
-                sender.Singletons.InputManager.ControllerArray[e.NewMapping.ControllerIndex].DisableButton(e.Button);
-            }
+            CheckAvailableMoves(sender, CURRENTLEVEL);
             return Task.CompletedTask;
         }
 
