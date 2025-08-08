@@ -16,6 +16,8 @@ public delegate Task AsyncEventHandler<TEventArgs>(Memory sender, TEventArgs e, 
 
 internal static class AsyncEventHandlerExtensions
 {
+    public static bool HasSubscribers<TEventArgs>(this AsyncEventHandler<TEventArgs> handler) => handler?.GetInvocationList()?.Length > 0;
+
     public static async Task InvokeAsync<TEventArgs>(this AsyncEventHandler<TEventArgs> handler, Memory sender, TEventArgs args, CancellationToken token)
     {
         await Task.Run(async () =>

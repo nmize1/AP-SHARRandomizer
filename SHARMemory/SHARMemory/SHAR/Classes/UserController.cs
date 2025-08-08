@@ -186,7 +186,7 @@ public class UserController : Class
             RealController.DirectionType dir = (RealController.DirectionType)((code >> 0x18) & 0xF);
 
             if (controllerType >= 0 && controllerType < RealController.NUM_CONTROLLER_TYPES)
-                Controller[controllerType].DisableButton((int)mapType, buttonId, dir);
+                Controller[controllerType]?.DisableButton((int)mapType, buttonId, dir);
         }
     }
 
@@ -207,7 +207,7 @@ public class UserController : Class
             RealController.DirectionType dir = (RealController.DirectionType)((code >> 0x18) & 0xF);
 
             if (controllerType >= 0 && controllerType < RealController.NUM_CONTROLLER_TYPES)
-                Controller[controllerType].EnableButton((int)mapType, buttonId, dir, button);
+                Controller[controllerType]?.EnableButton((int)mapType, buttonId, dir, button);
         }
     }
 }

@@ -13,6 +13,7 @@ using SHARMemory.SHAR.Events.CardGallery;
 using System.Collections.Generic;
 using SHARMemory.SHAR.Events.RewardsManager;
 using SHARMemory.SHAR.Events.Error;
+using SHARMemory.SHAR.Events.InputManager;
 
 namespace SHARMemory.SHAR;
 
@@ -134,6 +135,11 @@ public sealed class Watcher
     /// An event handler for when a Reward is unlocked.
     /// </summary>
     public event AsyncEventHandler<RewardUnlockedEventArgs> RewardUnlocked;
+
+    /// <summary>
+    /// An event handler for when a Button is bound.
+    /// </summary>
+    public event AsyncEventHandler<ButtonBoundEventArgs> ButtonBound;
 
     private readonly Memory Memory;
 
@@ -257,12 +263,42 @@ public sealed class Watcher
                     lastGameState = gameState;
                 }
 
-                await CheckGameDataManager();
-                await CheckCharacterSheet();
-                await CheckCardGallery();
-                await CheckGameplayManager();
-                await CheckSoundManager();
-                await CheckRewardsManager();
+                if (GameStateChanged.HasSubscribers())
+                    await CheckGameDataManager();
+
+                if (BonusMissionComplete.HasSubscribers() ||
+                    CarPurchased.HasSubscribers() ||
+                    CoinsChanged.HasSubscribers() ||
+                    FMVWatched.HasSubscribers() ||
+                    GagViewed.HasSubscribers() ||
+                    GambleRaceComplete.HasSubscribers() ||
+                    MissionComplete.HasSubscribers() ||
+                    PersistentObjectDestroyed.HasSubscribers() ||
+                    SkinChanged.HasSubscribers() ||
+                    SkinPurchased.HasSubscribers() ||
+                    StreetRaceComplete.HasSubscribers() ||
+                    WaspDestroyed.HasSubscribers())
+                    await CheckCharacterSheet();
+
+                if (CardCollected.HasSubscribers())
+                    await CheckCardGallery();
+
+                if (LevelChanged.HasSubscribers() ||
+                    MissionChanged.HasSubscribers() ||
+                    MissionIndexChanged.HasSubscribers() ||
+                    MissionStageChanged.HasSubscribers() ||
+                    VehicleChanged.HasSubscribers())
+                    await CheckGameplayManager();
+
+                if (DialogPlaying.HasSubscribers())
+                    await CheckSoundManager();
+
+                if (RewardUnlocked.HasSubscribers() ||
+                    MerchandisePurchased.HasSubscribers())
+                    await CheckRewardsManager();
+
+                if (ButtonBound.HasSubscribers())
+                    await CheckInputManager();
             }
             catch (Exception ex)
             {
@@ -747,5 +783,52 @@ public sealed class Watcher
                 }
             }
         }
+    }
+
+    private List<ControllerButtonMapping> lastControllerState = [];
+    private async Task CheckInputManager()
+    {
+        var inputManager = Memory.Singletons.InputManager;
+        if (inputManager == null)
+        {
+            lastControllerState.Clear();
+            return;
+        }
+
+        var newControllerState = new List<ControllerButtonMapping>();
+
+        var userControllers = inputManager.ControllerArray.ToArray();
+        for (int controllerIndex = 0; controllerIndex < userControllers.Length; controllerIndex++)
+        {
+            var userController = userControllers[controllerIndex];
+
+            var buttonMaps = new List<int[]>(UserController.MAX_VIRTUAL_MAPPINGS);
+
+            var virtualMaps = userController.VirtualMap.ToArray();
+            for (var virtualMapIndex = 0; virtualMapIndex < UserController.MAX_VIRTUAL_MAPPINGS; virtualMapIndex++)
+                buttonMaps.Add(virtualMaps[virtualMapIndex].ButtonMap.ToArray());
+
+            foreach (InputManager.Buttons button in Enum.GetValues(typeof(InputManager.Buttons)))
+            {
+                int iButton = (int)button;
+                if (iButton >= UserController.MAX_PHYSICAL_BUTTONS)
+                    continue;
+
+                var mapping1 = ButtonBinding.FromButton(buttonMaps[0], button);
+                var mapping2 = ButtonBinding.FromButton(buttonMaps[1], button);
+
+                var newMapping = new ControllerButtonMapping(controllerIndex, button, [mapping1, mapping2]);
+                newControllerState.Add(newMapping);
+
+                var oldMapping = lastControllerState.FirstOrDefault(m => m.ControllerIndex == controllerIndex && m.Button == button);
+                if (oldMapping == null)
+                    continue;
+
+                if (!newMapping.Equals(oldMapping))
+                    await ButtonBound.InvokeAsync(Memory, new ButtonBoundEventArgs(button, oldMapping, newMapping), CancellationToken.None);
+            }
+        }
+
+        lastControllerState = newControllerState;
     }
 }
