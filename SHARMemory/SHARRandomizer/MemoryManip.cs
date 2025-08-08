@@ -99,6 +99,7 @@ namespace SHARRandomizer
                 watcher.DialogPlaying += Watcher_DialogPlaying;
                 watcher.CoinsChanged += Watcher_CoinsChanged;
                 watcher.RewardUnlocked += Watcher_RewardUnlocked;
+                watcher.ButtonBound += Watcher_ButtonBound;
 
                 watcher.Start();
                 await LoadState(memory);
@@ -1140,6 +1141,15 @@ namespace SHARRandomizer
             if (e.Type is SHARMemory.SHAR.Events.RewardsManager.RewardUnlockedEventArgs.RewardType.StreetRace or SHARMemory.SHAR.Events.RewardsManager.RewardUnlockedEventArgs.RewardType.BonusMission)
                 if(!UnlockedItems.Contains(e.Reward.Name))
                     e.Reward.Earned = false;
+            return Task.CompletedTask;
+        }
+
+        private Task Watcher_ButtonBound(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.InputManager.ButtonBoundEventArgs e, CancellationToken token)
+        {
+            if (e.Button == SHARMemory.SHAR.Classes.InputManager.Buttons.Attack && AttackShouldBeBlocked && e.NewMapping != null)
+            {
+                sender.Singletons.InputManager.ControllerArray[e.NewMapping.ControllerIndex].DisableButton(e.Button);
+            }
             return Task.CompletedTask;
         }
 
