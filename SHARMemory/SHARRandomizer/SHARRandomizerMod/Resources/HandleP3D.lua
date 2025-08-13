@@ -10,10 +10,11 @@ if not P3DFiles[GamePath] then
 end
 P3DFiles[GamePath] = nil
 
-local P3DFile = P3D.P3DFile(GamePath)
+local P3DFile
 local Changed = false
 
 if MissionCamMultiControllers then
+	P3DFile = P3DFile or P3D.P3DFile(GamePath)
 	for MissionCamMultiControllers in pairs(MissionCamMultiControllers) do
 		local MultiController = P3DFile:GetChunk(P3D.Identifiers.Multi_Controller, true, MissionCamMultiController)
 		if MultiController then
@@ -34,6 +35,6 @@ if MissionCamMultiControllers then
 	end
 end
 
-if Changed then
+if P3DFile and Changed then
 	P3DFile:Output()
 end
