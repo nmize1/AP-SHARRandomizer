@@ -52,7 +52,7 @@ if Hud then
 	
 	local GroupChunk
 	
-	if GetSetting("APLog") then
+	if Settings.APLog then
 		GroupChunk = GroupChunk or P3D.FrontendGroupP3DChunk("Archipelago", 0, 255)
 		
 		P3DFile:AddChunk(FontChunk, 1)
@@ -60,14 +60,14 @@ if Hud then
 		local TextStyleChunk = P3D.FrontendTextStyleResourceP3DChunk:new(FontName, 1, "fonts\\" .. FontName .. ".p3d", FontName)
 		Hud:AddChunk(TextStyleChunk, 1)
 		
-		local APLogMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APLog", 17, {X = GetSetting("APLogX"), Y = GetSetting("APLogY")}, {X = Hud.Resolution.X - 40, Y = math.floor(Hud.Resolution.Y / 4)}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, FontName, 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
+		local APLogMultiTextChunk = P3D.FrontendMultiTextP3DChunk:new("APLog", 17, {X = Settings.APLogX, Y = Settings.APLogY}, {X = Hud.Resolution.X - 40, Y = math.floor(Hud.Resolution.Y / 4)}, {X = P3D.FrontendMultiTextP3DChunk.Justifications.Left, Y = P3D.FrontendMultiTextP3DChunk.Justifications.Top}, {A=255,R=255,G=255,B=255}, 0, 0, FontName, 1, {A=192,R=0,G=0,B=0}, {X = 2, Y = -2}, 0)
 		GroupChunk:AddChunk(APLogMultiTextChunk)
 		
 		local APLogTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APLog")
 		APLogMultiTextChunk:AddChunk(APLogTextChunk)
 	end
 	
-	if GetSetting("FillerIcons") then
+	if Settings.FillerIcons then
 		GroupChunk = GroupChunk or P3D.FrontendGroupP3DChunk("Archipelago", 0, 255)
 		
 		local WrenchImageResource = P3D.FrontendImageResourceP3DChunk("Wrench", 1, "img\\Wrench.png")

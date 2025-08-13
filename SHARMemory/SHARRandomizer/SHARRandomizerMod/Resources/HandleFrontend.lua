@@ -17,7 +17,7 @@ for chunk in ProjectChunk:GetChunks(P3D.Identifiers.Frontend_Page) do
 	end
 end
 
-if GetSetting("APLog") then
+if Settings.APLog then
 	if PageChunk then
 		P3DFile:AddChunk(FontChunk, 1)
 	

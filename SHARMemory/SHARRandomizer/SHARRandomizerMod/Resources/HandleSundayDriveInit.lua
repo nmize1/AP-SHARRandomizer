@@ -38,4 +38,32 @@ for i=1,#MFK.Functions do
 	end
 end
 
+if Settings.RemoveInitialWalk then
+	local SetInitialWalk, SetInitialWalkIndex = MFK:GetFunction("SetInitialWalk")
+	if SetInitialWalk then
+		local SetMissionResetPlayerOutCar = MFK:GetFunction("SetMissionResetPlayerOutCar")
+		if SetMissionResetPlayerOutCar then
+			SetMissionResetPlayerOutCar.Arguments[1] = SetInitialWalk.Arguments[1]
+		end
+		MFK:RemoveFunction(SetInitialWalkIndex)
+	end
+end
+
+if Settings.CameraPanMode == 3 then
+	local ToRemove = {
+		["setmissionstartcameraname"] = true,
+		["setmissionstartmulticontname"] = true,
+		["setanimatedcameraname"] = true,
+		["setanimcammulticontname"] = true,
+	}
+
+	for i=#MFK.Functions,1,-1 do
+		local func = MFK.Functions[i]
+		local name = func.Name:lower()
+		if ToRemove[name] then
+			table.remove(MFK.Functions, i)
+		end
+	end
+end
+
 MFK:Output(true)
