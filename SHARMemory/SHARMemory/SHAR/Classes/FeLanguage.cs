@@ -59,12 +59,10 @@ public class FeLanguage : FeEntity
 
     public int? GetIndex(uint hash)
     {
-        var hashes = Hashes.ToArray();
-        for (int i = 0; i < NumStrings; i++)
-            if (hashes[i] == hash)
-                return i;
-
-        return null;
+        var hashes = Hashes;
+        var hashesArray = hashes.ToArray();
+        var index = Array.IndexOf(hashesArray, hash, 0, hashes.Count);
+        return index >= 0 ? index : null;
     }
 
     public int? GetIndex(string name) => GetIndex(GetHash(name));
@@ -78,9 +76,7 @@ public class FeLanguage : FeEntity
         byte[] buffer = Buffer;
 
         int startPos = (int)Offsets[index.Value];
-        int endPos = startPos;
-        while (endPos < buffer.Length && buffer[endPos] != 0)
-            endPos += 2;
+        int endPos = FindUtf16Null(buffer, startPos);
 
         return ProcessMemory.NullTerminate(Encoding.Unicode.GetString(buffer, startPos, endPos - startPos));
     }
@@ -89,7 +85,7 @@ public class FeLanguage : FeEntity
 
     public bool SetString(uint hash, string value)
     {
-        if (value.Length == 0)
+        if (string.IsNullOrEmpty(value))
             throw new ArgumentException($"{nameof(value)} cannot be an empty string. Must have at least one char.");
 
         int? index = GetIndex(hash);
@@ -99,23 +95,9 @@ public class FeLanguage : FeEntity
         byte[] buffer = Buffer;
 
         int startPos = (int)Offsets[index.Value];
-        int endPos = startPos;
-        bool foundNull = false;
-        while (endPos < buffer.Length)
-        {
-            endPos += 2;
-            if (endPos >= buffer.Length)
-            {
-                endPos = buffer.Length;
-                break;
-            }
-            if (buffer[endPos] == 0)
-                foundNull = true;
-            else if (foundNull)
-                break;
-        }
+        int endPos = FindUtf16Null(buffer, startPos);
 
-        int maxLength = endPos - startPos - 2;
+        int maxLength = endPos - startPos;
 
         byte[] bytes = Encoding.Unicode.GetBytes(value);
         if (bytes.Length > maxLength)
@@ -133,6 +115,11 @@ public class FeLanguage : FeEntity
 
     public static uint GetHash(string name, uint modulo)
     {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentException($"{nameof(name)} cannot be an empty string. Must have at least one char.");
+        if (modulo == 0)
+            throw new ArgumentOutOfRangeException(nameof(modulo), "Modulo must be greater than 0.");
+
         uint Hash = 0;
 
         foreach (char c in name)
@@ -141,4 +128,16 @@ public class FeLanguage : FeEntity
         return Hash;
     }
     public uint GetHash(string name) => GetHash(name, Modulo);
+
+    private static int FindUtf16Null(byte[] buffer, int start)
+    {
+        int pos = start;
+        while (pos + 1 < buffer.Length)
+        {
+            if (buffer[pos] == 0 && buffer[pos + 1] == 0)
+                break;
+            pos += 2;
+        }
+        return pos;
+    }
 }
