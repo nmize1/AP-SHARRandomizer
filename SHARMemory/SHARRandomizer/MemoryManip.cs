@@ -42,7 +42,8 @@ namespace SHARRandomizer
         List<string> moves = new List<string>();
         FeLanguage language = null;
 
-        bool DISABLEDOUBLEJUMPS = false;
+        float djAllowUp = 2.0f;
+        float djAllowDown = 12.0f;
         bool DISABLEEBRAKE = false;
         bool DISABLEDEFAULT = false;
         string CURRENTLEVEL = "";
@@ -221,7 +222,7 @@ namespace SHARRandomizer
                 language.SetString("APWrench", $"{w:D2}");
             }
 
-            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap" });
+            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject" });
             Task.Run(() => CheckActions(memory));
             Task.Run(() => CheckGags(memory));
         }
@@ -719,9 +720,15 @@ namespace SHARRandomizer
                 memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.Attack);
 
             if (!moves.Contains($"{character} Double Jump"))
-                DISABLEDOUBLEJUMPS = true;
+            {
+                memory.Globals.CharacterTune.DoubleJumpAllowUp = float.MinValue;
+                memory.Globals.CharacterTune.DoubleJumpAllowDown = float.MinValue;
+            }
             else
-                DISABLEDOUBLEJUMPS = false;
+            {
+                memory.Globals.CharacterTune.DoubleJumpAllowUp = djAllowUp;
+                memory.Globals.CharacterTune.DoubleJumpAllowDown = djAllowDown;
+            }
 
             if (!moves.Contains($"{character} E-Brake"))
             {
@@ -737,24 +744,23 @@ namespace SHARRandomizer
 
         async void CheckActions(Memory memory)
         {
-            RewardsManager rewardsManager = null;
-            while (rewardsManager == null)
-            {
-                rewardsManager = memory.Singletons.RewardsManager;
-            }
+            var rewardsManager = memory.Singletons.RewardsManager;
+            if (rewardsManager == null)
+                return;
+
+            var gameplayManager = memory.Globals.GameplayManager;
+            if (gameplayManager == null)
+                return;
+
+            var vehicleCentral = memory.Singletons.VehicleCentral;
+            if (vehicleCentral == null)
+                return;
 
             while (memory.IsRunning)
             {
                 await System.Threading.Tasks.Task.Delay(100);
                 if (memory.InGame())
                 {
-                    var jumpAction = memory.Singletons.CharacterManager?.Player?.JumpLocomotion;
-                    if (jumpAction != null)
-                    {
-                        if (DISABLEDOUBLEJUMPS)
-                            jumpAction.JumpAgain = true;
-                    }
-
                     //Commented out in case we need to check car speed again for debugging later.
                     //Common.WriteLog(memory.Singletons.CharacterManager?.Player?.Car?.Speed.ToString()); 
                     if (DISABLEEBRAKE && memory.Singletons.CharacterManager?.Player?.Car?.Speed >= 1)
@@ -766,11 +772,42 @@ namespace SHARRandomizer
                     if (player == null)
                         return;
 
-                    List<String> defaults = rewardsManager.RewardsList.Select(reward => reward.DefaultCar.Name).ToList();
-                    if (DISABLEDEFAULT && player.Car != null && defaults[(CURRENTLEVEL[1] - '0') - 1] == player.Car.Name)
+                    var vehicles = vehicleCentral.ActiveVehicles.ToArray();
+                    var defaultVehicleName = gameplayManager.DefaultLevelVehicleName;
+
+                    if (DISABLEDEFAULT)
                     {
-                        player.Car.Stop();
-                        player.Controller.Intention = CharacterController.Intentions.GetOutCar;
+                        foreach (var vehicle in vehicles)
+                        {
+                            if (vehicle == null)
+                                continue;
+
+                            if (vehicle.Name != defaultVehicleName)
+                                continue;
+
+                            var locator = vehicle.EventLocator;
+                            if (locator == null)
+                                continue;
+
+                            locator.Flags = Locator.LocatorFlags.None;
+                        }
+                    }
+                    else
+                    {
+                        foreach (var vehicle in vehicles)
+                        {
+                            if (vehicle == null)
+                                continue;
+
+                            if (vehicle.Name != defaultVehicleName)
+                                continue;
+
+                            var locator = vehicle.EventLocator;
+                            if (locator == null)
+                                continue;
+
+                            locator.Flags = Locator.LocatorFlags.Active;
+                        }
                     }
                 }
             }
@@ -780,13 +817,33 @@ namespace SHARRandomizer
         {
             Button button;
             var buttonArray = memory.Singletons.InputManager.ControllerArray[0].ButtonArray;
+            var player = memory.Singletons.CharacterManager?.Player;
+            if (player == null)
+                return;
+
+            var controller = player.Controller;
+            if (controller == null)
+                return;
+
+            var car = player.Car;
+
             switch (trap)
             {
                 case "Reset Car":
-                    button = buttonArray[(int)InputManager.Buttons.ResetCar];
-                    button.Value = 1;
-                    await Task.Delay(1);
-                    button.Value = 0;
+                    while (car == null)
+                    {
+                        await Task.Delay(100);
+                        car = player.Car;
+                    }
+
+                    while (car != null)
+                    {
+                        button = buttonArray[(int)InputManager.Buttons.ResetCar];
+                        button.Value = 1;
+                        await Task.Delay(1);
+                        button.Value = 0;
+                    }
+                    
                     break;
                 case "Duff Trap":
                     List<Button> buttons = new List<Button>
@@ -811,6 +868,27 @@ namespace SHARRandomizer
                     break;
                 case "Hit N Run":
                     memory.Singletons.HitNRunManager.CurrHitAndRun = 100f;
+                    break;
+                case "Eject":
+                    if (player == null)
+                        return;
+
+                    if (controller == null)
+                        return;
+
+                    while (car == null)
+                    {
+                        await Task.Delay(100);
+                        car = player.Car;
+                    }
+
+                    while (car != null)
+                    {
+                        car.Stop();
+                        controller.Intention = CharacterController.Intentions.GetOutCar;
+                        await Task.Delay(100);
+                        car = player.Car;
+                    }
                     break;
                 default:
                     break;
@@ -897,15 +975,7 @@ namespace SHARRandomizer
             }
             if (e.Button.ToString() == "DPadLeft" || e.Button.ToString() == "D4")
             {
-                var characterSheet = listener.memory.Singletons.CharacterSheetManager;
-
-                if (characterSheet == null)
-                {
-                    Common.WriteLog("Character sheet missing", "Listener_ButtonDown");
-                    return;
-                }
-
-                ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
+                ac.CheckVictory();
             }
         }
 
