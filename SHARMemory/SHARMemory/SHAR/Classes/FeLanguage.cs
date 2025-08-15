@@ -95,9 +95,9 @@ public class FeLanguage : FeEntity
         byte[] buffer = Buffer;
 
         int startPos = (int)Offsets[index.Value];
-        int endPos = FindUtf16Null(buffer, startPos);
+        int endPos = FindLastConsecutiveUtf16Null(buffer, startPos);
 
-        int maxLength = endPos - startPos;
+        int maxLength = endPos - startPos - 2;
 
         byte[] bytes = Encoding.Unicode.GetBytes(value);
         if (bytes.Length > maxLength)
@@ -139,5 +139,15 @@ public class FeLanguage : FeEntity
             pos += 2;
         }
         return pos;
+    }
+
+    private static int FindLastConsecutiveUtf16Null(byte[] buffer, int start)
+    {
+        int nullPos = FindUtf16Null(buffer, start);
+
+        while (nullPos + 1 < buffer.Length && buffer[nullPos] == 0 && buffer[nullPos + 1] == 0)
+            nullPos += 2;
+
+        return nullPos;
     }
 }
