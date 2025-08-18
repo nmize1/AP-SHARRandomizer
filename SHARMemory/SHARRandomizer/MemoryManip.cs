@@ -817,15 +817,8 @@ namespace SHARRandomizer
         {
             Button button;
             var buttonArray = memory.Singletons.InputManager.ControllerArray[0].ButtonArray;
-            var player = memory.Singletons.CharacterManager?.Player;
-            if (player == null)
-                return;
 
-            var controller = player.Controller;
-            if (controller == null)
-                return;
-
-            var car = player.Car;
+            var car = memory.Singletons.CharacterManager?.Player?.Car;
 
             switch (trap)
             {
@@ -833,7 +826,7 @@ namespace SHARRandomizer
                     while (car == null)
                     {
                         await Task.Delay(100);
-                        car = player.Car;
+                        car = memory.Singletons.CharacterManager?.Player?.Car;
                     }
 
                     while (car != null)
@@ -870,24 +863,19 @@ namespace SHARRandomizer
                     memory.Singletons.HitNRunManager.CurrHitAndRun = 100f;
                     break;
                 case "Eject":
-                    if (player == null)
-                        return;
-
-                    if (controller == null)
-                        return;
-
                     while (car == null)
                     {
                         await Task.Delay(100);
-                        car = player.Car;
+                        car = memory.Singletons.CharacterManager?.Player?.Car;
                     }
 
                     while (car != null)
                     {
                         car.Stop();
-                        controller.Intention = CharacterController.Intentions.GetOutCar;
+                        if (memory.Singletons.CharacterManager?.Player?.Controller is CharacterController controller)
+                            controller.Intention = CharacterController.Intentions.GetOutCar;
                         await Task.Delay(100);
-                        car = player.Car;
+                        car = memory.Singletons.CharacterManager?.Player?.Car;
                     }
                     break;
                 default:
