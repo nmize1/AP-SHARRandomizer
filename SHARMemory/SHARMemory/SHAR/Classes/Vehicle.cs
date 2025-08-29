@@ -1101,14 +1101,28 @@ public class Vehicle : DynaPhysDSG
     /// <param name="LaunchPower">
     /// How hard to launch the vehicle forwards. Defaults to <c>5</c>.
     /// </param>
-    public void Launch(float Height = 20, float LaunchPower = 5)
+    public void Launch(float Height = 20, float LaunchPower = 5) => Launch(VehicleFacing, Height, LaunchPower);
+
+    /// <summary>
+    /// Launches the vehicle upwards and in the <paramref name="Direction"/> specified.
+    /// </summary>
+    /// <param name="Direction">
+    /// The direction to launch the vehicle.
+    /// </param>
+    /// <param name="Height">
+    /// How high to send the vehicle. Defaults to <c>20</c>.
+    /// </param>
+    /// <param name="LaunchPower">
+    /// How hard to launch the vehicle forwards. Defaults to <c>5</c>.
+    /// </param>
+    public void Launch(Vector3 Direction, float Height = 20, float LaunchPower = 5)
     {
         SimStateArticulated simStateArticulated = SimStateArticulated;
         if (simStateArticulated == null)
             return;
         
         SimVelocityState simVelocityState = simStateArticulated.VelocityState;
-        Vector3 linear = Vector3.Add(simVelocityState.Linear, VehicleFacing * LaunchPower);
+        Vector3 linear = Vector3.Add(simVelocityState.Linear, Direction * LaunchPower);
         linear.Y += Height;
         simVelocityState.Linear = linear;
         simStateArticulated.VelocityState = simVelocityState;
