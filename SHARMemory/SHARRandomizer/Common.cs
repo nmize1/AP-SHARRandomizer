@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using SHARMemory.SHAR.Structs;
 
 namespace SHARRandomizer;
 public static class Common
@@ -40,5 +41,18 @@ public static class Common
         Console.WriteLine(msg);
 
         LogQueue.Enqueue(msg);
+    }
+
+    public static Vector3 GetVector3Dir(Vector3 pos1, Vector3 pos2)
+    {
+        float dx = pos2.X - pos1.X;
+        float dy = pos2.Y - pos1.Y;
+        float dz = pos2.Z - pos1.Z;
+
+        float length = (float)Math.Sqrt(dx * dx + dy * dy + dz * dz);
+
+        if(length == 0) return new Vector3(0, 0, 0);
+
+        return new Vector3(dx / length, dy / length, dz / length);
     }
 }

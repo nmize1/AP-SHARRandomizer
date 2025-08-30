@@ -101,6 +101,7 @@ namespace SHARRandomizer
                 watcher.CoinsChanged += Watcher_CoinsChanged;
                 watcher.RewardUnlocked += Watcher_RewardUnlocked;
                 watcher.ButtonBound += Watcher_ButtonBound;
+                watcher.NewGame += Watcher_NewGame;
 
                 watcher.Start();
                 await LoadState(memory);
@@ -822,21 +823,28 @@ namespace SHARRandomizer
 
             switch (trap)
             {
-                case "Reset Car":
-                    while (car == null)
-                    {
+                case "Launch Car":
+                    while ((car = memory.Globals.GameplayManager?.CurrentVehicle) == null)
                         await Task.Delay(100);
-                        car = memory.Singletons.CharacterManager?.Player?.Car;
-                    }
 
-                    while (car != null)
+                    if (Random.Shared.Next(0, 9) == 9)
                     {
-                        button = buttonArray[(int)InputManager.Buttons.ResetCar];
-                        button.Value = 1;
-                        await Task.Delay(1);
-                        button.Value = 0;
+                        VehicleCentral vc = memory.Singletons.VehicleCentral;
+
+                        car.Launch(50, 0);
+                        foreach (Vehicle v in vc.ActiveVehicles)
+                        {
+                            await Task.Delay(100);
+                            if (v != car)
+                            {
+                                Vector3 dir = Common.GetVector3Dir(v.Position, car.Position);
+                                v.Launch(dir, car.Position.Y - v.Position.Y, 50);
+                            }
+                        }
                     }
-                    
+                    else
+                        car.Launch(Random.Shared.Next(20, 101), Random.Shared.Next(-20, 51));
+
                     break;
                 case "Duff Trap":
                     List<Button> buttons = new List<Button>
@@ -997,18 +1005,16 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
+        async Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
             long location = lt.getAPID($"L{e.Level + 1}C{e.Card + 1}", "card");
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
-                ac.IncrementDataStorage("cards");
-
-            return Task.CompletedTask;
+                await ac.IncrementDataStorage("cards");
         }
 
-        Task Watcher_PersistentObjectDestroyed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.PersistentObjectDestroyedEventArts e, CancellationToken token)
+        async Task Watcher_PersistentObjectDestroyed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.PersistentObjectDestroyedEventArts e, CancellationToken token)
         {
             Common.WriteLog($"Destroyed object: {e.Sector} - {e.Index}", "Watcher_PersistentObjectDestroyed");
             long location = lt.getAPID($"{e.Sector} - {e.Index}", "wasp");
@@ -1016,24 +1022,20 @@ namespace SHARRandomizer
             if (location != -1)
             {
                 if (!ac.IsLocationCheckedLocally(location))
-                    ac.IncrementDataStorage("wasps");
+                    await ac.IncrementDataStorage("wasps");
             }
-
-            return Task.CompletedTask;
         }
 
-        Task Watcher_GagViewed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.GagViewedEventArgs e, CancellationToken token)
+        async Task Watcher_GagViewed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.GagViewedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Gag Viewed: {e.Level} - {e.Gag}", "Watcher_GagViewed");
             long location = lt.getAPID($"{e.Level} - {e.Gag}", "gag");
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
-                ac.IncrementDataStorage("gags");
-
-            return Task.CompletedTask;
+                await ac.IncrementDataStorage("gags");
         }
 
-        Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchasedEventArgs e, CancellationToken token)
+        async Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchasedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Car Purchased: {e.Merchandise.Name}", "Watcher_MerchandisePurchased");
             if (e.Merchandise.Name.Contains("APCar"))
@@ -1042,44 +1044,37 @@ namespace SHARRandomizer
                 long location = lt.getAPID(e.Merchandise.Name, "shop");
                 ArchipelagoClient.sentLocations.Enqueue(location);
                 if (!ac.IsLocationCheckedLocally(location))
-                    ac.IncrementDataStorage("shops");
+                    await ac.IncrementDataStorage("shops");
             }
-
-            return Task.CompletedTask;
         }
 
-        Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
+        async Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Mission Complete: {e.Level} - {e.Mission + 1}", "Watcher_MissionComplete");
             long location = lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
-                ac.IncrementDataStorage("missions");
-
-            return Task.CompletedTask;
+                await ac.IncrementDataStorage("missions");
         }
 
-        Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
+        async Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Mission Complete: {e.Level} - bonus", "Watcher_BonusMissionComplete");
             long location = lt.getAPID($"{e.Level} - bonus", "bonus missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
-                ac.IncrementDataStorage("bonus");
+                await ac.IncrementDataStorage("bonus");
 
             LockBonusCars(sender);
-            return Task.CompletedTask;
         }
 
-        Task Watcher_StreetRaceComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.StreetRaceCompleteEventArgs e, CancellationToken token)
+        async Task Watcher_StreetRaceComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.StreetRaceCompleteEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Race Complete: {e.Level} - {e.Race}", "Watcher_StreetRaceComplete");
             long location = lt.getAPID($"{e.Level} - {e.Race}", "bonus missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
-                ac.IncrementDataStorage("bonus");
-
-            return Task.CompletedTask;
+                await ac.IncrementDataStorage("bonus");
         }
 
         public void UpdateProgress(int missions, int bonus, int wasps, int cards, int gags, ArchipelagoClient.VICTORY victory, int rwp, int rcp)

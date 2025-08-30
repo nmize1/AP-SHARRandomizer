@@ -483,12 +483,13 @@ namespace SHARRandomizer
                 }
                 catch (Exception ex)
                 {
-                    Common.WriteLog("IncrementDataStorage", $"Failed to increment data for {type}. Retrying in 5 seconds");
+                    Common.WriteLog($"Failed to increment data for {type}. Retrying in 5 seconds", "IncrementDataStorage");
+                    attempts++;
                     await Task.Delay(5000);
                 }
             }
             // TODO: Change in-game strings
-            Common.WriteLog("IncrementDataStorage", $"Failed to increment data for {type}. Data is desynced, please restart.");
+            Common.WriteLog($"Failed to increment data for {type}. Data is desynced, please restart.", "IncrementDataStorage");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             Environment.Exit(1);
