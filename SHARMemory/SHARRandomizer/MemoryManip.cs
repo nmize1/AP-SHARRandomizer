@@ -53,6 +53,9 @@ namespace SHARRandomizer
         public static int coinScale;
         bool _updatingCoins = false;
 
+        public static bool gagfinder;
+        public static bool checkeredflag;
+
         uint gameLanguage;
         private Watcher _watcher;
 
@@ -619,7 +622,69 @@ namespace SHARRandomizer
                 if (bonusMissionInfo.MissionNum < 0) continue; // Avoids empty bonus mission slots
 
                 var bonusMission = missions[bonusMissionInfo.MissionNum];
-                List<string> bms = new List<string> { "bm1", "bm2", "sr1", "sr2", "sr3" };
+                List<string> bms = new List<string> { "bm1", "bm2" };
+
+                if (!bms.Contains(bonusMission.Name))
+                    continue;
+
+                if (unlocked)
+                {
+                    Common.WriteLog($"Unlocking {bonusMission.Name}", "HandleCurrentBonusMissions");
+                    bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.Active;
+                    if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
+                    {
+                        foreach (var element in compositeDrawable.Elements)
+                        {
+                            element.Visible = true;
+                        }
+                    }
+                }
+                else
+                {
+                    Common.WriteLog($"Locking {bonusMission.Name}", "HandleCurrentBonusMissions");
+                    bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.None;
+                    if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
+                    {
+                        foreach (var element in compositeDrawable.Elements)
+                        {
+                            element.Visible = false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        bool HandleCurrentRaces(Memory memory)
+        {
+            var missionManager = (memory.Globals.GameplayManager as MissionManager);
+            var missions = missionManager.Missions.ToArray();
+            int? level = (int)missionManager.LevelData.Level;
+            bool unlocked = false;
+            string character = "";
+
+            switch (level)
+            {
+                case 0: character = "Homer"; break;
+                case 1: character = "Bart"; break;
+                case 2: character = "Lisa"; break;
+                case 3: character = "Marge"; break;
+                case 4: character = "Apu"; break;
+                case 5: character = "Homer"; break;
+                case 6: character = "Bart"; break;
+            }
+
+            if ((!checkeredflag && UnlockedLevels.Contains($"Level {level + 1}"))
+                || (checkeredflag && UnlockedItems.Contains($"{character} Checkered Flag")))
+                unlocked = true;
+
+            foreach (var bonusMissionInfo in missionManager.BonusMissions)
+            {
+                if (bonusMissionInfo.MissionNum < 0) continue; 
+
+                var bonusMission = missions[bonusMissionInfo.MissionNum];
+                List<string> bms = new List<string> { "sr1", "sr2", "sr3" };
 
                 if (!bms.Contains(bonusMission.Name))
                     continue;
@@ -919,8 +984,21 @@ namespace SHARRandomizer
                         break;
 
                     int? level = (int)missionManager.LevelData.Level;
+                    string character = "";
 
-                    if (!UnlockedLevels.Contains($"Level {level + 1}"))
+                    switch (level)
+                    {
+                        case 0: character = "Homer"; break;
+                        case 1: character = "Bart"; break;
+                        case 2: character = "Lisa"; break;
+                        case 3: character = "Marge"; break;
+                        case 4: character = "Apu"; break;
+                        case 5: character = "Homer"; break;
+                        case 6: character = "Bart"; break;
+                    }
+
+                    if ((!gagfinder && !UnlockedLevels.Contains($"Level {level + 1}"))
+                      || (gagfinder && !UnlockedItems.Contains($"{character} Gagfinder")))
                     {
                         while (interiorManager.GagCount == 0)
                             await Task.Delay(100);
@@ -986,6 +1064,7 @@ namespace SHARRandomizer
             CURRENTLEVEL = e.Level.ToString();
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
+            HandleCurrentRaces(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
             LockDefaultCarsOnLoad(sender, ((int)e.Level));
             if (e.Mission.ToString() == "BM2" || e.Mission.ToString() == "BM3")

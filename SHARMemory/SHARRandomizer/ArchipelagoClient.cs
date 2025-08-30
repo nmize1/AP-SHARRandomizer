@@ -163,6 +163,8 @@ namespace SHARRandomizer
             cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
             MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
             MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
+            MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
+            MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflag"]);
 
             JArray costsArray = (JArray)login.SlotData["costs"];
             ShopCosts = costsArray.ToObject<List<int>>();
