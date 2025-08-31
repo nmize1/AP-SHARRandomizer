@@ -226,7 +226,7 @@ namespace SHARRandomizer
                 language.SetString("APWrench", $"{w:D2}");
             }
 
-            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject" });
+            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch" });
             Task.Run(() => CheckActions(memory));
             Task.Run(() => CheckGags(memory));
         }
@@ -516,7 +516,7 @@ namespace SHARRandomizer
                                     HandleTraps(memory, s);
                                     break;
 
-                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake"):
+                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") || s.Contains("Gagfinder") || s.Contains("Checkered Flag"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
@@ -676,7 +676,7 @@ namespace SHARRandomizer
             }
 
             if ((!checkeredflag && UnlockedLevels.Contains($"Level {level + 1}"))
-                || (checkeredflag && UnlockedItems.Contains($"{character} Checkered Flag")))
+                || (checkeredflag && moves.Contains($"{character} Checkered Flag")))
                 unlocked = true;
 
             foreach (var bonusMissionInfo in missionManager.BonusMissions)
@@ -888,22 +888,37 @@ namespace SHARRandomizer
 
             switch (trap)
             {
-                case "Launch Car":
+                case "Launch":
                     while ((car = memory.Globals.GameplayManager?.CurrentVehicle) == null)
                         await Task.Delay(100);
 
-                    if (Random.Shared.Next(0, 9) == 9)
+                    int chance = Random.Shared.Next(0, 10);
+                    if (false) //not working yet.
                     {
                         VehicleCentral vc = memory.Singletons.VehicleCentral;
 
-                        car.Launch(50, 0);
+                        //car.Launch(50, 0);
                         foreach (Vehicle v in vc.ActiveVehicles)
                         {
+                            if (v == null)
+                                continue;
+
                             await Task.Delay(100);
+
+                            bool isTraffic = v.VehicleType == Vehicle.VehicleTypes.Traffic;
+                            if (isTraffic)
+                                v.VehicleType = Vehicle.VehicleTypes.AI;
+
                             if (v != car)
                             {
                                 Vector3 dir = Common.GetVector3Dir(v.Position, car.Position);
                                 v.Launch(dir, car.Position.Y - v.Position.Y, 50);
+                            }
+
+                            if (isTraffic)
+                            {
+                                await Task.Delay(100); // Let the physics run a bit
+                                v.VehicleType = Vehicle.VehicleTypes.Traffic;
                             }
                         }
                     }
@@ -998,7 +1013,7 @@ namespace SHARRandomizer
                     }
 
                     if ((!gagfinder && !UnlockedLevels.Contains($"Level {level + 1}"))
-                      || (gagfinder && !UnlockedItems.Contains($"{character} Gagfinder")))
+                      || (gagfinder && !moves.Contains($"{character} Gagfinder")))
                     {
                         while (interiorManager.GagCount == 0)
                             await Task.Delay(100);
