@@ -61,17 +61,17 @@ namespace SHARRandomizer
 
         public async Task MemoryStart()
         {
-            Common.WriteLog("Waiting for SHAR process...", "Main");
             while (true)
             {
-                do
-                {
-                    p = Memory.GetSHARProcess();
-                } while (p == null);
-                do { } while (!APCONNECTED);
+                Common.WriteLog("Waiting for SHAR process...", "MemoryStart");
+                while ((p = Memory.GetSHARProcess()) == null)
+                    await Task.Delay(100);
 
-                Common.WriteLog("Found SHAR process. Initialising memory manager...", "MemoryStart");
+                Common.WriteLog("Found SHAR process. Awaiting AP connection...", "MemoryStart");
+                while (!APCONNECTED)
+                    await Task.Delay(100);
 
+                Common.WriteLog("AP Connected. Initialising memory manager...", "MemoryStart");
                 Memory memory = new(p);
                 Common.WriteLog($"SHAR memory manager initialised. Game version detected: {memory.GameVersion}. Sub Version: {memory.GameSubVersion}.", "MemoryStart");
                 string mod = memory.GetMainMod() ?? "No Mod";
