@@ -1008,8 +1008,8 @@ namespace SHARRandomizer
                         case 2: character = "Lisa"; break;
                         case 3: character = "Marge"; break;
                         case 4: character = "Apu"; break;
-                        case 5: character = "Homer"; break;
-                        case 6: character = "Bart"; break;
+                        case 5: character = "Bart"; break;
+                        case 6: character = "Homer"; break;
                     }
 
                     if ((!gagfinder && !UnlockedLevels.Contains($"Level {level + 1}"))
