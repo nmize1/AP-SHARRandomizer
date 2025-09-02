@@ -157,17 +157,27 @@ namespace SHARRandomizer
             {
                 Common.WriteLog($"  {kvp.Key}: {kvp.Value}", "ArchipelagoClient::TryConnect");
             }
-            SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
-            victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
-            waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
-            cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
-            MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
-            MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
-            MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
-            MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflags"]);
+            try
+            {
+                SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
+                victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
+                waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
+                cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
+                MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
+                MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
+                MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
+                MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflags"]);
 
-            JArray costsArray = (JArray)login.SlotData["costs"];
-            ShopCosts = costsArray.ToObject<List<int>>();
+                JArray costsArray = (JArray)login.SlotData["costs"];
+                ShopCosts = costsArray.ToObject<List<int>>();
+            }
+            catch (Exception ex)
+            {
+                Common.WriteLog($"{ex} This likely means this game was generated on an older .apworld.", "ArchipelagoClient::TryConnect");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
 
             _session.DataStorage[Scope.Slot, "missions"].Initialize(0);
             _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
