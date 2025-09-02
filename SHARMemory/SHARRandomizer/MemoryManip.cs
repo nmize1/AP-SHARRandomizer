@@ -226,6 +226,7 @@ namespace SHARRandomizer
                 language.SetString("APWrench", $"{w:D2}");
             }
 
+            ac.CheckVictory();
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch" });
             Task.Run(() => CheckActions(memory));
             Task.Run(() => CheckGags(memory));
