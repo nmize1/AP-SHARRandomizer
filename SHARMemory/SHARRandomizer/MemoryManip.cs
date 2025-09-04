@@ -26,7 +26,28 @@ namespace SHARRandomizer
     public class MemoryManip
     {
         Process? p;
-        public static bool APCONNECTED = false;
+
+        private static bool _APCONNECTED = false;
+        private static readonly object _APCONNECT_LOCK = new();
+        public static bool APCONNECTED
+        {
+            get
+            {
+                lock (_APCONNECT_LOCK)
+                {
+                    return _APCONNECTED;
+                }
+            }
+            set
+            {
+                lock (_APCONNECT_LOCK)
+                {
+                    _APCONNECTED = value;
+                }
+            }
+        }
+
+
         public ArchipelagoClient ac;
         public static Queue<ScoutedItemInfo> ScoutedItems = new Queue<ScoutedItemInfo>();
         LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
@@ -206,7 +227,11 @@ namespace SHARRandomizer
 
             InitializeMissionTitles();
             InitializeShopItems();
-            language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}"));
+            if(WalletLevel == 1)
+                language.SetString("APMaxCoins", maxCoins.ToString());
+            else
+                language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}"));
+
             language.SetString("APHnR", "00");
             language.SetString("APWrench", "00");
             UpdateProgress(0, 0, 0, 0, 0, 0, 0, 0);
@@ -1268,10 +1293,12 @@ namespace SHARRandomizer
                     amount = 0;
                 }
 
-                if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= (maxCoins * WalletLevel * coinScale))
+                int coincap = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
+
+                if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= coincap)
                 {
                     _updatingCoins = true;
-                    characterSheet.CharacterSheet.Coins = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
+                    characterSheet.CharacterSheet.Coins = coincap;
                 }
             }
 
