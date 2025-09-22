@@ -54,6 +54,7 @@ namespace SHARRandomizer
         RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
         public static AwaitableQueue<string> itemsReceived = new AwaitableQueue<string>();
         public static FixedSizeQueue<string> APLog = new FixedSizeQueue<string>(5);
+        public static List<long> cardIDs;
 
         List<Reward> REWARDS = new List<Reward>();
         List<string> UnlockedLevels = new List<string>();
@@ -227,10 +228,19 @@ namespace SHARRandomizer
 
             InitializeMissionTitles();
             InitializeShopItems();
-            if(WalletLevel == 1)
-                language.SetString("APMaxCoins", maxCoins.ToString());
-            else
-                language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}"));
+
+            switch (WalletLevel)
+            {
+                case 1:
+                    language.SetString("APMaxCoins", $"/{maxCoins}");
+                    break;
+                case 7:
+                    language.SetString("APMaxCoins", "");
+                    break;
+                default:
+                    language.SetString("APMaxCoins", $"/{maxCoins * WalletLevel * coinScale}");
+                    break;
+            }
 
             language.SetString("APHnR", "00");
             language.SetString("APWrench", "00");
@@ -339,7 +349,7 @@ namespace SHARRandomizer
 
                             CharCardList cards = record[level - 1].Cards;
                             cards.List[card - 1].Completed = true;
-                            cards.List[card - 1].Name = $"card{level + 1}{card + 1}";
+                            cards.List[card - 1].Name = $"card{level}{card}";
                             record[level - 1].Cards = cards;
 
                             break;
@@ -417,6 +427,14 @@ namespace SHARRandomizer
                 return;
             var cards = cardsDB.Cards.ToArray();
 
+            var cardMap = new Dictionary<ulong, Card>();
+            for (var i = 0; i < cards.Length; i++)
+            {
+                if (cards[i] == null)
+                    continue;
+                cardMap[cards[i].CardName] = cards[i];
+            }
+
             var characterSheetLevels = characterSheet.LevelList.ToArray();
             var cardGalleryLevels = cardGallery.CollectedCards.ToArray();
             if (characterSheetLevels.Length != cardGalleryLevels.Length)
@@ -432,7 +450,9 @@ namespace SHARRandomizer
                 {
                     if (characterSheetCards[card].Completed)
                     {
-                        cardGalleryLevel.Cards[card] = cards[level * 7 + card];
+                        if (!cardMap.TryGetValue(Helpers.radMakeKey(characterSheetCards[card].Name), out var cardDBCard))
+                            Common.WriteLog($"Error restoring card {characterSheetCards[card].Name}", "MemoryManip::SyncCardGalleryWithCharacterSheet");
+                        cardGalleryLevel.Cards[card] = cardDBCard;
                         cardGalleryLevel.NumCards++;
                     }
                     else
@@ -697,8 +717,8 @@ namespace SHARRandomizer
                 case 2: character = "Lisa"; break;
                 case 3: character = "Marge"; break;
                 case 4: character = "Apu"; break;
-                case 5: character = "Homer"; break;
-                case 6: character = "Bart"; break;
+                case 5: character = "Bart"; break;
+                case 6: character = "Homer"; break;
             }
 
             if ((!checkeredflag && UnlockedLevels.Contains($"Level {level + 1}"))
@@ -1128,7 +1148,7 @@ namespace SHARRandomizer
         async Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
-            long location = lt.getAPID($"L{e.Level + 1}C{e.Card + 1}", "card");
+            long location = cardIDs[e.Level * 7 + e.Card + 1];
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
                 await ac.IncrementDataStorage("cards");
