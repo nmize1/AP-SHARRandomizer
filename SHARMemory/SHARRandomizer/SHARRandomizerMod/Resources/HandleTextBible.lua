@@ -29,18 +29,22 @@ local TranslationMap = {
 	["E"] = {
 		["SKINN_V"] = "Skinner's Sedan",
 		["MOE_V"] = "Moe's Sedan",
+		["SAVE_GAME"] = "AUTO-SAVED ON SERVER",
 	},
 	["F"] = {
 		["SKINN_V"] = "La Berline de Skinner",
 		["MOE_V"] = "La Berline de Moe",
+		["SAVE_GAME"] = "AUTO-ENREGISTRÉ SUR SERVEUR",
 	},
 	["G"] = {
 		["SKINN_V"] = "Skinners Wagen",
 		["MOE_V"] = "Moes Wagen",
+		["SAVE_GAME"] = "AUTO-GESPEICHERT AUF SERVER",
 	},
 	["S"] = {
 		["SKINN_V"] = "El Sedán de Skinner",
 		["MOE_V"] = "El Sedán de Moe",
+		["SAVE_GAME"] = "AUTOGUARDADO EN SERVIDOR",
 	},
 }
 
