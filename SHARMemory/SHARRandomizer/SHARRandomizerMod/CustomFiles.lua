@@ -16,7 +16,7 @@ function GetGamePath(Path)
 	return Path
 end
 
-local ConfigPath = "/UserData/Debug/SHAR.ini"
+local ConfigPath = "/UserData/SavedGames/SHAR.ini"
 assert(Exists(ConfigPath, true, false), "Config file missing. Please ensure your AP setup is correct.")
 
 Config = IniParser(ConfigPath)
