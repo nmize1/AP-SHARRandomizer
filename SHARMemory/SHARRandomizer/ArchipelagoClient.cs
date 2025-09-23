@@ -168,7 +168,7 @@ namespace SHARRandomizer
                 MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
                 MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflags"]);
 
-                MemoryManip.cardIDs = (List<long>)login.SlotData["card_locations"];
+                MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>();
 
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>();

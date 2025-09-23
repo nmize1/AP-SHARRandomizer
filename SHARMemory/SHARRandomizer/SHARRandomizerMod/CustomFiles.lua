@@ -3,7 +3,7 @@ Paths.ModPath = GetModPath()
 Paths.Resources = Paths.ModPath .. "/Resources/"
 Paths.Lib = Paths.Resources .. "lib/"
 Paths.Img = Paths.Resources .. "img/"
-
+dofile(GetModPath() .. "/Resources/lib/IniParser.lua")
 dofile(Paths.Lib .. "MFKLexer.lua")
 dofile(GetModPath() .. "/Resources/lib/P3D2.lua")
 P3D.LoadChunks(GetModPath() .. "/Resources/lib/P3DChunks")
@@ -15,6 +15,11 @@ function GetGamePath(Path)
 	if Path:sub(1,1) ~= "/" then Path = "/GameData/"..Path end
 	return Path
 end
+
+local ConfigPath = "/UserData/Debug/SHAR.ini"
+assert(Exists(ConfigPath, true, false), "Config file missing. Please ensure your AP setup is correct.")
+
+Config = IniParser(ConfigPath)
 
 local Lato16 = P3D.P3DFile(GetModPath() .. "/Resources/lato_16.0.p3d")
 
