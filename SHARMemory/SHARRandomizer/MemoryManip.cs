@@ -1148,7 +1148,7 @@ namespace SHARRandomizer
         async Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
-            long location = cardIDs[e.Level * 7 + e.Card + 1];
+            long location = cardIDs[e.Level * 7 + e.Card]0953;
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
                 await ac.IncrementDataStorage("cards");
