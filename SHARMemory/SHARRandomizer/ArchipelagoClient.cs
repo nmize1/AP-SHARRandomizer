@@ -170,6 +170,7 @@ namespace SHARRandomizer
 
                 MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>();
 
+
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>();
             }
@@ -493,6 +494,7 @@ namespace SHARRandomizer
                 {
                     int currentValue = await _session.DataStorage[Scope.Slot, type].GetAsync<int>();
                     _session.DataStorage[Scope.Slot, type] = currentValue + 1;
+                    //Common.WriteLog($"Current Value for {type} is {currentValue}", "IncrementDataStorage");
                     return; 
                 }
                 catch (Exception ex)
@@ -553,6 +555,11 @@ namespace SHARRandomizer
             {
                 string type, name;
                 (type, name) = lt.getTypeAndNameByAPID(id);
+                if (type == null && MemoryManip.cardIDs.Contains(id))
+                {
+                    type = "card";
+                    name = $"card{id}";
+                }
 
                 if (name != null && !name.Contains("Talk to"))
                 {
