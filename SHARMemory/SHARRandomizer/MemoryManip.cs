@@ -295,7 +295,10 @@ namespace SHARRandomizer
 
                 if (string.IsNullOrEmpty(id))
                 {
-                    Common.WriteLog($"Invalid ID format: {id}", "LoadState");
+                    if (cardIDs.Contains(l))
+                        check = ("card", "card");
+                    else
+                        Common.WriteLog($"Invalid ID format: {id}", "LoadState");
                 }
                 int level;
 
@@ -343,9 +346,9 @@ namespace SHARRandomizer
                         }
                     case "card":
                         {
-                            int.TryParse(id[1].ToString(), out level);
-                            int card;
-                            int.TryParse(id[3].ToString(), out card);
+                            int index = cardIDs.IndexOf(l);
+                            level = (index / 7) + 1;
+                            int card = (index % 7) + 1;
 
                             CharCardList cards = record[level - 1].Cards;
                             cards.List[card - 1].Completed = true;
@@ -841,7 +844,23 @@ namespace SHARRandomizer
                 memory.Globals.CharacterTune.DoubleJumpAllowUp = djAllowUp;
                 memory.Globals.CharacterTune.DoubleJumpAllowDown = djAllowDown;
             }
+/*
+            if (!moves.Contains($"{character} Progressive Jump"))
+                memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.Jump);
+            else
+                memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.Jump);
 
+            if (moves.Count(m => m == $"{character} Progressive Jump") == 2)
+            {
+                memory.Globals.CharacterTune.DoubleJumpAllowUp = float.MinValue;
+                memory.Globals.CharacterTune.DoubleJumpAllowDown = float.MinValue;
+            }
+            else
+            {
+                memory.Globals.CharacterTune.DoubleJumpAllowUp = djAllowUp;
+                memory.Globals.CharacterTune.DoubleJumpAllowDown = djAllowDown;
+            }
+*/
             if (!moves.Contains($"{character} E-Brake"))
             {
                 memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.HandBrake);
