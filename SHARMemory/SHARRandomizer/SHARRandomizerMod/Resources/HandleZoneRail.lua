@@ -14,6 +14,7 @@ for index, chunk in P3DFile:GetChunksIndexed(P3D.Identifiers.Locator, true) do
 
 	if chunk.Type == 9 and chunk.ActionName == "CollectorCard" then
 		P3DFile:RemoveChunk(index)
+		print("Removing " .. chunk.Name .. " from " .. Path)
 	end
 end
 

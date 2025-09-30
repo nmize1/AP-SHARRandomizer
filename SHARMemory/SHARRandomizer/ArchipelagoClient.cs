@@ -10,6 +10,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System;
 using System.Runtime.CompilerServices;
+using Archipelago.MultiClient.Net.Packets;
 
 
 namespace SHARRandomizer
@@ -46,6 +47,14 @@ namespace SHARRandomizer
         public VICTORY victory = VICTORY.FinalMission;
         public int cardPercent = 0;
         public int waspPercent = 0;
+
+
+        public enum ShopHintPolicy
+        {
+            All = 0,
+            OnlyProg = 1
+        }
+        public ShopHintPolicy shp = ShopHintPolicy.All;
 
         [DllImport("user32.dll")]
         private static extern int GetSystemMetrics(int nIndex);
@@ -167,12 +176,10 @@ namespace SHARRandomizer
                 MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
                 MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
                 MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflags"]);
-
                 MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>();
-
-
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>();
+                //shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString());
             }
             catch (Exception ex)
             {
@@ -421,7 +428,7 @@ namespace SHARRandomizer
             
         }
         
-        public async void ScoutShopLocationNoHint(Dictionary<long, string> locations, FeLanguage language)
+        public async void SetShopNames(Dictionary<long, string> locations, FeLanguage language)
         {
             Common.WriteLog("Scouting", "ArchipelagoClient::ScoutShopLocationNoHint");
             await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations.Keys.ToArray()).ContinueWith(t => 
@@ -434,9 +441,24 @@ namespace SHARRandomizer
             });
         }
 
-        public void ScoutShopLocation(long[] locations)
+        public async void ScoutShopLocation(long[] locations)
         {
-            _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
+            if (shp == ShopHintPolicy.All)
+                await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
+            else if(shp == ShopHintPolicy.OnlyProg)
+            {
+                List<long> LocsToHint = new List<long>();
+                await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations).ContinueWith(t =>
+                {
+                    foreach (ItemInfo item in t.Result.Values)
+                    {
+                        if (item.Flags.HasFlag(ItemFlags.Advancement))
+                            LocsToHint.Add(item.LocationId);
+                    }
+                });
+
+                await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, LocsToHint.ToArray());
+            }
         }
 
         public async Task<T> GetDataStorage<T>(string type)

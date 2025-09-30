@@ -300,6 +300,10 @@ namespace SHARRandomizer
                     else
                         Common.WriteLog($"Invalid ID format: {id}", "LoadState");
                 }
+                if (check.name.Contains("Stonecutter"))
+                {
+                    check.name = "?";
+                }
                 int level;
 
                 Common.WriteLog($"Restoring {check.name}", "LoadState");
@@ -797,7 +801,7 @@ namespace SHARRandomizer
                 }
             }
 
-            ac.ScoutShopLocationNoHint(locsToScout, language);
+            ac.SetShopNames(locsToScout, language);
         }
 
 
