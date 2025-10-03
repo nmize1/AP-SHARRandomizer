@@ -298,12 +298,12 @@ namespace SHARRandomizer
                     if (cardIDs.Contains(l))
                         check = ("card", "card");
                     else
+                    {
                         Common.WriteLog($"Invalid ID format: {id}", "LoadState");
+                        continue;
+                    }
                 }
-                if (check.name.Contains("Stonecutter"))
-                {
-                    check.name = "?";
-                }
+
                 int level;
 
                 Common.WriteLog($"Restoring {check.name}", "LoadState");
