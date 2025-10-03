@@ -848,7 +848,7 @@ namespace SHARRandomizer
                 memory.Globals.CharacterTune.DoubleJumpAllowUp = djAllowUp;
                 memory.Globals.CharacterTune.DoubleJumpAllowDown = djAllowDown;
             }
-/*
+
             if (!moves.Contains($"{character} Progressive Jump"))
                 memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.Jump);
             else
@@ -864,7 +864,7 @@ namespace SHARRandomizer
                 memory.Globals.CharacterTune.DoubleJumpAllowUp = djAllowUp;
                 memory.Globals.CharacterTune.DoubleJumpAllowDown = djAllowDown;
             }
-*/
+
             if (!moves.Contains($"{character} E-Brake"))
             {
                 memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.HandBrake);

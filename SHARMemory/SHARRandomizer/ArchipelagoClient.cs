@@ -179,7 +179,7 @@ namespace SHARRandomizer
                 MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>();
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>();
-                shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString());
+                //shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString());
             }
             catch (Exception ex)
             {
