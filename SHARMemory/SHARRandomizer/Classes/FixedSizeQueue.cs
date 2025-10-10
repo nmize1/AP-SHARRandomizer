@@ -49,7 +49,7 @@ namespace SHARRandomizer.Classes
         public string Print()
         {
             string ret = string.Join("\n", queue);
-            while ((ret.Length > 499))
+            while ((ret.Length > 495))
             {
                 queue.Dequeue();
                 ret = string.Join("\n", queue);
