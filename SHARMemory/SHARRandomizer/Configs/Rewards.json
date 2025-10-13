@@ -110,13 +110,13 @@
     ]
   },
   {
-    "Name": null,
+    "Name": "Bonestorm Truck",
     "InternalName": "cBone",
     "Translations": [
-      null,
-      null,
-      null,
-      null
+      "Bonestorm Truck",
+      "Camion Bonestorm",
+      "Bonestorm-Laster",
+      "Camión Bonestorm"
     ]
   },
   {
@@ -410,13 +410,13 @@
     ]
   },
   {
-    "Name": null,
+    "Name": "Glass Truck",
     "InternalName": "glastruc",
     "Translations": [
-      null,
-      null,
-      null,
-      null
+      "Glass Truck",
+      "Camion de vitrier",
+      "Glaswagen",
+      "Camión de cristales"
     ]
   },
   {

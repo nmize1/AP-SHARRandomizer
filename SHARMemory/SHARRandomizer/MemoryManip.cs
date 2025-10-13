@@ -201,6 +201,7 @@ namespace SHARRandomizer
                     }
                 }
                 REWARDS.AddRange(tempRewards);
+                
             }
 
             InputListener listener = new InputListener();
@@ -517,6 +518,10 @@ namespace SHARRandomizer
                         }
 
                         var textBible = memory.Globals.TextBible.CurrentLanguage;
+
+                        if (item == "Cell Phone Car")
+                            item = $"Cell Phone Car {new[] { "A", "B", "C", "D" }[new Random().Next(4)]}";
+
                         var matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
                         if (matchingReward != null)
                         {
@@ -1154,6 +1159,7 @@ namespace SHARRandomizer
                 return Task.CompletedTask;
             }
             ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
+
             return Task.CompletedTask;
         }
 
