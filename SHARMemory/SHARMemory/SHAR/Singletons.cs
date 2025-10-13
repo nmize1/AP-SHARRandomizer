@@ -8,6 +8,12 @@ namespace SHARMemory.SHAR;
 /// </summary>
 public sealed class Singletons
 {
+    private readonly Singleton<ActorManager> ActorManagerSingleton;
+    /// <summary>
+    /// A reference to SHAR's <see cref="Classes.ActorManager"/> singleton.
+    /// </summary>
+    public ActorManager ActorManager => ActorManagerSingleton.Get();
+    
     private readonly Singleton<CardGallery> CardGallerySingleton;
     /// <summary>
     /// A reference to SHAR's <see cref="Classes.CardGallery"/> singleton.
@@ -25,6 +31,12 @@ public sealed class Singletons
     /// A reference to SHAR's <see cref="Classes.CharacterSheetManager"/> singleton.
     /// </summary>
     public CharacterSheetManager CharacterSheetManager => CharacterSheetManagerSingleton.Get();
+
+    private readonly Singleton<CheatInputSystem> CheatInputSystemSingleton;
+    /// <summary>
+    /// A reference to SHAR's <see cref="Classes.CheatInputSystem"/> singleton.
+    /// </summary>
+    public CheatInputSystem CheatInputSystem => CheatInputSystemSingleton.Get();
 
     private readonly Singleton<CoinManager> CoinManagerSingleton;
     /// <summary>
@@ -130,9 +142,11 @@ public sealed class Singletons
 
     internal Singletons(Memory memory)
     {
+        ActorManagerSingleton = new(memory, memory.SelectAddress(0x6C90C4, 0x6C9084, 0x6C9084, 0x6C90BC));
         CardGallerySingleton = new(memory, memory.SelectAddress(0x6C9064, 0x6C9024, 0x6C9024, 0x6C905C));
         CharacterManagerSingleton = new(memory, memory.SelectAddress(0x6C8470, 0x6C8430, 0x6C8430, 0x6C8468));
         CharacterSheetManagerSingleton = new(memory, memory.SelectAddress(0x6C8984, 0x6C8944, 0x6C8944, 0x6C897C));
+        CheatInputSystemSingleton = new(memory, memory.SelectAddress(0x6C841C, 0x6C83DC, 0x6C83DC, 0x6C8414));
         CoinManagerSingleton = new(memory, memory.SelectAddress(0x6C8450, 0x6C8410, 0x6C8410, 0x6C8448));
         GameFlowSingleton = new(memory, memory.SelectAddress(0x6C9014, 0x6C8FD4, 0x6C8FD4, 0x6C900C));
         GameDataManagerSingleton = new(memory, memory.SelectAddress(0x6C842C, 0x6C83EC, 0x6C83EC, 0x6C8424));

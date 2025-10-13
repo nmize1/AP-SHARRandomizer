@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <ApplicationIcon>256x256.ico</ApplicationIcon>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Authors>Proddy,Lucas Cardellini</Authors>
     <Company>ZHBot</Company>
     <Description>A class library designed to help with interacting with SHAR memory</Description>

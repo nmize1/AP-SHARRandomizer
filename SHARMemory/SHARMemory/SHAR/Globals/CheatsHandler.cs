@@ -11,6 +11,7 @@ public partial class Globals
         {
             None,
 
+            MotherOfAllCheats = 1 << 0,
             UnlockAllCards = 1 << 1,
             UnlockAllOutfits = 1 << 2,
             UnlockAllStoryMissions = 1 << 3,

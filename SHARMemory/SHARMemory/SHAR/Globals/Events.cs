@@ -3,7 +3,6 @@ public partial class Globals
 {
     public enum LocatorEvents
     {
-
         FLAG,
         CAMERA_CUT,
         CHECK_POINT,
