@@ -1,5 +1,6 @@
 ﻿using SHARMemory.Memory;
 using SHARMemory.Memory.RTTI;
+using SHARMemory.SHAR.Arrays;
 
 namespace SHARMemory.SHAR.Classes;
 
@@ -44,7 +45,7 @@ public class RenderLayer : Class
     }
 
     internal const uint GutsOffset = AlphaOffset + sizeof(float);
-    public PointerArray<tDrawable> Guts => PointerArrayExtensions.FromSwapArray<tDrawable>(Memory, this, GutsOffset);
+    public PointerSwapArray<tDrawable> Guts => new(Memory, Address + GutsOffset);
 
     internal const uint IsBeginViewOffset = GutsOffset + 16;
     public bool IsBeginView

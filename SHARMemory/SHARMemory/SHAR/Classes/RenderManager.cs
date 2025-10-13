@@ -1,5 +1,6 @@
 ﻿using SHARMemory.Memory;
 using SHARMemory.Memory.RTTI;
+using SHARMemory.SHAR.Arrays;
 using SHARMemory.SHAR.Structs;
 
 namespace SHARMemory.SHAR.Classes;
@@ -16,7 +17,7 @@ public class RenderManager : ChunkListenerCallback
     internal const uint EventListenerVFTableOffset = LoadingManagerProcessRequestsCallbackVFTableOffset + sizeof(uint);
 
     internal const uint EntityDeletionListOffset = EventListenerVFTableOffset + sizeof(uint);
-    public PointerArray<tRefCounted> EntityDeletionList => PointerArrayExtensions.FromSwapArray<tRefCounted>(Memory, this, EntityDeletionListOffset);
+    public PointerSwapArray<tRefCounted> EntityDeletionList => new(Memory, Address + EntityDeletionListOffset);
 
     internal const uint RenderLayersOffset = EntityDeletionListOffset + 16;
     public PointerArray<RenderLayer> RenderLayers => new(Memory, Address + RenderLayersOffset, (int)Globals.RenderEnums.LayerEnum.numLayers);
@@ -60,7 +61,7 @@ public class RenderManager : ChunkListenerCallback
     }
 
     internal const uint ZELsOffset = DoneInitialLoadOffset + 4; // Padding
-    public PointerArray<ZoneEventLocator> ZELs => PointerArrayExtensions.FromSwapArray<ZoneEventLocator>(Memory, this, ZELsOffset);
+    public PointerSwapArray<ZoneEventLocator> ZELs => new(Memory, Address + ZELsOffset);
 
     internal const uint ZELOffset = ZELsOffset + 16;
     public ZoneEventLocator ZEL => Memory.ClassFactory.Create<ZoneEventLocator>(ReadUInt32(ZELOffset));
