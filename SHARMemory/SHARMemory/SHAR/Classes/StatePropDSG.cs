@@ -23,4 +23,28 @@ public class StatePropDSG : DynaPhysDSG
 
     internal const uint PhysObjOffset = StatePropOffset + sizeof(uint);
     public PhysicsObject PhysObj => Memory.ClassFactory.Create<PhysicsObject>(ReadUInt32(PhysObjOffset));
+
+    internal const uint IsDynaLoadedOffset = PhysObjOffset + sizeof(uint);
+    public bool IsDynaLoaded
+    {
+        get => ReadBoolean(IsDynaLoadedOffset);
+        set => WriteBoolean(IsDynaLoadedOffset, value);
+    }
+
+    internal const uint ProcAnimatorOffset = IsDynaLoadedOffset + 4; // Padding
+    public StatePropDSGProcAnimator ProcAnimator => Memory.ClassFactory.Create<StatePropDSGProcAnimator>(ReadUInt32(ProcAnimatorOffset));
+
+    internal const uint ShadowElementOffset = ProcAnimatorOffset + sizeof(int);
+    public int ShadowElement
+    {
+        get => ReadInt32(ShadowElementOffset);
+        set => WriteInt32(ShadowElementOffset, value);
+    }
+
+    internal const uint SimAnimJointOffset = ShadowElementOffset + sizeof(int);
+    public int SimAnimJoint
+    {
+        get => ReadInt32(SimAnimJointOffset);
+        set => WriteInt32(SimAnimJointOffset, value);
+    }
 }

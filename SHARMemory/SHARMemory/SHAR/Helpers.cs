@@ -36,5 +36,5 @@ public static class Helpers
     /// </summary>
     /// <param name="x">The string to hash.</param>
     /// <returns>A key corresponding to the given string.</returns>
-    public static ulong MakeUID(string x) => radMakeKey(x);
+    public static long MakeUID(string x) => (long)radMakeKey(x);
 }

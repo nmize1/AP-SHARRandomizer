@@ -210,4 +210,42 @@ public class UserController : Class
                 Controller[controllerType]?.EnableButton((int)mapType, buttonId, dir, button);
         }
     }
+
+    public void SwapButtons(InputManager.Buttons button1, InputManager.Buttons button2)
+    {
+        var mapType1 = InputManager.ButtonToMapType(button1);
+        if (mapType1 == InputManager.MapType.Frontend)
+            throw new ArgumentException($"Button {button1} is a Frontend button. Setting unsupported.");
+
+        var mapType2 = InputManager.ButtonToMapType(button2);
+        if (mapType2 != mapType1)
+            throw new ArgumentException($"Button {button1} and Button {button2} have different map types.");
+
+        foreach (var virtualMap in VirtualMap)
+        {
+            var code1 = virtualMap.ButtonMap[(int)button1];
+            var code2 = virtualMap.ButtonMap[(int)button2];
+
+            // TODO: Handle unmapped buttons
+            if (code1 == -1)
+                continue;
+
+            if (code2 == -1)
+                continue;
+
+            var buttonId1 = code1 & 0xFFFFFF;
+            var controllerType1 = code1 >> 0x1C;
+            RealController.DirectionType dir1 = (RealController.DirectionType)((code1 >> 0x18) & 0xF);
+
+            var buttonId2 = code2 & 0xFFFFFF;
+            var controllerType2 = code2 >> 0x1C;
+            RealController.DirectionType dir2 = (RealController.DirectionType)((code2 >> 0x18) & 0xF);
+
+            if (controllerType1 >= 0 && controllerType1 < RealController.NUM_CONTROLLER_TYPES)
+                Controller[controllerType1]?.EnableButton((int)mapType1, buttonId1, dir1, button2);
+
+            if (controllerType2 >= 0 && controllerType2 < RealController.NUM_CONTROLLER_TYPES)
+                Controller[controllerType2]?.EnableButton((int)mapType2, buttonId2, dir2, button1);
+        }
+    }
 }
