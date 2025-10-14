@@ -130,6 +130,7 @@ namespace SHARRandomizer
                 watcher.RewardUnlocked += Watcher_RewardUnlocked;
                 watcher.ButtonBound += Watcher_ButtonBound;
                 watcher.NewGame += Watcher_NewGame;
+                watcher.NewTrafficVehicle += Watcher_NewTrafficVehicle;
 
                 watcher.Start();
                 await LoadState(memory);
@@ -485,9 +486,8 @@ namespace SHARRandomizer
         }
 
         /* Default cars are unlocked on level load, even if it was locked before, so we need to relock them until the item is received. */
-        public void LockDefaultCarsOnLoad(Memory memory, int level)
+        public void LockSpawnedCarsOnLoad(Memory memory, int level)
         {
-            List<string> dcars = new List<string> { "Family Sedan", "Honor Roller", "Malibu Stacy Car", "Canyonero", "Longhorn", "Ferrini - Red", "70's Sports Car" };
             var rewardsManager = memory.Singletons.RewardsManager;
             var textBible = memory.Globals.TextBible.CurrentLanguage;
             int i = 0;
@@ -817,7 +817,6 @@ namespace SHARRandomizer
 
             ac.SetShopNames(locsToScout, language);
         }
-
 
         void CheckAvailableMoves(Memory memory, string level)
         {
@@ -1200,7 +1199,8 @@ namespace SHARRandomizer
             HandleCurrentBonusMissions(sender);
             HandleCurrentRaces(sender);
             CheckAvailableMoves(sender, CURRENTLEVEL);
-            LockDefaultCarsOnLoad(sender, ((int)e.Level));
+            LockSpawnedCarsOnLoad(sender, ((int)e.Level));
+
             if (e.Mission.ToString() == "BM2" || e.Mission.ToString() == "BM3")
             {
                 Common.WriteLog($"{(int)e.Level} - bonus2", "Watcher_MissionStageChanged");
@@ -1419,7 +1419,32 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        public void textDC()
+        private Task Watcher_NewTrafficVehicle(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.TrafficManager.NewTrafficVehicleEventArgs e, CancellationToken token) 
+        {
+            var vehicle = e.Vehicle;
+
+            if (vehicle.EventLocator is not EventLocator eventLocator)
+            {
+                Common.WriteLog("EventLocator is null, skipping.", "Watcher_NewTrafficVehicle");
+                return Task.CompletedTask;
+            }
+
+            if (eventLocator.Flags == Locator.LocatorFlags.None)
+            {
+                Common.WriteLog("EventLocator flags are none, skipping.", "Watcher_NewTrafficVehicle");
+                return Task.CompletedTask;
+            }
+
+            if (!UnlockedItems.Contains(e.Vehicle.Name))
+            {
+                eventLocator.Flags = Locator.LocatorFlags.None;
+                Common.WriteLog($"Setting locator flags to none for: {vehicle.Name}", "Watcher_NewTrafficVehicle");
+            }
+
+            return Task.CompletedTask;
+        }
+
+public void textDC()
         {
             language.SetString("APProgress", "Disconnected.");
             language.SetString("APLog", "Disconnected.");
