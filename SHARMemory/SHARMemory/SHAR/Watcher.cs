@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using SHARMemory.SHAR.Events.RewardsManager;
 using SHARMemory.SHAR.Events.Error;
 using SHARMemory.SHAR.Events.InputManager;
+using SHARMemory.SHAR.Events.TrafficManager;
 
 namespace SHARMemory.SHAR;
 
@@ -141,6 +142,16 @@ public sealed class Watcher
     /// </summary>
     public event AsyncEventHandler<ButtonBoundEventArgs> ButtonBound;
 
+    /// <summary>
+    /// An event handler for when a TrafficVehicle is created.
+    /// </summary>
+    public event AsyncEventHandler<TrafficVehicleCreatedEventArgs> TrafficVehicleCreated;
+
+    /// <summary>
+    /// An event handler for when a new traffic Vehicle is created.
+    /// </summary>
+    public event AsyncEventHandler<NewTrafficVehicleEventArgs> NewTrafficVehicle;
+
     private readonly Memory Memory;
 
     private bool Running = false;
@@ -232,6 +243,8 @@ public sealed class Watcher
         lastLevel = gameplayManager?.LevelData.Level;
         lastMissionIndex = gameplayManager?.GetCurrentMissionIndex() ?? -1;
         lastVehicle = gameplayManager?.CurrentVehicle?.Address ?? 0;
+
+        trafficVehicles.Clear();
     }
 
     private GameFlow.GameState lastGameState = GameFlow.GameState.PreLicence;
@@ -299,6 +312,10 @@ public sealed class Watcher
 
                 if (ButtonBound.HasSubscribers())
                     await CheckInputManager();
+
+                if (TrafficVehicleCreated.HasSubscribers() ||
+                    NewTrafficVehicle.HasSubscribers())
+                    await CheckTrafficManager();
             }
             catch (Exception ex)
             {
@@ -830,5 +847,44 @@ public sealed class Watcher
         }
 
         lastControllerState = newControllerState;
+    }
+
+    private HashSet<uint> trafficVehicles = [];
+    private HashSet<uint> trafficVehicles2 = [];
+    private async Task CheckTrafficManager()
+    {
+        if (Memory.Globals.TrafficManager is not TrafficManager trafficManager)
+        {
+            trafficVehicles.Clear();
+            trafficVehicles2.Clear();
+            return;
+        }
+
+        var newTrafficVehicleAddresses = new HashSet<uint>();
+        var newTrafficVehicleAddresses2 = new HashSet<uint>();
+
+        var newTrafficVehicles = trafficManager.Vehicles.ToArray();
+        foreach (var newTrafficVehicle in newTrafficVehicles)
+        {
+            if (newTrafficVehicle == null)
+                continue;
+
+            if (newTrafficVehicle.Vehicle is Vehicle vehicle && !trafficVehicles2.Contains(vehicle.Address))
+            {
+                trafficVehicles2.Add(vehicle.Address);
+                newTrafficVehicleAddresses2.Add(vehicle.Address);
+                await NewTrafficVehicle.InvokeAsync(Memory, new NewTrafficVehicleEventArgs(vehicle), CancellationToken.None);
+            }
+
+            if (trafficVehicles.Contains(newTrafficVehicle.Address))
+                continue;
+
+            trafficVehicles.Add(newTrafficVehicle.Address);
+            newTrafficVehicleAddresses.Add(newTrafficVehicle.Address);
+            await TrafficVehicleCreated.InvokeAsync(Memory, new TrafficVehicleCreatedEventArgs(newTrafficVehicle), CancellationToken.None);
+        }
+
+        trafficVehicles.RemoveWhere(address => !newTrafficVehicleAddresses.Contains(address));
+        trafficVehicles2.RemoveWhere(address => !newTrafficVehicleAddresses2.Contains(address));
     }
 }

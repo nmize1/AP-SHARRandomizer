@@ -22,6 +22,8 @@ public sealed partial class Globals
     /// </summary>
     public RoadManager RoadManager => Memory.ClassFactory.Create<RoadManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6C85B0, 0x6C8570, 0x6C8570, 0x6C85A8)));
 
+    public TrafficManager TrafficManager => Memory.ClassFactory.Create<TrafficManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6C8468, 0x6C8428, 0x6C8428, 0x6C8460)));
+
     /// <summary>
     /// A reference to the handler for SHAR's <c>CharacterTune</c> statics.
     /// </summary>
@@ -34,10 +36,6 @@ public sealed partial class Globals
     /// A reference to the handler for SHAR's <c>FeTextBible</c> statics.
     /// </summary>
     public FeTextBibleHandler FeTextBible { get; }
-    /// <summary>
-    /// A reference to the handler for SHAR's <c>TrafficManager</c> statics.
-    /// </summary>
-    public TrafficManagerHandler TrafficManager { get; }
 
     private readonly uint LevelCountAddress;
     /// <summary>
@@ -179,7 +177,6 @@ public sealed partial class Globals
         CharacterTune = new(Memory);
         Cheats = new(Memory);
         FeTextBible = new(Memory);
-        TrafficManager = new(Memory);
 
         LevelCountAddress = Memory.SelectAddress(0x4798A8, 0x479748, 0x479618, 0x4793D8) + 3;
 
