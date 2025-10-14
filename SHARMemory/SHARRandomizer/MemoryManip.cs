@@ -78,6 +78,9 @@ namespace SHARRandomizer
         public static bool gagfinder;
         public static bool checkeredflag;
 
+        ActorManager actorManager;
+        public bool carwasp = false;
+
         uint gameLanguage;
         private Watcher _watcher;
 
@@ -226,6 +229,11 @@ namespace SHARRandomizer
                 lang = memory.Globals?.TextBible?.CurrentLanguage;
             }
             language = lang;
+
+            while ((actorManager = memory.Singletons.ActorManager) == null)
+                await Task.Delay(100);
+            Common.WriteLog("Found ActorManager. Checking Wasps...", "InitialGameState");
+
 
             InitializeMissionTitles();
             InitializeShopItems();
@@ -574,7 +582,8 @@ namespace SHARRandomizer
                                     HandleTraps(memory, s);
                                     break;
 
-                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") || s.Contains("Gagfinder") || s.Contains("Checkered Flag"):
+                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") ||
+                                                   s.Contains("Gagfinder") || s.Contains("Checkered Flag") || s.Contains("Frink-o-Matic Wasp Bumper"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
@@ -869,6 +878,9 @@ namespace SHARRandomizer
                 memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.HandBrake);
                 DISABLEEBRAKE = false;
             }
+
+            carwasp = moves.Contains($"{character} Frink-o-Matic Wasp Bumper") ? true : false;
+
         }
 
         async void CheckActions(Memory memory)
@@ -885,6 +897,8 @@ namespace SHARRandomizer
             if (vehicleCentral == null)
                 return;
 
+            var lastWaspUseSize = 0;
+            var beecameraHash = SHARMemory.SHAR.Helpers.MakeUID("beecamera");
             while (memory.IsRunning)
             {
                 await System.Threading.Tasks.Task.Delay(100);
@@ -937,6 +951,48 @@ namespace SHARRandomizer
 
                             locator.Flags = Locator.LocatorFlags.Active;
                         }
+                    }
+
+                    try
+                    {
+                        var actorList = actorManager.ActorList;
+                        if (actorList.UseSize != lastWaspUseSize)
+                        {
+                            Common.WriteLog($"Actor list use size changed from {lastWaspUseSize} to {actorList.UseSize}.", "CheckActions");
+                            lastWaspUseSize = actorList.UseSize;
+
+                            var actors = actorList.ToArray();
+                            foreach (var actor in actors)
+                            {
+                                if (actor == null)
+                                    continue;
+
+                                if (actor.StateProp is not ActorDSG actorDSG)
+                                    continue;
+
+                                if (actorDSG.StateProp is not CStateProp stateProp)
+                                    continue;
+
+                                if (stateProp.Name != beecameraHash)
+                                    continue;
+
+                                if (actorDSG.SimState is not SimState simState)
+                                    continue;
+
+                                if (simState.CollisionObject is not CollisionObject collisionObject)
+                                    continue;
+
+                                if (!collisionObject.CollisionEnabled)
+                                    continue;
+
+                                Common.WriteLog($"Disabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
+                                collisionObject.CollisionEnabled = false;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
                     }
                 }
             }
