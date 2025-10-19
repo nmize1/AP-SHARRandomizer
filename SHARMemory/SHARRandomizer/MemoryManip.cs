@@ -1425,13 +1425,13 @@ namespace SHARRandomizer
 
             if (vehicle.EventLocator is not EventLocator eventLocator)
             {
-                Common.WriteLog("EventLocator is null, skipping.", "Watcher_NewTrafficVehicle");
+                //Common.WriteLog("EventLocator is null, skipping.", "Watcher_NewTrafficVehicle");
                 return Task.CompletedTask;
             }
 
             if (eventLocator.Flags == Locator.LocatorFlags.None)
             {
-                Common.WriteLog("EventLocator flags are none, skipping.", "Watcher_NewTrafficVehicle");
+                //Common.WriteLog("EventLocator flags are none, skipping.", "Watcher_NewTrafficVehicle");
                 return Task.CompletedTask;
             }
 

@@ -235,6 +235,13 @@ local function ModifyPause(Page)
 	local APProgressTextChunk = P3D.FrontendStringTextBibleP3DChunk:new("srr2", "APProgress")
 	APProgressMultiTextChunk:AddChunk(APProgressTextChunk)
 	-- End Progress
+
+	-- Begin mission car locks
+	--for k, v in pairs(MissionLock) do
+		--MultiTextChunk:AddChunk(P3D.FrontendStringTextBibleP3DChunk("srr2", "MISSION_OBJECTIVE_" .. v.MissionObjectiveIdx))
+		--MultiTextChunk:AddChunk(P3D.FrontendStringTextBibleP3DChunk("srr2", "INGAME_MESSAGE_" .. v.IngameMessageIdx))
+	--end
+	-- End mission car locks
 end
 
 if PauseSunday then

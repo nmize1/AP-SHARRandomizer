@@ -4,6 +4,8 @@ local GamePath = "/GameData/" .. Path
 local MFK = MFKLexer.Lexer:Parse(ReadFile(GamePath))
 
 local changed = false
+local Traffic = Config.TRAFFIC
+
 
 local Path = GetPath()
 local Level = Path:match("level0(%d)")
@@ -52,6 +54,48 @@ for Function, Index in MFK:GetFunctions("AddPurchaseCarNPCWaypoint", true) do
         MFK:RemoveFunction(Index)
         changed = true
     end
+end
+
+local pedPool = {table.unpack(CharNames)}
+
+for Function, Index in MFK:GetFunctions(nil, true) do
+		local name = Function.Name:lower()
+		if name == "addped" then
+			MFK:RemoveFunction(Index)
+		elseif name == "createpedgroup" then
+			for j=1,7 do
+				local randomPedIndex = math.random(#pedPool)
+				local randomPed = pedPool[randomPedIndex]
+				table.remove(pedPool, randomPedIndex)
+				if #pedPool == 0 then
+			        pedPool = {table.unpack(CharNames)}
+			end
+				
+		    MFK:InsertFunction(Index + 1, "AddPed", {randomPed, 1})
+	    end
+    end
+end
+
+for i, v in ipairs(Traffic) do
+    print(i, v)
+end
+
+for Function, Index in MFK:GetFunctions("AddTrafficModel", true) do
+	MFK:RemoveFunction(Index)
+end
+for Function, Index in MFK:GetFunctions("CreateTrafficGroup", true) do
+    local startIndex = (Level - 1) * 5 + 1
+    local endIndex = startIndex + 4
+	for i = startIndex, endIndex do
+		local car = Traffic[i].Name
+			
+		local args = {car, 1}
+		if math.random(3) == 1 then
+			args[3] = 1
+		end
+			
+		MFK:InsertFunction(Index + 1, "AddTrafficModel", args)
+	end
 end
 
 if changed then

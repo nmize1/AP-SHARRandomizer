@@ -74,6 +74,11 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 				chunk:SetValue(k, v)
 			end
 		end
+
+		for k, v in pairs(MissionLock) do
+			chunk:AddValue("MISSION_OBJECTIVE_" .. v.MissionObjectiveIdx, "You need to unlock " .. k)
+			chunk:AddValue("INGAME_MESSAGE_" .. v.IngameMessageIdx, "You need to unlock " .. k)
+		end
 	end
 end
 
