@@ -869,18 +869,21 @@ public sealed class Watcher
             if (newTrafficVehicle == null)
                 continue;
 
-            if (newTrafficVehicle.Vehicle is Vehicle vehicle && !trafficVehicles2.Contains(vehicle.Address))
+            if (newTrafficVehicle.Vehicle is Vehicle vehicle)
             {
-                trafficVehicles2.Add(vehicle.Address);
                 newTrafficVehicleAddresses2.Add(vehicle.Address);
-                await NewTrafficVehicle.InvokeAsync(Memory, new NewTrafficVehicleEventArgs(vehicle), CancellationToken.None);
+                if (!trafficVehicles2.Contains(vehicle.Address))
+                {
+                    trafficVehicles2.Add(vehicle.Address);
+                    await NewTrafficVehicle.InvokeAsync(Memory, new NewTrafficVehicleEventArgs(vehicle), CancellationToken.None);
+                }
             }
 
+            newTrafficVehicleAddresses.Add(newTrafficVehicle.Address);
             if (trafficVehicles.Contains(newTrafficVehicle.Address))
                 continue;
 
             trafficVehicles.Add(newTrafficVehicle.Address);
-            newTrafficVehicleAddresses.Add(newTrafficVehicle.Address);
             await TrafficVehicleCreated.InvokeAsync(Memory, new TrafficVehicleCreatedEventArgs(newTrafficVehicle), CancellationToken.None);
         }
 
