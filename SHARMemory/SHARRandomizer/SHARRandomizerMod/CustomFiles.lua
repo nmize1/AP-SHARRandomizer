@@ -111,7 +111,7 @@ MissionLock = {}
 
 for i, carName in ipairs(CarNames) do
     MissionLock[carName] = {
-        IngameMessageIdx = 69 + i,
-        MissionObjectiveIdx = 73 + i,
+        IngameMessageIdx = 19 + i,
+        MissionObjectiveIdx = 299 + i,
     }
 end
