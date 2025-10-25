@@ -19,7 +19,7 @@ public class RenderManager : ChunkListenerCallback
     internal const uint EntityDeletionListOffset = EventListenerVFTableOffset + sizeof(uint);
     public PointerSwapArray<tRefCounted> EntityDeletionList => new(Memory, Address + EntityDeletionListOffset);
 
-    internal const uint RenderLayersOffset = EntityDeletionListOffset + 16;
+    internal const uint RenderLayersOffset = EntityDeletionListOffset + PointerSwapArray<tRefCounted>.MemorySize;
     public PointerArray<RenderLayer> RenderLayers => new(Memory, Address + RenderLayersOffset, (int)Globals.RenderEnums.LayerEnum.numLayers);
 
     internal const uint CloudsOffset = RenderLayersOffset + sizeof(uint) * (int)Globals.RenderEnums.LayerEnum.numLayers;
@@ -63,7 +63,7 @@ public class RenderManager : ChunkListenerCallback
     internal const uint ZELsOffset = DoneInitialLoadOffset + 4; // Padding
     public PointerSwapArray<ZoneEventLocator> ZELs => new(Memory, Address + ZELsOffset);
 
-    internal const uint ZELOffset = ZELsOffset + 16;
+    internal const uint ZELOffset = ZELsOffset + PointerSwapArray<ZoneEventLocator>.MemorySize;
     public ZoneEventLocator ZEL => Memory.ClassFactory.Create<ZoneEventLocator>(ReadUInt32(ZELOffset));
 
     internal const uint DynaLoadingOffset = ZELOffset + sizeof(uint);

@@ -4,18 +4,23 @@ using System.Collections.Generic;
 
 namespace SHARMemory.SHAR.Arrays;
 /// <summary>
-/// An implementation of Radical's SwapArray to be used with class pointers.
+/// An implementation of Radical's SwapArray to be used with structs.
 /// </summary>
-/// <typeparam name="T">The <see cref="Class"/> used in the array.</typeparam>
-public class PointerSwapArray<T> : IEnumerable<T> where T : Class
+/// <typeparam name="T">The struct used in the array.</typeparam>
+public class StructSwapArray<T> : IEnumerable<T> where T : struct
 {
+    /// <summary>
+    /// The base size of the swap array. You must add the size of <typeparamref name="T"/>.
+    /// </summary>
+    internal const uint BaseSize = sizeof(int) + sizeof(int) + sizeof(uint);
+
     private readonly Memory Memory;
     /// <summary>
     /// The base address of the SwapArray.
     /// </summary>
     public readonly uint Address;
     /// <summary>
-    /// How many elements are in this array.
+    /// How many elements are allocated for this array.
     /// </summary>
     public int Size => Memory.ReadInt32(Address);
     /// <summary>
@@ -39,6 +44,8 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
     /// </summary>
     public uint ArrayAddress => Memory.ReadUInt32(Address + sizeof(int) + sizeof(int));
 
+    private readonly uint ElementSize;
+
     /// <summary>
     /// Get an element of this array.
     /// </summary>
@@ -60,7 +67,7 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
             if (index >= UseSize)
                 throw new IndexOutOfRangeException($"Index {index} is outside range {UseSize}.");
 
-            return Memory.ClassFactory.Create<T>(Memory.ReadUInt32(ArrayAddress + (uint)index * sizeof(uint)));
+            return Memory.ReadStruct<T>(Address + ElementSize * (uint)index);
         }
         set
         {
@@ -69,7 +76,7 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
             if (index >= UseSize)
                 throw new IndexOutOfRangeException($"Index {index} is outside range {UseSize}.");
 
-            Memory.WriteUInt32(ArrayAddress + (uint)index * sizeof(uint), value?.Address ?? 0);
+            Memory.WriteStruct(Address + ElementSize * (uint)index, value);
         }
     }
 
@@ -82,10 +89,14 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
     /// <param name="address">
     /// The base address for the first element in the array.
     /// </param>
-    public PointerSwapArray(Memory memory, uint address)
+    /// <param name="elementSize">
+    /// The size of each element in the array.
+    /// </param>
+    public StructSwapArray(Memory memory, uint address, uint elementSize)
     {
         Memory = memory;
         Address = address;
+        ElementSize = elementSize;
     }
 
     /// <summary>
@@ -96,11 +107,11 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
     /// </returns>
     public T[] ToArray()
     {
-        byte[] bytes = Memory.ReadBytes(ArrayAddress, sizeof(uint) * (uint)UseSize);
+        byte[] bytes = Memory.ReadBytes(ArrayAddress, ElementSize * (uint)UseSize);
 
         T[] result = new T[UseSize];
         for (int i = 0; i < UseSize; i++)
-            result[i] = Memory.ClassFactory.Create<T>(BitConverter.ToUInt32(bytes, i * sizeof(uint)));
+            result[i] = Memory.StructFromBytes<T>(bytes, i * (int)ElementSize);
 
         return result;
     }
@@ -119,15 +130,15 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
         if (array.Length > Size)
             throw new ArgumentException($"{nameof(array)} has a max length of {Size}", nameof(array));
 
-        byte[] bytes = new byte[sizeof(uint) * array.Length];
+        byte[] bytes = new byte[ElementSize * array.Length];
         for (int i = 0; i < array.Length; i++)
-            BitConverter.GetBytes(array[i]?.Address ?? 0).CopyTo(bytes, i * sizeof(uint));
+            Memory.BytesFromStruct<T>(array[i], bytes, i * (int)ElementSize);
 
         UseSize = array.Length;
         Memory.WriteBytes(ArrayAddress, bytes);
     }
 
-    private class SwapPointerEnumerator : IEnumerator<T>
+    private class SwapStructEnumerator : IEnumerator<T>
     {
         private readonly T[] array;
         private int position = -1;
@@ -136,18 +147,12 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
         object IEnumerator.Current => Current;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0305:Simplify collection initialization", Justification = "Causes infinite loop")]
-        public SwapPointerEnumerator(PointerSwapArray<T> array) => this.array = array.ToArray();
+        public SwapStructEnumerator(StructSwapArray<T> array) => this.array = array.ToArray();
 
         public bool MoveNext()
         {
-            do
-            {
-                position++;
-                if (position >= array.Length)
-                    return false;
-            }
-            while (Current == null);
-            return true;
+            position++;
+            return position < array.Length;
         }
 
         public void Reset() => position = -1;
@@ -161,7 +166,7 @@ public class PointerSwapArray<T> : IEnumerable<T> where T : Class
     /// <returns>
     /// A new enumerator for this array.
     /// </returns>
-    public IEnumerator<T> GetEnumerator() => new SwapPointerEnumerator(this);
+    public IEnumerator<T> GetEnumerator() => new SwapStructEnumerator(this);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

@@ -47,7 +47,7 @@ public class RenderLayer : Class
     internal const uint GutsOffset = AlphaOffset + sizeof(float);
     public PointerSwapArray<tDrawable> Guts => new(Memory, Address + GutsOffset);
 
-    internal const uint IsBeginViewOffset = GutsOffset + 16;
+    internal const uint IsBeginViewOffset = GutsOffset + PointerSwapArray<tDrawable>.MemorySize;
     public bool IsBeginView
     {
         get => ReadBoolean(IsBeginViewOffset);
