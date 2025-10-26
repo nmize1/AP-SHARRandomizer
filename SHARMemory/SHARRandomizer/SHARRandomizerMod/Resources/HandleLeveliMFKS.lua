@@ -76,10 +76,6 @@ for Function, Index in MFK:GetFunctions(nil, true) do
     end
 end
 
-for i, v in ipairs(Traffic) do
-    print(i, v)
-end
-
 for Function, Index in MFK:GetFunctions("AddTrafficModel", true) do
 	MFK:RemoveFunction(Index)
 end

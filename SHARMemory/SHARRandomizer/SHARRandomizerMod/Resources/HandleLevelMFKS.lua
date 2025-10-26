@@ -24,9 +24,11 @@ MFK:AddFunction("AddBonusMission", {"bm2"})
 
 MFK:AddFunction("LoadP3DFile",{"art\\missions\\level0" .. Level .. "\\cards.p3d"})
 
+print("Adding traffic cars")
 local startIndex = (Level - 1) * 5 + 1
 local endIndex = startIndex + 4
 for i = startIndex, endIndex do
+    print("art\\cars\\" .. Traffic[i].Name .. ".p3d")
     MFK:AddFunction("LoadP3DFile",{"art\\cars\\" .. Traffic[i].Name .. ".p3d"})
 end
 

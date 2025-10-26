@@ -88,7 +88,7 @@ CarNames = {}
 CarCount = 0
 GetFilesInDirectory("/GameData/art/cars", CarP3DFiles, ".p3d")
 
-local ExcludedCars = {["huskA"]=true,["common"]=true}
+local ExcludedCars = {["huskA"]=true, ["common"]=true}
 for i=#CarP3DFiles,1,-1 do
 	local filePath = CarP3DFiles[i]
 	local fileName = RemoveFileExtension(GetFileName(filePath))
@@ -108,10 +108,36 @@ end
 print(string.format("Loaded %i cars", CarCount))
 
 MissionLock = {}
+LockSundayDrive = {}
 
-for i, carName in ipairs(CarNames) do
+for i=1,7 do
+	LockSundayDrive[i] = {}
+end
+
+maxIngameMessageIdx = 0
+maxMissionObjectiveIdx = 0
+
+for i, lock in pairs(Config.MISSIONLOCK) do
+	carName = lock.Car 
+	curidIdx = 19 + i
+	curmoIdx = 299 + i
     MissionLock[carName] = {
         IngameMessageIdx = 19 + i,
         MissionObjectiveIdx = 299 + i,
     }
+
+	if curidIdx > maxIngameMessageIdx then
+		maxIngameMessageIdx = curidIdx
+	end
+
+	if curmoIdx > maxMissionObjectiveIdx then
+		maxMissionObjectiveIdx = curmoIdx
+	end
+	
+	local missionIndex = lock.Mission
+	local level = math.floor((missionIndex - 1) / 7) + 1
+	local mission = ((missionIndex - 1) % 7) + 1
+
+	LockSundayDrive[level][mission] = carName
 end
+
