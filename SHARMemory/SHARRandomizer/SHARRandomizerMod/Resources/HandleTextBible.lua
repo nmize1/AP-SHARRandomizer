@@ -56,6 +56,13 @@ local TranslationMap = {
 	},
 }
 
+local UnlockTranslation = {
+	["E"] = "You need to unlock \"%s\".",
+	["F"] = "You need to unlock \"%s\".",
+	["G"] = "You need to unlock \"%s\".",
+	["S"] = "You need to unlock \"%s\".",
+}
+
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
 		chunk:AddValue("APLog", "APLog will show here." .. string.rep(" ", 475))
@@ -81,8 +88,9 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 				displayName = k
 			end
 			
-			chunk:AddValue("INGAME_MESSAGE_" .. v.IngameMessageIdx, "You need to unlock " .. displayName)
-			chunk:AddValue("MISSION_OBJECTIVE_" .. v.MissionObjectiveIdx, "You need to unlock " .. displayName)
+			local message = string.format(UnlockTranslation[chunk.Language], displayName)
+			chunk:AddValue("INGAME_MESSAGE_" .. v.IngameMessageIdx, message)
+			chunk:AddValue("MISSION_OBJECTIVE_" .. v.MissionObjectiveIdx, message)
 		end
 	end
 end
