@@ -78,7 +78,7 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		for k, v in pairs(MissionLock) do
 			local success, displayName = pcall(chunk.GetValueFromName, chunk, k:upper())
 			if not success then
-				displayName = translations[k:upper()] or k
+				displayName = k
 			end
 			
 			chunk:AddValue("INGAME_MESSAGE_" .. v.IngameMessageIdx, "You need to unlock " .. displayName)
