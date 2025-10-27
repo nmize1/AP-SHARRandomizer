@@ -18,7 +18,14 @@ function GetGamePath(Path)
 end
 
 local ConfigPath = "/UserData/SavedGames/SHAR.ini"
-assert(Exists(ConfigPath, true, false), "Config file missing. Please ensure your AP setup is correct.")
+while not Exists(ConfigPath, true, false) do
+	--[[ 1.27 version:
+	if Dialog(DialogIcon.Error, DialogButtons.RetryClose, "Please download the patch file from the room and follow the setup guide to place it in the right location.", "`SHAR.ini` config file not found") == DialogResult.Close then
+		os.exit()
+	end
+	]]
+	Alert("`SHAR.ini` config file not found.\nPlease download the patch file from the room and follow the setup guide to place it in the right location.")
+end
 
 Config = IniParser(ConfigPath)
 
