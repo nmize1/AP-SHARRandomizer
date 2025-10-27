@@ -58,9 +58,9 @@ local TranslationMap = {
 
 local UnlockTranslation = {
 	["E"] = "You need to unlock \"%s\".",
-	["F"] = "You need to unlock \"%s\".",
+	["F"] = "Vous devez débloquer \"%s\".",
 	["G"] = "You need to unlock \"%s\".",
-	["S"] = "You need to unlock \"%s\".",
+	["S"] = "Debes desbloquear \"%s\".",
 }
 
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
