@@ -114,24 +114,17 @@ for i=1,7 do
 	LockSundayDrive[i] = {}
 end
 
-maxIngameMessageIdx = 0
-maxMissionObjectiveIdx = 0
-
+IngameMessageIdx = 19
+MissionObjectiveIdx = 299
 for i, lock in pairs(Config.MISSIONLOCK) do
-	carName = lock.Car 
-	curidIdx = 19 + i
-	curmoIdx = 299 + i
-    MissionLock[carName] = {
-        IngameMessageIdx = 19 + i,
-        MissionObjectiveIdx = 299 + i,
-    }
-
-	if curidIdx > maxIngameMessageIdx then
-		maxIngameMessageIdx = curidIdx
-	end
-
-	if curmoIdx > maxMissionObjectiveIdx then
-		maxMissionObjectiveIdx = curmoIdx
+	carName = lock.Car
+	if not MissionLock[carName] then
+		IngameMessageIdx = IngameMessageIdx + 1
+		MissionObjectiveIdx = MissionObjectiveIdx + 1
+		MissionLock[carName] = {
+			IngameMessageIdx = IngameMessageIdx,
+			MissionObjectiveIdx = MissionObjectiveIdx,
+		}
 	end
 	
 	local missionIndex = lock.Mission

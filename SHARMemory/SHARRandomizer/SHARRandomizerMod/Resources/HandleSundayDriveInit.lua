@@ -18,79 +18,79 @@ local MFK = MFKLexer.Lexer:Parse(File)
 local CarLock = LockSundayDrive[Level][Mission]
 
 local function AddStages(idx)
-    MFK:InsertFunction(idx, "AddStage")
-    idx = idx + 1
-    MFK:InsertFunction(idx, "AddObjective", "dummy")
-    idx = idx + 1
-    MFK:InsertFunction(idx, "CloseObjective")
-    idx = idx + 1
-    MFK:InsertFunction(idx, "CloseStage")
-    idx = idx + 1
-    if CarLock then
-        local indexes = MissionLock[CarLock]
-        print(indexes.IngameMessageIdx)
+	MFK:InsertFunction(idx, "AddStage")
+	idx = idx + 1
+	MFK:InsertFunction(idx, "AddObjective", "dummy")
+	idx = idx + 1
+	MFK:InsertFunction(idx, "CloseObjective")
+	idx = idx + 1
+	MFK:InsertFunction(idx, "CloseStage")
+	idx = idx + 1
+	if CarLock then
+		local indexes = MissionLock[CarLock]
+		print(indexes.IngameMessageIdx)
 
-        MFK:InsertFunction(idx, "AddStage")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "AddObjective", "timer")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "SetDurationTime", 5)
-        idx = idx + 1
-        MFK:InsertFunction(idx, "CloseObjective")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "CloseStage")
-        idx = idx + 1
-    
-        MFK:InsertFunction(idx, "AddStage", {"locked", "car", name})
-        idx = idx + 1
-        print(indexes.IngameMessageIdx)
-        MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.IngameMessageIdx)
-        idx = idx + 1
-        MFK:InsertFunction(idx, "AddObjective", "timer")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "SetDurationTime", 0)
-        idx = idx + 1
-        MFK:InsertFunction(idx, "CloseObjective")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "CloseStage")
-        idx = idx + 1
-    
-        MFK:InsertFunction(idx, "AddStage")
-        idx = idx + 1
-        print(indexes.MissionObjectiveIdx)
-        MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.MissionObjectiveIdx)
-        idx = idx + 1
-        MFK:InsertFunction(idx, "SetHUDIcon", "tshirt")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "AddObjective", {"buycar", name})
-        idx = idx + 1
-        MFK:InsertFunction(idx, "CloseObjective")
-        idx = idx + 1
-        MFK:InsertFunction(idx, "CloseStage")
-        idx = idx + 1
-      end
+		MFK:InsertFunction(idx, "AddStage")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "AddObjective", "timer")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "SetDurationTime", 5)
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseObjective")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseStage")
+		idx = idx + 1
+	
+		MFK:InsertFunction(idx, "AddStage", {"locked", "car", CarLock})
+		idx = idx + 1
+		print(indexes.IngameMessageIdx)
+		MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.IngameMessageIdx)
+		idx = idx + 1
+		MFK:InsertFunction(idx, "AddObjective", "timer")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "SetDurationTime", 0)
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseObjective")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseStage")
+		idx = idx + 1
+	
+		MFK:InsertFunction(idx, "AddStage")
+		idx = idx + 1
+		print(indexes.MissionObjectiveIdx)
+		MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.MissionObjectiveIdx)
+		idx = idx + 1
+		MFK:InsertFunction(idx, "SetHUDIcon", "tshirt")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "AddObjective", {"buycar", CarLock})
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseObjective")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseStage")
+		idx = idx + 1
+	end
 end
 
 local FirstAddStageIndex
 local ResetAddStageIndex
 local ResetStage = false
 for i=#MFK.Functions,1,-1 do
-    local func = MFK.Functions[i]
-    local name = func.Name:lower()
-    if name == "addstage" then
-        FirstAddStageIndex = i
-        if ResetStage then
-            ResetAddStageIndex = i
-        end
-    elseif name == "reset_to_here" then
-        ResetStage = true
-        table.remove(MFK.Functions, i)
-    end
+	local func = MFK.Functions[i]
+	local name = func.Name:lower()
+	if name == "addstage" then
+		FirstAddStageIndex = i
+		if ResetStage then
+			ResetAddStageIndex = i
+		end
+	elseif name == "reset_to_here" then
+		ResetStage = true
+		table.remove(MFK.Functions, i)
+	end
 end
 
 AddStages(FirstAddStageIndex)
 if ResetAddStageIndex then
-    AddStages(ResetAddStageIndex)
+	AddStages(ResetAddStageIndex)
 end
 
 

@@ -41,10 +41,38 @@ local HnRImageData = P3D.ImageDataP3DChunk(ReadFile(Paths.Img .. "HnR.png"))
 HnRImage:AddChunk(HnRImageData)
 P3DFile:AddChunk(HnRSprite, 1)
 
+local GenericPrompt = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "GenericPrompt.pag")
+local PauseMissionObjective = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseMissionObjective.pag")
 local Hud = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "Hud.pag")
 local PauseSunday = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseSunday.pag")
 local PauseMission = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "PauseMission.pag")
 local SmallBoard = FrontendProjectChunk:GetChunk(P3D.Identifiers.Frontend_Page, false, "SmallBoard.pag")
+
+if GenericPrompt then
+	local FrontendLayer = GenericPrompt:GetChunk(P3D.Identifiers.Frontend_Layer, nil, "Foreground")
+	local FrontendMultiText = FrontendLayer:GetChunk(P3D.Identifiers.Frontend_Multi_Text, nil, "Message")
+	for i=20,IngameMessageIdx do
+		FrontendMultiText:AddChunk(P3D.FrontendStringTextBibleP3DChunk ("srr2", "INGAME_MESSAGE_" .. i))
+	end
+end
+
+if PauseMissionObjective then
+	local FrontendLayer = PauseMissionObjective:GetChunk(P3D.Identifiers.Frontend_Layer, nil, "Foreground")
+	local FrontendGroup = FrontendLayer:GetChunk(P3D.Identifiers.Frontend_Group, nil, "MissionObjective")
+	local FrontendMultiText = FrontendGroup:GetChunk(P3D.Identifiers.Frontend_Multi_Text, nil, "MissionObjective")
+	for i=300,MissionObjectiveIdx do
+		FrontendMultiText:AddChunk(P3D.FrontendStringTextBibleP3DChunk ("srr2", "MISSION_OBJECTIVE_" .. i))
+	end
+end
+
+if Hud then
+	local FrontendLayer = Hud:GetChunk(P3D.Identifiers.Frontend_Layer, nil, "Foreground")
+	local FrontendGroup = FrontendLayer:GetChunk(P3D.Identifiers.Frontend_Group, nil, "Message")
+	local FrontendMultiText = FrontendGroup:GetChunk(P3D.Identifiers.Frontend_Multi_Text, nil, "Message")
+	for i=300,MissionObjectiveIdx do
+		FrontendMultiText:AddChunk(P3D.FrontendStringTextBibleP3DChunk ("srr2", "MISSION_OBJECTIVE_" .. i))
+	end
+end
 
 if Hud then
 	local LayerChunk = Hud:GetChunk(P3D.Identifiers.Frontend_Layer)
@@ -245,37 +273,6 @@ if PauseMission then
 	ModifyPause(PauseMission)
 end
 -- End AP Info
-
-local FrontendProject = P3DFile:GetChunk(P3D.Identifiers.Frontend_Project)
-
-local GenericPrompt = FrontendProject:GetChunk(P3D.Identifiers.Frontend_Page, nil, "GenericPrompt.pag")
-if GenericPrompt then
-	local FrontendLayer = GenericPrompt:GetChunk(P3D.Identifiers.Frontend_Layer, nil, "Foreground")
-	local FrontendMultiText = FrontendLayer:GetChunk(P3D.Identifiers.Frontend_Multi_Text, nil, "Message")
-	for i=20,maxIngameMessageIdx do
-		FrontendMultiText:AddChunk(P3D.FrontendStringTextBibleP3DChunk ("srr2", "INGAME_MESSAGE_" .. i))
-	end
-end
-
-local PauseMissionObjective = FrontendProject:GetChunk(P3D.Identifiers.Frontend_Page, nil, "PauseMissionObjective.pag")
-if PauseMissionObjective then
-	local FrontendLayer = PauseMissionObjective:GetChunk(P3D.Identifiers.Frontend_Layer, nil, "Foreground")
-	local FrontendGroup = FrontendLayer:GetChunk(P3D.Identifiers.Frontend_Group, nil, "MissionObjective")
-	local FrontendMultiText = FrontendGroup:GetChunk(P3D.Identifiers.Frontend_Multi_Text, nil, "MissionObjective")
-	for i=300,maxMissionObjectiveIdx do
-		FrontendMultiText:AddChunk(P3D.FrontendStringTextBibleP3DChunk ("srr2", "MISSION_OBJECTIVE_" .. i))
-	end
-end
-
-local Hud = FrontendProject:GetChunk(P3D.Identifiers.Frontend_Page, nil, "Hud.pag")
-if Hud then
-	local FrontendLayer = Hud:GetChunk(P3D.Identifiers.Frontend_Layer, nil, "Foreground")
-	local FrontendGroup = FrontendLayer:GetChunk(P3D.Identifiers.Frontend_Group, nil, "Message")
-	local FrontendMultiText = FrontendGroup:GetChunk(P3D.Identifiers.Frontend_Multi_Text, nil, "Message")
-	for i=300,maxMissionObjectiveIdx do
-		FrontendMultiText:AddChunk(P3D.FrontendStringTextBibleP3DChunk ("srr2", "MISSION_OBJECTIVE_" .. i))
-	end
-end
 
 Ingame = tostring(P3DFile)
 Output(Ingame)
