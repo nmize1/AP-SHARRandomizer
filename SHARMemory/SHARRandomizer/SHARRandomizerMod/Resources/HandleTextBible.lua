@@ -59,7 +59,7 @@ local TranslationMap = {
 local UnlockTranslation = {
 	["E"] = "You need to unlock \"%s\".",
 	["F"] = "Vous devez débloquer \"%s\".",
-	["G"] = "You need to unlock \"%s\".",
+	["G"] = "Sie müssen \"%s\" entsperren.",
 	["S"] = "Debes desbloquear \"%s\".",
 }
 
