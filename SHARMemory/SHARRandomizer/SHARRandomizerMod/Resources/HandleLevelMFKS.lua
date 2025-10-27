@@ -32,8 +32,9 @@ for i = startIndex, endIndex do
     MFK:AddFunction("LoadP3DFile",{"art\\cars\\" .. Traffic[i].Name .. ".p3d"})
 end
 
-changed = true
+MFK:AddFunction("LoadP3DFile", "art\\frontend\\dynaload\\images\\msnicons\\object\\tshirt.p3d")
 
+changed = true
 
 if changed then
     MFK:Output(true)

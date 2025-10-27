@@ -27,7 +27,8 @@ local function AddStages(idx)
     MFK:InsertFunction(idx, "CloseStage")
     idx = idx + 1
     if CarLock then
-        local indexes = MissionLocks[CarLock]
+        local indexes = MissionLock[CarLock]
+        print(indexes.IngameMessageIdx)
 
         MFK:InsertFunction(idx, "AddStage")
         idx = idx + 1
@@ -40,8 +41,9 @@ local function AddStages(idx)
         MFK:InsertFunction(idx, "CloseStage")
         idx = idx + 1
     
-        MFK:InsertFunction(idx, "AddStage", {"locked", type, name})
+        MFK:InsertFunction(idx, "AddStage", {"locked", "car", name})
         idx = idx + 1
+        print(indexes.IngameMessageIdx)
         MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.IngameMessageIdx)
         idx = idx + 1
         MFK:InsertFunction(idx, "AddObjective", "timer")
@@ -55,11 +57,12 @@ local function AddStages(idx)
     
         MFK:InsertFunction(idx, "AddStage")
         idx = idx + 1
+        print(indexes.MissionObjectiveIdx)
         MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.MissionObjectiveIdx)
         idx = idx + 1
         MFK:InsertFunction(idx, "SetHUDIcon", "tshirt")
         idx = idx + 1
-        MFK:InsertFunction(idx, "AddObjective", {"buy" .. type, name})
+        MFK:InsertFunction(idx, "AddObjective", {"buycar", name})
         idx = idx + 1
         MFK:InsertFunction(idx, "CloseObjective")
         idx = idx + 1
@@ -75,7 +78,7 @@ for i=#MFK.Functions,1,-1 do
     local func = MFK.Functions[i]
     local name = func.Name:lower()
     if name == "addstage" then
-        FirstAddStage = i
+        FirstAddStageIndex = i
         if ResetStage then
             ResetAddStageIndex = i
         end
@@ -85,7 +88,7 @@ for i=#MFK.Functions,1,-1 do
     end
 end
 
-AddStages(FirstStageIndex)
+AddStages(FirstAddStageIndex)
 if ResetAddStageIndex then
     AddStages(ResetAddStageIndex)
 end
