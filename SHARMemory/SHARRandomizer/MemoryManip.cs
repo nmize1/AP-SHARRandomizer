@@ -1084,6 +1084,16 @@ namespace SHARRandomizer
                         car = memory.Singletons.CharacterManager?.Player?.Car;
                     }
                     break;
+                case "Traffic Trap":
+                    /* Loop through traffic
+                       turn off coin drops
+                       explode all currently spawned traffic
+                       set them all the big trucks
+                       make them start swerving lanes 
+                       wait some seconds
+                       set traffic back
+                    */
+                    break;
                 default:
                     break;
 
