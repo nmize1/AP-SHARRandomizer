@@ -180,6 +180,7 @@ namespace SHARRandomizer
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>();
                 shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString());
+                MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
             }
             catch (Exception ex)
             {

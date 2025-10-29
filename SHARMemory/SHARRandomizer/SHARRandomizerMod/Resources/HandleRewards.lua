@@ -25,6 +25,14 @@ for i = 1, 42 do
     end
 end
 
+MFK:AddFunction("BindReward", {"rocke_v", "art\\cars\\rocke_v.p3d", "car", "forsale", 1, 100, "simpson"})
+MFK:AddFunction("BindReward", {"mono_v", "art\\cars\\mono_v.p3d", "car", "forsale", 2, 250, "simpson"})
+MFK:AddFunction("BindReward", {"knigh_v", "art\\cars\\knigh_v.p3d", "car", "forsale", 3, 100, "simpson"})
+MFK:AddFunction("BindReward", {"atv_v", "art\\cars\\atv_v.p3d", "car", "forsale", 4, 100, "simpson"})
+MFK:AddFunction("BindReward", {"oblit_v", "art\\cars\\oblit_v.p3d", "car", "forsale", 5, 100, "simpson"})
+MFK:AddFunction("BindReward", {"hype_v", "art\\cars\\hype_v.p3d", "car", "forsale", 6, 100, "simpson"})
+MFK:AddFunction("BindReward", {"dune_v", "art\\cars\\dune_v.p3d", "car", "forsale", 7, 100, "simpson"})
+
 function Clamp(Value, Lo, Hi)
     if Value < Lo then return Lo end
     if Hi < Value then return Hi end
@@ -115,9 +123,6 @@ local cars = {
     "icecream",
     "cBone",
     "cCellA",
-    "cCellB",
-    "cCellC",
-    "cCellD",
     "cCube",
     "cMilk",
     "cNonup",

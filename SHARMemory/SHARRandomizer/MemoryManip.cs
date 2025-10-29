@@ -49,6 +49,7 @@ namespace SHARRandomizer
 
 
         public ArchipelagoClient ac;
+        public static string VerifyID;
         public static Queue<ScoutedItemInfo> ScoutedItems = new Queue<ScoutedItemInfo>();
         LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
         RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
@@ -106,6 +107,7 @@ namespace SHARRandomizer
                     Common.WriteLog($"Main Mod should be APSHARRandomizer, detected {mod}. Exiting.", "MemoryStart");
                     Environment.Exit(1);
                 }
+           
 
                 var state = memory.Singletons.GameFlow?.CurrentContext;
                 while (state == null || state == GameFlow.GameState.PreLicence || state == GameFlow.GameState.Licence)
@@ -140,7 +142,6 @@ namespace SHARRandomizer
 
                 await InitialGameState(memory);
                 await GetItems(memory);
-
 
                 memory.Dispose();
                 p.Dispose();
@@ -217,6 +218,13 @@ namespace SHARRandomizer
             APLog.OnEnqueue += item => APLogging();
 
             var textBible = memory.Globals.TextBible.CurrentLanguage;
+
+            if (textBible?.GetString("VerifyID") != VerifyID)
+            {
+                Common.WriteLog($"SHAR.ini outdated. Exiting.", "MemoryStart");
+                Environment.Exit(1);
+            }
+
             Common.WriteLog("REWARDS:", "InitialGameState");
             foreach (var r in REWARDS)
             {
