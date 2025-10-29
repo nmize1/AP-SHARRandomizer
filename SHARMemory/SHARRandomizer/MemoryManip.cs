@@ -528,7 +528,7 @@ namespace SHARRandomizer
                         var textBible = memory.Globals.TextBible.CurrentLanguage;
 
                         if (item == "Cell Phone Car")
-                            item = $"Cell Phone Car {new[] { "A", "B", "C", "D" }[new Random().Next(4)]}";
+                            item = $"Cell Phone Car A";
 
                         var matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
                         if (matchingReward != null)

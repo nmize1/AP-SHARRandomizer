@@ -18,16 +18,36 @@ function GetGamePath(Path)
 end
 
 local ConfigPath = "/UserData/SavedGames/SHAR.ini"
-while not Exists(ConfigPath, true, false) do
-	--[[ 1.27 version:
-	if Dialog(DialogIcon.Error, DialogButtons.RetryClose, "Please download the patch file from the room and follow the setup guide to place it in the right location.", "`SHAR.ini` config file not found") == DialogResult.Close then
-		os.exit()
-	end
-	]]
-	Alert("`SHAR.ini` config file not found.\nPlease download the patch file from the room and follow the setup guide to place it in the right location.")
-end
 
-Config = IniParser(ConfigPath)
+while true do
+	while not Exists(ConfigPath, true, false) do
+		--[[ 1.27 version:
+		if Dialog(DialogIcon.Error, DialogButtons.RetryClose, "Please download the patch file from the room and follow the setup guide to place it in the right location.", "`SHAR.ini` config file not found") == DialogResult.Close then
+			os.exit()
+		end
+		]]
+		Alert("`SHAR.ini` config file not found.\nPlease download the patch file from the room and follow the setup guide to place it in the right location.")
+	end
+
+	Config = IniParser(ConfigPath)
+
+	if not Config.IDENTIFIER then
+		Alert("Outdated SHAR.ini detected.\nPlease download the patch file from the room and follow the setup guide to place it in the right location.")
+
+	elseif not (Config.CARD or not #Config.CARD == 49) then
+		Alert("Missing card entries in SHAR.ini.\nPlease redownload the patch file from the room and follow the setup guide to place it in the right location.")
+
+	elseif not Config.TRAFFIC or not (#Config.TRAFFIC == 1 or #Config.TRAFFIC == 35) then
+		Alert("Missing traffic entries in SHAR.ini.\nPlease redownload the patch file from the room and follow the setup guide to place it in the right location.")
+
+	elseif not Config.MISSIONLOCK or (#Config.MISSIONLOCK == 1 and not Config.MISSIONLOCK[1].Mission == 0) then
+		print(Config.MISSIONLOCK[1].Mission)
+		Alert("Missing mission lock entries in SHAR.ini.\nPlease redownload the patch file from the room and follow the setup guide to place it in the right location.")
+
+	else
+		break
+	end
+end
 
 local Lato16 = P3D.P3DFile(GetModPath() .. "/Resources/lato_16.0.p3d")
 
@@ -121,23 +141,25 @@ for i=1,7 do
 	LockSundayDrive[i] = {}
 end
 
-IngameMessageIdx = 19
-MissionObjectiveIdx = 299
-for i, lock in pairs(Config.MISSIONLOCK) do
-	carName = lock.Car
-	if not MissionLock[carName] then
-		IngameMessageIdx = IngameMessageIdx + 1
-		MissionObjectiveIdx = MissionObjectiveIdx + 1
-		MissionLock[carName] = {
-			IngameMessageIdx = IngameMessageIdx,
-			MissionObjectiveIdx = MissionObjectiveIdx,
-		}
-	end
+if Config.MISSIONLOCK and not Config.MISSIONLOCK[1].Mission == 0 then
+	IngameMessageIdx = 19
+	MissionObjectiveIdx = 299
+	for i, lock in pairs(Config.MISSIONLOCK) do
+		carName = lock.Car
+		if not MissionLock[carName] then
+			IngameMessageIdx = IngameMessageIdx + 1
+			MissionObjectiveIdx = MissionObjectiveIdx + 1
+			MissionLock[carName] = {
+				IngameMessageIdx = IngameMessageIdx,
+				MissionObjectiveIdx = MissionObjectiveIdx,
+			}
+		end
 	
-	local missionIndex = lock.Mission
-	local level = math.floor((missionIndex - 1) / 7) + 1
-	local mission = ((missionIndex - 1) % 7) + 1
+		local missionIndex = lock.Mission
+		local level = math.floor((missionIndex - 1) / 7) + 1
+		local mission = ((missionIndex - 1) % 7) + 1
 
-	LockSundayDrive[level][mission] = carName
+		LockSundayDrive[level][mission] = carName
+	end
 end
 

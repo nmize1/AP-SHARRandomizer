@@ -76,22 +76,24 @@ for Function, Index in MFK:GetFunctions(nil, true) do
     end
 end
 
-for Function, Index in MFK:GetFunctions("AddTrafficModel", true) do
-	MFK:RemoveFunction(Index)
-end
-for Function, Index in MFK:GetFunctions("CreateTrafficGroup", true) do
-    local startIndex = (Level - 1) * 5 + 1
-    local endIndex = startIndex + 4
-	for i = startIndex, endIndex do
-		local car = Traffic[i].Name
+if(#Traffic > 1) then
+    for Function, Index in MFK:GetFunctions("AddTrafficModel", true) do
+	    MFK:RemoveFunction(Index)
+    end
+    for Function, Index in MFK:GetFunctions("CreateTrafficGroup", true) do
+        local startIndex = (Level - 1) * 5 + 1
+        local endIndex = startIndex + 4
+	    for i = startIndex, endIndex do
+		    local car = Traffic[i].Name
 			
-		local args = {car, 1}
-		if math.random(3) == 1 then
-			args[3] = 1
-		end
+		    local args = {car, 1}
+		    if math.random(3) == 1 then
+			    args[3] = 1
+		    end
 			
-		MFK:InsertFunction(Index + 1, "AddTrafficModel", args)
-	end
+		    MFK:InsertFunction(Index + 1, "AddTrafficModel", args)
+	    end
+    end
 end
 
 if changed then

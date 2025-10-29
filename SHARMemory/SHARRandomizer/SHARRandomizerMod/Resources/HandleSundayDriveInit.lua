@@ -17,7 +17,7 @@ local MFK = MFKLexer.Lexer:Parse(File)
 
 local CarLock = LockSundayDrive[Level][Mission]
 
-local function AddStages(idx)
+local function AddStages(idx, dummyonly)
 	MFK:InsertFunction(idx, "AddStage")
 	idx = idx + 1
 	MFK:InsertFunction(idx, "AddObjective", "dummy")
@@ -26,9 +26,11 @@ local function AddStages(idx)
 	idx = idx + 1
 	MFK:InsertFunction(idx, "CloseStage")
 	idx = idx + 1
+	if dummyonly then
+		return
+	end
 	if CarLock then
 		local indexes = MissionLock[CarLock]
-		print(indexes.IngameMessageIdx)
 
 		MFK:InsertFunction(idx, "AddStage")
 		idx = idx + 1
@@ -60,7 +62,7 @@ local function AddStages(idx)
 		print(indexes.MissionObjectiveIdx)
 		MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.MissionObjectiveIdx)
 		idx = idx + 1
-		MFK:InsertFunction(idx, "SetHUDIcon", "tshirt")
+		MFK:InsertFunction(idx, "SetHUDIcon", "aplogomsn")
 		idx = idx + 1
 		MFK:InsertFunction(idx, "AddObjective", {"buycar", CarLock})
 		idx = idx + 1
@@ -88,9 +90,11 @@ for i=#MFK.Functions,1,-1 do
 	end
 end
 
-AddStages(FirstAddStageIndex)
 if ResetAddStageIndex then
-	AddStages(ResetAddStageIndex)
+	AddStages(ResetAddStageIndex, false)
+	AddStages(FirstAddStageIndex, true)
+else
+	AddStages(FirstAddStageIndex, false)
 end
 
 

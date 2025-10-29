@@ -16,6 +16,9 @@ if GetGameLanguage then -- Older versions of the launcher don't have this functi
 	lang = GetGameLanguage()
 end
 
+local ids = Config.IDENTIFIER
+
+
 local default = "If you can read this, then you are not running the Archipelago client. You can probably also access a bunch of other things you should not do."
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then -- If we can't find game lang, or if lang is the current game lang, add the entries
@@ -59,13 +62,14 @@ local TranslationMap = {
 local UnlockTranslation = {
 	["E"] = "You need to unlock \"%s\".",
 	["F"] = "Vous devez débloquer \"%s\".",
-	["G"] = "You need to unlock \"%s\".",
+	["G"] = "Sie müssen \"%s\" entsperren.",
 	["S"] = "Debes desbloquear \"%s\".",
 }
 
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
-		chunk:AddValue("APLog", "APLog will show here." .. string.rep(" ", 475))
+		chunk:AddValue("APLog", ids[1].TitleID .. string.rep(" ", 496 - #ids[1].TitleID))
+		chunk:AddValue("VerifyID", ids[1].ID)
 		
 		chunk:AddValue("APWrench", "XX")
 		chunk:AddValue("APHnR", "XX")
