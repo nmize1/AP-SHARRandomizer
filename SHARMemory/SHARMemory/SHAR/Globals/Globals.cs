@@ -170,6 +170,34 @@ public sealed partial class Globals
         set => Memory.WriteBytes(CharacterShadowAddress, value ? CharacterShadowEnable : CharacterShadowDisable);
     }
 
+    private readonly uint TrafficAIMinSecondsBetweenLaneChangesAddress;
+    private uint TrafficAIMinSecondsBetweenLaneChangesValueAddress = 0;
+    /// <summary>
+    /// A property representing the minimum number of seconds between lane changes in the TrafficAI.
+    /// </summary>
+    public float TrafficAIMinSecondsBetweenLaneChanges
+    {
+        get
+        {
+            uint valueAdress = Memory.ReadUInt32(TrafficAIMinSecondsBetweenLaneChangesAddress);
+            float value = Memory.ReadSingle(valueAdress);
+            return value;
+        }
+        set
+        {
+            if (TrafficAIMinSecondsBetweenLaneChangesValueAddress == 0)
+            {
+                TrafficAIMinSecondsBetweenLaneChangesValueAddress = Memory.AllocateAndWriteMemory(BitConverter.GetBytes(value));
+
+                Memory.WriteUInt32(TrafficAIMinSecondsBetweenLaneChangesAddress, TrafficAIMinSecondsBetweenLaneChangesValueAddress);
+            }
+            else
+            {
+                Memory.WriteSingle(TrafficAIMinSecondsBetweenLaneChangesValueAddress, value);
+            }
+        }
+    }
+
     internal Globals(Memory memory)
     {
         Memory = memory;
@@ -196,5 +224,7 @@ public sealed partial class Globals
         TurboShadowAddress = Memory.SelectAddress(0x4E0D80, 0x4E0E60, 0x4E1120, 0x4E0F00);
 
         CharacterShadowAddress = Memory.SelectAddress(0x4FE846, 0x4FE956, 0x4FEC26, 0x4FEA46);
+
+        TrafficAIMinSecondsBetweenLaneChangesAddress = Memory.SelectAddress(0x40F4A8, 0x40F498, 0x40F4B8, 0x40F468) + 2;
     }
 }
