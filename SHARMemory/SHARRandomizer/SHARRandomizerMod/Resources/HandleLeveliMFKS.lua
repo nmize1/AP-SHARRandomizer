@@ -96,6 +96,14 @@ if(#Traffic > 1) then
     end
 end
 
+MFK:AddFunction("CreateTrafficGroup", 1)
+MFK:AddFunction("AddTrafficModel", { "cFire_v", 1})
+MFK:AddFunction("AddTrafficModel", { "oblit_v", 1})
+MFK:AddFunction("AddTrafficModel", { "cBone", 1})
+MFK:AddFunction("AddTrafficModel", { "cCola", 1})
+MFK:AddFunction("AddTrafficModel", { "dune_v", 1})
+MFK:AddFunction("CloseTrafficGroup")
+
 if changed then
     MFK:Output(true)
 end

@@ -31,6 +31,7 @@ end
 local TranslationMap = {
 	["E"] = {
 		["SKINN_V"] = "Skinner's Sedan",
+		["TT"] = "Audi TT",
 		["MOE_V"] = "Moe's Sedan",
 		["CBONE"] = "Bonestorm Truck",
 		["GLASTRUC"] = "Glass Truck",
@@ -38,6 +39,7 @@ local TranslationMap = {
 	},
 	["F"] = {
 		["SKINN_V"] = "La Berline de Skinner",
+		["TT"] = "Audi TT",
 		["MOE_V"] = "La Berline de Moe",
 		["CBONE"] = "Camion Bonestorm",
 		["GLASTRUC"] = "Camion de vitrier",
@@ -45,6 +47,7 @@ local TranslationMap = {
 	},
 	["G"] = {
 		["SKINN_V"] = "Skinners Wagen",
+		["TT"] = "Audi TT",
 		["MOE_V"] = "Moes Wagen",
 		["CBONE"] = "Bonestorm-Laster",
 		["GLASTRUC"] = "Glaswagen",
@@ -52,6 +55,7 @@ local TranslationMap = {
 	},
 	["S"] = {
 		["SKINN_V"] = "El Sedán de Skinner",
+		["TT"] = "Audi TT",
 		["MOE_V"] = "El Sedán de Moe",
 		["CBONE"] = "Camión Bonestorm",
 		["GLASTRUC"] = "Camión de cristales",

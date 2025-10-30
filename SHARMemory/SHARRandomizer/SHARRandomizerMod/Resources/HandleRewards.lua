@@ -127,7 +127,8 @@ local cars = {
     "cMilk",
     "cNonup",
     "gramR_v",
-    "cBlbart"
+    "cBlbart",
+	"tt"
 }
 
 for _, car in ipairs(cars) do

@@ -219,9 +219,12 @@ namespace SHARRandomizer
 
             var textBible = memory.Globals.TextBible.CurrentLanguage;
 
-            if (textBible?.GetString("VerifyID") != VerifyID)
+            var gameVerifyID = textBible?.GetString("VerifyID");
+            if (gameVerifyID != VerifyID)
             {
-                Common.WriteLog($"SHAR.ini outdated. Exiting.", "MemoryStart");
+                Common.WriteLog($"SHAR.ini verification ID \"{gameVerifyID ?? "NULL"}\" does not match expected verification ID \"{VerifyID}\".", "MemoryStart");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey(true);
                 Environment.Exit(1);
             }
 
@@ -280,7 +283,7 @@ namespace SHARRandomizer
             }
 
             ac.CheckVictory();
-            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch" });
+            traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" });
             Task.Run(() => CheckActions(memory));
             Task.Run(() => CheckGags(memory));
         }
@@ -1102,11 +1105,15 @@ namespace SHARRandomizer
                     {
                         /* Disable coin drops, destroy all traffic for dramatic effect, reenable coin drops */
                         hnr.VehicleDestroyedCoins = trafficgroup == 1 ? 0 : vdc;
+                        float curhnr = memory.Singletons.HitNRunManager.CurrHitAndRun;
                         foreach (TrafficVehicle v in memory.Globals.TrafficManager.Vehicles.ToArray())
                         {
                             if (v == null) continue;
-                            v.Vehicle.HitPoints = 0;
+                            v.Vehicle.VehicleDestroyed = true;
+                            memory.Singletons.HitNRunManager.CurrHitAndRun = 0.0f;
+                            await Task.Delay(50);
                         }
+                        memory.Singletons.HitNRunManager.CurrHitAndRun = curhnr;
                         hnr.VehicleDestroyedCoins = vdc;
 
                         /* Switch traffic cars */
@@ -1488,7 +1495,7 @@ namespace SHARRandomizer
             if (!UnlockedItems.Contains(e.Vehicle.Name))
             {
                 eventLocator.Flags = Locator.LocatorFlags.None;
-                Common.WriteLog($"Setting locator flags to none for: {vehicle.Name}", "Watcher_NewTrafficVehicle");
+                //Common.WriteLog($"Setting locator flags to none for: {vehicle.Name}", "Watcher_NewTrafficVehicle");
             }
 
             return Task.CompletedTask;

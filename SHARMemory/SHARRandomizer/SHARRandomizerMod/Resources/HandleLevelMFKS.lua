@@ -32,6 +32,12 @@ if(#Config.TRAFFIC == 35) then
 	end
 end
 
+MFK:AddFunction("LoadP3DFile",{"art\\cars\\cFire_v.p3d"})
+MFK:AddFunction("LoadP3DFile",{"art\\cars\\oblit_v.p3d"})
+MFK:AddFunction("LoadP3DFile",{"art\\cars\\cBone.p3d"})
+MFK:AddFunction("LoadP3DFile",{"art\\cars\\cCola.p3d"})
+MFK:AddFunction("LoadP3DFile",{"art\\cars\\dune_v.p3d"})
+
 MFK:AddFunction("LoadP3DFile", "art\\frontend\\dynaload\\images\\msnicons\\object\\ApLogoMSN.p3d")
 
 MFK:Output(true)
