@@ -3,11 +3,12 @@ Paths.ModPath = GetModPath()
 Paths.Resources = Paths.ModPath .. "/Resources/"
 Paths.Lib = Paths.Resources .. "lib/"
 Paths.Img = Paths.Resources .. "img/"
-dofile(GetModPath() .. "/Resources/lib/IniParser.lua")
+dofile(Paths.Lib .. "IniParser.lua")
+dofile(Paths.Lib .. "SPTParser.lua")
 dofile(Paths.Lib .. "MFKLexer.lua")
-dofile(GetModPath() .. "/Resources/lib/P3D2.lua")
-P3D.LoadChunks(GetModPath() .. "/Resources/lib/P3DChunks")
-dofile(Paths.Lib .. "/Utils.lua")
+dofile(Paths.Lib .. "P3D2.lua")
+P3D.LoadChunks(Paths.Lib .. "P3DChunks")
+dofile(Paths.Lib .. "Utils.lua")
 
 Settings = GetSettings()
 
