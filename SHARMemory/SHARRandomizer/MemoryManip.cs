@@ -1093,14 +1093,46 @@ namespace SHARRandomizer
                     }
                     break;
                 case "Traffic Trap":
-                    /* Loop through traffic
-                       turn off coin drops
-                       explode all currently spawned traffic
-                       set them all the big trucks
-                       make them start swerving lanes 
-                       wait some seconds
-                       set traffic back
-                    */
+                    var hnr = memory.Singletons.HitNRunManager;
+                    int vdc = hnr.VehicleDestroyedCoins;
+                    int trafficgroup = 1;
+
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        /* Disable coin drops, destroy all traffic for dramatic effect, reenable coin drops */
+                        hnr.VehicleDestroyedCoins = trafficgroup == 1 ? 0 : vdc;
+                        foreach (TrafficVehicle v in memory.Globals.TrafficManager.Vehicles.ToArray())
+                        {
+                            if (v == null) continue;
+                            v.Vehicle.HitPoints = 0;
+                        }
+                        hnr.VehicleDestroyedCoins = vdc;
+
+                        /* Switch traffic cars */
+                        memory.Globals.TrafficManager.CurrTrafficModelGroup = trafficgroup;
+
+                        /* time to swerve */
+                        memory.Globals.TrafficAIMinSecondsBetweenLaneChanges = trafficgroup == 1 ? 0 : 5;
+
+                        /* if we went back to default, break out */
+                        if(trafficgroup == 0)
+                        {
+                            break;
+                        }
+
+                        /* sit back and relax */
+                        var end = DateTime.UtcNow.AddSeconds(60);
+
+                        while (DateTime.UtcNow < end)
+                        {
+                            await Task.Delay(100);
+                        }
+
+                        /* set traffic back to original group and repeat the switch */
+                        trafficgroup = 0;
+                    }
+
                     break;
                 default:
                     break;
