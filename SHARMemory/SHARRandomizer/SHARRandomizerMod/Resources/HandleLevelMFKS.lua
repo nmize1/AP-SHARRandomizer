@@ -10,13 +10,6 @@ local Path = GetPath()
 local Level = Path:match("level0(%d)")
 Level = tonumber(Level)
 
-if Level == 1 then
-	for Function, Index in MFK:GetFunctions("AddMission", true) do
-		if Function.Arguments[1] == "m0" then
-			MFK:RemoveFunction(Index)
-		end
-	end
-end
 
 MFK:AddFunction("AddBonusMission", {"bm2"})
 
