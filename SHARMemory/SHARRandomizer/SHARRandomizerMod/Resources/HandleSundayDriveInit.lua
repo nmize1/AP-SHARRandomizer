@@ -116,12 +116,21 @@ if Settings.CameraPanMode == 3 then
 		["setanimatedcameraname"] = true,
 		["setanimcammulticontname"] = true,
 	}
-
+	
 	for i=#MFK.Functions,1,-1 do
 		local func = MFK.Functions[i]
 		local name = func.Name:lower()
 		if ToRemove[name] then
 			table.remove(MFK.Functions, i)
+		end
+	end
+end
+
+if Level == 7 and Mission == 5 then
+	print("Moving spawn point.")
+	for Function, Index in MFK:GetFunctions("SetMissionResetPlayerOutCar", true) do
+		if Function.Arguments[1] == "m5_homer_start" then
+			Function.Arguments[1] = "m5_carstart"
 		end
 	end
 end

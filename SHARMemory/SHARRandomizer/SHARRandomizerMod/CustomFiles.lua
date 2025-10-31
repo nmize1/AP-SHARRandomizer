@@ -142,7 +142,7 @@ for i=1,7 do
 	LockSundayDrive[i] = {}
 end
 
-if Config.MISSIONLOCK and not Config.MISSIONLOCK[1].Mission == 0 then
+if Config.MISSIONLOCK and Config.MISSIONLOCK[1].Mission ~= 0 then
 	IngameMessageIdx = 19
 	MissionObjectiveIdx = 299
 	for i, lock in pairs(Config.MISSIONLOCK) do
@@ -155,7 +155,6 @@ if Config.MISSIONLOCK and not Config.MISSIONLOCK[1].Mission == 0 then
 				MissionObjectiveIdx = MissionObjectiveIdx,
 			}
 		end
-	
 		local missionIndex = lock.Mission
 		local level = math.floor((missionIndex - 1) / 7) + 1
 		local mission = ((missionIndex - 1) % 7) + 1

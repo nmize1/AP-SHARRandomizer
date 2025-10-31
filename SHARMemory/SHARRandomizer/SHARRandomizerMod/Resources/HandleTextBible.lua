@@ -100,8 +100,18 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 			chunk:AddValue("INGAME_MESSAGE_" .. v.IngameMessageIdx, message)
 			chunk:AddValue("MISSION_OBJECTIVE_" .. v.MissionObjectiveIdx, message)
 		end
+
+		for i=1,7 do
+			for j=1,7 do
+				local entry = "MISSION_TITLE_L" .. i .. "_M" .. j
+				local value = chunk:GetValueFromName(entry)
+				chunk:SetValue(entry, value .. string.rep(" ", math.max(0, 50 - #value)))
+			end
+		end
 	end
 end
+
+
 
 TextBibleCache = tostring(P3DFile)
 Output(TextBibleCache)

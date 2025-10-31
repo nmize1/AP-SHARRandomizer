@@ -6,8 +6,6 @@ local MFK = MFKLexer.Lexer:Parse(ReadFile(GamePath))
 local changed = false
 local Traffic = Config.TRAFFIC
 
-
-local Path = GetPath()
 local Level = Path:match("level0(%d)")
 Level = tonumber(Level)
 
@@ -76,7 +74,7 @@ for Function, Index in MFK:GetFunctions(nil, true) do
     end
 end
 
-if(#Traffic > 1) then
+if(#Traffic == 35) then
     for Function, Index in MFK:GetFunctions("AddTrafficModel", true) do
 	    MFK:RemoveFunction(Index)
     end

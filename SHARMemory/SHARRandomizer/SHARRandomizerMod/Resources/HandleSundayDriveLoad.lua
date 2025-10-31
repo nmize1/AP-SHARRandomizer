@@ -3,6 +3,7 @@ local GamePath = GetGamePath(Path)
 local File = ReadFile(GamePath)
 local MFK = MFKLexer.Lexer:Parse(File)
 
+print("Fuck")
 if Settings.CameraPanMode == 2 then
 	P3DFiles = {}
 	for func in MFK:GetFunctions("LoadP3DFile") do

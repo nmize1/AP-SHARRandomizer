@@ -10,6 +10,7 @@ using System;
 using System.Reflection;
 using System.Drawing;
 using SHARMemory.SHAR.Structs;
+using System.Reflection.Emit;
 
 namespace SHARRandomizer
 {
@@ -798,19 +799,74 @@ namespace SHARRandomizer
 
         void InitializeMissionTitles()
         {
-            string name = $"MISSION_TITLE_L{0}_M{0}";
-            language.SetString(name, "LOCKED");
+            //string name = $"MISSION_TITLE_L{0}_M{0}";
+            //language.SetString(name, "LOCKED");
+            //for (int level = 0; level < 7; level++)
+            //{
+            //    for (int mission = 0; mission < 7; mission++)
+            //    {
+            //        name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
+            //        language.SetString(name, "LOCKED");
+            //        Common.WriteLog($"{name} is LOCKED", "InitializeMissionTitles");
+            //    }
+            //}
 
+            language.SetString($"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
+            language.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
+            language.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
+            language.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
+            language.SetString($"MISSION_TITLE_L{1}_M{5}", "Grocery Store");
+            language.SetString($"MISSION_TITLE_L{1}_M{6}", "Power Plant Parking Lot");
+            language.SetString($"MISSION_TITLE_L{1}_M{7}", "Simpsons' House");
 
-            for (int level = 0; level < 7; level++)
-            {
-                for (int mission = 0; mission < 7; mission++)
-                {
-                    name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                    language.SetString(name, "LOCKED");
-                    Common.WriteLog($"{name} is LOCKED", "InitializeMissionTitles");
-                }
-            }
+            language.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
+            language.SetString($"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
+            language.SetString($"MISSION_TITLE_L{2}_M{3}", "Googolplex");
+            language.SetString($"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
+            language.SetString($"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
+            language.SetString($"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
+            language.SetString($"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
+
+            language.SetString($"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
+            language.SetString($"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
+            language.SetString($"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
+            language.SetString($"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
+            language.SetString($"MISSION_TITLE_L{3}_M{5}", "Casino");
+            language.SetString($"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
+            language.SetString($"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
+
+            language.SetString($"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
+            language.SetString($"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
+            language.SetString($"MISSION_TITLE_L{4}_M{3}", "Gas Station");
+            language.SetString($"MISSION_TITLE_L{4}_M{4}", "Cemetary");
+            language.SetString($"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
+            language.SetString($"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
+            language.SetString($"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
+
+            language.SetString($"MISSION_TITLE_L{5}_M{1}", "Googolplex");
+            language.SetString($"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
+            language.SetString($"MISSION_TITLE_L{5}_M{3}", "General Hospital");
+            language.SetString($"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
+            language.SetString($"MISSION_TITLE_L{5}_M{5}", "DMV");
+            language.SetString($"MISSION_TITLE_L{5}_M{6}", "DMV");
+            language.SetString($"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
+
+            language.SetString($"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
+            language.SetString($"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
+            language.SetString($"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
+            language.SetString($"MISSION_TITLE_L{6}_M{4}", "Observatory");
+            language.SetString($"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
+            language.SetString($"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
+            language.SetString($"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
+
+            language.SetString($"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
+            language.SetString($"MISSION_TITLE_L{7}_M{2}", "School Playground");
+            language.SetString($"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
+            language.SetString($"MISSION_TITLE_L{7}_M{4}", "Inside School");
+            language.SetString($"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
+            language.SetString($"MISSION_TITLE_L{7}_M{6}", "School Playground");
+            language.SetString($"MISSION_TITLE_L{7}_M{7}", "School Playground");
+
         }
 
         public void InitializeShopItems()
