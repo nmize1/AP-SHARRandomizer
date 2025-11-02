@@ -118,6 +118,7 @@ local cars = {
     "hallo",
     "coffin",
     "witchcar",
+	"ship",
     "sedanA",
     "wagonA",
     "icecream",

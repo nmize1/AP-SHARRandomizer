@@ -142,9 +142,19 @@ for i=1,7 do
 	LockSundayDrive[i] = {}
 end
 
+IngameMessageIdx = 20
+MissionObjectiveIdx = 300
+
+if not MissionLock["fakecar"] then
+	MissionLock["fakecar"] = {
+		IngameMessageIdx = IngameMessageIdx,
+		MissionObjectiveIdx = MissionObjectiveIdx,
+	}
+
+	LockSundayDrive[1][0] = "fakecar"
+end
+
 if Config.MISSIONLOCK and Config.MISSIONLOCK[1].Mission ~= 0 then
-	IngameMessageIdx = 19
-	MissionObjectiveIdx = 299
 	for i, lock in pairs(Config.MISSIONLOCK) do
 		carName = lock.Car
 		if not MissionLock[carName] then
@@ -163,3 +173,8 @@ if Config.MISSIONLOCK and Config.MISSIONLOCK[1].Mission ~= 0 then
 	end
 end
 
+
+
+for k, v in pairs(MissionLock) do
+	print(k, v)
+end

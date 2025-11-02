@@ -3,9 +3,9 @@ local Path = GetPath()
 local Level, Mission = Path:match("scripts[\\/]missions[\\/]level0(%d)[\\/]m(%d)sdi.mfk")
 Level, Mission = tonumber(Level), tonumber(Mission)
 
-if Mission < 1 or Mission > 7 then
-	-- Don't mess with tutorial or cutscenes
-	print("Not adding dummy to tutorial/cutscene.")
+if Mission > 7 then
+	-- Don't mess with cutscenes
+	print("Not adding dummy to cutscene.")
 	return
 end
 
@@ -17,16 +17,18 @@ local MFK = MFKLexer.Lexer:Parse(File)
 
 local CarLock = LockSundayDrive[Level][Mission]
 
-local function AddStages(idx, dummyonly)
-	MFK:InsertFunction(idx, "AddStage")
-	idx = idx + 1
-	MFK:InsertFunction(idx, "AddObjective", "dummy")
-	idx = idx + 1
-	MFK:InsertFunction(idx, "CloseObjective")
-	idx = idx + 1
-	MFK:InsertFunction(idx, "CloseStage")
-	idx = idx + 1
-	if dummyonly then
+local function AddStages(idx, dummy)
+	if not dummy == 0 then
+		MFK:InsertFunction(idx, "AddStage")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "AddObjective", "dummy")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseObjective")
+		idx = idx + 1
+		MFK:InsertFunction(idx, "CloseStage")
+		idx = idx + 1
+	end
+	if dummy == 1 then
 		return
 	end
 	if CarLock then
@@ -36,7 +38,7 @@ local function AddStages(idx, dummyonly)
 		idx = idx + 1
 		MFK:InsertFunction(idx, "AddObjective", "timer")
 		idx = idx + 1
-		MFK:InsertFunction(idx, "SetDurationTime", 5)
+		MFK:InsertFunction(idx, "SetDurationTime", 1)
 		idx = idx + 1
 		MFK:InsertFunction(idx, "CloseObjective")
 		idx = idx + 1
@@ -91,12 +93,15 @@ for i=#MFK.Functions,1,-1 do
 end
 
 if ResetAddStageIndex then
-	AddStages(ResetAddStageIndex, false)
-	AddStages(FirstAddStageIndex, true)
+	AddStages(ResetAddStageIndex, 2)
+	AddStages(FirstAddStageIndex, 1)
 else
-	AddStages(FirstAddStageIndex, false)
+	if Level == 1 and Mission == 0 then
+		AddStages(FirstAddStageIndex, 0)
+	else
+		AddStages(FirstAddStageIndex, 2)
+	end
 end
-
 
 if Settings.RemoveInitialWalk then
 	local SetInitialWalk, SetInitialWalkIndex = MFK:GetFunction("SetInitialWalk")

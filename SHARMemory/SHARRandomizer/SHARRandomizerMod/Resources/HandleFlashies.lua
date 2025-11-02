@@ -6,8 +6,6 @@ local FileNameWithoutExtension = RemoveFileExtension(FileName)
 
 local BaseFilePath = "/GameData/art/cars/" .. FileName
 
-print("Removing flashing lights from " .. Path)
-
 local function RemoveChunksWithName(Parent, RemoveNames, Identifier)
 	for idx, chunk in Parent:GetChunksIndexed(Identifier, true) do
 		if RemoveNames[chunk.Name] then
@@ -71,5 +69,6 @@ if MultiControllerChunk ~= nil then
 end
 
 if Settings.RemoveFlashingLights then
+	print("Removing flashing lights from " .. Path)
 	P3DFile:Output()
 end

@@ -18,16 +18,6 @@ end
 
 local ids = Config.IDENTIFIER
 
-
-local default = "If you can read this, then you are not running the Archipelago client. You can probably also access a bunch of other things you should not do."
-for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
-	if lang == nil or chunk.Language == lang then -- If we can't find game lang, or if lang is the current game lang, add the entries
-		for i=1,42 do
-			chunk:AddValue("APCAR" .. i, default)
-		end
-	end
-end
-
 local TranslationMap = {
 	["E"] = {
 		["SKINN_V"] = "Skinner's Sedan",
@@ -69,9 +59,14 @@ local UnlockTranslation = {
 	["G"] = "Sie müssen \"%s\" entsperren.",
 	["S"] = "Debes desbloquear \"%s\".",
 }
+local default = "If you can read this, then you are not running the Archipelago client. You can probably also access a bunch of other things you should not do."
 
 for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 	if lang == nil or chunk.Language == lang then
+		for i=1,42 do
+			chunk:AddValue("APCAR" .. i, default)
+		end
+
 		chunk:AddValue("APLog", ids[1].TitleID .. string.rep(" ", 496 - #ids[1].TitleID))
 		chunk:AddValue("VerifyID", ids[1].ID)
 		
@@ -89,19 +84,30 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 				chunk:SetValue(k, v)
 			end
 		end
-		
-		for k, v in pairs(MissionLock) do
+
+		for k, v in pairs(MissionLock) do				
 			local success, displayName = pcall(chunk.GetValueFromName, chunk, k:upper())
 			if not success then
 				displayName = k
 			end
 			
 			local message = string.format(UnlockTranslation[chunk.Language], displayName)
+			if k == "fakecar" then
+				message = "Welcome to The Simpsons Hit & Run AP.\nYour progress is saved automatically on the AP server." ..
+						  "You can switch to any level\nfrom mission select, even when locked.\n\nThanks for playing, enjoy!"
+			end
 			chunk:AddValue("INGAME_MESSAGE_" .. v.IngameMessageIdx, message)
+			if k == "fakecar" then
+				message = "Welcome to The Simpsons Hit & Run AP! Enjoy!"
+			end
 			chunk:AddValue("MISSION_OBJECTIVE_" .. v.MissionObjectiveIdx, message)
 		end
 
+		--allocate longer level and mission names
 		for i=1,7 do
+			local entry = "LEVEL_" .. i
+			local value = chunk:GetValueFromName(entry)
+			chunk:SetValue(entry, value .. string.rep(" ", math.max(0, 50 - #value)))
 			for j=1,7 do
 				local entry = "MISSION_TITLE_L" .. i .. "_M" .. j
 				local value = chunk:GetValueFromName(entry)

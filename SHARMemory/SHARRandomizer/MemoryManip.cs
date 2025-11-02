@@ -76,6 +76,7 @@ namespace SHARRandomizer
         public static int maxCoins;
         public static int coinScale;
         bool _updatingCoins = false;
+        bool missionnames = true;
 
         public static bool gagfinder;
         public static bool checkeredflag;
@@ -248,7 +249,7 @@ namespace SHARRandomizer
             Common.WriteLog("Found ActorManager. Checking Wasps...", "InitialGameState");
 
 
-            InitializeMissionTitles();
+            UpdateMissionTitles();
             InitializeShopItems();
 
             switch (WalletLevel)
@@ -674,15 +675,8 @@ namespace SHARRandomizer
                 level = $"Level {nextLevel}";
             }
             UnlockedLevels.Add(level);
-            int levelNum = int.Parse(Regex.Match(level, @"\d+").Value);
 
-            for (int mission = 0; mission < 7; mission++)
-            {
-                string missionTitle = lt.getMissionName(mission, levelNum - 1, gameLanguage);
-                Common.WriteLog(missionTitle, "UnlockMissionsPerLevel");
-                string name = $"MISSION_TITLE_L{levelNum}_M{mission + 1}";
-                language.SetString(name, missionTitle.Trim());
-            }
+            UpdateMissionTitles();
 
             return true;
         }
@@ -797,76 +791,99 @@ namespace SHARRandomizer
             return true;
         }
 
-        void InitializeMissionTitles()
+        void UpdateMissionTitles()
         {
-            //string name = $"MISSION_TITLE_L{0}_M{0}";
-            //language.SetString(name, "LOCKED");
-            //for (int level = 0; level < 7; level++)
-            //{
-            //    for (int mission = 0; mission < 7; mission++)
-            //    {
-            //        name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-            //        language.SetString(name, "LOCKED");
-            //        Common.WriteLog($"{name} is LOCKED", "InitializeMissionTitles");
-            //    }
-            //}
+            if (missionnames)
+            {
+                string name = $"MISSION_TITLE_L{0}_M{0}";
+                language.SetString(name, "LOCKED");
+                for (int level = 0; level < 7; level++)
+                {
+                    language.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Missions");
+                    if (!UnlockedLevels.Contains($"Level {level + 1}"))
+                    {
+                        for (int mission = 0; mission < 7; mission++)
+                        {
+                            name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
+                            language.SetString(name, "Free Roam Available");
+                            //Common.WriteLog($"{name} is LOCKED", "InitializeMissionTitles");
+                        }
+                    }
+                    else
+                    {
+                        for (int mission = 0; mission < 7; mission++)
+                        {
+                            string missionTitle = lt.getMissionName(mission, level, gameLanguage);
+                            //Common.WriteLog(missionTitle, "UnlockMissionsPerLevel");
+                            name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
+                            language.SetString(name, missionTitle.Trim());
+                        }
+                    }
 
-            language.SetString($"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
-            language.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
-            language.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
-            language.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
-            language.SetString($"MISSION_TITLE_L{1}_M{5}", "Grocery Store");
-            language.SetString($"MISSION_TITLE_L{1}_M{6}", "Power Plant Parking Lot");
-            language.SetString($"MISSION_TITLE_L{1}_M{7}", "Simpsons' House");
+                }
+            }
+            else
+            {
+                for (int level = 0; level < 7; level++)
+                {
+                    language.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Teleports");
+                }
+                language.SetString($"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
+                language.SetString($"MISSION_TITLE_L{1}_M{5}", "Grocery Store");
+                language.SetString($"MISSION_TITLE_L{1}_M{6}", "Power Plant Parking Lot");
+                language.SetString($"MISSION_TITLE_L{1}_M{7}", "Power Plant Parking Lot");
 
-            language.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
-            language.SetString($"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
-            language.SetString($"MISSION_TITLE_L{2}_M{3}", "Googolplex");
-            language.SetString($"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
-            language.SetString($"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
-            language.SetString($"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
-            language.SetString($"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
+                language.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
+                language.SetString($"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
+                language.SetString($"MISSION_TITLE_L{2}_M{3}", "Googolplex");
+                language.SetString($"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
+                language.SetString($"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
+                language.SetString($"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
+                language.SetString($"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
 
-            language.SetString($"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
-            language.SetString($"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
-            language.SetString($"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
-            language.SetString($"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
-            language.SetString($"MISSION_TITLE_L{3}_M{5}", "Casino");
-            language.SetString($"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
-            language.SetString($"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
+                language.SetString($"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
+                language.SetString($"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
+                language.SetString($"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
+                language.SetString($"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
+                language.SetString($"MISSION_TITLE_L{3}_M{5}", "Casino");
+                language.SetString($"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
+                language.SetString($"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
 
-            language.SetString($"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
-            language.SetString($"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
-            language.SetString($"MISSION_TITLE_L{4}_M{3}", "Gas Station");
-            language.SetString($"MISSION_TITLE_L{4}_M{4}", "Cemetary");
-            language.SetString($"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
-            language.SetString($"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
-            language.SetString($"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
+                language.SetString($"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
+                language.SetString($"MISSION_TITLE_L{4}_M{3}", "Gas Station");
+                language.SetString($"MISSION_TITLE_L{4}_M{4}", "Cemetary");
+                language.SetString($"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
+                language.SetString($"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
 
-            language.SetString($"MISSION_TITLE_L{5}_M{1}", "Googolplex");
-            language.SetString($"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
-            language.SetString($"MISSION_TITLE_L{5}_M{3}", "General Hospital");
-            language.SetString($"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
-            language.SetString($"MISSION_TITLE_L{5}_M{5}", "DMV");
-            language.SetString($"MISSION_TITLE_L{5}_M{6}", "DMV");
-            language.SetString($"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
+                language.SetString($"MISSION_TITLE_L{5}_M{1}", "Googolplex");
+                language.SetString($"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
+                language.SetString($"MISSION_TITLE_L{5}_M{3}", "General Hospital");
+                language.SetString($"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
+                language.SetString($"MISSION_TITLE_L{5}_M{5}", "DMV");
+                language.SetString($"MISSION_TITLE_L{5}_M{6}", "DMV");
+                language.SetString($"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
 
-            language.SetString($"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
-            language.SetString($"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
-            language.SetString($"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
-            language.SetString($"MISSION_TITLE_L{6}_M{4}", "Observatory");
-            language.SetString($"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
-            language.SetString($"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
-            language.SetString($"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
+                language.SetString($"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
+                language.SetString($"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
+                language.SetString($"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
+                language.SetString($"MISSION_TITLE_L{6}_M{4}", "Observatory");
+                language.SetString($"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
+                language.SetString($"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
+                language.SetString($"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
 
-            language.SetString($"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
-            language.SetString($"MISSION_TITLE_L{7}_M{2}", "School Playground");
-            language.SetString($"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
-            language.SetString($"MISSION_TITLE_L{7}_M{4}", "Inside School");
-            language.SetString($"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
-            language.SetString($"MISSION_TITLE_L{7}_M{6}", "School Playground");
-            language.SetString($"MISSION_TITLE_L{7}_M{7}", "School Playground");
-
+                language.SetString($"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{7}_M{2}", "School Playground");
+                language.SetString($"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
+                language.SetString($"MISSION_TITLE_L{7}_M{4}", "Inside School");
+                language.SetString($"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
+                language.SetString($"MISSION_TITLE_L{7}_M{6}", "School Playground");
+                language.SetString($"MISSION_TITLE_L{7}_M{7}", "School Playground");
+            }
         }
 
         public void InitializeShopItems()
@@ -1165,7 +1182,14 @@ namespace SHARRandomizer
                         foreach (TrafficVehicle v in memory.Globals.TrafficManager.Vehicles.ToArray())
                         {
                             if (v == null) continue;
-                            v.Vehicle.VehicleDestroyed = true;
+                            try
+                            {
+                                v.Vehicle.VehicleDestroyed = true;
+                            }
+                            catch
+                            {
+                                Common.WriteLog($"Attempted to destroy null traffic.", "HandleTraps");
+                            }
                             memory.Singletons.HitNRunManager.CurrHitAndRun = 0.0f;
                             await Task.Delay(50);
                         }
@@ -1268,31 +1292,47 @@ namespace SHARRandomizer
             if (sender is not InputListener listener)
                 return;
 
+            /* Things that can be done in the pause menu */
             if (!listener.memory.InGame())
-                return;
-
-            if (e.Button.ToString() == "DPadUp" || e.Button.ToString() == "D1")
             {
-                if (fillerInventory["Hit N Run Reset"] > 0 && listener.memory.Singletons.HitNRunManager.CurrHitAndRun > 0f)
+                if (e.Button.ToString() == "LeftShoulder" || e.Button.ToString() == "D8")
                 {
-                    listener.memory.Singletons.HitNRunManager.CurrHitAndRun = 0f;
-                    fillerInventory["Hit N Run Reset"]--;
+                    missionnames = true;
+                    UpdateMissionTitles();
                 }
-                Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
-                ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
-                language.SetString("APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
+                if (e.Button.ToString() == "RightShoulder" || e.Button.ToString() == "D9")
+                {
+                    missionnames = false;
+                    UpdateMissionTitles();
+                }
             }
-            if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
+            /* Things that can't be done in the pause menu */
+            else
             {
-                if (fillerInventory["Wrench"] > 0)
+                if (e.Button.ToString() == "DPadUp" || e.Button.ToString() == "D1")
                 {
-                    listener.memory.Functions.TriggerEvent(Globals.Events.REPAIR_CAR);
-                    fillerInventory["Wrench"]--;
+                    if (fillerInventory["Hit N Run Reset"] > 0 && listener.memory.Singletons.HitNRunManager.CurrHitAndRun > 0f)
+                    {
+                        listener.memory.Singletons.HitNRunManager.CurrHitAndRun = 0f;
+                        fillerInventory["Hit N Run Reset"]--;
+                    }
+                    Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
+                    ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
+                    language.SetString("APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
                 }
-                Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
-                ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
-                language.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
+                if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
+                {
+                    if (fillerInventory["Wrench"] > 0)
+                    {
+                        listener.memory.Functions.TriggerEvent(Globals.Events.REPAIR_CAR);
+                        fillerInventory["Wrench"]--;
+                    }
+                    Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
+                    ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
+                    language.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
+                }
             }
+            /* Things that can be done in pause or not */
             if (e.Button.ToString() == "DPadLeft" || e.Button.ToString() == "D4")
             {
                 ac.CheckVictory();
