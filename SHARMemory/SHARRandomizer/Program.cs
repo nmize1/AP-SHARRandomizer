@@ -3,7 +3,7 @@ using SHARRandomizer;
 using SHARRandomizer.Classes;
 using System.Diagnostics;
 
-string VERSION = "Beta 0.3.8";
+string VERSION = "Beta 0.3.9";
 
 Console.Title = $"SHAR AP Version {VERSION}";
 
