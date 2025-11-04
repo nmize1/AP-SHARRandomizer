@@ -18,7 +18,7 @@ local MFK = MFKLexer.Lexer:Parse(File)
 local CarLock = LockSundayDrive[Level][Mission]
 
 local function AddStages(idx, dummy)
-	if not dummy == 0 then
+	if dummy ~= 0 then
 		MFK:InsertFunction(idx, "AddStage")
 		idx = idx + 1
 		MFK:InsertFunction(idx, "AddObjective", "dummy")

@@ -22,3 +22,22 @@ if Level == 1 and Mission == 0 then
 	return
 end
 
+local VehicleFunctions = {
+	["AddStageVehicle"] = 1,
+	["ActivateVehicle"] = 1,
+	["SetVehicleAIParams"] = 1,
+	["SetStageAIRaceCatchupParams"] = 1,
+	["SetStageAITargetCatchupParams"] = 1,
+	["SetCondTargetVehicle"] = 1,
+	["SetObjTargetVehicle"] = 1,
+	["AddDriver"] = 2,
+}
+
+for Old, New in pairs(LevelTraffic) do
+	for FunctionName, FunctionArgument in pairs(VehicleFunctions) do
+		MFK:SetAll(FunctionName, FunctionArgument, New, Old)
+	end
+end
+
+MFK:Output(true)
+

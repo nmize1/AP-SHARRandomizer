@@ -74,16 +74,24 @@ for Function, Index in MFK:GetFunctions(nil, true) do
     end
 end
 
+LevelTraffic = {}
+local oldcars = {}
 if(#Traffic == 35) then
     for Function, Index in MFK:GetFunctions("AddTrafficModel", true) do
-	    MFK:RemoveFunction(Index)
+	    table.insert(oldcars, Function.Arguments[1])
+        print(Function.Arguments[1])
+        MFK:RemoveFunction(Index)
     end
     for Function, Index in MFK:GetFunctions("CreateTrafficGroup", true) do
         local startIndex = (Level - 1) * 5 + 1
         local endIndex = startIndex + 4
+        local j = 1
 	    for i = startIndex, endIndex do
 		    local car = Traffic[i].Name
-			
+            if oldcars[j] then
+                LevelTraffic[oldcars[j]] = car
+            end
+            j = j + 1
 		    local args = {car, 1}
 		    if math.random(3) == 1 then
 			    args[3] = 1
@@ -92,6 +100,10 @@ if(#Traffic == 35) then
 		    MFK:InsertFunction(Index + 1, "AddTrafficModel", args)
 	    end
     end
+end
+
+for oldcar, car in pairs(LevelTraffic) do
+	print("Old car:", oldcar, "| New car:", car)
 end
 
 MFK:AddFunction("CreateTrafficGroup", 1)
