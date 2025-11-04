@@ -806,7 +806,6 @@ namespace SHARRandomizer
                         {
                             name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
                             language.SetString(name, "Free Roam Available");
-                            //Common.WriteLog($"{name} is LOCKED", "InitializeMissionTitles");
                         }
                     }
                     else
@@ -814,7 +813,6 @@ namespace SHARRandomizer
                         for (int mission = 0; mission < 7; mission++)
                         {
                             string missionTitle = lt.getMissionName(mission, level, gameLanguage);
-                            //Common.WriteLog(missionTitle, "UnlockMissionsPerLevel");
                             name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
                             language.SetString(name, missionTitle.Trim());
                         }
