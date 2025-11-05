@@ -3,7 +3,7 @@ local GamePath = "/GameData/" .. Path
 
 local MFK = MFKLexer.Lexer:Parse(ReadFile(GamePath))
 
-local Level, Mission = Path:match("scripts[\\/]missions[\\/]level0(%d)[\\/]m(%d)i.mfk")
+local Level, Type, Mission = Path:match("scripts[\\/]missions[\\/]level0(%d)[\\/](.-)(%d)i%.mfk")
 Level, Mission = tonumber(Level), tonumber(Mission)
 
 if Level == 1 and Mission == 0 then
@@ -37,6 +37,15 @@ for Old, New in pairs(LevelTraffic) do
 	for FunctionName, FunctionArgument in pairs(VehicleFunctions) do
 		MFK:SetAll(FunctionName, FunctionArgument, New, Old)
 	end
+end
+
+if Level == 7 and Mission == 1 and Type == "sr" then
+	local SetDialogueInfo = MFK:GetFunction("SetDialogueInfo", true)
+	SetDialogueInfo.Arguments[1] = "homer"
+	SetDialogueInfo.Arguments[2] = "npd"
+
+	local AddNPC = MFK:GetFunction("AddNPC", true)
+	AddNPC.Arguments[1] = "npd"
 end
 
 MFK:Output(true)

@@ -82,7 +82,7 @@ namespace SHARRandomizer
         public static bool checkeredflag;
 
         ActorManager actorManager;
-        public bool carwasp = false;
+        public bool carwasp;
 
         uint gameLanguage;
         private Watcher _watcher;
@@ -780,7 +780,7 @@ namespace SHARRandomizer
                     bonusMissionInfo.EventLocator.Flags = Locator.LocatorFlags.None;
                     if (bonusMissionInfo.Icon?.DSGEntity?.Drawstuff is tCompositeDrawable compositeDrawable)
                     {
-                        foreach (var element in compositeDrawable.Elements)
+                        foreach  (var element in compositeDrawable.Elements)
                         {
                             element.Visible = false;
                         }
@@ -830,8 +830,8 @@ namespace SHARRandomizer
                 language.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
                 language.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
                 language.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
-                language.SetString($"MISSION_TITLE_L{1}_M{5}", "Grocery Store");
-                language.SetString($"MISSION_TITLE_L{1}_M{6}", "Power Plant Parking Lot");
+                language.SetString($"MISSION_TITLE_L{1}_M{5}", "Simpsons' House");
+                language.SetString($"MISSION_TITLE_L{1}_M{6}", "Grocery Store");
                 language.SetString($"MISSION_TITLE_L{1}_M{7}", "Power Plant Parking Lot");
 
                 language.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
@@ -1041,7 +1041,6 @@ namespace SHARRandomizer
                         {
                             Common.WriteLog($"Actor list use size changed from {lastWaspUseSize} to {actorList.UseSize}.", "CheckActions");
                             lastWaspUseSize = actorList.UseSize;
-
                             var actors = actorList.ToArray();
                             foreach (var actor in actors)
                             {
@@ -1063,11 +1062,17 @@ namespace SHARRandomizer
                                 if (simState.CollisionObject is not CollisionObject collisionObject)
                                     continue;
 
-                                if (!collisionObject.CollisionEnabled)
-                                    continue;
+                                if (carwasp)
+                                {
+                                    Common.WriteLog($"Enabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
+                                    collisionObject.CollisionEnabled = true;
+                                }
+                                else
+                                {
+                                    Common.WriteLog($"Disabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
+                                    collisionObject.CollisionEnabled = false;
+                                }
 
-                                Common.WriteLog($"Disabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
-                                collisionObject.CollisionEnabled = false;
                             }
                         }
                     }
@@ -1077,7 +1082,7 @@ namespace SHARRandomizer
                     }
                 }
             }
-        }
+        }        
 
         async void HandleTraps(Memory memory, string trap)
         {

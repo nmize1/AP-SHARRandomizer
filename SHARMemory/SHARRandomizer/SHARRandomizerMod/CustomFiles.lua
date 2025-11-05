@@ -42,7 +42,6 @@ while true do
 		Alert("Missing traffic entries in SHAR.ini.\nPlease redownload the patch file from the room and follow the setup guide to place it in the right location.")
 
 	elseif not Config.MISSIONLOCK or (#Config.MISSIONLOCK == 1 and not Config.MISSIONLOCK[1].Mission == 0) then
-		print(Config.MISSIONLOCK[1].Mission)
 		Alert("Missing mission lock entries in SHAR.ini.\nPlease redownload the patch file from the room and follow the setup guide to place it in the right location.")
 
 	else
