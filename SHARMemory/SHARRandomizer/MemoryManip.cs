@@ -1,16 +1,10 @@
 ﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
 using SHARMemory.SHAR;
 using SHARMemory.SHAR.Classes;
 using SHARRandomizer.Classes;
 using Archipelago.MultiClient.Net.Models;
-using System.Xml.Linq;
 using static SHARRandomizer.ArchipelagoClient;
-using System;
-using System.Reflection;
-using System.Drawing;
 using SHARMemory.SHAR.Structs;
-using System.Reflection.Emit;
 
 namespace SHARRandomizer
 {
@@ -50,24 +44,24 @@ namespace SHARRandomizer
 
 
         public ArchipelagoClient ac;
-        public static string VerifyID;
-        public static Queue<ScoutedItemInfo> ScoutedItems = new Queue<ScoutedItemInfo>();
-        LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
-        RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
-        public static AwaitableQueue<string> itemsReceived = new AwaitableQueue<string>();
-        public static FixedSizeQueue<string> APLog = new FixedSizeQueue<string>(5);
-        public static List<long> cardIDs;
+        public static string? VerifyID;
+        public static Queue<ScoutedItemInfo> ScoutedItems = new();
+        readonly LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
+        readonly RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
+        public static AwaitableQueue<string> itemsReceived = new();
+        public static FixedSizeQueue<string> APLog = new(5);
+        public static List<long>? cardIDs;
 
-        List<Reward> REWARDS = new List<Reward>();
-        List<string> UnlockedLevels = new List<string>();
-        List<string> UnlockedItems = new List<string>();
-        public Dictionary<string, int> fillerInventory = new Dictionary<string, int>();
-        List<string> traps = new List<string>();
-        List<string> moves = new List<string>();
-        FeLanguage language = null;
+        readonly List<Reward> REWARDS = [];
+        readonly List<string> UnlockedLevels = [];
+        readonly List<string> UnlockedItems = [];
+        public Dictionary<string, int> fillerInventory = [];
+        readonly List<string> traps = [];
+        readonly List<string> moves = [];
+        FeLanguage? language = null;
 
-        float djAllowUp = 2.0f;
-        float djAllowDown = 12.0f;
+        readonly float djAllowUp = 2.0f;
+        readonly float djAllowDown = 12.0f;
         bool DISABLEEBRAKE = false;
         bool DISABLEDEFAULT = false;
         string CURRENTLEVEL = "";
@@ -81,11 +75,15 @@ namespace SHARRandomizer
         public static bool gagfinder;
         public static bool checkeredflag;
 
-        ActorManager actorManager;
         public bool carwasp;
 
         uint gameLanguage;
-        private Watcher _watcher;
+        private Watcher? _watcher;
+
+        public MemoryManip(ArchipelagoClient ac)
+        {
+            this.ac = ac;
+        }
 
         public async Task MemoryStart()
         {
@@ -169,6 +167,11 @@ namespace SHARRandomizer
             }
 
             /* Create default list of random shop costs, then replace it with the stored one if a stored one exists */
+            if (ArchipelagoClient.ShopCosts == null)
+            {
+                Common.WriteLog("AP Shop Costs null. Things will not work correctly.", "InitialGameState");
+                return;
+            }
             List<int> ShopCosts = ArchipelagoClient.ShopCosts;
 
             /* Get all rewards in a list for lookup purposes */
@@ -179,7 +182,7 @@ namespace SHARRandomizer
             var tokenStoreList = rewardsManager.LevelTokenStoreList.ToArray();
             for (int level = 0; level < memory.Globals.LevelCount; level++)
             {
-                List<Reward> tempRewards = new List<Reward>();
+                List<Reward> tempRewards = [];
                 var levelRewards = rewardsList[level];
                 tempRewards.Add(levelRewards.DefaultCar);
                 tempRewards.Add(levelRewards.BonusMission);
@@ -211,8 +214,7 @@ namespace SHARRandomizer
                 
             }
 
-            InputListener listener = new InputListener();
-            listener.memory = memory;
+            InputListener listener = new(memory);
             listener.ButtonDown += Listener_ButtonDown;
 
             listener.Start();
@@ -244,11 +246,6 @@ namespace SHARRandomizer
             }
             language = lang;
 
-            while ((actorManager = memory.Singletons.ActorManager) == null)
-                await Task.Delay(100);
-            Common.WriteLog("Found ActorManager. Checking Wasps...", "InitialGameState");
-
-
             UpdateMissionTitles();
             InitializeShopItems();
 
@@ -276,8 +273,8 @@ namespace SHARRandomizer
             else
             {
                 int h, w;
-                w = ac.GetDataStorage<int>("wrench").Result;
-                h = ac.GetDataStorage<int>("hnr").Result;
+                w = await ac.GetDataStorage<int>("wrench");
+                h = await ac.GetDataStorage<int>("hnr");
                 fillerInventory.Add("Hit N Run Reset", h);
                 fillerInventory.Add("Wrench", w);
                 language.SetString("APHnR", $"{h:D2}");
@@ -286,8 +283,28 @@ namespace SHARRandomizer
 
             ac.CheckVictory();
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" });
-            Task.Run(() => CheckActions(memory));
-            Task.Run(() => CheckGags(memory));
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await CheckActions(memory);
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog($"{ex}", "CheckActions");
+                }
+            });
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await CheckGags(memory);
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog($"{ex}", "CheckGags");
+                }
+            });
         }
 
         async Task LoadState(Memory memory)
@@ -309,7 +326,7 @@ namespace SHARRandomizer
             int[] waspCounters = new int[7];
             int[] gagCounters = new int[7];
             uint[] gagmask = new uint[7];
-            List<string> purchased = new List<string>();
+            List<string> purchased = [];
 
             foreach (var l in locations.Skip(1))
             {
@@ -318,7 +335,7 @@ namespace SHARRandomizer
 
                 if (string.IsNullOrEmpty(id))
                 {
-                    if (cardIDs.Contains(l))
+                    if (cardIDs != null && cardIDs.Contains(l))
                         check = ("card", "card");
                     else
                     {
@@ -373,6 +390,11 @@ namespace SHARRandomizer
                         }
                     case "card":
                         {
+                            if (cardIDs == null)
+                            {
+                                Common.WriteLog($"{nameof(cardIDs)} is null.", "LoadState");
+                                break;
+                            }
                             int index = cardIDs.IndexOf(l);
                             level = (index / 7) + 1;
                             int card = (index % 7) + 1;
@@ -386,9 +408,16 @@ namespace SHARRandomizer
                         }
                     case "gag":
                         {
-                            int.TryParse(id[0].ToString(), out level);
-                            int gag;
-                            int.TryParse(id[4].ToString(), out gag);
+                            if (!int.TryParse(id[0].ToString(), out level))
+                            {
+                                Common.WriteLog($"Invalid gag ID format: {id}", "LoadState");
+                                break;
+                            }
+                            if (!int.TryParse(id[4].ToString(), out var gag))
+                            {
+                                Common.WriteLog($"Invalid gag ID format: {id}", "LoadState");
+                                break;
+                            }
 
                             gagmask[level] |= (uint)1 << gag;
                             gagCounters[level]++;
@@ -577,13 +606,13 @@ namespace SHARRandomizer
                                     switch (s)
                                     {
                                         case "Hit N Run Reset":
-                                            ac.IncrementDataStorage("hnr");
-                                            language.SetString("APHnR", $"{fillerInventory[s]:D2}");
+                                            await ac.IncrementDataStorage("hnr");
+                                            language?.SetString("APHnR", $"{fillerInventory[s]:D2}");
                                             break;
 
                                         case "Wrench":
-                                            ac.IncrementDataStorage("wrench");
-                                            language.SetString("APWrench", $"{fillerInventory[s]:D2}");
+                                            await ac.IncrementDataStorage("wrench");
+                                            language?.SetString("APWrench", $"{fillerInventory[s]:D2}");
                                             break;
 
                                     }
@@ -605,7 +634,7 @@ namespace SHARRandomizer
                                 case string s when s.Contains("Wallet"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     WalletLevel++;
-                                    language.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}")); 
+                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}")); 
                                     break;
 
                                 default:
@@ -683,7 +712,8 @@ namespace SHARRandomizer
 
         bool HandleCurrentBonusMissions(Memory memory)
         {
-            var missionManager = (memory.Globals.GameplayManager as MissionManager);
+            if (memory.Globals.GameplayManager is not MissionManager missionManager)
+                return false;
             var missions = missionManager.Missions.ToArray();
             int? level = (int)missionManager.LevelData.Level;
             bool unlocked = false;
@@ -695,7 +725,7 @@ namespace SHARRandomizer
                 if (bonusMissionInfo.MissionNum < 0) continue; // Avoids empty bonus mission slots
 
                 var bonusMission = missions[bonusMissionInfo.MissionNum];
-                List<string> bms = new List<string> { "bm1", "bm2" };
+                List<string> bms = ["bm1", "bm2"];
 
                 if (!bms.Contains(bonusMission.Name))
                     continue;
@@ -731,7 +761,8 @@ namespace SHARRandomizer
 
         bool HandleCurrentRaces(Memory memory)
         {
-            var missionManager = (memory.Globals.GameplayManager as MissionManager);
+            if (memory.Globals.GameplayManager is not MissionManager missionManager)
+                return false;
             var missions = missionManager.Missions.ToArray();
             int? level = (int)missionManager.LevelData.Level;
             bool unlocked = false;
@@ -757,7 +788,7 @@ namespace SHARRandomizer
                 if (bonusMissionInfo.MissionNum < 0) continue; 
 
                 var bonusMission = missions[bonusMissionInfo.MissionNum];
-                List<string> bms = new List<string> { "sr1", "sr2", "sr3" };
+                List<string> bms = ["sr1", "sr2", "sr3"];
 
                 if (!bms.Contains(bonusMission.Name))
                     continue;
@@ -796,16 +827,16 @@ namespace SHARRandomizer
             if (missionnames)
             {
                 string name = $"MISSION_TITLE_L{0}_M{0}";
-                language.SetString(name, "LOCKED");
+                language?.SetString(name, "LOCKED");
                 for (int level = 0; level < 7; level++)
                 {
-                    language.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Missions");
+                    language?.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Missions");
                     if (!UnlockedLevels.Contains($"Level {level + 1}"))
                     {
                         for (int mission = 0; mission < 7; mission++)
                         {
                             name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                            language.SetString(name, "Free Roam Available");
+                            language?.SetString(name, "Free Roam Available");
                         }
                     }
                     else
@@ -814,7 +845,7 @@ namespace SHARRandomizer
                         {
                             string missionTitle = lt.getMissionName(mission, level, gameLanguage);
                             name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                            language.SetString(name, missionTitle.Trim());
+                            language?.SetString(name, missionTitle.Trim());
                         }
                     }
 
@@ -824,69 +855,69 @@ namespace SHARRandomizer
             {
                 for (int level = 0; level < 7; level++)
                 {
-                    language.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Teleports");
+                    language?.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Teleports");
                 }
-                language.SetString($"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
-                language.SetString($"MISSION_TITLE_L{1}_M{5}", "Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{1}_M{6}", "Grocery Store");
-                language.SetString($"MISSION_TITLE_L{1}_M{7}", "Power Plant Parking Lot");
-
-                language.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
-                language.SetString($"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
-                language.SetString($"MISSION_TITLE_L{2}_M{3}", "Googolplex");
-                language.SetString($"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
-                language.SetString($"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
-                language.SetString($"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
-                language.SetString($"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
-
-                language.SetString($"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
-                language.SetString($"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
-                language.SetString($"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
-                language.SetString($"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
-                language.SetString($"MISSION_TITLE_L{3}_M{5}", "Casino");
-                language.SetString($"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
-                language.SetString($"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
-
-                language.SetString($"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
-                language.SetString($"MISSION_TITLE_L{4}_M{3}", "Gas Station");
-                language.SetString($"MISSION_TITLE_L{4}_M{4}", "Cemetary");
-                language.SetString($"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
-                language.SetString($"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
-
-                language.SetString($"MISSION_TITLE_L{5}_M{1}", "Googolplex");
-                language.SetString($"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
-                language.SetString($"MISSION_TITLE_L{5}_M{3}", "General Hospital");
-                language.SetString($"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
-                language.SetString($"MISSION_TITLE_L{5}_M{5}", "DMV");
-                language.SetString($"MISSION_TITLE_L{5}_M{6}", "DMV");
-                language.SetString($"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
-
-                language.SetString($"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
-                language.SetString($"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
-                language.SetString($"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
-                language.SetString($"MISSION_TITLE_L{6}_M{4}", "Observatory");
-                language.SetString($"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
-                language.SetString($"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
-                language.SetString($"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
-
-                language.SetString($"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
-                language.SetString($"MISSION_TITLE_L{7}_M{2}", "School Playground");
-                language.SetString($"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
-                language.SetString($"MISSION_TITLE_L{7}_M{4}", "Inside School");
-                language.SetString($"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
-                language.SetString($"MISSION_TITLE_L{7}_M{6}", "School Playground");
-                language.SetString($"MISSION_TITLE_L{7}_M{7}", "School Playground");
+                language?.SetString($"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
+                language?.SetString($"MISSION_TITLE_L{1}_M{5}", "Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{1}_M{6}", "Grocery Store");
+                language?.SetString($"MISSION_TITLE_L{1}_M{7}", "Power Plant Parking Lot");
+                        
+                language?.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
+                language?.SetString($"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
+                language?.SetString($"MISSION_TITLE_L{2}_M{3}", "Googolplex");
+                language?.SetString($"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
+                language?.SetString($"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
+                language?.SetString($"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
+                language?.SetString($"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
+                        
+                language?.SetString($"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
+                language?.SetString($"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
+                language?.SetString($"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
+                language?.SetString($"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
+                language?.SetString($"MISSION_TITLE_L{3}_M{5}", "Casino");
+                language?.SetString($"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
+                language?.SetString($"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
+                        
+                language?.SetString($"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
+                language?.SetString($"MISSION_TITLE_L{4}_M{3}", "Gas Station");
+                language?.SetString($"MISSION_TITLE_L{4}_M{4}", "Cemetary");
+                language?.SetString($"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
+                language?.SetString($"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
+                        
+                language?.SetString($"MISSION_TITLE_L{5}_M{1}", "Googolplex");
+                language?.SetString($"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
+                language?.SetString($"MISSION_TITLE_L{5}_M{3}", "General Hospital");
+                language?.SetString($"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
+                language?.SetString($"MISSION_TITLE_L{5}_M{5}", "DMV");
+                language?.SetString($"MISSION_TITLE_L{5}_M{6}", "DMV");
+                language?.SetString($"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
+                        
+                language?.SetString($"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
+                language?.SetString($"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
+                language?.SetString($"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
+                language?.SetString($"MISSION_TITLE_L{6}_M{4}", "Observatory");
+                language?.SetString($"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
+                language?.SetString($"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
+                language?.SetString($"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
+                        
+                language?.SetString($"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
+                language?.SetString($"MISSION_TITLE_L{7}_M{2}", "School Playground");
+                language?.SetString($"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
+                language?.SetString($"MISSION_TITLE_L{7}_M{4}", "Inside School");
+                language?.SetString($"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
+                language?.SetString($"MISSION_TITLE_L{7}_M{6}", "School Playground");
+                language?.SetString($"MISSION_TITLE_L{7}_M{7}", "School Playground");
             }
         }
 
         public void InitializeShopItems()
         {
-            Dictionary<long, string> locsToScout = new Dictionary<long, string>();
+            Dictionary<long, string> locsToScout = [];
             for (int level = 0; level < 7; level++)
             {
                 for (int check = 1; check <= 6; check++)
@@ -964,7 +995,7 @@ namespace SHARRandomizer
 
         }
 
-        async void CheckActions(Memory memory)
+        async Task CheckActions(Memory memory)
         {
             var rewardsManager = memory.Singletons.RewardsManager;
             if (rewardsManager == null)
@@ -1034,51 +1065,54 @@ namespace SHARRandomizer
                         }
                     }
 
-                    try
+                    if (memory.Singletons.ActorManager is ActorManager actorManager)
                     {
-                        var actorList = actorManager.ActorList;
-                        if (actorList.UseSize != lastWaspUseSize)
+                        try
                         {
-                            Common.WriteLog($"Actor list use size changed from {lastWaspUseSize} to {actorList.UseSize}.", "CheckActions");
-                            lastWaspUseSize = actorList.UseSize;
-                            var actors = actorList.ToArray();
-                            foreach (var actor in actors)
+                            var actorList = actorManager.ActorList;
+                            if (actorList.UseSize != lastWaspUseSize)
                             {
-                                if (actor == null)
-                                    continue;
-
-                                if (actor.StateProp is not ActorDSG actorDSG)
-                                    continue;
-
-                                if (actorDSG.StateProp is not CStateProp stateProp)
-                                    continue;
-
-                                if (stateProp.Name != beecameraHash)
-                                    continue;
-
-                                if (actorDSG.SimState is not SimState simState)
-                                    continue;
-
-                                if (simState.CollisionObject is not CollisionObject collisionObject)
-                                    continue;
-
-                                if (carwasp)
+                                Common.WriteLog($"Actor list use size changed from {lastWaspUseSize} to {actorList.UseSize}.", "CheckActions");
+                                lastWaspUseSize = actorList.UseSize;
+                                var actors = actorList.ToArray();
+                                foreach (var actor in actors)
                                 {
-                                    Common.WriteLog($"Enabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
-                                    collisionObject.CollisionEnabled = true;
-                                }
-                                else
-                                {
-                                    Common.WriteLog($"Disabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
-                                    collisionObject.CollisionEnabled = false;
-                                }
+                                    if (actor == null)
+                                        continue;
 
+                                    if (actor.StateProp is not ActorDSG actorDSG)
+                                        continue;
+
+                                    if (actorDSG.StateProp is not CStateProp stateProp)
+                                        continue;
+
+                                    if (stateProp.Name != beecameraHash)
+                                        continue;
+
+                                    if (actorDSG.SimState is not SimState simState)
+                                        continue;
+
+                                    if (simState.CollisionObject is not CollisionObject collisionObject)
+                                        continue;
+
+                                    if (carwasp)
+                                    {
+                                        Common.WriteLog($"Enabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
+                                        collisionObject.CollisionEnabled = true;
+                                    }
+                                    else
+                                    {
+                                        Common.WriteLog($"Disabling collision on wasp at 0x{actor.Address:X} with matching hash {beecameraHash}.", "CheckActions");
+                                        collisionObject.CollisionEnabled = false;
+                                    }
+
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
                     }
                 }
             }
@@ -1086,7 +1120,6 @@ namespace SHARRandomizer
 
         async void HandleTraps(Memory memory, string trap)
         {
-            Button button;
             var buttonArray = memory.Singletons.InputManager.ControllerArray[0].ButtonArray;
 
             var car = memory.Singletons.CharacterManager?.Player?.Car;
@@ -1132,13 +1165,13 @@ namespace SHARRandomizer
 
                     break;
                 case "Duff Trap":
-                    List<Button> buttons = new List<Button>
-                    {
+                    List<Button> buttons =
+                    [
                         buttonArray[(int)InputManager.Buttons.SteerLeft],
                         buttonArray[(int)InputManager.Buttons.SteerRight],
                         buttonArray[(int)InputManager.Buttons.MoveLeft],
                         buttonArray[(int)InputManager.Buttons.MoveRight]
-                    };
+                    ];
                     var endTime = DateTime.UtcNow.AddSeconds(30);
 
                     while (DateTime.UtcNow < endTime)
@@ -1243,7 +1276,7 @@ namespace SHARRandomizer
             }
         }
 
-        async void CheckGags(Memory memory)
+        async Task CheckGags(Memory memory)
         {
             while (memory.IsRunning)
             {
@@ -1290,7 +1323,7 @@ namespace SHARRandomizer
             }
         }
 
-        public void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
+        public async void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
         {
             if (sender is not InputListener listener)
                 return;
@@ -1320,8 +1353,8 @@ namespace SHARRandomizer
                         fillerInventory["Hit N Run Reset"]--;
                     }
                     Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
-                    ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
-                    language.SetString("APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
+                    await ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
+                    language?.SetString("APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
                 }
                 if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
                 {
@@ -1331,8 +1364,8 @@ namespace SHARRandomizer
                         fillerInventory["Wrench"]--;
                     }
                     Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
-                    ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
-                    language.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
+                    await ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
+                    language?.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
                 }
             }
             /* Things that can be done in pause or not */
@@ -1348,9 +1381,12 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
+        async Task Watcher_MissionStageChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionStageChangedEventArgs e, CancellationToken token)
         {
-            CURRENTLEVEL = e.Level.ToString();
+            if (!e.Level.HasValue)
+                return;
+
+            CURRENTLEVEL = e.Level.Value.ToString();
             UnlockCurrentMission(sender, e.NewStage);
             HandleCurrentBonusMissions(sender);
             HandleCurrentRaces(sender);
@@ -1367,17 +1403,18 @@ namespace SHARRandomizer
 
             if (characterSheet == null)
             {
-                Common.WriteLog("Character sheet missing", "Watcher_CoinsChanged");
-                return Task.CompletedTask;
+                Common.WriteLog("Character sheet missing", "Watcher_MissionStageChanged");
+                return;
             }
-            ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
-
-            return Task.CompletedTask;
+            await ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
         }
 
         async Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
+            if (cardIDs == null)
+                return;
+
             long location = cardIDs[e.Level * 7 + e.Card];
             ArchipelagoClient.sentLocations.Enqueue(location);
             if (!ac.IsLocationCheckedLocally(location))
@@ -1492,7 +1529,7 @@ namespace SHARRandomizer
             if (e.Dialog.Event.ToString() == "HAGGLING_WITH_GIL")
             {
                 Common.WriteLog($"Spoke to Gil on level {CURRENTLEVEL}", "Watcher_DialogPlaying");
-                Dictionary<long, string> locsToScout = new Dictionary<long, string>();
+                Dictionary<long, string> locsToScout = [];
                 for (int check = 1; check <= 6; check++)
                 {
                     string name = $"APCar{6 * (int.Parse(CURRENTLEVEL.Substring(1)) - 1) + check}";
@@ -1555,10 +1592,9 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-        Task Watcher_NewGame(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameDataManager.NewGameEventArgs e, CancellationToken token)
+        async Task Watcher_NewGame(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameDataManager.NewGameEventArgs e, CancellationToken token)
         {
-            LoadState(sender);
-            return Task.CompletedTask;
+            await LoadState(sender);
         }
 
         Task Watcher_RewardUnlocked(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.RewardUnlockedEventArgs e, CancellationToken token)
@@ -1600,10 +1636,10 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-public void textDC()
+        public void textDC()
         {
-            language.SetString("APProgress", "Disconnected.");
-            language.SetString("APLog", "Disconnected.");
+            language?.SetString("APProgress", "Disconnected.");
+            language?.SetString("APLog", "Disconnected.");
         }
     }
 }

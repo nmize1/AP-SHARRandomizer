@@ -17,7 +17,7 @@ namespace SHARRandomizer
 {
     public class ArchipelagoClient
     {
-        public MemoryManip mm;
+        public MemoryManip? mm;
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset", "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" };
         private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
         public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>(); 
@@ -25,16 +25,15 @@ namespace SHARRandomizer
         public bool Connected => _session?.Socket.Connected ?? false;
         private bool _attemptingConnection;
 
-        private ArchipelagoSession _session;
-        private bool _ignoreLocations;
+        private ArchipelagoSession? _session;
 
         public string URI = "";
         public string SLOTNAME = "";
         public string PASSWORD = "";
 
-        public static string SaveName;
+        public static string? SaveName;
         LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
-        public static List<int> ShopCosts;
+        public static List<int>? ShopCosts;
 
         public enum VICTORY
         {
@@ -94,6 +93,9 @@ namespace SHARRandomizer
 
         private void SetupSession()
         {
+            if (_session == null)
+                throw new Exception($"Error setting up session. {nameof(_session)} was null.");
+
             _session.Socket.ErrorReceived += Session_ErrorReceived;
             _session.Socket.SocketClosed += Session_SocketClosed;
             _session.Items.ItemReceived += Session_ItemReceived;
@@ -104,7 +106,6 @@ namespace SHARRandomizer
         {
             LoginResult loginResult;
             _attemptingConnection = true;
-            _ignoreLocations = true;
 
             do
             {
@@ -119,7 +120,7 @@ namespace SHARRandomizer
                         }
                         catch (Exception e)
                         {
-                            Common.WriteLog($"Error creating session.", "ArchipelagoClient::TryConnect");
+                            Common.WriteLog($"Error creating session: \"{e.Message}\".", "ArchipelagoClient::TryConnect");
                             loginResult = new LoginFailure("Session creation failed.");
                             if (await HandleRetryDelayAsync())
                             {
@@ -159,7 +160,7 @@ namespace SHARRandomizer
                 }
             } while (loginResult is LoginFailure);
 
-            var login = loginResult as LoginSuccessful;
+            var login = (LoginSuccessful)loginResult;
             Common.WriteLog($"Successfully connected to {URI} as {SLOTNAME}", "ArchipelagoClient::TryConnect");
             Common.WriteLog("Slot Data:", "ArchipelagoClient::TryConnect");
             foreach (var kvp in login.SlotData)
@@ -169,17 +170,17 @@ namespace SHARRandomizer
             try
             {
                 SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
-                victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString());
+                victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString()!);
                 waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
                 cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
                 MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
                 MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
                 MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
                 MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflags"]);
-                MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>();
+                MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>()!;
                 JArray costsArray = (JArray)login.SlotData["costs"];
-                ShopCosts = costsArray.ToObject<List<int>>();
-                shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString());
+                ShopCosts = costsArray.ToObject<List<int>>()!;
+                shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString()!);
                 MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
             }
             catch (Exception ex)
@@ -190,7 +191,7 @@ namespace SHARRandomizer
                 Environment.Exit(1);
             }
 
-            _session.DataStorage[Scope.Slot, "missions"].Initialize(0);
+            _session!.DataStorage[Scope.Slot, "missions"].Initialize(0);
             _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
             _session.DataStorage[Scope.Slot, "wasps"].Initialize(0);
             _session.DataStorage[Scope.Slot, "cards"].Initialize(0);
@@ -229,7 +230,7 @@ namespace SHARRandomizer
         static string GetURI()
         {
             Common.WriteLog("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:", "Main");
-            string uri = Console.ReadLine();
+            string uri = Console.ReadLine()!;
             if (int.TryParse(uri, out int porttest))
                 uri = $"archipelago.gg:{uri}";
             return uri;
@@ -238,13 +239,13 @@ namespace SHARRandomizer
         static string GetSlotName()
         {
             Common.WriteLog("Enter slot name:", "Main");
-            return Console.ReadLine();
+            return Console.ReadLine()!;
         }
 
         static string GetPassword()
         {
             Common.WriteLog("Enter password:", "Main");
-            return Console.ReadLine();
+            return Console.ReadLine()!;
         }
 
 
@@ -256,7 +257,7 @@ namespace SHARRandomizer
             }
 
             _attemptingConnection = false;
-            Task.Run(() => { _session.Socket.DisconnectAsync(); }).Wait();
+            _session?.Socket.DisconnectAsync().Wait();
             _session = null;
         }
 
@@ -329,6 +330,11 @@ namespace SHARRandomizer
                 Common.WriteLog($"Trying to send location {location} when there's no connection", "ArchipelagoClient::SendLocation");
                 return;
             }
+            if (_session == null)
+            {
+                Common.WriteLog($"Trying to send location {location} when session is null", "ArchipelagoClient::SendLocation");
+                return;
+            }
             Common.WriteLog(location, "ArchipelagoClient::SendLocation");
             _session.Locations.CompleteLocationChecksAsync(location);
             CheckVictory();
@@ -337,6 +343,10 @@ namespace SHARRandomizer
         public bool IsLocationChecked(long location)
         {
             if (!Connected)
+            {
+                return false;
+            }
+            if (_session == null)
             {
                 return false;
             }
@@ -350,6 +360,10 @@ namespace SHARRandomizer
             if (!Connected)
             {
                 throw new Exception("Not connected.");
+            }
+            if (_session == null)
+            {
+                throw new Exception("Session null.");
             }
 
             var localChecks = _session.DataStorage[Scope.Slot, "localchecks"].To<List<long>>();
@@ -367,6 +381,10 @@ namespace SHARRandomizer
             {
                 return false;
             }
+            if (_session == null)
+            {
+                return false;
+            }
 
             Common.WriteLog($"Sending location checks: {string.Join(", ", locations)}", "ArchipelagoClient::SyncLocations");
             _session.Locations.CompleteLocationChecksAsync(locations.ToArray());
@@ -379,6 +397,10 @@ namespace SHARRandomizer
             {
                 return;
             }
+            if (_session == null)
+            {
+                return;
+            }
 
             _session.SetGoalAchieved();
         }
@@ -386,6 +408,10 @@ namespace SHARRandomizer
         public int GetCurrentPlayer()
         {
             if (!Connected)
+            {
+                return -1;
+            }
+            if (_session == null)
             {
                 return -1;
             }
@@ -400,6 +426,11 @@ namespace SHARRandomizer
 
         public async void Session_ItemReceived(IReceivedItemsHelper helper)
         {
+            if (_session == null)
+            {
+                throw new Exception("Session null.");
+            }
+
             var index = helper.Index - 1;
             var item = helper.DequeueItem();
             var itemName = item.ItemName;
@@ -429,34 +460,37 @@ namespace SHARRandomizer
             
         }
         
-        public async void SetShopNames(Dictionary<long, string> locations, FeLanguage language)
+        public async void SetShopNames(Dictionary<long, string> locations, FeLanguage? language)
         {
             Common.WriteLog("Scouting", "ArchipelagoClient::ScoutShopLocationNoHint");
-            await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations.Keys.ToArray()).ContinueWith(t => 
+            if (_session == null)
             {
-                foreach (ItemInfo item in t.Result.Values)
-                {
-                    string ret = $"{item.Player}'s {item.ItemName}"; 
-                    language.SetString(locations[item.LocationId].ToUpper(), ret);
-                }
-            });
+                throw new Exception("Session null.");
+            }
+            var results = await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, [.. locations.Keys]);
+            foreach (var item in results.Values)
+            {
+                string ret = $"{item.Player}'s {item.ItemName}"; 
+                language?.SetString(locations[item.LocationId].ToUpper(), ret);
+            }
         }
 
         public async void ScoutShopLocation(long[] locations)
         {
+            if (_session == null)
+            {
+                throw new Exception("Session null.");
+            }
             if (shp == ShopHintPolicy.All)
                 await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
             else if(shp == ShopHintPolicy.OnlyProg)
             {
-                List<long> LocsToHint = new List<long>();
-                await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations).ContinueWith(t =>
-                {
-                    foreach (ItemInfo item in t.Result.Values)
-                    {
-                        if (item.Flags.HasFlag(ItemFlags.Advancement))
-                            LocsToHint.Add(item.LocationId);
-                    }
-                });
+                var results = await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations);
+                var values = results.Values;
+                List<long> LocsToHint = new(values.Count);
+                foreach (var item in values)
+                    if (item.Flags.HasFlag(ItemFlags.Advancement))
+                        LocsToHint.Add(item.LocationId);
 
                 await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, LocsToHint.ToArray());
             }
@@ -464,6 +498,14 @@ namespace SHARRandomizer
 
         public async Task<T> GetDataStorage<T>(string type)
         {
+            if (_session == null)
+            {
+                Common.WriteLog($"Failed to get data for {type}. Session is null, please restart.", "GetDataStorage");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(1);
+                return default(T);
+            }
             var attempts = 0;
             while (attempts++ < 5)
             {
@@ -473,12 +515,12 @@ namespace SHARRandomizer
                 }
                 catch (Exception ex)
                 {
-                    Common.WriteLog("GetDataStorage", $"Failed to get data for {type}. Retrying in 5 seconds");
+                    Common.WriteLog($"Failed to get data for {type}: \"{ex.Message}\". Retrying in 5 seconds", "GetDataStorage");
                 }
                 await Task.Delay(5000);
             }
             // TODO: Change in-game strings
-            Common.WriteLog("GetDataStorage", $"Failed to get data for {type}. Data is desynced, please restart.");
+            Common.WriteLog($"Failed to get data for {type}. Data is desynced, please restart.", "GetDataStorage");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             Environment.Exit(1);
@@ -487,6 +529,14 @@ namespace SHARRandomizer
 
         public async Task SetDataStorage(string type, int amount)
         {
+            if (_session == null)
+            {
+                Common.WriteLog($"Failed to set data for {type}. Session is null, please restart.", "SetDataStorage");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(1);
+                return;
+            }
             var attempts = 0;
             while (attempts++ < 5)
             {
@@ -497,12 +547,12 @@ namespace SHARRandomizer
                 }
                 catch (Exception ex)
                 {
-                    Common.WriteLog("SetDataStorage", $"Failed to set data for {type}. Retrying in 5 seconds");
+                    Common.WriteLog($"Failed to set data for {type}: \"{ex.Message}\". Retrying in 5 seconds", "SetDataStorage");
                     await Task.Delay(5000); 
                 }
             }
             // TODO: Change in-game strings
-            Common.WriteLog("SetDataStorage", $"Failed to set data for {type}. Data is desynced, please restart.");
+            Common.WriteLog($"Failed to set data for {type}. Data is desynced, please restart.", "SetDataStorage");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             Environment.Exit(1);
@@ -510,6 +560,14 @@ namespace SHARRandomizer
 
         public async Task IncrementDataStorage(string type)
         {
+            if (_session == null)
+            {
+                Common.WriteLog($"Failed to increment data for {type}. Session is null, please restart.", "IncrementDataStorage");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(1);
+                return;
+            }
             var attempts = 0;
             while (attempts++ < 5)
             {
@@ -522,7 +580,7 @@ namespace SHARRandomizer
                 }
                 catch (Exception ex)
                 {
-                    Common.WriteLog($"Failed to increment data for {type}. Retrying in 5 seconds", "IncrementDataStorage");
+                    Common.WriteLog($"Failed to increment data for {type}: \"{ex.Message}\". Retrying in 5 seconds", "IncrementDataStorage");
                     attempts++;
                     await Task.Delay(5000);
                 }
@@ -536,6 +594,14 @@ namespace SHARRandomizer
 
         public async Task<List<long>> GetLocalChecks()
         {
+            if (_session == null)
+            {
+                Common.WriteLog($"Failed to get localchecks. Session is null, please restart.", "GetLocalChecks");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(1);
+                return null;
+            }
             var attempts = 0;
             while (attempts++ < 5)
             {
@@ -545,12 +611,12 @@ namespace SHARRandomizer
                 }
                 catch (Exception ex)
                 {
-                    Common.WriteLog("IncrementDataStorage", $"Failed to get localchecks. Retrying in 5 seconds");
+                    Common.WriteLog($"Failed to get localchecks: \"{ex.Message}\". Retrying in 5 seconds", "GetLocalChecks");
                     await Task.Delay(5000);
                 }
             }
             // TODO: Change in-game strings
-            Common.WriteLog("IncrementDataStorage", $"Failed to get localchecks. Data is desynced, please restart.");
+            Common.WriteLog($"Failed to get localchecks. Data is desynced, please restart.", "GetLocalChecks");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             Environment.Exit(1);
@@ -578,7 +644,7 @@ namespace SHARRandomizer
             {
                 string type, name;
                 (type, name) = lt.getTypeAndNameByAPID(id);
-                if (type == null && MemoryManip.cardIDs.Contains(id))
+                if (type == null && (MemoryManip.cardIDs != null && MemoryManip.cardIDs.Contains(id)))
                 {
                     type = "card";
                     name = $"card{id}";
@@ -609,7 +675,7 @@ namespace SHARRandomizer
                 }
             }
 
-            mm.UpdateProgress(missions, bonus, wasps, cards, gags, victory, waspPercent, cardPercent);
+            mm?.UpdateProgress(missions, bonus, wasps, cards, gags, victory, waspPercent, cardPercent);
 
             Common.WriteLog($"Completed:\nMissions: {missions}\nBonus Missions: {bonus}\nWasps: {wasps}\nCards: {cards}", "ArchipelagoClient::CheckVictory");
 

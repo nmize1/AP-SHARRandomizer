@@ -66,6 +66,11 @@ namespace SHARRandomizer
 
         private bool _listening = false;
 
+        public InputListener(Memory memory)
+        {
+            this.memory = memory;
+        }
+
         public void Stop() => _listening = false;
 
         public void Start()

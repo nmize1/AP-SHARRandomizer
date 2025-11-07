@@ -12,12 +12,11 @@ namespace SHARRandomizer.Classes
     {
         private readonly Queue<T> queue = new Queue<T>();
         public int Cap { get; }
-        public event Action<T> OnEnqueue;
+        public event Action<T>? OnEnqueue;
 
         public FixedSizeQueue(int cap)
         {
-            if(cap < 0)
-                throw new ArgumentOutOfRangeException(nameof(cap));
+            ArgumentOutOfRangeException.ThrowIfNegative(cap);
             Cap = cap;
         }
         public void Enqueue(T item)
