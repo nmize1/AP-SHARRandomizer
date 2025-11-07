@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿#nullable disable
+
+using Newtonsoft.Json;
 using SHARRandomizer;
 using System;
 using System.Collections.Generic;

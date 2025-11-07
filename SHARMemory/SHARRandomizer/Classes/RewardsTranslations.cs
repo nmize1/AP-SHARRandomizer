@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable disable
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,7 +36,7 @@ public class RewardTranslations
         }
     }
 
-    public string? GetInternalName(string name)
+    public string GetInternalName(string name)
     {
         if (string.IsNullOrEmpty(name))
             return null;
