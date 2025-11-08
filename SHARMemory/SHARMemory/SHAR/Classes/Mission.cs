@@ -42,7 +42,7 @@ public class Mission : Class
         set => WriteInt32(8, value);
     }
 
-    private readonly uint MaxStages;
+    public readonly uint MaxStages;
     private readonly uint StagesOffset;
     public PointerArray<MissionStage> MissionStages => new(Memory, Address + StagesOffset, (int)MaxStages);
 

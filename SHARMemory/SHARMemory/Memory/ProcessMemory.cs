@@ -940,6 +940,43 @@ public class ProcessMemory : IDisposable
             return address;
         }
     }
+    /// <summary>
+    /// Allocates <paramref name="Length"/> bytes of memory in <see cref="Process"/>.
+    /// </summary>
+    /// <param name="Length">
+    /// The number of bytes to allocate.
+    /// </param>
+    /// <returns>
+    /// The address written allocated.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// Throws if <paramref name="Length"/> is 0.
+    /// </exception>
+    /// <exception cref="Win32Exception">
+    /// Throws if any Windows exceptions happen.
+    /// </exception>
+    public uint AllocateSpace(uint Length)
+    {
+        if (Length == 0)
+            throw new ArgumentException($"{nameof(Length)} cannot have a length of 0.");
+
+        lock (AllocationLock)
+        {
+            if (CurrentAddress == 0 || BytesRemaining < Length)
+            {
+                uint blocks = (uint)Math.Ceiling(1d * Length / BYTES_PER_BLOCK);
+                CurrentAddress = AllocateMemoryBlocks(blocks);
+                BytesRemaining = BYTES_PER_BLOCK * blocks;
+            }
+
+            var address = CurrentAddress;
+
+            BytesRemaining -= Length;
+            CurrentAddress += Length;
+
+            return address;
+        }
+    }
 
     /// <summary>
     /// Gets the base address of a given module name in <see cref="Process"/>.

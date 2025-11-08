@@ -161,7 +161,7 @@ public class StructSwapArray<T> : IEnumerable<T> where T : struct
     }
 
     /// <summary>
-    /// Gets the <see cref="SwapPointerEnumerator"/> for this array.
+    /// Gets the <see cref="SwapStructEnumerator"/> for this array.
     /// </summary>
     /// <returns>
     /// A new enumerator for this array.

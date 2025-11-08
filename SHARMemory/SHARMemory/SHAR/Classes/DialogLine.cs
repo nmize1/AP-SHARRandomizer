@@ -4,7 +4,7 @@ using SHARMemory.Memory.RTTI;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVDialogLine@@")]
-public class DialogLine : PlayableDialogue
+public class DialogLine : PlayableDialog
 {
     public enum Roles : byte
     {
