@@ -22,7 +22,7 @@ namespace SHARRandomizer.Classes
         public async Task<T> DequeueAsync(CancellationToken cancellationToken = default)
         {
             await _signal.WaitAsync(cancellationToken);
-            if (_queue.TryDequeue(out T item))
+            if (_queue.TryDequeue(out T? item))
             {
                 return item;
             }

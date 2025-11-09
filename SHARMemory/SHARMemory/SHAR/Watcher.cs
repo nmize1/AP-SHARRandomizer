@@ -15,6 +15,7 @@ using SHARMemory.SHAR.Events.RewardsManager;
 using SHARMemory.SHAR.Events.Error;
 using SHARMemory.SHAR.Events.InputManager;
 using SHARMemory.SHAR.Events.TrafficManager;
+using SHARMemory.SHAR.Events.CGuiSystem;
 
 namespace SHARMemory.SHAR;
 
@@ -151,6 +152,11 @@ public sealed class Watcher
     /// An event handler for when a new traffic Vehicle is created.
     /// </summary>
     public event AsyncEventHandler<NewTrafficVehicleEventArgs> NewTrafficVehicle;
+
+    /// <summary>
+    /// An event handler for when a new traffic Vehicle is created.
+    /// </summary>
+    public event AsyncEventHandler<InGameWindowChangedEventArgs> InGameWindowChanged;
 
     private readonly Memory Memory;
 
@@ -316,6 +322,9 @@ public sealed class Watcher
                 if (TrafficVehicleCreated.HasSubscribers() ||
                     NewTrafficVehicle.HasSubscribers())
                     await CheckTrafficManager();
+
+                if (InGameWindowChanged.HasSubscribers())
+                    await CheckCGuiSystem();
             }
             catch (Exception ex)
             {
@@ -889,5 +898,31 @@ public sealed class Watcher
 
         trafficVehicles.RemoveWhere(address => !newTrafficVehicleAddresses.Contains(address));
         trafficVehicles2.RemoveWhere(address => !newTrafficVehicleAddresses2.Contains(address));
+    }
+
+    private CGuiManager.WindowID lastInGameWindowID = CGuiManager.WindowID.Undefined;
+    private async Task CheckCGuiSystem()
+    {
+        var cGuiSystem = Memory.Singletons.GuiSystem;
+        if (cGuiSystem == null)
+        {
+            lastInGameWindowID = CGuiManager.WindowID.Undefined;
+            return;
+        }
+
+        var newInGameWindowID = CGuiManager.WindowID.Undefined;
+        CGuiWindow newInGameWindow = null;
+        if (cGuiSystem.ManagerInGame is CGuiManagerInGame cGuiManagerInGame)
+        {
+            newInGameWindowID = cGuiManagerInGame.CurrentScreen;
+            if (newInGameWindowID != CGuiManager.WindowID.Undefined)
+                newInGameWindow = cGuiManagerInGame.Windows[(int)newInGameWindowID];
+        }
+
+        if (newInGameWindowID != lastInGameWindowID)
+        {
+            await InGameWindowChanged.InvokeAsync(Memory, new(lastInGameWindowID, newInGameWindowID, newInGameWindow), CancellationToken.None);
+            lastInGameWindowID = newInGameWindowID;
+        }
     }
 }

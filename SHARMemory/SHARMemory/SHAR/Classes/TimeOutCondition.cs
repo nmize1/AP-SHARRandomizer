@@ -27,12 +27,9 @@ public class TimeOutCondition : MissionCondition
         classBytes.AddRange(BitConverter.GetBytes((int)ConditionTypes.TimeOut)); // Type
         classBytes.Add((byte)(isViolated ? 1 : 0)); // IsViolated
         classBytes.Add((byte)(leaveInterior ? 1 : 0)); // LeaveInterior
-        classBytes.Add(0); // Padding
-        classBytes.Add(0); // Padding
+        classBytes.AddRange([0, 0]); // Padding
         classBytes.Add((byte)(done ? 1 : 0)); // Done
-        classBytes.Add(0); // Padding
-        classBytes.Add(0); // Padding
-        classBytes.Add(0); // Padding
+        classBytes.AddRange([0, 0, 0]); // Padding
 
         uint address = memory.AllocateAndWriteMemory([.. classBytes]);
         return memory.ClassFactory.Create<TimeOutCondition>(address);

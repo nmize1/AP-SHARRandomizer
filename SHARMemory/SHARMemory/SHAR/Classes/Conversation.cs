@@ -4,7 +4,7 @@ using SHARMemory.Memory.RTTI;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVConversation@@")]
-public class Conversation : PlayableDialogue
+public class Conversation : PlayableDialog
 {
     public Conversation(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 

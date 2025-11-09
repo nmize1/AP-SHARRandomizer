@@ -46,26 +46,29 @@ catch (Exception ex)
 
 Common.WriteLog($"SHARRandomizer.exe version: {VERSION}", "Main");
 Common.WriteLog("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:", "Main");
-string URI = Console.ReadLine();
+string? URI;
+do
+    URI = Console.ReadLine();
+while (string.IsNullOrWhiteSpace(URI));
 if (int.TryParse(URI, out int porttest))
     URI = $"archipelago.gg:{URI}";
 
 Common.WriteLog("Enter slot name:", "Main");
-string SLOTNAME = Console.ReadLine();
+string? SLOTNAME;
+do
+    SLOTNAME = Console.ReadLine();
+while (string.IsNullOrEmpty(SLOTNAME));
 
 Common.WriteLog("Enter password:", "Main");
-string PASSWORD = Console.ReadLine();
-
+string PASSWORD = Console.ReadLine() ?? string.Empty;
 
 ArchipelagoClient ac = new ArchipelagoClient();
 ac.URI = URI;
 ac.SLOTNAME = SLOTNAME;
 ac.PASSWORD = PASSWORD;
 
-MemoryManip mm = new MemoryManip();
-mm.ac = ac;
+MemoryManip mm = new MemoryManip(ac);
 ac.mm = mm;
-InputListener im = new InputListener();
 
 Thread connectThread = new Thread(ac.Connect);
 connectThread.Start();

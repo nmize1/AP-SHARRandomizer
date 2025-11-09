@@ -4,7 +4,7 @@ using SHARMemory.Memory.RTTI;
 namespace SHARMemory.SHAR.Classes;
 
 [ClassFactory.TypeInfoName(".?AVMissionStage@@")]
-public class MissionStage : Class
+public class MissionStage : EventListener
 {
     public enum MissionStageStates
     {
@@ -18,6 +18,8 @@ public class MissionStage : Class
     }
 
     public MissionStage(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
+
+    internal const uint LoadingManagerProcessRequestsCallbackVFTableOffset = EventListenerVFTableOffset + sizeof(uint);
 
     public bool StayBlackForStage
     {
@@ -46,4 +48,10 @@ public class MissionStage : Class
     }
 
     public PointerArray<MissionCondition> Conditions => new(Memory, Address + 112, 8);
+
+    public MissionStage Clone()
+    {
+        var address = Memory.AllocateAndWriteMemory(ReadBytes(0, 0x468));
+        return Memory.ClassFactory.Create<MissionStage>(address);
+    }
 }
