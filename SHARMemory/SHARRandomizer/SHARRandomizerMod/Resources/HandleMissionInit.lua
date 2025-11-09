@@ -6,6 +6,15 @@ local MFK = MFKLexer.Lexer:Parse(ReadFile(GamePath))
 local Level, Type, Mission = Path:match("scripts[\\/]missions[\\/]level0(%d)[\\/](.-)(%d)i%.mfk")
 Level, Mission = tonumber(Level), tonumber(Mission)
 
+local function is_replaced(x)
+    for _, newcar in pairs(LevelTraffic) do
+        if newcar == x then
+            return true
+        end
+    end
+    return false
+end
+
 if Level == 1 and Mission == 0 then
 	print("Handling Tutorial")
 	local MFK = MFKLexer.Lexer:New()
@@ -40,7 +49,10 @@ for Old, New in pairs(LevelTraffic) do
 end
 
 for Function, Index in MFK:GetFunctions("AddStageVehicle", true) do
-	Function.Arguments[4] = "trafficmission\\" .. Function.Arguments[1] .. ".con"
+	if is_replaced(Function.Arguments[1]) then
+		Function.Arguments[4] = "trafficmission\\" .. Function.Arguments[1] .. ".con"
+		print("Replaced with" .. Function.Arguments[1])
+	end
 end
 
 if Level == 7 and Mission == 1 and Type == "sr" then
