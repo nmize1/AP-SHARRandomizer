@@ -201,6 +201,7 @@ namespace SHARRandomizer
             _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
             _session.DataStorage[Scope.Slot, "coins"].Initialize(0);
             _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] {(long)1});
+            _session.DataStorage[Scope.Slot, "finalmission"].Initialize(0);
 
             MemoryManip.APCONNECTED = true;
             while (true)
@@ -320,6 +321,8 @@ namespace SHARRandomizer
         async Task SendLocs()
         {
             long location = await sentLocations.DequeueAsync();
+            if (location == 122361)
+                await SetDataStorage("finalmission", 1);
             SendLocation(location);
         }
 
@@ -551,7 +554,6 @@ namespace SHARRandomizer
                     await Task.Delay(5000); 
                 }
             }
-            // TODO: Change in-game strings
             Common.WriteLog($"Failed to set data for {type}. Data is desynced, please restart.", "SetDataStorage");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
@@ -693,7 +695,8 @@ namespace SHARRandomizer
             switch (victory)
             {
                 case VICTORY.FinalMission:
-                    if (IsLocationChecked(122361))
+                    int fmcheck = await GetDataStorage<int>("finalmission");
+                    if (fmcheck == 1)
                         SendCompletion();
                     return;
                 
