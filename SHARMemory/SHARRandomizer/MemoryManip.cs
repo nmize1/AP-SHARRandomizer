@@ -307,6 +307,17 @@ namespace SHARRandomizer
                     Common.WriteLog($"{ex}", "CheckGags");
                 }
             });
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await AutoCheckVictory(memory);
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog($"{ex}", "AutoSave");
+                }
+            });
         }
 
         async Task LoadState(Memory memory)
@@ -1296,6 +1307,15 @@ namespace SHARRandomizer
                         }
                     }
                 }
+            }
+        }
+
+        async Task AutoCheckVictory(Memory memory)
+        {
+            while (memory.IsRunning)
+            {
+                ac.CheckVictory();
+                await Task.Delay(10000);
             }
         }
 
