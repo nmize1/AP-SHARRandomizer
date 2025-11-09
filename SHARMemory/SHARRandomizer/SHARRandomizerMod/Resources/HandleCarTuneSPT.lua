@@ -10,8 +10,8 @@ for carSoundParameters in SPT:GetClasses("carSoundParameters") do
 			if method.Parameters[1] == "tt" then
 				method.Parameters[1] = "apu_car"
 			end
-		elseif name == "SetOverlayClipName" and method.Parameters[1] == "generator" then -- Fucking Radical and their broken ass Monorail
-			carSoundParameters:RemoveMethod(index)
+		--elseif name == "SetOverlayClipName" and method.Parameters[1] == "generator" then -- Fucking Radical and their broken ass Monorail
+			--carSoundParameters:RemoveMethod(index)
 		end
 	end
 end
@@ -26,6 +26,25 @@ for i=1,21 do
 	
 	SPT.Classes[#SPT.Classes + 1] = class
 end
+
+sclass = SPT:GetClass("carSoundParameters", false, "bookb_v")
+
+if sclass then
+	smethod = sclass:GetMethod(false, "SetOverlayClipName")
+	if smethod then
+		smethod.Parameters[1] = "book_fire"
+	end
+end
+
+sclass = SPT:GetClass("carSoundParameters", false, "mono_v")
+
+if sclass then
+	smethod = sclass:GetMethod(false, "SetOverlayClipName")
+	if smethod then
+		smethod.Parameters[1] = "generator"
+	end
+end
+
 
 local BadOverlayClips = {
     [""] = true, -- What the fuck Radical
@@ -45,5 +64,6 @@ for carSoundParameters in SPT:GetClasses("carSoundParameters") do
         end
     end
 end
+
 
 Output(tostring(SPT))

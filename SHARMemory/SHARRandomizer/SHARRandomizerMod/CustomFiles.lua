@@ -35,7 +35,7 @@ while true do
 	if not Config.IDENTIFIER then
 		Alert("Outdated SHAR.ini detected.\nPlease download the patch file from the room and follow the setup guide to place it in the right location.")
 
-	elseif not (Config.CARD or not #Config.CARD == 49) then
+	elseif not (Config.CARD or #Config.CARD == 49) then
 		Alert("Missing card entries in SHAR.ini.\nPlease redownload the patch file from the room and follow the setup guide to place it in the right location.")
 
 	elseif not Config.TRAFFIC or not (#Config.TRAFFIC == 1 or #Config.TRAFFIC == 35) then
@@ -170,10 +170,4 @@ if Config.MISSIONLOCK and Config.MISSIONLOCK[1].Mission ~= 0 then
 
 		LockSundayDrive[level][mission] = carName
 	end
-end
-
-
-
-for k, v in pairs(MissionLock) do
-	print(k, v)
 end

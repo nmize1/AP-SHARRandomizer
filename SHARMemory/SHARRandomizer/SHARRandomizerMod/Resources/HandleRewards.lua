@@ -18,7 +18,7 @@ end
 local level = 1
 
 for i = 1, 42 do
-    print("APCAR" .. i .. "Level" .. level) 
+    --print("APCAR" .. i .. "Level" .. level) 
     MFK:AddFunction("BindReward", {"APCar" .. i, "art\\cars\\APCar" .. i .. ".p3d", "car", "forsale", level, 100, "gil"})
     if i % 6 == 0 then
         level = level + 1

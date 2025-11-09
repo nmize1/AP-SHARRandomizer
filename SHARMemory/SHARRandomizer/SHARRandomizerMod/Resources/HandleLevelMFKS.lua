@@ -20,7 +20,7 @@ if(#Config.TRAFFIC == 35) then
 	local startIndex = (Level - 1) * 5 + 1
 	local endIndex = startIndex + 4
 	for i = startIndex, endIndex do
-		print("art\\cars\\" .. Traffic[i].Name .. ".p3d")
+		--print("art\\cars\\" .. Traffic[i].Name .. ".p3d")
 		MFK:AddFunction("LoadP3DFile",{"art\\cars\\" .. Traffic[i].Name .. ".p3d"})
 	end
 end

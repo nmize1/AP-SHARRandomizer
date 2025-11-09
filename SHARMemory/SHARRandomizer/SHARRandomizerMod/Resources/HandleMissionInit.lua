@@ -39,6 +39,10 @@ for Old, New in pairs(LevelTraffic) do
 	end
 end
 
+for Function, Index in MFK:GetFunctions("AddStageVehicle", true) do
+	Function.Arguments[4] = "trafficmission\\" .. Function.Arguments[1] .. ".con"
+end
+
 if Level == 7 and Mission == 1 and Type == "sr" then
 	local SetDialogueInfo = MFK:GetFunction("SetDialogueInfo", true)
 	SetDialogueInfo.Arguments[1] = "homer"

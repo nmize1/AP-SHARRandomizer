@@ -135,6 +135,7 @@ namespace SHARRandomizer
                 watcher.ButtonBound += Watcher_ButtonBound;
                 watcher.NewGame += Watcher_NewGame;
                 watcher.NewTrafficVehicle += Watcher_NewTrafficVehicle;
+                watcher.InGameWindowChanged += Watcher_InGameWindowChanged;
 
                 watcher.Start();
                 await LoadState(memory);
@@ -600,6 +601,8 @@ namespace SHARRandomizer
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
+                                    HandleCurrentRaces(memory);
+                                    CheckGags(memory);
                                     break;
 
                                 case string s when s.Contains("Wallet"):
@@ -1096,39 +1099,8 @@ namespace SHARRandomizer
                 case "Launch":
                     while ((car = memory.Globals.GameplayManager?.CurrentVehicle) == null)
                         await Task.Delay(100);
-
-                    int chance = Random.Shared.Next(0, 10);
-                    if (false) //not working yet.
-                    {
-                        VehicleCentral vc = memory.Singletons.VehicleCentral;
-
-                        //car.Launch(50, 0);
-                        foreach (Vehicle v in vc.ActiveVehicles)
-                        {
-                            if (v == null)
-                                continue;
-
-                            await Task.Delay(100);
-
-                            bool isTraffic = v.VehicleType == Vehicle.VehicleTypes.Traffic;
-                            if (isTraffic)
-                                v.VehicleType = Vehicle.VehicleTypes.AI;
-
-                            if (v != car)
-                            {
-                                Vector3 dir = Common.GetVector3Dir(v.Position, car.Position);
-                                v.Launch(dir, car.Position.Y - v.Position.Y, 50);
-                            }
-
-                            if (isTraffic)
-                            {
-                                await Task.Delay(100); // Let the physics run a bit
-                                v.VehicleType = Vehicle.VehicleTypes.Traffic;
-                            }
-                        }
-                    }
-                    else
-                        car.Launch(Random.Shared.Next(20, 101), Random.Shared.Next(-20, 51));
+                    
+                    car.Launch(Random.Shared.Next(20, 101), Random.Shared.Next(-20, 51));
 
                     break;
                 case "Duff Trap":
@@ -1270,27 +1242,30 @@ namespace SHARRandomizer
                         case 6: character = "Homer"; break;
                     }
 
-                    if ((!gagfinder && !UnlockedLevels.Contains($"Level {level + 1}"))
-                      || (gagfinder && !moves.Contains($"{character} Gagfinder")))
+                    while (interiorManager.GagCount == 0)
+                        await Task.Delay(100);
+
+                    var gags = interiorManager.Gags.ToArray();
+                    foreach (var gag in gags)
                     {
-                        while (interiorManager.GagCount == 0)
-                            await Task.Delay(100);
-
-                        var gags = interiorManager.Gags.ToArray();
-                        //Console.WriteLine($"{CURRENTLEVEL + 1}: Gags loadad: {string.Join("; ", gags.ToArray().Where(x => x is not null).Select(x => x.Binding!.Value.GagFileName))}");
-
-                        foreach (var gag in gags)
+                        var locator = gag?.Locator;
+                        if ((!gagfinder && !UnlockedLevels.Contains($"Level {level + 1}"))
+                            || (gagfinder && !moves.Contains($"{character} Gagfinder")))
                         {
-                            var locator = gag?.Locator;
                             if (locator != null)
                                 locator.Flags = Locator.LocatorFlags.None;
+                        }
+                        else
+                        {
+                            if (locator != null)
+                                locator.Flags = Locator.LocatorFlags.Active;
                         }
                     }
                 }
             }
         }
 
-        public void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
+        async void Listener_ButtonDown(Object? sender, InputListener.ButtonEventArgs e)
         {
             if (sender is not InputListener listener)
                 return;
@@ -1317,6 +1292,7 @@ namespace SHARRandomizer
                     if (fillerInventory["Hit N Run Reset"] > 0 && listener.memory.Singletons.HitNRunManager.CurrHitAndRun > 0f)
                     {
                         listener.memory.Singletons.HitNRunManager.CurrHitAndRun = 0f;
+
                         fillerInventory["Hit N Run Reset"]--;
                     }
                     Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
@@ -1600,7 +1576,23 @@ namespace SHARRandomizer
             return Task.CompletedTask;
         }
 
-public void textDC()
+        private Task Watcher_InGameWindowChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.InGameWindowChangedEventArgs e, CancellationToken token)
+        {
+            switch (e.NewID)
+            {
+                case CGuiManager.WindowID.Phonebooth:
+                    //
+                    break;
+                case CGuiManager.WindowID.PurchaseRewards:
+                    if (e.NewWindow is not CGuiScreenPurchaseRewards guiScreenPurchaseRewards)
+                        break;
+                default:
+                    Common.WriteLog("Don't know this screen.", "Watcher_InGameWindowChanged");
+                    break;
+            }
+        }
+
+        public void textDC()
         {
             language.SetString("APProgress", "Disconnected.");
             language.SetString("APLog", "Disconnected.");
