@@ -5,6 +5,7 @@ using SHARRandomizer.Classes;
 using Archipelago.MultiClient.Net.Models;
 using static SHARRandomizer.ArchipelagoClient;
 using SHARMemory.SHAR.Structs;
+using System;
 
 namespace SHARRandomizer
 {
@@ -1609,6 +1610,35 @@ namespace SHARRandomizer
                 //Common.WriteLog($"Setting locator flags to none for: {vehicle.Name}", "Watcher_NewTrafficVehicle");
             }
 
+            return Task.CompletedTask;
+        }
+
+        private Task Watcher_InGameWindowChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CGuiSystem.InGameWindowChangedEventArgs e, CancellationToken token)
+        {
+            var textBible = sender.Globals.TextBible.CurrentLanguage;
+
+            switch (e.NewID)
+            {
+                case CGuiManager.WindowID.PhoneBooth:
+
+                    break;
+                case CGuiManager.WindowID.PurchaseRewards:
+                    if (e.NewWindow is not CGuiScreenPurchaseRewards guiScreenPurchaseRewards)
+                        break;
+                    if (guiScreenPurchaseRewards.CurrentType.ToString() == "Interior")
+                    {
+                        textBible.SetString("COINS", " ");
+                        textBible.SetString("TO_PURCHASE", "LOCKED");
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (e.OldID == CGuiManager.WindowID.PurchaseRewards)
+            {
+                textBible.SetString("COINS", "coins");
+                textBible.SetString("TO_PURCHASE", "to purchase");
+            }
             return Task.CompletedTask;
         }
 
