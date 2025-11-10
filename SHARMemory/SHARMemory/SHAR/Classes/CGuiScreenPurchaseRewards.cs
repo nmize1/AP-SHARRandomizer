@@ -45,10 +45,13 @@ public class CGuiScreenPurchaseRewards : IGuiScreenRewards
     }
 
     internal const uint PurchaseLabelOffset = BankValueBeforePurchaseOffset + sizeof(uint);
+    public FeEntity PurchaseLabel => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PurchaseLabelOffset));
 
     internal const uint LeftArrowOffset = PurchaseLabelOffset + sizeof(uint);
+    public FeEntity LeftArrow => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(LeftArrowOffset));
 
     internal const uint RightArrowOffset = LeftArrowOffset + sizeof(uint);
+    public FeEntity RightArrow => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(RightArrowOffset));
 
     internal const uint SkinTrackInfoOffset = RightArrowOffset + sizeof(uint);
     public TrackInfo SkinTrackInfo

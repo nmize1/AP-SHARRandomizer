@@ -24,14 +24,18 @@ public class CGuiScreen : CGuiWindow
     public CGuiManager GuiManager => Memory.ClassFactory.Create<CGuiManager>(ReadUInt32(GuiManagerOffset));
 
     internal const uint ScroobyScreenOffset = GuiManagerOffset + sizeof(uint);
+    public FeEntity ScroobyScreen => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(ScroobyScreenOffset));
 
     internal const uint ScreenCoverOffset = ScroobyScreenOffset + sizeof(uint);
+    public FeEntity ScreenCover => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(ScreenCoverOffset));
 
-    internal const uint P3DObject = ScreenCoverOffset + sizeof(uint);
+    internal const uint P3DObjectOffset = ScreenCoverOffset + sizeof(uint);
+    public FeEntity P3DObject => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(P3DObjectOffset));
 
-    internal const uint P3DIris = P3DObject + sizeof(uint);
+    internal const uint P3DIrisOffset = P3DObjectOffset + sizeof(uint);
+    public FeEntity P3DIris => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(P3DIrisOffset));
 
-    internal const uint IrisControllerOffset = P3DIris + sizeof(uint);
+    internal const uint IrisControllerOffset = P3DIrisOffset + sizeof(uint);
     public tMultiController IrisController => Memory.ClassFactory.Create<tMultiController>(ReadUInt32(IrisControllerOffset));
 
     internal const uint CurrentIrisStateOffset = IrisControllerOffset + sizeof(uint);
@@ -49,6 +53,7 @@ public class CGuiScreen : CGuiWindow
     }
 
     internal const uint ForegroundLayersOffset = AutoOpenIrisOffset + 4; // Padding
+    public PointerArray<FeEntity> ForegroundLayers => new(Memory, Address + ForegroundLayersOffset, MAX_FOREGROUND_LAYERS);
 
     internal const uint NumForegroundLayersOffset = ForegroundLayersOffset + sizeof(uint) * MAX_FOREGROUND_LAYERS;
     public int NumForegroundLayers
@@ -58,6 +63,7 @@ public class CGuiScreen : CGuiWindow
     }
 
     internal const uint BackgroundLayersOffset = NumForegroundLayersOffset + sizeof(int);
+    public PointerArray<FeEntity> BackgroundLayers => new(Memory, Address + BackgroundLayersOffset, MAX_BACKGROUND_LAYERS);
 
     internal const uint NumBackgroundLayersOffset = BackgroundLayersOffset + sizeof(uint) * MAX_BACKGROUND_LAYERS;
     public int NumBackgroundLayers
@@ -67,6 +73,7 @@ public class CGuiScreen : CGuiWindow
     }
 
     internal const uint ButtonIconsOffset = NumBackgroundLayersOffset + sizeof(int);
+    public PointerArray<FeEntity> ButtonIcons => new(Memory, Address + ButtonIconsOffset, NUM_BUTTON_ICONS);
 
     internal const uint Bitfield_0x74OFfset = ButtonIconsOffset + sizeof(uint) * NUM_BUTTON_ICONS;
     private byte Bitfield_0x74

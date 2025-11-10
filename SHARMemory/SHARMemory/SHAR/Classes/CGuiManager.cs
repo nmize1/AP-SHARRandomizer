@@ -110,7 +110,7 @@ public class CGuiManager : CGuiEntity
     }
 
     internal const uint ScroobyProjectOffset = NumWindowsOffset + sizeof(int);
-    //public Scrooby.Project ScroobyProject => Memory.ClassFactory.Create<Scrooby.Project>(ReadUInt32(ScroobyProjectOffset));
+    public FeEntity ScroobyProject => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(ScroobyProjectOffset));
 
     internal const uint CurrentScreenOffset = ScroobyProjectOffset + sizeof(uint);
     public WindowID CurrentScreen

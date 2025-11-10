@@ -48,16 +48,22 @@ public class IGuiScreenRewards : CGuiScreen
     }
 
     internal const uint PreviewLightCoverOffset = ElapsedTimeOffset + sizeof(float);
+    public FeEntity PreviewLightCover => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PreviewLightCoverOffset));
 
     internal const uint PreviewWindowOffset = PreviewLightCoverOffset + sizeof(uint);
+    public FeEntity PreviewWindow => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PreviewWindowOffset));
 
     internal const uint PreviewPedestalOffset = PreviewWindowOffset + sizeof(uint);
+    public FeEntity PreviewPedestal => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PreviewPedestalOffset));
 
     internal const uint PreviewBgdOffset = PreviewPedestalOffset + sizeof(uint);
+    public FeEntity PreviewBgd => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PreviewBgdOffset));
 
     internal const uint PreviewImageOffset = PreviewBgdOffset + sizeof(uint);
+    public FeEntity PreviewImage => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PreviewImageOffset));
 
     internal const uint PreviewNameOffset = PreviewImageOffset + sizeof(uint);
+    public FeEntity PreviewName => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(PreviewNameOffset));
 
     internal const uint PreviewVehiclesOffset = PreviewNameOffset + sizeof(uint);
     public StructArray<PreviewObject> PreviewVehicles => new(Memory, Address + PreviewVehiclesOffset, PreviewObject.Size, MAX_NUM_PREVIEW_VEHICLES);
@@ -125,16 +131,22 @@ public class IGuiScreenRewards : CGuiScreen
     }
 
     internal const uint LockedOverlayOffset = Bitfield_0x2D70OFfset + 4; // Padding
+    public FeEntity LockedOverlay => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(LockedOverlayOffset));
 
     internal const uint LockedLevelOffset = LockedOverlayOffset + sizeof(uint);
+    public FeEntity LockedLevel => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(LockedLevelOffset));
 
     internal const uint RewardPriceOffset = LockedLevelOffset + sizeof(uint);
+    public FeEntity RewardPrice => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(RewardPriceOffset));
 
     internal const uint StatsOverlayOffset = RewardPriceOffset + sizeof(uint);
+    public FeEntity StatsOverlay => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(StatsOverlayOffset));
 
     internal const uint StatsOverlayButtonOffset = StatsOverlayOffset + sizeof(uint);
+    public FeEntity StatsOverlayButton => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(StatsOverlayButtonOffset));
 
     internal const uint StatsOverlayButtonLabelOffset = StatsOverlayButtonOffset + sizeof(uint);
+    public FeEntity StatsOverlayButtonLabel => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(StatsOverlayButtonLabelOffset));
 
     internal const uint StatsOverlayToggleOffset = StatsOverlayButtonLabelOffset + sizeof(uint);
     public bool StatsOverlayToggle
