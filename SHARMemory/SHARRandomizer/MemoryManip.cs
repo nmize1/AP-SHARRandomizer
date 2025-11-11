@@ -6,6 +6,7 @@ using Archipelago.MultiClient.Net.Models;
 using static SHARRandomizer.ArchipelagoClient;
 using SHARMemory.SHAR.Structs;
 using System;
+using System.Reflection.Emit;
 
 namespace SHARRandomizer
 {
@@ -1641,24 +1642,43 @@ namespace SHARRandomizer
             {
                 case CGuiManager.WindowID.PhoneBooth:
 
+
                     break;
                 case CGuiManager.WindowID.PurchaseRewards:
                     if (e.NewWindow is not CGuiScreenPurchaseRewards guiScreenPurchaseRewards)
                         break;
                     if (guiScreenPurchaseRewards.CurrentType.ToString() == "Interior")
                     {
-                        textBible.SetString("COINS", " ");
-                        textBible.SetString("TO_PURCHASE", "LOCKED");
+                        if (guiScreenPurchaseRewards.RewardPrice is FeDrawable rewardPrice)
+                            rewardPrice.Visible = false;
+
+                        textBible?.SetString("COINS", " ");
+                        textBible?.SetString("TO_PURCHASE", "LOCKED");
                     }
+                    break;
+                case CGuiManager.WindowID.MissionSelect:
+                    UpdateMissionTitles();
+                    /* hide locked missions here if blocking free roam */
+
                     break;
                 default:
                     break;
             }
-            if (e.OldID == CGuiManager.WindowID.PurchaseRewards)
+            switch (e.OldID)
             {
-                textBible.SetString("COINS", "coins");
-                textBible.SetString("TO_PURCHASE", "to purchase");
+                case CGuiManager.WindowID.PhoneBooth:
+                    UpdateMissionTitles();
+                    break;
+                case CGuiManager.WindowID.PurchaseRewards:
+                    textBible.SetString("COINS", "coins");
+                    textBible.SetString("TO_PURCHASE", "to purchase");
+                    break;
+                case CGuiManager.WindowID.MissionSelect:
+                    for (int i = 1; i < 8; i++)
+                        textBible?.SetString($"LEVEL_{i}", $"                    Level {i}");
+                    break;
             }
+
             return Task.CompletedTask;
         }
 
