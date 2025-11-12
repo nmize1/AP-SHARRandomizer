@@ -1,5 +1,5 @@
 <CustomShopSupport>
-	<PhoneBooth>
+	<PhoneBooth HideLocked="true">
 		<Selector Level="1" />
 		<Selector Level="2" />
 		<Selector Level="3" />
@@ -30,27 +30,27 @@
 			<Car>APCar19</Car>
 			<Car>APCar20</Car>
 			<Car>APCar21</Car>
-      <Car>APCar22</Car>
-      <Car>APCar23</Car>
-      <Car>APCar24</Car>
-      <Car>APCar25</Car>
-      <Car>APCar26</Car>
-      <Car>APCar27</Car>
-      <Car>APCar28</Car>
-      <Car>APCar29</Car>
-      <Car>APCar30</Car>
-      <Car>APCar31</Car>
-      <Car>APCar32</Car>
-      <Car>APCar33</Car>
-      <Car>APCar34</Car>
-      <Car>APCar35</Car>
-      <Car>APCar36</Car>
-      <Car>APCar37</Car>
-      <Car>APCar38</Car>
-      <Car>APCar39</Car>
-      <Car>APCar40</Car>
-      <Car>APCar41</Car>
-      <Car>APCar42</Car>
+			<Car>APCar22</Car>
+			<Car>APCar23</Car>
+			<Car>APCar24</Car>
+			<Car>APCar25</Car>
+			<Car>APCar26</Car>
+			<Car>APCar27</Car>
+			<Car>APCar28</Car>
+			<Car>APCar29</Car>
+			<Car>APCar30</Car>
+			<Car>APCar31</Car>
+			<Car>APCar32</Car>
+			<Car>APCar33</Car>
+			<Car>APCar34</Car>
+			<Car>APCar35</Car>
+			<Car>APCar36</Car>
+			<Car>APCar37</Car>
+			<Car>APCar38</Car>
+			<Car>APCar39</Car>
+			<Car>APCar40</Car>
+			<Car>APCar41</Car>
+			<Car>APCar42</Car>
 		</ExcludedItems>
 	</PhoneBooth>
 </CustomShopSupport>
