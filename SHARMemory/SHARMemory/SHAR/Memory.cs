@@ -125,6 +125,12 @@ public class Memory : ProcessMemory
 
         MaxStages = 3947,
         StagesOffset = 3948,
+
+        GUIScreenRewards_MaxCarPreviews = 3355,
+        GUIScreenRewards_CarPreviewsOffset = 3363,
+
+        GUIScreenRewards_MaxSkinPreviews = 3361,
+        GUIScreenRewards_SkinPreviewsOffset = 3366,
     }
     /// <summary>
     /// A <c>Dictionary</c> containing a list of ordinals used by <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" /> and their addresses.

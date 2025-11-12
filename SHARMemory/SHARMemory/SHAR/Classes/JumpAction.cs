@@ -88,106 +88,59 @@ public class JumpAction : SHARTask
 
     internal const uint RootDriverOffset = RootControllerOffset + sizeof(uint);
 
-    internal const uint BitfieldOffset = RootDriverOffset + sizeof(uint);
-    private byte Bitfield
-    {
-        get => ReadByte(BitfieldOffset);
-        set => WriteByte(BitfieldOffset, value);
-    }
-
+    internal const uint BoostOffset = RootDriverOffset + sizeof(uint);
     public bool Boost
     {
-        get => (Bitfield & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b00000001;
-            else
-                Bitfield &= 0b11111110;
-        }
+        get => ReadBitfield(BoostOffset, 0);
+        set => WriteBitfield(BoostOffset, 0, value);
     }
 
+    internal const uint FallingOffset = BoostOffset + 0;
     public bool Falling
     {
-        get => (Bitfield & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b00000010;
-            else
-                Bitfield &= 0b11111101;
-        }
+        get => ReadBitfield(FallingOffset, 1);
+        set => WriteBitfield(FallingOffset, 1, value);
     }
 
+    internal const uint JumpAgainOffset = FallingOffset + 0;
     public bool JumpAgain
     {
-        get => (Bitfield & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b00000100;
-            else
-                Bitfield &= 0b11111011;
-        }
+        get => ReadBitfield(JumpAgainOffset, 2);
+        set => WriteBitfield(JumpAgainOffset, 2, value);
     }
 
+    internal const uint TurboJumpOffset = JumpAgainOffset + 0;
     public bool TurboJump
     {
-        get => (Bitfield & 0b00001000) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b00001000;
-            else
-                Bitfield &= 0b11110111;
-        }
+        get => ReadBitfield(TurboJumpOffset, 3);
+        set => WriteBitfield(TurboJumpOffset, 3, value);
     }
 
+    internal const uint InJumpKickOffset = TurboJumpOffset + 0;
     public bool InJumpKick
     {
-        get => (Bitfield & 0b00010000) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b00010000;
-            else
-                Bitfield &= 0b11101111;
-        }
+        get => ReadBitfield(InJumpKickOffset, 4);
+        set => WriteBitfield(InJumpKickOffset, 4, value);
     }
 
+    internal const uint DoJumpKickOffset = InJumpKickOffset + 0;
     public bool DoJumpKick
     {
-        get => (Bitfield & 0b00100000) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b00100000;
-            else
-                Bitfield &= 0b11011111;
-        }
+        get => ReadBitfield(DoJumpKickOffset, 5);
+        set => WriteBitfield(DoJumpKickOffset, 5, value);
     }
 
+    internal const uint SlamOffset = DoJumpKickOffset + 0;
     public bool Slam
     {
-        get => (Bitfield & 0b01000000) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b01000000;
-            else
-                Bitfield &= 0b10111111;
-        }
+        get => ReadBitfield(SlamOffset, 6);
+        set => WriteBitfield(SlamOffset, 6, value);
     }
 
+    internal const uint PreSlamOffset = SlamOffset + 0;
     public bool PreSlam
     {
-        get => (Bitfield & 0b10000000) != 0;
-        set
-        {
-            if (value)
-                Bitfield |= 0b10000000;
-            else
-                Bitfield &= 0b01111111;
-        }
+        get => ReadBitfield(PreSlamOffset, 7);
+        set => WriteBitfield(PreSlamOffset, 7, value);
     }
 }

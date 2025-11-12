@@ -37,7 +37,7 @@ public class tChannel : tNonCopyable
     }
 
     internal const uint InterpolateAndDataTypeOffset = ChannelCodeOffset + sizeof(uint);
-    public byte InterpolateAndDataType
+    private byte InterpolateAndDataType
     {
         get => ReadByte(InterpolateAndDataTypeOffset);
         set => WriteByte(InterpolateAndDataType, value);

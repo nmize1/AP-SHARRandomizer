@@ -55,50 +55,28 @@ public class BonusMissionInfo : HasPresentationInfo
     // typedef std::vector< tName, s2alloc<tName> > TNAMEVECTOR;
     // TNAMEVECTOR mAmbientNpcAnimations;
 
-    internal const uint Bitfield_0x38Offset = AmbientNpcAnimationsOffset + 12;
-    private byte Bitfield_0x38
-    {
-        get => ReadByte(Bitfield_0x38Offset);
-        set => WriteByte(Bitfield_0x38Offset, value);
-    }
-
+    internal new const uint PcIsChildOffset = AmbientNpcAnimationsOffset + 12;
     public new bool PcIsChild
     {
-        get => (Bitfield_0x38 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x38 |= 0b00000001;
-            else
-                Bitfield_0x38 &= 0b11111110;
-        }
+        get => ReadBitfield(PcIsChildOffset, 0);
+        set => WriteBitfield(PcIsChildOffset, 0, value);
     }
 
+    internal new const uint NpcIsChildOffset = PcIsChildOffset + 0;
     public new bool NpcIsChild
     {
-        get => (Bitfield_0x38 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x38 |= 0b00000010;
-            else
-                Bitfield_0x38 &= 0b11111101;
-        }
+        get => ReadBitfield(NpcIsChildOffset, 1);
+        set => WriteBitfield(NpcIsChildOffset, 1, value);
     }
 
+    internal new const uint GoToPattyAndSelmaScreenWhenDoneOffset = NpcIsChildOffset + 0;
     public new bool GoToPattyAndSelmaScreenWhenDone
     {
-        get => (Bitfield_0x38 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x38 |= 0b00000100;
-            else
-                Bitfield_0x38 &= 0b11111011;
-        }
+        get => ReadBitfield(GoToPattyAndSelmaScreenWhenDoneOffset, 2);
+        set => WriteBitfield(GoToPattyAndSelmaScreenWhenDoneOffset, 2, value);
     }
 
-    internal new const uint CamerasForLinesOfDialogOffset = Bitfield_0x38Offset + 4; // Padding
+    internal new const uint CamerasForLinesOfDialogOffset = GoToPattyAndSelmaScreenWhenDoneOffset + 4; // Padding
     // typedef std::vector< tName, s2alloc<tName> > TNAMEVECTOR;
     // TNAMEVECTOR mCamerasForLinesOfDialog;
 
@@ -206,74 +184,42 @@ public class BonusMissionInfo : HasPresentationInfo
         set => WriteString(PreviousMissionPicOffset, value, Encoding.UTF8, 256);
     }
 
-    internal const uint Bitfield_0x1C0Offset = PreviousMissionPicOffset + 256;
-    private byte Bitfield_0x1C0
-    {
-        get => ReadByte(Bitfield_0x1C0Offset);
-        set => WriteByte(Bitfield_0x1C0Offset, value);
-    }
-
+    internal const uint ResetOffset = PreviousMissionPicOffset + 256;
     public bool Reset
     {
-        get => (Bitfield_0x1C0 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x1C0 |= 0b00000001;
-            else
-                Bitfield_0x1C0 &= 0b11111110;
-        }
+        get => ReadBitfield(ResetOffset, 0);
+        set => WriteBitfield(ResetOffset, 0, value);
     }
 
+    internal const uint MovedOffset = ResetOffset + 0;
     public bool Moved
     {
-        get => (Bitfield_0x1C0 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x1C0 |= 0b00000010;
-            else
-                Bitfield_0x1C0 &= 0b11111101;
-        }
+        get => ReadBitfield(MovedOffset, 1);
+        set => WriteBitfield(MovedOffset, 1, value);
     }
 
+    internal const uint HideAnimatedIconOffset = MovedOffset + 0;
     public bool HideAnimatedIcon
     {
-        get => (Bitfield_0x1C0 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x1C0 |= 0b00000100;
-            else
-                Bitfield_0x1C0 &= 0b11111011;
-        }
+        get => ReadBitfield(HideAnimatedIconOffset, 2);
+        set => WriteBitfield(HideAnimatedIconOffset, 2, value);
     }
 
+    internal const uint HidTheCarOffset = HideAnimatedIconOffset + 0;
     public bool HidTheCar
     {
-        get => (Bitfield_0x1C0 & 0b00001000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x1C0 |= 0b00001000;
-            else
-                Bitfield_0x1C0 &= 0b11110111;
-        }
+        get => ReadBitfield(HidTheCarOffset, 3);
+        set => WriteBitfield(HidTheCarOffset, 3, value);
     }
 
+    internal const uint HidDefaultOffset = HidTheCarOffset + 0;
     public bool HidDefault
     {
-        get => (Bitfield_0x1C0 & 0b00010000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x1C0 |= 0b00010000;
-            else
-                Bitfield_0x1C0 &= 0b11101111;
-        }
+        get => ReadBitfield(HidDefaultOffset, 4);
+        set => WriteBitfield(HidDefaultOffset, 4, value);
     }
 
-    internal const uint HudMapIconIDOffset = Bitfield_0x1C0Offset + 4; // Padding
+    internal const uint HudMapIconIDOffset = HidDefaultOffset + 4; // Padding
     public int HudMapIconID
     {
         get => ReadInt32(HudMapIconIDOffset);

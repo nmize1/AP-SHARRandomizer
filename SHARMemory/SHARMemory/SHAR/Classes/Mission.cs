@@ -118,34 +118,16 @@ public class Mission : Class
         set => WriteInt32(180, value);
     }
 
-    private byte Bitfield_0xB8
-    {
-        get => ReadByte(184);
-        set => WriteByte(184, value);
-    }
-
     public bool SundayDrive
     {
-        get => (Bitfield_0xB8 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0xB8 |= 0b00000001;
-            else
-                Bitfield_0xB8 &= 0b11111110;
-        }
+        get => ReadBitfield(184, 0);
+        set => WriteBitfield(184, 0, value);
     }
 
     public bool BonusMission
     {
-        get => (Bitfield_0xB8 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0xB8 |= 0b00000010;
-            else
-                Bitfield_0xB8 &= 0b11111101;
-        }
+        get => ReadBitfield(184, 1);
+        set => WriteBitfield(184, 1, value);
     }
 
     public PointerArray<BonusObjective> BonusObjectives => new(Memory, Address + 188, 3);

@@ -9,7 +9,7 @@ public class CGuiScreenPurchaseRewards : IGuiScreenRewards
 {
     public CGuiScreenPurchaseRewards(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
-    internal const uint CurrentTypeOffset = VehicleRatingsOffset + 4 * NUM_VEHICLE_RATINGS;
+    internal const uint CurrentTypeOffset = VehicleRatingsOffset + sizeof(uint) * NUM_VEHICLE_RATINGS;
     public Merchandise.SellerTypes CurrentType
     {
         get => (Merchandise.SellerTypes)ReadInt32(CurrentTypeOffset);

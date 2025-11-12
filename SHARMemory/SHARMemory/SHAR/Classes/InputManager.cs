@@ -166,74 +166,42 @@ public class InputManager : Class
         set => WriteUInt32(GameStateOffset, (uint)value);
     }
 
-    internal const uint Bitfield1Offset = GameStateOffset + sizeof(uint);
-    private byte Bitfield1
-    {
-        get => ReadByte(Bitfield1Offset);
-        set => WriteByte(Bitfield1Offset, value);
-    }
-
+    internal const uint ChangeGameStateOffset = GameStateOffset + sizeof(uint);
     public bool ChangeGameState
     {
-        get => (Bitfield1 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield1 |= 0b00000001;
-            else
-                Bitfield1 &= 0b11111110;
-        }
+        get => ReadBitfield(ChangeGameStateOffset, 0);
+        set => WriteBitfield(ChangeGameStateOffset, 0, value);
     }
 
+    internal const uint ConnectStateChangedOffset = ChangeGameStateOffset + 0;
     public bool ConnectStateChanged
     {
-        get => (Bitfield1 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield1 |= 0b00000010;
-            else
-                Bitfield1 &= 0b11111101;
-        }
+        get => ReadBitfield(ConnectStateChangedOffset, 1);
+        set => WriteBitfield(ConnectStateChangedOffset, 1, value);
     }
 
+    internal const uint IsRumbleEnabledOffset = ConnectStateChangedOffset + 0;
     public bool IsRumbleEnabled
     {
-        get => (Bitfield1 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield1 |= 0b00000100;
-            else
-                Bitfield1 &= 0b11111011;
-        }
+        get => ReadBitfield(IsRumbleEnabledOffset, 2);
+        set => WriteBitfield(IsRumbleEnabledOffset, 2, value);
     }
 
+    internal const uint IsResettingOffset = IsRumbleEnabledOffset + 0;
     public bool IsResetting
     {
-        get => (Bitfield1 & 0b00001000) != 0;
-        set
-        {
-            if (value)
-                Bitfield1 |= 0b00001000;
-            else
-                Bitfield1 &= 0b11110111;
-        }
+        get => ReadBitfield(IsResettingOffset, 3);
+        set => WriteBitfield(IsResettingOffset, 3, value);
     }
 
+    internal const uint ResetEnabledOffset = IsResettingOffset + 0;
     public bool ResetEnabled
     {
-        get => (Bitfield1 & 0b00010000) != 0;
-        set
-        {
-            if (value)
-                Bitfield1 |= 0b00010000;
-            else
-                Bitfield1 &= 0b11101111;
-        }
+        get => ReadBitfield(ResetEnabledOffset, 4);
+        set => WriteBitfield(ResetEnabledOffset, 4, value);
     }
 
-    internal const uint RegisteredControllerIDOffset = Bitfield1Offset + sizeof(uint);
+    internal const uint RegisteredControllerIDOffset = ResetEnabledOffset + 4; // Padding
     public StructArray<int> RegisteredControllerID => new(Memory, ReadUInt32(RegisteredControllerIDOffset), sizeof(int), MAX_PLAYERS);
 
     internal const uint ResetTimeoutOffset = RegisteredControllerIDOffset + sizeof(int) * MAX_PLAYERS;

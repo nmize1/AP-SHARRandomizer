@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Linq;
 
 namespace SHARMemory.Memory;
 
@@ -215,7 +216,7 @@ public class ProcessMemory : IDisposable
         if (address < BaseAddress)
             throw new ArgumentOutOfRangeException(nameof(address), $"Address 0x{address:X} is too small. Minimum value: 0x{BaseAddress:X}.");
 
-        MEMORY_BASIC_INFORMATION mbi = new();
+        MEMORY_BASIC_INFORMATION mbi;
         int result = VirtualQueryEx(Process.Handle, new UIntPtr(address), out mbi, (UIntPtr)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION)));
         if (result == 0 || mbi.State != MEM_COMMIT)
             throw new ArgumentOutOfRangeException(nameof(address), $"Address 0x{address:X} is outside allocated memory regions.");
@@ -320,6 +321,32 @@ public class ProcessMemory : IDisposable
     /// The <c>bool</c> at the given address.
     /// </returns>
     public bool ReadBoolean(uint Address) => ReadByte(Address) != 0;
+
+    /// <summary>
+    /// Reads <see cref="Process"/>'s memory at the given address.
+    /// </summary>
+    /// <param name="Address">
+    /// The address to read.
+    /// </param>
+    /// <param name="Bit">
+    /// The bit offset to check.
+    /// </param>
+    /// <returns>
+    /// The <c>bool</c> at the given address + bit.
+    /// </returns>
+    public bool ReadBitfield(uint Address, int Bit)
+    {
+        if (Bit < 0)
+            throw new ArgumentOutOfRangeException(nameof(Bit), $"{nameof(Bit)} cannot be less than 0.");
+        if (Bit >= 64)
+            throw new ArgumentOutOfRangeException(nameof(Bit), $"{nameof(Bit)} must be less than 64.");
+
+        int byteOffset = Bit / 8;     // Which byte contains this bit
+        int bitInByte = Bit % 8;      // Bit position within that byte
+
+        byte value = ReadByte(Address + (uint)byteOffset);
+        return (value & (1 << bitInByte)) != 0;
+    }
 
     /// <summary>
     /// Reads <see cref="Process"/>'s memory at the given address.
@@ -506,6 +533,13 @@ public class ProcessMemory : IDisposable
     /// </returns>
     public string ReadString(uint Address, Encoding Encoding, uint maxLength = 512) => NullTerminate(Encoding.GetString(ReadBytes(Address, maxLength)));
 
+    private static readonly Dictionary<int, uint> ByteCounts = new()
+    {
+        { Encoding.UTF32.CodePage, 4 },
+        { Encoding.GetEncoding("utf-32BE").CodePage, 4 },
+        { Encoding.Unicode.CodePage, 2 },
+        { Encoding.BigEndianUnicode.CodePage, 2 },
+    };
     /// <summary>
     /// Reads <see cref="Process"/>'s memory at the given address.
     /// </summary>
@@ -521,14 +555,30 @@ public class ProcessMemory : IDisposable
     public string ReadNullString(uint Address, Encoding Encoding)
     {
         List<byte> bytes = [];
-        while (true)
+
+        if (Encoding.IsSingleByte || !ByteCounts.TryGetValue(Encoding.CodePage, out var byteCount))
         {
-            byte b = ReadByte(Address);
-            if (b == 0)
-                break;
-            bytes.Add(b);
-            Address++;
+            while (true)
+            {
+                byte b = ReadByte(Address);
+                if (b == 0)
+                    break;
+                bytes.Add(b);
+                Address++;
+            }
         }
+        else
+        {
+            while (true)
+            {
+                var b = ReadBytes(Address, byteCount);
+                if (b.All(x => x == 0))
+                    break;
+                bytes.AddRange(b);
+                Address += byteCount;
+            }
+        }
+
         return Encoding.GetString([.. bytes]);
     }
 
@@ -623,6 +673,40 @@ public class ProcessMemory : IDisposable
     /// The <c>bool</c> value to write.
     /// </param>
     public void WriteBoolean(uint Address, bool Value) => WriteByte(Address, (byte)(Value ? 1 : 0));
+
+    /// <summary>
+    /// Writes the given value to <see cref="Process"/>'s memory at the given address.
+    /// </summary>
+    /// <param name="Address">
+    /// The address to write to.
+    /// </param>
+    /// <param name="Bit">
+    /// The bit to write to.
+    /// </param>
+    /// <param name="Value">
+    /// The <c>bool</c> value to write.
+    /// </param>
+    public void WriteBitfield(uint Address, int Bit, bool Value)
+    {
+        if (Bit < 0)
+            throw new ArgumentOutOfRangeException(nameof(Bit), $"{nameof(Bit)} cannot be less than 0.");
+        if (Bit >= 64)
+            throw new ArgumentOutOfRangeException(nameof(Bit), $"{nameof(Bit)} must be less than 64.");
+
+        int byteOffset = Bit / 8;
+        int bitInByte = Bit % 8;
+
+        uint byteAddress = Address + (uint)byteOffset;
+
+        byte current = ReadByte(byteAddress);
+
+        if (Value)
+            current |= (byte)(1 << bitInByte);
+        else
+            current &= (byte)~(1 << bitInByte);
+
+        WriteByte(byteAddress, current);
+    }
 
     /// <summary>
     /// Writes the given value to <see cref="Process"/>'s memory at the given address.

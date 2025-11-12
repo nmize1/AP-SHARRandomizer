@@ -140,50 +140,28 @@ public class GameplayManager : Class
         set => WriteString(PostLevelFMVOffset, value, Encoding.UTF8, 13);
     }
 
-    internal const uint Bitfield_0x3B1Offset = PostLevelFMVOffset + 13;
-    private byte Bitfield_0x3B1
-    {
-        get => ReadByte(Bitfield_0x3B1Offset);
-        set => WriteByte(Bitfield_0x3B1Offset, value);
-    }
-
+    internal const uint IrisClosedOffset = PostLevelFMVOffset + 13;
     public bool IrisClosed
     {
-        get => (Bitfield_0x3B1 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x3B1 |= 0b00000001;
-            else
-                Bitfield_0x3B1 &= 0b11111110;
-        }
+        get => ReadBitfield(IrisClosedOffset, 0);
+        set => WriteBitfield(IrisClosedOffset, 0, value);
     }
 
+    internal const uint FadedToBlackOffset = IrisClosedOffset + 0;
     public bool FadedToBlack
     {
-        get => (Bitfield_0x3B1 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x3B1 |= 0b00000010;
-            else
-                Bitfield_0x3B1 &= 0b11111101;
-        }
+        get => ReadBitfield(FadedToBlackOffset, 1);
+        set => WriteBitfield(FadedToBlackOffset, 1, value);
     }
 
+    internal const uint WaitingOnFMVOffset = FadedToBlackOffset + 0;
     public bool WaitingOnFMV
     {
-        get => (Bitfield_0x3B1 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x3B1 |= 0b00000100;
-            else
-                Bitfield_0x3B1 &= 0b11111011;
-        }
+        get => ReadBitfield(WaitingOnFMVOffset, 2);
+        set => WriteBitfield(WaitingOnFMVOffset, 2, value);
     }
 
-    internal const uint CurrentMissionOffset = Bitfield_0x3B1Offset + 3; // Padding
+    internal const uint CurrentMissionOffset = WaitingOnFMVOffset + 3; // Padding
     public int CurrentMission
     {
         get => ReadInt32(CurrentMissionOffset);
@@ -221,50 +199,29 @@ public class GameplayManager : Class
         set => WriteUInt32(CurrentMissionHeapOffset, value);
     }
 
-    internal const uint Bitfield_0x4A0Offset = CurrentMissionHeapOffset + sizeof(uint);
-    private byte Bitfield_0x4A0
-    {
-        get => ReadByte(Bitfield_0x4A0Offset);
-        set => WriteByte(Bitfield_0x4A0Offset, value);
-    }
 
+    internal const uint LevelCompleteOffset = CurrentMissionHeapOffset + sizeof(uint);
     public bool LevelComplete
     {
-        get => (Bitfield_0x4A0 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x4A0 |= 0b00000001;
-            else
-                Bitfield_0x4A0 &= 0b11111110;
-        }
+        get => ReadBitfield(LevelCompleteOffset, 0);
+        set => WriteBitfield(LevelCompleteOffset, 0, value);
     }
 
+    internal const uint EnablePhoneBoothsOffset = LevelCompleteOffset + 0;
     public bool EnablePhoneBooths
     {
-        get => (Bitfield_0x4A0 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x4A0 |= 0b00000010;
-            else
-                Bitfield_0x4A0 &= 0b11111101;
-        }
+        get => ReadBitfield(EnablePhoneBoothsOffset, 1);
+        set => WriteBitfield(EnablePhoneBoothsOffset, 1, value);
     }
 
+    internal const uint GameCompleteOffset = EnablePhoneBoothsOffset + 0;
     public bool GameComplete
     {
-        get => (Bitfield_0x4A0 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x4A0 |= 0b00000100;
-            else
-                Bitfield_0x4A0 &= 0b11111011;
-        }
+        get => ReadBitfield(GameCompleteOffset, 2);
+        set => WriteBitfield(GameCompleteOffset, 2, value);
     }
 
-    internal const uint CurrentVehicleOffset = Bitfield_0x4A0Offset + 4; // Padding
+    internal const uint CurrentVehicleOffset = GameCompleteOffset + 4; // Padding
     public Vehicle CurrentVehicle => Memory.ClassFactory.Create<Vehicle>(ReadUInt32(CurrentVehicleOffset));
 
     internal const uint VDUOffset = CurrentVehicleOffset + sizeof(uint);

@@ -73,6 +73,20 @@ public abstract class Class : IEquatable<Class>
     /// <param name="Offset">
     /// The offset to read.
     /// </param>
+    /// <param name="Bit">
+    /// The bit to check.
+    /// </param>
+    /// <returns>
+    /// The <c>bool</c> at the given offset + bit.
+    /// </returns>
+    public bool ReadBitfield(uint Offset, int Bit) => Memory.ReadBitfield(Address + Offset, Bit);
+
+    /// <summary>
+    /// Reads <see cref="Memory"/> at the class's base <see cref="Address"/> + <paramref name="Offset"/>.
+    /// </summary>
+    /// <param name="Offset">
+    /// The offset to read.
+    /// </param>
     /// <param name="Length">
     /// The number of bytes to read
     /// </param>
@@ -260,6 +274,20 @@ public abstract class Class : IEquatable<Class>
     /// The <c>bool</c> value to write.
     /// </param>
     public void WriteBoolean(uint Offset, bool Value) => Memory.WriteBoolean(Address + Offset, Value);
+
+    /// <summary>
+    /// Writes the given value to <see cref="Memory"/> at the class's base <see cref="Address"/> + <paramref name="Offset"/>.
+    /// </summary>
+    /// <param name="Offset">
+    /// The offset to write to.
+    /// </param>
+    /// <param name="Bit">
+    /// The bit to write to.
+    /// </param>
+    /// <param name="Value">
+    /// The <c>bool</c> value to write.
+    /// </param>
+    public void WriteBitfield(uint Offset, int Bit, bool Value) => Memory.WriteBitfield(Address + Offset, Bit, Value);
 
     /// <summary>
     /// Writes the given value to <see cref="Memory"/> at the class's base <see cref="Address"/> + <paramref name="Offset"/>.

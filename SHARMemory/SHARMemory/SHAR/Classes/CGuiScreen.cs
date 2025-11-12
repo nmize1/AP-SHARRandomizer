@@ -75,38 +75,22 @@ public class CGuiScreen : CGuiWindow
     internal const uint ButtonIconsOffset = NumBackgroundLayersOffset + sizeof(int);
     public PointerArray<FeEntity> ButtonIcons => new(Memory, Address + ButtonIconsOffset, NUM_BUTTON_ICONS);
 
-    internal const uint Bitfield_0x74OFfset = ButtonIconsOffset + sizeof(uint) * NUM_BUTTON_ICONS;
-    private byte Bitfield_0x74
-    {
-        get => ReadByte(Bitfield_0x74OFfset);
-        set => WriteByte(Bitfield_0x74OFfset, value);
-    }
 
+    internal const uint IgnoreControllerInputsOffset = ButtonIconsOffset + sizeof(uint) * NUM_BUTTON_ICONS;
     public bool IgnoreControllerInputs
     {
-        get => (Bitfield_0x74 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x74 |= 0b00000001;
-            else
-                Bitfield_0x74 &= 0b11111110;
-        }
+        get => ReadBitfield(IgnoreControllerInputsOffset, 0);
+        set => WriteBitfield(IgnoreControllerInputsOffset, 0, value);
     }
 
+    internal const uint InverseFadingOffset = IgnoreControllerInputsOffset + 0;
     public bool InverseFading
     {
-        get => (Bitfield_0x74 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x74 |= 0b00000010;
-            else
-                Bitfield_0x74 &= 0b11111101;
-        }
+        get => ReadBitfield(InverseFadingOffset, 1);
+        set => WriteBitfield(InverseFadingOffset, 1, value);
     }
 
-    internal const uint ScreenFXOffset = Bitfield_0x74OFfset + 4; // Padding
+    internal const uint ScreenFXOffset = InverseFadingOffset + 4; // Padding
     public uint ScreenFX
     {
         get => ReadUInt32(ScreenFXOffset);

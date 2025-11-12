@@ -25,34 +25,16 @@ public class CollisionObject : Class
 
     public CollisionVolumeOwner CollisionVolumeOwner => Memory.ClassFactory.Create<CollisionVolumeOwner>(Address + 60);
 
-    private byte Bitfield_0x58
-    {
-        get => ReadByte(88);
-        set => WriteByte(88, value);
-    }
-
     public bool IsStatic
     {
-        get => (Bitfield_0x58 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x58 |= 0b00000001;
-            else
-                Bitfield_0x58 &= 0b11111110;
-        }
+        get => ReadBitfield(88, 0);
+        set => WriteBitfield(88, 0, value);
     }
 
     public bool CollideWithStatic
     {
-        get => (Bitfield_0x58 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x58 |= 0b00000010;
-            else
-                Bitfield_0x58 &= 0b11111101;
-        }
+        get => ReadBitfield(88, 1);
+        set => WriteBitfield(88, 1, value);
     }
 
     public int DefaultArea
@@ -61,94 +43,46 @@ public class CollisionObject : Class
         set => WriteInt32(92, value);
     }
 
-    private byte Bitfield_0x60
-    {
-        get => ReadByte(96);
-        set => WriteByte(96, value);
-    }
-
     public bool HasMoved
     {
-        get => (Bitfield_0x60 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b00000001;
-            else
-                Bitfield_0x60 &= 0b11111110;
-        }
+        get => ReadBitfield(96, 0);
+        set => WriteBitfield(96, 0, value);
     }
 
     public bool HasRelocated
     {
-        get => (Bitfield_0x60 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b00000010;
-            else
-                Bitfield_0x60 &= 0b11111101;
-        }
+        get => ReadBitfield(96, 1);
+        set => WriteBitfield(96, 1, value);
     }
 
     public bool AutoPair
     {
-        get => (Bitfield_0x60 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b00000100;
-            else
-                Bitfield_0x60 &= 0b11111011;
-        }
+        get => ReadBitfield(96, 2);
+        set => WriteBitfield(96, 2, value);
     }
 
     public bool ManualUpdate
     {
-        get => (Bitfield_0x60 & 0b00001000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b00001000;
-            else
-                Bitfield_0x60 &= 0b11110111;
-        }
+        get => ReadBitfield(96, 3);
+        set => WriteBitfield(96, 3, value);
     }
 
     public bool CollisionEnabled
     {
-        get => (Bitfield_0x60 & 0b00010000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b00010000;
-            else
-                Bitfield_0x60 &= 0b11101111;
-        }
+        get => ReadBitfield(96, 4);
+        set => WriteBitfield(96, 4, value);
     }
 
     public bool SelfCollisionEnabled
     {
-        get => (Bitfield_0x60 & 0b00100000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b00100000;
-            else
-                Bitfield_0x60 &= 0b11011111;
-        }
+        get => ReadBitfield(96, 5);
+        set => WriteBitfield(96, 5, value);
     }
 
     public bool RayCastingEnabled
     {
-        get => (Bitfield_0x60 & 0b01000000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x60 |= 0b01000000;
-            else
-                Bitfield_0x60 &= 0b10111111;
-        }
+        get => ReadBitfield(96, 6);
+        set => WriteBitfield(96, 6, value);
     }
 
     public int PossibleCollisionEvents

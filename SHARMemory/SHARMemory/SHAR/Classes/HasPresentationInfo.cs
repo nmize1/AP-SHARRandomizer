@@ -51,50 +51,28 @@ public class HasPresentationInfo : Class
     // typedef std::vector< tName, s2alloc<tName> > TNAMEVECTOR;
     // TNAMEVECTOR mAmbientNpcAnimations;
 
-    internal const uint Bitfield_0x34Offset = AmbientNpcAnimationsOffset + 12;
-    private byte Bitfield_0x34
-    {
-        get => ReadByte(Bitfield_0x34Offset);
-        set => WriteByte(Bitfield_0x34Offset, value);
-    }
-
+    internal const uint PcIsChildOffset = AmbientNpcAnimationsOffset + 12;
     public bool PcIsChild
     {
-        get => (Bitfield_0x34 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x34 |= 0b00000001;
-            else
-                Bitfield_0x34 &= 0b11111110;
-        }
+        get => ReadBitfield(PcIsChildOffset, 0);
+        set => WriteBitfield(PcIsChildOffset, 0, value);
     }
 
+    internal const uint NpcIsChildOffset = PcIsChildOffset + 0;
     public bool NpcIsChild
     {
-        get => (Bitfield_0x34 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x34 |= 0b00000010;
-            else
-                Bitfield_0x34 &= 0b11111101;
-        }
+        get => ReadBitfield(NpcIsChildOffset, 1);
+        set => WriteBitfield(NpcIsChildOffset, 1, value);
     }
 
+    internal const uint GoToPattyAndSelmaScreenWhenDoneOffset = NpcIsChildOffset + 0;
     public bool GoToPattyAndSelmaScreenWhenDone
     {
-        get => (Bitfield_0x34 & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x34 |= 0b00000100;
-            else
-                Bitfield_0x34 &= 0b11111011;
-        }
+        get => ReadBitfield(GoToPattyAndSelmaScreenWhenDoneOffset, 2);
+        set => WriteBitfield(GoToPattyAndSelmaScreenWhenDoneOffset, 2, value);
     }
 
-    internal const uint CamerasForLinesOfDialogOffset = Bitfield_0x34Offset + 4; // Padding
+    internal const uint CamerasForLinesOfDialogOffset = GoToPattyAndSelmaScreenWhenDoneOffset + 4; // Padding
     // typedef std::vector< tName, s2alloc<tName> > TNAMEVECTOR;
     // TNAMEVECTOR mCamerasForLinesOfDialog;
 

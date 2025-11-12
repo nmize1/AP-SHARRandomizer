@@ -34,34 +34,16 @@ public class PresentationManager : Class // : EventListener
 
     //public PresentationEventCallBack PlayCallback => Memory.ClassFactory.Create<PresentationEventCallBack>(ReadUInt32(132));
 
-    private byte Bitfield_0x88
-    {
-        get => ReadByte(136);
-        set => WriteByte(136, value);
-    }
-
     public bool InConversation
     {
-        get => (Bitfield_0x88 & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x88 |= 0b00000001;
-            else
-                Bitfield_0x88 &= 0b11111110;
-        }
+        get => ReadBitfield(136, 0);
+        set => WriteBitfield(136, 0, value);
     }
 
     public bool WaitingOnFade
     {
-        get => (Bitfield_0x88 & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x88 |= 0b00000010;
-            else
-                Bitfield_0x88 &= 0b11111101;
-        }
+        get => ReadBitfield(136, 1);
+        set => WriteBitfield(136, 1, value);
     }
 
     //public PresentationOverlay Overlay => Memory.ClassFactory.Create<PresentationOverlay>(ReadUInt32(140));

@@ -942,70 +942,34 @@ public class Vehicle : DynaPhysDSG
         set => WriteInt32(1304, value);
     }
 
-    private byte Bitfield_0x51C
-    {
-        get => ReadByte(1308);
-        set => WriteByte(1308, value);
-    }
-
     public bool HasDoors
     {
-        get => (Bitfield_0x51C & 0b00000001) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x51C |= 0b00000001;
-            else
-                Bitfield_0x51C &= 0b11111110;
-        }
+        get => ReadBitfield(1308, 0);
+        set => WriteBitfield(1308, 0, value);
     }
 
     public bool VisibleCharacters
     {
-        get => (Bitfield_0x51C & 0b00000010) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x51C |= 0b00000010;
-            else
-                Bitfield_0x51C &= 0b11111101;
-        }
+        get => ReadBitfield(1308, 1);
+        set => WriteBitfield(1308, 1, value);
     }
 
     public bool IrisTransition
     {
-        get => (Bitfield_0x51C & 0b00000100) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x51C |= 0b00000100;
-            else
-                Bitfield_0x51C &= 0b11111011;
-        }
+        get => ReadBitfield(1308, 2);
+        set => WriteBitfield(1308, 2, value);
     }
 
     public bool AllowSlide
     {
-        get => (Bitfield_0x51C & 0b00001000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x51C |= 0b00001000;
-            else
-                Bitfield_0x51C &= 0b11110111;
-        }
+        get => ReadBitfield(1308, 3);
+        set => WriteBitfield(1308, 3, value);
     }
 
     public bool HighRoof
     {
-        get => (Bitfield_0x51C & 0b00010000) != 0;
-        set
-        {
-            if (value)
-                Bitfield_0x51C |= 0b00010000;
-            else
-                Bitfield_0x51C &= 0b11101111;
-        }
+        get => ReadBitfield(1308, 4);
+        set => WriteBitfield(1308, 4, value);
     }
 
     public float CharacterScale
