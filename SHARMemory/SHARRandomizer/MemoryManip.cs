@@ -1641,7 +1641,16 @@ namespace SHARRandomizer
             switch (e.NewID)
             {
                 case CGuiManager.WindowID.PhoneBooth:
+                    if (e.NewWindow is not CGuiScreenPhoneBooth guiScreenPhoneBooth)
+                        break;
 
+                    Console.WriteLine($"Entered phoneboth: {guiScreenPhoneBooth.NumPreviewVehicles} preview vehicles");
+
+                    var previewVehicles = guiScreenPhoneBooth.PreviewVehicles;
+                    var vehicles = previewVehicles.ToArray().OrderByDescending(x => x.IsUnlocked).ThenBy(x => x.Name);
+                    previewVehicles.FromArray(vehicles.ToArray());
+                    guiScreenPhoneBooth.CurrentPreviewVehicle = 0;
+                    guiScreenPhoneBooth.NumPreviewVehicles = vehicles.Count(x => x.IsUnlocked);
 
                     break;
                 case CGuiManager.WindowID.PurchaseRewards:
@@ -1649,16 +1658,18 @@ namespace SHARRandomizer
                         break;
                     if (guiScreenPurchaseRewards.CurrentType.ToString() == "Interior")
                     {
-                        if (guiScreenPurchaseRewards.RewardPrice is FeDrawable rewardPrice)
-                            rewardPrice.Visible = false;
+                        //if (guiScreenPurchaseRewards.RewardPrice is FeDrawable rewardPrice)
+                        //    rewardPrice.Visible = false;
 
                         textBible?.SetString("COINS", " ");
                         textBible?.SetString("TO_PURCHASE", "LOCKED");
                     }
+
                     break;
                 case CGuiManager.WindowID.MissionSelect:
+                    if (e.NewWindow is not CGuiScreenMissionSelect guiScreenMissionSelect)
+                        break;
                     UpdateMissionTitles();
-                    /* hide locked missions here if blocking free roam */
 
                     break;
                 default:

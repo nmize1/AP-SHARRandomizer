@@ -48,12 +48,34 @@ namespace SHARRandomizer
             public short sThumbRY;
         }
 
+
         [DllImport("XInput1_4.dll", EntryPoint = "XInputGetState")]
         private static extern int XInputGetState(uint dwUserIndex, out XINPUT_STATE pState);
 
         public static bool GetControllerState(int index, out XINPUT_STATE state)
         {
             return XInputGetState((uint)index, out state) == 0;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XINPUT_VIBRATION
+        {
+            public ushort wLeftMotorSpeed;
+            public ushort wRightMotorSpeed;
+        }
+
+        [DllImport("XInput1_4.dll", EntryPoint = "XInputSetState")]
+        private static extern int XInputSetState(uint dwUserIndex, ref XINPUT_VIBRATION pVibration);
+
+        public static bool SetVibration(int index, ushort left, ushort right)
+        {
+            var vib = new XINPUT_VIBRATION
+            {
+                wLeftMotorSpeed = left,
+                wRightMotorSpeed = right
+            };
+
+            return XInputSetState((uint)index, ref vib) == 0;
         }
     }
 
@@ -113,6 +135,13 @@ namespace SHARRandomizer
 
                 System.Threading.Thread.Sleep(100);
             }
+        }
+
+        public bool Vibrate(ushort left, ushort right)
+        {
+            if (!_listening) return false;
+
+            return XInput.SetVibration(0, left, right);
         }
 
         [DllImport("user32.dll")]
