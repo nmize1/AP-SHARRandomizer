@@ -17,7 +17,7 @@ public class CGuiScreenPurchaseRewards : IGuiScreenRewards
     }
 
     internal const uint IsPurchasingRewardOffset = CurrentTypeOffset + sizeof(int);
-    public bool IsPurshasingReward
+    public bool IsPurschasingReward
     {
         get => ReadBoolean(IsPurchasingRewardOffset);
         set => WriteBoolean(IsPurchasingRewardOffset, value);
