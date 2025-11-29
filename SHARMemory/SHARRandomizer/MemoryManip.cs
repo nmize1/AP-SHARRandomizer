@@ -82,6 +82,8 @@ namespace SHARRandomizer
 
         uint gameLanguage;
         private Watcher? _watcher;
+        private TrapHandler _trapHandler;
+        private TrapWatcher _trapWatcher;
 
         public MemoryManip(ArchipelagoClient ac)
         {
@@ -137,6 +139,11 @@ namespace SHARRandomizer
                 watcher.NewGame += Watcher_NewGame;
                 watcher.NewTrafficVehicle += Watcher_NewTrafficVehicle;
                 watcher.InGameWindowChanged += Watcher_InGameWindowChanged;
+
+                var trapWatcher = new TrapWatcher();
+                _trapWatcher = trapWatcher;
+                var trapHandler = new TrapHandler(memory, trapWatcher);
+                _trapHandler = trapHandler;
 
                 watcher.Start();
                 await LoadState(memory);
@@ -650,7 +657,7 @@ namespace SHARRandomizer
 
                                 case string s when traps.Contains(s):
                                     Common.WriteLog($"Received TRAP {s}.", "GetItems");
-                                    HandleTraps(memory, s);
+                                    _trapWatcher.OnTrapDetected(s);
                                     break;
 
                                 case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") ||
@@ -1179,72 +1186,12 @@ namespace SHARRandomizer
                     
                     break;
                 case "Hit N Run":
-                    memory.Singletons.HitNRunManager.CurrHitAndRun = 100f;
+                    
                     break;
                 case "Eject":
-                    while ((car = memory.Globals.GameplayManager?.CurrentVehicle) == null)
-                        await Task.Delay(100);
-
-                    while (car != null)
-                    {
-                        car.Stop();
-                        if (memory.Singletons.CharacterManager?.Player?.Controller is CharacterController charcontroller)
-                            charcontroller.Intention = CharacterController.Intentions.GetOutCar;
-                        await Task.Delay(100);
-                        car = memory.Singletons.CharacterManager?.Player?.Car;
-                    }
+                    
                     break;
                 case "Traffic Trap":
-                    var hnr = memory.Singletons.HitNRunManager;
-                    int vdc = hnr.VehicleDestroyedCoins;
-                    int trafficgroup = 1;
-
-
-                    for (int i = 0; i < 2; i++)
-                    {
-                        /* Disable coin drops, destroy all traffic for dramatic effect, reenable coin drops */
-                        hnr.VehicleDestroyedCoins = trafficgroup == 1 ? 0 : vdc;
-                        float curhnr = memory.Singletons.HitNRunManager.CurrHitAndRun;
-                        foreach (TrafficVehicle v in memory.Globals.TrafficManager.Vehicles.ToArray())
-                        {
-                            if (v == null) continue;
-                            try
-                            {
-                                v.Vehicle.VehicleDestroyed = true;
-                            }
-                            catch
-                            {
-                                Common.WriteLog($"Attempted to destroy null traffic.", "HandleTraps");
-                            }
-                            memory.Singletons.HitNRunManager.CurrHitAndRun = 0.0f;
-                            await Task.Delay(50);
-                        }
-                        memory.Singletons.HitNRunManager.CurrHitAndRun = curhnr;
-                        hnr.VehicleDestroyedCoins = vdc;
-
-                        /* Switch traffic cars */
-                        memory.Globals.TrafficManager.CurrTrafficModelGroup = trafficgroup;
-
-                        /* time to swerve */
-                        memory.Globals.TrafficAIMinSecondsBetweenLaneChanges = trafficgroup == 1 ? 0 : 5;
-
-                        /* if we went back to default, break out */
-                        if(trafficgroup == 0)
-                        {
-                            break;
-                        }
-
-                        /* sit back and relax */
-                        var end = DateTime.UtcNow.AddSeconds(60);
-
-                        while (DateTime.UtcNow < end)
-                        {
-                            await Task.Delay(100);
-                        }
-
-                        /* set traffic back to original group and repeat the switch */
-                        trafficgroup = 0;
-                    }
 
                     break;
                 default:
