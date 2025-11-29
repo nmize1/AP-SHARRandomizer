@@ -7,6 +7,7 @@ using static SHARRandomizer.ArchipelagoClient;
 using SHARMemory.SHAR.Structs;
 using System;
 using System.Reflection.Emit;
+using Archipelago.MultiClient.Net.Helpers;
 
 namespace SHARRandomizer
 {
@@ -319,6 +320,17 @@ namespace SHARRandomizer
                     Common.WriteLog($"{ex}", "AutoSave");
                 }
             });
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await CardRadar(memory);
+                }
+                catch (Exception ex)
+                {
+                    Common.WriteLog($"{ex}", "CardRadar");
+                }
+            });
         }
 
         async Task LoadState(Memory memory)
@@ -494,7 +506,7 @@ namespace SHARRandomizer
             var cardGallery = mem.Singletons.CardGallery;
             if (cardGallery == null)
                 return;
-
+            
             var cardsDB = cardGallery.CardsDB;
             if (cardsDB == null)
                 return;
@@ -617,18 +629,21 @@ namespace SHARRandomizer
 
                                 case string s when fillerInventory.ContainsKey(s):
                                     fillerInventory[s]++;
-                                    switch (s)
+                                    if (fillerInventory[s] < 101)
                                     {
-                                        case "Hit N Run Reset":
-                                            await ac.IncrementDataStorage("hnr");
-                                            language?.SetString("APHnR", $"{fillerInventory[s]:D2}");
-                                            break;
+                                        switch (s)
+                                        {
+                                            case "Hit N Run Reset":
+                                                await ac.IncrementDataStorage("hnr");
+                                                language?.SetString("APHnR", $"{fillerInventory[s]:D2}");
+                                                break;
 
-                                        case "Wrench":
-                                            await ac.IncrementDataStorage("wrench");
-                                            language?.SetString("APWrench", $"{fillerInventory[s]:D2}");
-                                            break;
+                                            case "Wrench":
+                                                await ac.IncrementDataStorage("wrench");
+                                                language?.SetString("APWrench", $"{fillerInventory[s]:D2}");
+                                                break;
 
+                                        }
                                     }
                                     Common.WriteLog($"Received {s}.", "GetItems");
                                     break;
@@ -644,13 +659,14 @@ namespace SHARRandomizer
                                     moves.Add(s);
                                     CheckAvailableMoves(memory, CURRENTLEVEL);
                                     HandleCurrentRaces(memory);
-                                    CheckGags(memory);
+                                    //CheckGags(memory);
                                     break;
 
                                 case string s when s.Contains("Wallet"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     WalletLevel++;
-                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}")); 
+                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}"));
+                                    UpdateCoinDrops(memory);                                    
                                     break;
 
                                 default:
@@ -679,6 +695,20 @@ namespace SHARRandomizer
             language.SetString("APLog", log);
         }
 
+        void UpdateCoinDrops(Memory memory)
+        {
+            //(WalletLevel * coinScale)
+            if (WalletLevel > 1)
+            {
+                var hnr = memory.Singletons.HitNRunManager;
+                hnr.HitBreakableCoins = WalletLevel * coinScale;
+                hnr.HitKrustyGlassCoins = 5 * WalletLevel * coinScale;
+                hnr.HitMoveableCoins = WalletLevel * coinScale;
+                hnr.ColaPropDestroyedCoins = 10 * WalletLevel * coinScale;
+
+                hnr.BustedCoins = 50 * WalletLevel * coinScale;
+            }
+        }
 
         bool UnlockCurrentMission(Memory memory, MissionStage? stage = null)
         {
@@ -864,7 +894,6 @@ namespace SHARRandomizer
                             language?.SetString(name, missionTitle.Trim());
                         }
                     }
-
                 }
             }
             else
@@ -1020,13 +1049,14 @@ namespace SHARRandomizer
             var gameplayManager = memory.Globals.GameplayManager;
             if (gameplayManager == null)
                 return;
-
+            
             var vehicleCentral = memory.Singletons.VehicleCentral;
             if (vehicleCentral == null)
                 return;
 
             var lastWaspUseSize = 0;
             var beecameraHash = SHARMemory.SHAR.Helpers.MakeUID("beecamera");
+
             while (memory.IsRunning)
             {
                 await System.Threading.Tasks.Task.Delay(100);
@@ -1132,9 +1162,9 @@ namespace SHARRandomizer
                     }
                 }
             }
-        }        
+        }
 
-        async void HandleTraps(Memory memory, string trap)
+        async Task HandleTraps(Memory memory, string trap)
         {
             var buttonArray = memory.Singletons.InputManager.ControllerArray[0].ButtonArray;
 
@@ -1143,48 +1173,23 @@ namespace SHARRandomizer
             switch (trap)
             {
                 case "Launch":
-                    while ((car = memory.Globals.GameplayManager?.CurrentVehicle) == null)
-                        await Task.Delay(100);
-                    
-                    car.Launch(Random.Shared.Next(20, 101), Random.Shared.Next(-20, 51));
 
                     break;
                 case "Duff Trap":
-                    List<Button> buttons =
-                    [
-                        buttonArray[(int)InputManager.Buttons.SteerLeft],
-                        buttonArray[(int)InputManager.Buttons.SteerRight],
-                        buttonArray[(int)InputManager.Buttons.MoveLeft],
-                        buttonArray[(int)InputManager.Buttons.MoveRight]
-                    ];
-                    var endTime = DateTime.UtcNow.AddSeconds(30);
-
-                    while (DateTime.UtcNow < endTime)
-                    {
-                        Button buttonToPress = buttons[Random.Shared.Next(4)];
-
-                        buttonToPress.Value = 1;
-                        await Task.Delay(Random.Shared.Next(50, 200));
-                        buttonToPress.Value = 0;
-
-                        await Task.Delay(Random.Shared.Next(100, 500));
-                    }
+                    
                     break;
                 case "Hit N Run":
                     memory.Singletons.HitNRunManager.CurrHitAndRun = 100f;
                     break;
                 case "Eject":
-                    while (car == null)
-                    {
+                    while ((car = memory.Globals.GameplayManager?.CurrentVehicle) == null)
                         await Task.Delay(100);
-                        car = memory.Singletons.CharacterManager?.Player?.Car;
-                    }
 
                     while (car != null)
                     {
                         car.Stop();
-                        if (memory.Singletons.CharacterManager?.Player?.Controller is CharacterController controller)
-                            controller.Intention = CharacterController.Intentions.GetOutCar;
+                        if (memory.Singletons.CharacterManager?.Player?.Controller is CharacterController charcontroller)
+                            charcontroller.Intention = CharacterController.Intentions.GetOutCar;
                         await Task.Delay(100);
                         car = memory.Singletons.CharacterManager?.Player?.Car;
                     }
@@ -1273,7 +1278,7 @@ namespace SHARRandomizer
 
                     if (memory.Singletons.InteriorManager is not InteriorManager interiorManager)
                         break;
-
+                    
                     int? level = (int)missionManager.LevelData.Level;
                     string character = "";
 
@@ -1317,6 +1322,24 @@ namespace SHARRandomizer
             {
                 ac.CheckVictory();
                 await Task.Delay(10000);
+            }
+        }
+
+        async Task CardRadar(Memory memory)
+        {
+            var rumble = new InputListener(memory);
+            var characterSheet = memory.Singletons.CharacterSheetManager;
+            if (characterSheet == null)
+            {
+                Common.WriteLog("Character sheet missing", "LoadState");
+                return;
+            }
+            LevelRecord[] record = characterSheet.CharacterSheet.LevelList.ToArray();
+
+            
+            while (memory.IsRunning)
+            {
+                
             }
         }
 
@@ -1397,6 +1420,7 @@ namespace SHARRandomizer
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "gag"));
                 LockBonusCars(sender);
             }
+
             var characterSheet = sender.Singletons.CharacterSheetManager;
 
             if (characterSheet == null)
@@ -1543,6 +1567,7 @@ namespace SHARRandomizer
 
         Task Watcher_CoinsChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.CoinsChangedEventArgs e, CancellationToken token)
         {
+            /*
             if (_updatingCoins)
             {
                 _updatingCoins = false;
@@ -1586,7 +1611,7 @@ namespace SHARRandomizer
                     characterSheet.CharacterSheet.Coins = coincap;
                 }
             }
-
+            */
             return Task.CompletedTask;
         }
 
@@ -1670,6 +1695,11 @@ namespace SHARRandomizer
                     if (e.NewWindow is not CGuiScreenMissionSelect guiScreenMissionSelect)
                         break;
                     UpdateMissionTitles();
+
+                    foreach (var item in guiScreenMissionSelect.MissionInfo)
+                    {
+                        //item
+                    }
 
                     break;
                 default:

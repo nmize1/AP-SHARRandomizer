@@ -70,8 +70,8 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		chunk:AddValue("APLog", ids[1].TitleID .. string.rep(" ", 496 - #ids[1].TitleID))
 		chunk:AddValue("VerifyID", ids[1].ID)
 		
-		chunk:AddValue("APWrench", "XX")
-		chunk:AddValue("APHnR", "XX")
+		chunk:AddValue("APWrench", "XXX")
+		chunk:AddValue("APHnR", "XXX")
 		
 		chunk:AddValue("APMaxCoins", "       ")
 		
