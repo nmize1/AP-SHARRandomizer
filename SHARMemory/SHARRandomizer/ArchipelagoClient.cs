@@ -52,6 +52,7 @@ namespace SHARRandomizer
         {
             All = 0,
             OnlyProg = 1
+            None = 2
         }
         public ShopHintPolicy shp = ShopHintPolicy.All;
 
@@ -180,7 +181,7 @@ namespace SHARRandomizer
                 MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>()!;
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>()!;
-                shp = (ShopHintPolicy)int.Parse(login.SlotData["shophintpolicy"].ToString()!);
+                shp = (ShopHintPolicy)Convert.ToInt32(login.SlotData["shophintpolicy"].ToString()!);
                 MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
             }
             catch (Exception ex)
@@ -486,7 +487,7 @@ namespace SHARRandomizer
             }
             if (shp == ShopHintPolicy.All)
                 await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, locations);
-            else if(shp == ShopHintPolicy.OnlyProg)
+            else if (shp == ShopHintPolicy.OnlyProg)
             {
                 var results = await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, locations);
                 var values = results.Values;
@@ -497,6 +498,7 @@ namespace SHARRandomizer
 
                 await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, LocsToHint.ToArray());
             }
+            else if (shp == ShopHintPolicy.None) { /* pass */ }
         }
 
         public async Task<T> GetDataStorage<T>(string type)

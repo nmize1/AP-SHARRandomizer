@@ -67,7 +67,7 @@ namespace SHARRandomizer
         readonly float djAllowDown = 12.0f;
         bool DISABLEEBRAKE = false;
         bool DISABLEDEFAULT = false;
-        string CURRENTLEVEL = "";
+        public string CURRENTLEVEL = "";
 
         public int WalletLevel = 1;
         public static int maxCoins;
@@ -983,7 +983,7 @@ namespace SHARRandomizer
             ac.SetShopNames(locsToScout, language);
         }
 
-        void CheckAvailableMoves(Memory memory, string level)
+        public void CheckAvailableMoves(Memory memory, string level)
         {
             string character = "";
             switch (level)
@@ -1056,7 +1056,7 @@ namespace SHARRandomizer
             var gameplayManager = memory.Globals.GameplayManager;
             if (gameplayManager == null)
                 return;
-            
+
             var vehicleCentral = memory.Singletons.VehicleCentral;
             if (vehicleCentral == null)
                 return;
@@ -1168,35 +1168,6 @@ namespace SHARRandomizer
                         }
                     }
                 }
-            }
-        }
-
-        async Task HandleTraps(Memory memory, string trap)
-        {
-            var buttonArray = memory.Singletons.InputManager.ControllerArray[0].ButtonArray;
-
-            var car = memory.Singletons.CharacterManager?.Player?.Car;
-
-            switch (trap)
-            {
-                case "Launch":
-
-                    break;
-                case "Duff Trap":
-                    
-                    break;
-                case "Hit N Run":
-                    
-                    break;
-                case "Eject":
-                    
-                    break;
-                case "Traffic Trap":
-
-                    break;
-                default:
-                    break;
-
             }
         }
 

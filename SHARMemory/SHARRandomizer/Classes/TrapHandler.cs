@@ -14,14 +14,30 @@ namespace SHARRandomizer.Classes
 {
     public class TrapHandler
     {
-        public TrapHandler(Memory memory, TrapWatcher watcher)
-        {
-            _ = new LaunchTrap(memory, watcher);
-            _ = new HitNRunTrap(memory, watcher);
-            _ = new Eject(memory, watcher);
+        public List<ITrap> Traps { get; } = new();
 
-            _ = new DuffTrap(memory, watcher);
-            _ = new TrafficTrap(memory, watcher);
+        public TrapHandler(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
+        {
+            Traps.Add(new LaunchTrap(memory, memoryManip, watcher));
+            Traps.Add(new HitNRunTrap(memory, memoryManip, watcher));
+            Traps.Add(new Eject(memory, memoryManip, watcher));
+
+            Traps.Add(new DuffTrap(memory, memoryManip, watcher));
+            Traps.Add(new TrafficTrap(memory, memoryManip, watcher));
+        }
+
+        public void NotifyControllerRemap()
+        {
+            foreach (var trap in Traps)
+            {
+                foreach (var c in trap.Components)
+                {
+                    if (c is IControlRemappedComponent remap)
+                    {
+                        remap.OnControllerRemap();
+                    }
+                }
+            }
         }
     }
 
@@ -38,18 +54,31 @@ namespace SHARRandomizer.Classes
     public interface ITrap
     {
         string Name { get; }
+        IEnumerable<object> Components => Enumerable.Empty<object>();
     }
 
-    public abstract class TimeTrapBase : ITrap
+    public interface ITimerComponent
     {
-        public abstract string Name { get; }
+        void AddTime(TimeSpan amount);
+        TimeSpan? TimeRemaining { get; }
+    }
+
+    public class TimerComponent : ITimerComponent
+    {
+        private Func<Task> _onTrapStartAsync;
+        private Func<Task> _onTrapStopAsync;
 
         private DateTime _expireAt;
         private CancellationTokenSource? _cancellationTokenSource;
         private readonly object _lock = new();
 
-        protected abstract Task OnTrapStartAsync();
-        protected abstract Task OnTrapStopAsync();
+        public TimerComponent(Func<Task> onTrapStartAsync, Func<Task> onTrapStopAsync)
+        {
+            _onTrapStartAsync = onTrapStartAsync;
+            _onTrapStopAsync = onTrapStopAsync;
+        }
+
+        public TimeSpan? TimeRemaining => _cancellationTokenSource == null ? null : _expireAt - DateTime.UtcNow;
 
         public void AddTime(TimeSpan amount)
         {
@@ -69,24 +98,41 @@ namespace SHARRandomizer.Classes
 
         private async Task RunAsync(CancellationToken token)
         {
-            await OnTrapStartAsync();
+            await _onTrapStartAsync();
 
             while (DateTime.UtcNow < _expireAt)
             {
                 var wait = _expireAt - DateTime.UtcNow;
-                if(wait > TimeSpan.FromSeconds(1))
+                if (wait > TimeSpan.FromSeconds(1))
                     wait = TimeSpan.FromSeconds(1);
 
                 await Task.Delay(wait, token);
             }
 
-            await OnTrapStopAsync();
+            await _onTrapStopAsync();
 
             lock (_lock)
             {
                 _cancellationTokenSource = null;
             }
         }
+    }
+
+    public interface IControlRemappedComponent
+    {
+        void OnControllerRemap();
+    }
+
+    public class ControlRemappedComponent : IControlRemappedComponent
+    {
+        private readonly System.Action _onRemap;
+
+        public ControlRemappedComponent(System.Action onRemap)
+        {
+            _onRemap = onRemap;
+        }
+
+        public void OnControllerRemap() => _onRemap();
     }
 
     public class TrapWatcher
@@ -105,7 +151,7 @@ namespace SHARRandomizer.Classes
 
         private Memory _memory;
 
-        public LaunchTrap(Memory memory, TrapWatcher watcher)
+        public LaunchTrap(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
         {
             _memory = memory;
             watcher.TrapTriggered += OnTrapTriggered;
@@ -131,7 +177,7 @@ namespace SHARRandomizer.Classes
 
         private Memory _memory;
 
-        public HitNRunTrap(Memory memory, TrapWatcher watcher)
+        public HitNRunTrap(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
         {
             _memory = memory;
             watcher.TrapTriggered += OnTrapTriggered;
@@ -152,7 +198,7 @@ namespace SHARRandomizer.Classes
         
         private Memory _memory;
 
-        public Eject(Memory memory, TrapWatcher watcher)
+        public Eject(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
         {
             _memory = memory;
             watcher.TrapTriggered += OnTrapTriggered;
@@ -184,80 +230,18 @@ namespace SHARRandomizer.Classes
         public string Name => "Traffic Trap";
 
         private Memory _memory;
+        private readonly TimerComponent _timer;
 
-        public TrafficTrap(Memory memory, TrapWatcher watcher)
+        private List<object> _components = new();
+        public IEnumerable<object> Components => _components;
+
+        public TrafficTrap(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
         {
             _memory = memory;
-            watcher.TrapTriggered += OnTrapTriggered;
-        }
 
-        private async void OnTrapTriggered(object? sender, TrapEventArgs e)
-        {
-            if (e.TrapName != Name)
-                return;
+            _timer = new TimerComponent(onTrapStartAsync, onTrapStopAsync);
+            _components.Add(_timer);
 
-            var hnr = _memory.Singletons.HitNRunManager;
-            int vdc = hnr.VehicleDestroyedCoins;
-            int trafficgroup = 1;
-
-
-            for (int i = 0; i < 2; i++)
-            {
-                /* Disable coin drops, destroy all traffic for dramatic effect, reenable coin drops */
-                hnr.VehicleDestroyedCoins = trafficgroup == 1 ? 0 : vdc;
-                float curhnr = _memory.Singletons.HitNRunManager.CurrHitAndRun;
-                foreach (TrafficVehicle v in _memory.Globals.TrafficManager.Vehicles.ToArray())
-                {
-                    if (v == null) continue;
-                    try
-                    {
-                        v.Vehicle.VehicleDestroyed = true;
-                    }
-                    catch
-                    {
-                        Common.WriteLog($"Attempted to destroy null traffic.", "HandleTraps");
-                    }
-                    _memory.Singletons.HitNRunManager.CurrHitAndRun = 0.0f;
-                    await Task.Delay(50);
-                }
-                _memory.Singletons.HitNRunManager.CurrHitAndRun = curhnr;
-                hnr.VehicleDestroyedCoins = vdc;
-
-                /* Switch traffic cars */
-                _memory.Globals.TrafficManager.CurrTrafficModelGroup = trafficgroup;
-
-                /* time to swerve */
-                _memory.Globals.TrafficAIMinSecondsBetweenLaneChanges = trafficgroup == 1 ? 0 : 5;
-
-                /* if we went back to default, break out */
-                if (trafficgroup == 0)
-                {
-                    break;
-                }
-
-                /* sit back and relax */
-                var end = DateTime.UtcNow.AddSeconds(60);
-
-                while (DateTime.UtcNow < end)
-                {
-                    await Task.Delay(100);
-                }
-
-                /* set traffic back to original group and repeat the switch */
-                trafficgroup = 0;
-            }
-        }
-    }
-
-    public class DuffTrap : TimeTrapBase
-    {
-        public override string Name => "Duff Trap";
-
-        private Memory _memory;
-
-        public DuffTrap(Memory memory, TrapWatcher watcher)
-        {
-            _memory = memory;
             watcher.TrapTriggered += OnTrapTriggered;
         }
 
@@ -266,10 +250,86 @@ namespace SHARRandomizer.Classes
             if (e.TrapName != Name)
                 return;
 
-            AddTime(TimeSpan.FromSeconds(30));
+            _timer.AddTime(TimeSpan.FromSeconds(60));
         }
 
-        protected override Task OnTrapStartAsync()
+        private async Task onTrapStartAsync()
+        { 
+            var hnr = _memory.Singletons.HitNRunManager;
+            int vdc = hnr.VehicleDestroyedCoins;
+            int trafficgroup = 1;
+
+            /* Disable coin drops, destroy all traffic for dramatic effect, reenable coin drops */
+            hnr.VehicleDestroyedCoins = trafficgroup == 1 ? 0 : vdc;
+            float curhnr = _memory.Singletons.HitNRunManager.CurrHitAndRun;
+            foreach (TrafficVehicle v in _memory.Globals.TrafficManager.Vehicles.ToArray())
+            {
+            if (v == null) continue;
+                try
+                {
+                    v.Vehicle.VehicleDestroyed = true;
+                }
+                catch
+                {
+                    Common.WriteLog($"Attempted to destroy null traffic.", "HandleTraps");
+                }
+                _memory.Singletons.HitNRunManager.CurrHitAndRun = 0.0f;
+                await Task.Delay(50);
+            }
+            _memory.Singletons.HitNRunManager.CurrHitAndRun = curhnr;
+            hnr.VehicleDestroyedCoins = vdc;
+
+            /* Switch traffic cars */
+            _memory.Globals.TrafficManager.CurrTrafficModelGroup = trafficgroup;
+    
+            /* time to swerve */
+            _memory.Globals.TrafficAIMinSecondsBetweenLaneChanges = trafficgroup == 1 ? 0 : 5;
+        }
+
+        private Task onTrapStopAsync()
+        {
+            var hnr = _memory.Singletons.HitNRunManager;
+
+            _memory.Globals.TrafficManager.CurrTrafficModelGroup = 0;
+            _memory.Globals.TrafficAIMinSecondsBetweenLaneChanges = 5;
+
+            return Task.CompletedTask;
+        }
+    }
+
+    public class DuffTrap : ITrap
+    {
+        public string Name => "Duff Trap";
+
+        private Memory _memory;
+        private MemoryManip _memoryManip;
+
+        private TimerComponent _timer;
+        private ControlRemappedComponent _remap;
+
+        private List<object> _components = new();
+        public IEnumerable<object> Components => _components;
+
+        public DuffTrap(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
+        {
+            _memory = memory;
+            _memoryManip = memoryManip;
+            _timer = new TimerComponent(OnTrapStartAsync, OnTrapStopAsync);
+            _remap = new ControlRemappedComponent(OnRemap);
+            _components.Add(_remap);
+            _components.Add(_timer);
+            watcher.TrapTriggered += OnTrapTriggered;
+        }
+
+        private void OnTrapTriggered(object? sender, TrapEventArgs e)
+        {
+            if (e.TrapName != Name)
+                return;
+
+            _timer.AddTime(TimeSpan.FromSeconds(30));
+        }
+
+        private Task OnTrapStartAsync()
         {
             var controller = _memory.Singletons.InputManager.ControllerArray[0];
 
@@ -283,10 +343,12 @@ namespace SHARRandomizer.Classes
             controller.SwapButtons(InputManager.Buttons.MoveUp, InputManager.Buttons.MoveDown);
             controller.SwapButtons(InputManager.Buttons.Attack, InputManager.Buttons.Jump);
 
+            _memoryManip.CheckAvailableMoves(_memory, _memoryManip.CURRENTLEVEL);
+
             return Task.CompletedTask;
         }
 
-        protected override Task OnTrapStopAsync()
+        private Task OnTrapStopAsync()
         {
             var controller = _memory.Singletons.InputManager.ControllerArray[0];
 
@@ -306,6 +368,38 @@ namespace SHARRandomizer.Classes
             controller.EnableButton(InputManager.Buttons.Jump);
 
             return Task.CompletedTask;
+        }
+
+        private void OnRemap()
+        {
+            if (_timer.TimeRemaining != null)
+            {
+                /* Reset the buttons and then swap them again to undo remapping shenanigans */
+                var controller = _memory.Singletons.InputManager.ControllerArray[0];
+                
+                //car
+                controller.EnableButton(InputManager.Buttons.SteerLeft);
+                controller.EnableButton(InputManager.Buttons.SteerRight);
+                controller.EnableButton(InputManager.Buttons.Accelerate);
+                controller.EnableButton(InputManager.Buttons.Reverse);
+
+                //walk
+                controller.EnableButton(InputManager.Buttons.MoveLeft);
+                controller.EnableButton(InputManager.Buttons.MoveRight);
+                controller.EnableButton(InputManager.Buttons.MoveUp);
+                controller.EnableButton(InputManager.Buttons.MoveDown);
+                controller.EnableButton(InputManager.Buttons.Attack);
+                controller.EnableButton(InputManager.Buttons.Jump);
+
+                //car
+                controller.SwapButtons(InputManager.Buttons.SteerLeft, InputManager.Buttons.SteerRight);
+                controller.SwapButtons(InputManager.Buttons.Accelerate, InputManager.Buttons.Reverse);
+
+                //walk
+                controller.SwapButtons(InputManager.Buttons.MoveLeft, InputManager.Buttons.MoveRight);
+                controller.SwapButtons(InputManager.Buttons.MoveUp, InputManager.Buttons.MoveDown);
+                controller.SwapButtons(InputManager.Buttons.Attack, InputManager.Buttons.Jump);
+            }
         }
     }
 }
