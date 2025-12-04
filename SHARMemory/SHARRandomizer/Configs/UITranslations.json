@@ -1,0 +1,29 @@
+[
+  {
+    "Name": "NewGame",
+    "Translations": [
+      "Start AP",
+      "Débuter l'AP",
+      "AP Starten",
+      "Empezar AP"
+    ]
+  },
+  {
+    "Name": "ResumeGame",
+    "Translations": [
+      "Resume AP",
+      "Continuer l'AP",
+      "AP Fortsetzen",
+      "Continuar AP"
+    ]
+  },
+  {
+    "Name": "IncorrectPatch",
+    "Translations": [
+      "Incorrect Patch File",
+      "Chemin du Patch Incorrect",
+      "Falsche Patch Datei",
+      "Archivo de Parche Incorrecto"
+    ]
+  }
+]

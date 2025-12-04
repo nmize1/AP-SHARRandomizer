@@ -31,6 +31,9 @@
     <None Update="Configs\Rewards.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Configs\UITranslations.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Configs\Vanilla.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -39,6 +42,12 @@
   <ItemGroup>
     <Folder Include="SHARRandomizerMod\Resources\art\frontend\dynaload\cars\" />
     <Folder Include="SHARRandomizerMod\Resources\art\frontend\scrooby\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Classes\UITranslations.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>

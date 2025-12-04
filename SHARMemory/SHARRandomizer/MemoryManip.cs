@@ -51,6 +51,7 @@ namespace SHARRandomizer
         public static Queue<ScoutedItemInfo> ScoutedItems = new();
         readonly LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
         readonly RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
+        readonly UITranslations uit = UITranslations.LoadFromJson("Configs/UITranslations.json");
         public static AwaitableQueue<string> itemsReceived = new();
         public static FixedSizeQueue<string> APLog = new(5);
         public static List<long>? cardIDs;
@@ -142,7 +143,7 @@ namespace SHARRandomizer
 
                 var trapWatcher = new TrapWatcher();
                 _trapWatcher = trapWatcher;
-                var trapHandler = new TrapHandler(memory, trapWatcher);
+                var trapHandler = new TrapHandler(memory, this, trapWatcher);
                 _trapHandler = trapHandler;
 
                 watcher.Start();
@@ -170,6 +171,26 @@ namespace SHARRandomizer
                 Common.WriteLog("Error setting up initial game state. Things will not work correctly.", "InitialGameState");
                 return;
             }
+
+
+            var textBible = memory.Globals.TextBible.CurrentLanguage;
+
+            var gameVerifyID = textBible?.GetString("VerifyID");
+            if (gameVerifyID != VerifyID)
+            {
+                textBible?.SetString("NEW_GAME", uit.GetUITranslation("IncorrectPatch", gameLanguage));
+                Common.WriteLog($"SHAR.ini verification ID \"{gameVerifyID ?? "NULL"}\" does not match expected verification ID \"{VerifyID}\".", "MemoryStart");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey(true);
+                Environment.Exit(1);
+            }
+
+            var checks = await ac.GetLocalChecks(); 
+            textBible?.SetString("NEW_GAME",
+                 uit.GetUITranslation(
+                     checks.Count == 1 ? "NewGame" : "ResumeGame",
+                     gameLanguage
+            ));
 
             Common.WriteLog("Waiting till gameplay starts.", "InitialGameState");
             while (!Extensions.InGame(memory))
@@ -231,17 +252,6 @@ namespace SHARRandomizer
             listener.Start();
 
             APLog.OnEnqueue += item => APLogging();
-
-            var textBible = memory.Globals.TextBible.CurrentLanguage;
-
-            var gameVerifyID = textBible?.GetString("VerifyID");
-            if (gameVerifyID != VerifyID)
-            {
-                Common.WriteLog($"SHAR.ini verification ID \"{gameVerifyID ?? "NULL"}\" does not match expected verification ID \"{VerifyID}\".", "MemoryStart");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey(true);
-                Environment.Exit(1);
-            }
 
             Common.WriteLog("REWARDS:", "InitialGameState");
             foreach (var r in REWARDS)
@@ -1021,6 +1031,17 @@ namespace SHARRandomizer
             else
                 memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.Jump);
 
+            if (!moves.Contains($"{character} Forward"))
+            {
+                memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.MoveUp);
+                memory.Singletons.InputManager.ControllerArray[0].DisableButton(InputManager.Buttons.Accelerate);
+            }
+            else
+            {
+                memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.MoveUp);
+                memory.Singletons.InputManager.ControllerArray[0].EnableButton(InputManager.Buttons.Accelerate);
+            }
+
             if (moves.Count(m => m == $"{character} Progressive Jump") < 2)
             {
                 memory.Globals.CharacterTune.DoubleJumpAllowUp = float.MinValue;
@@ -1584,6 +1605,7 @@ namespace SHARRandomizer
             switch (e.NewID)
             {
                 case CGuiManager.WindowID.PhoneBooth:
+                    /*
                     if (e.NewWindow is not CGuiScreenPhoneBooth guiScreenPhoneBooth)
                         break;
 
@@ -1594,7 +1616,7 @@ namespace SHARRandomizer
                     previewVehicles.FromArray(vehicles.ToArray());
                     guiScreenPhoneBooth.CurrentPreviewVehicle = 0;
                     guiScreenPhoneBooth.NumPreviewVehicles = vehicles.Count(x => x.IsUnlocked);
-
+                    */
                     break;
                 case CGuiManager.WindowID.PurchaseRewards:
                     if (e.NewWindow is not CGuiScreenPurchaseRewards guiScreenPurchaseRewards)

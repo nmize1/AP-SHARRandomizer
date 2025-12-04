@@ -26,6 +26,7 @@ local TranslationMap = {
 		["CBONE"] = "Bonestorm Truck",
 		["GLASTRUC"] = "Glass Truck",
 		["SAVE_GAME"] = "AUTO-SAVED ON SERVER",
+		["NEW_GAME"] = "Client Not Connected\n          ",
 	},
 	["F"] = {
 		["SKINN_V"] = "La Berline de Skinner",
@@ -34,6 +35,7 @@ local TranslationMap = {
 		["CBONE"] = "Camion Bonestorm",
 		["GLASTRUC"] = "Camion de vitrier",
 		["SAVE_GAME"] = "AUTO-ENREGISTRÉ SUR SERVEUR",
+		["NEW_GAME"] = "Client Déconnecté\n               ",
 	},
 	["G"] = {
 		["SKINN_V"] = "Skinners Wagen",
@@ -42,6 +44,7 @@ local TranslationMap = {
 		["CBONE"] = "Bonestorm-Laster",
 		["GLASTRUC"] = "Glaswagen",
 		["SAVE_GAME"] = "AUTO-GESPEICHERT AUF SERVER",
+		["NEW_GAME"] = "Client nicht Verbunden\n          ",
 	},
 	["S"] = {
 		["SKINN_V"] = "El Sedán de Skinner",
@@ -50,6 +53,7 @@ local TranslationMap = {
 		["CBONE"] = "Camión Bonestorm",
 		["GLASTRUC"] = "Camión de cristales",
 		["SAVE_GAME"] = "AUTOGUARDADO EN SERVIDOR",
+		["NEW_GAME"] = "Cliente no Connectado\n          ",
 	},
 }
 

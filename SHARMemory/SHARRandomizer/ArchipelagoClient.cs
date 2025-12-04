@@ -51,7 +51,7 @@ namespace SHARRandomizer
         public enum ShopHintPolicy
         {
             All = 0,
-            OnlyProg = 1
+            OnlyProg = 1,
             None = 2
         }
         public ShopHintPolicy shp = ShopHintPolicy.All;
@@ -176,8 +176,8 @@ namespace SHARRandomizer
                 cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
                 MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
                 MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
-                MemoryManip.gagfinder = Convert.ToBoolean(login.SlotData["shufflegagfinder"]);
-                MemoryManip.checkeredflag = Convert.ToBoolean(login.SlotData["shufflecheckeredflags"]);
+                MemoryManip.gagfinder = (login.SlotData["shufflegagfinder"] as JArray)?.Count > 0; ;
+                MemoryManip.checkeredflag = (login.SlotData["shufflecheckeredflags"] as JArray)?.Count > 0; ;
                 MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>()!;
                 JArray costsArray = (JArray)login.SlotData["costs"];
                 ShopCosts = costsArray.ToObject<List<int>>()!;
