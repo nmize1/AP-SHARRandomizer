@@ -670,7 +670,7 @@ namespace SHARRandomizer
                                     _trapWatcher.OnTrapDetected(s);
                                     break;
 
-                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") ||
+                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") || s.Contains("Forward") ||
                                                    s.Contains("Gagfinder") || s.Contains("Checkered Flag") || s.Contains("Frink-o-Matic Wasp Bumper"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     moves.Add(s);
