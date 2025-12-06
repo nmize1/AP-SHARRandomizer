@@ -193,6 +193,14 @@ namespace SHARRandomizer
             ));
 
             Common.WriteLog("Waiting till gameplay starts.", "InitialGameState");
+
+            for(int i = 1; i <= 7; i++)
+            {
+                textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{i}",
+                                     await ac.ExtraHint());
+
+            }
+
             while (!Extensions.InGame(memory))
             {
                 await Task.Delay(100);

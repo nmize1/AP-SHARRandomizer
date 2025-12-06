@@ -117,6 +117,10 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 				local value = chunk:GetValueFromName(entry)
 				chunk:SetValue(entry, value .. string.rep(" ", math.max(0, 50 - #value)))
 			end
+
+			local race = "RACE_COMPLETE_INFO_ALL_" .. i
+			local value = chunk:GetValueFromName(race)
+			chunk:SetValue(race, value .. string.rep(" ", math.max(0, 500 - #value)))
 		end
 	end
 end

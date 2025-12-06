@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System;
 using System.Runtime.CompilerServices;
 using Archipelago.MultiClient.Net.Packets;
+using System.Text.Json;
 
 
 namespace SHARRandomizer
@@ -18,6 +19,10 @@ namespace SHARRandomizer
     public class ArchipelagoClient
     {
         public MemoryManip? mm;
+        readonly LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
+        readonly RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
+        readonly UITranslations uit = UITranslations.LoadFromJson("Configs/UITranslations.json");
+
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset", "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" };
         private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
         public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>(); 
@@ -32,7 +37,6 @@ namespace SHARRandomizer
         public string PASSWORD = "";
 
         public static string? SaveName;
-        LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
         public static List<int>? ShopCosts;
 
         public enum VICTORY
@@ -47,6 +51,7 @@ namespace SHARRandomizer
         public int cardPercent = 0;
         public int waspPercent = 0;
 
+        Queue<(long itemID, long locationID, int player)> ighints = new();
 
         public enum ShopHintPolicy
         {
@@ -183,6 +188,19 @@ namespace SHARRandomizer
                 ShopCosts = costsArray.ToObject<List<int>>()!;
                 shp = (ShopHintPolicy)Convert.ToInt32(login.SlotData["shophintpolicy"].ToString()!);
                 MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
+
+                foreach (var kv in (JObject)login.SlotData["ingamehints"])
+                {
+                    long itemID = long.Parse(kv.Key);
+                    var loc = (JArray)kv.Value;
+
+                    long locID = loc[0].Value<long>();
+                    int player = loc[1].Value<int>();
+
+                    ighints.Enqueue((itemID, locID, player));
+                }
+
+                Console.WriteLine(ighints.Peek());
             }
             catch (Exception ex)
             {
@@ -499,6 +517,19 @@ namespace SHARRandomizer
                 await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.CreateAndAnnounceOnce, LocsToHint.ToArray());
             }
             else if (shp == ShopHintPolicy.None) { /* pass */ }
+        }
+
+        public async Task<string> ExtraHint()
+        {
+            (long itemID, long locID, int player) = ighints.Dequeue();
+            //_session.Hints.CreateHints(player, HintStatus.Unspecified, locID);
+
+            
+            var p = _session.Players.GetPlayerInfo(player);
+            var l = _session.Locations.GetLocationNameFromId(locID, _session.Players.GetPlayerInfo(p).Game);
+            var i = _session.Items.GetItemName(itemID);
+
+            return $"Your {i} is at {l} in {p}'s world.";
         }
 
         public async Task<T> GetDataStorage<T>(string type)
