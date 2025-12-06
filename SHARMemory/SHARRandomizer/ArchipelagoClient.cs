@@ -188,19 +188,25 @@ namespace SHARRandomizer
                 ShopCosts = costsArray.ToObject<List<int>>()!;
                 shp = (ShopHintPolicy)Convert.ToInt32(login.SlotData["shophintpolicy"].ToString()!);
                 MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
+                var ingameHints = login.SlotData["ingamehints"];
 
-                foreach (var kv in (JObject)login.SlotData["ingamehints"])
+                if (ingameHints is JValue jv && jv.Value is string s && s == "No hints")
                 {
-                    long itemID = long.Parse(kv.Key);
-                    var loc = (JArray)kv.Value;
-
-                    long locID = loc[0].Value<long>();
-                    int player = loc[1].Value<int>();
-
-                    ighints.Enqueue((itemID, locID, player));
+                    Common.WriteLog("No ingame hints provided.", "ArchipelagoClient::TryConnect");
                 }
+                else if (ingameHints is JObject obj)
+                {
+                    foreach (var kv in (JObject)login.SlotData["ingamehints"])
+                    {
+                        long itemID = long.Parse(kv.Key);
+                        var loc = (JArray)kv.Value;
 
-                Console.WriteLine(ighints.Peek());
+                        long locID = loc[0].Value<long>();
+                        int player = loc[1].Value<int>();
+
+                        ighints.Enqueue((itemID, locID, player));
+                    }
+                }
             }
             catch (Exception ex)
             {
