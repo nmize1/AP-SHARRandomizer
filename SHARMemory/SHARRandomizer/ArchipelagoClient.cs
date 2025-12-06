@@ -525,8 +525,11 @@ namespace SHARRandomizer
             else if (shp == ShopHintPolicy.None) { /* pass */ }
         }
 
-        public async Task<string> ExtraHint()
+        public string ExtraHint()
         {
+            if (ighints.Count == 0)
+                return "This will be a silly false hint later.";
+
             (long itemID, long locID, int player) = ighints.Dequeue();
             //_session.Hints.CreateHints(player, HintStatus.Unspecified, locID);
 

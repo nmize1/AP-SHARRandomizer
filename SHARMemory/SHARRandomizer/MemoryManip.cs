@@ -197,7 +197,7 @@ namespace SHARRandomizer
             for(int i = 1; i <= 7; i++)
             {
                 textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{i}",
-                                     await ac.ExtraHint());
+                ac.ExtraHint());
 
             }
 
