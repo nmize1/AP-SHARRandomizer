@@ -310,7 +310,7 @@ namespace SHARRandomizer
                 language.SetString("APWrench", $"{w:D2}");
             }
 
-            ac.CheckVictory();
+            await ac.CheckVictory();
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" });
             _ = Task.Run(async () =>
             {
@@ -1267,7 +1267,7 @@ namespace SHARRandomizer
         {
             while (memory.IsRunning)
             {
-                ac.CheckVictory();
+                await ac.CheckVictory();
                 await Task.Delay(10000);
             }
         }
@@ -1339,7 +1339,7 @@ namespace SHARRandomizer
             /* Things that can be done in pause or not */
             if (e.Button.ToString() == "DPadLeft" || e.Button.ToString() == "D4")
             {
-                ac.CheckVictory();
+                await ac.CheckVictory();
             }
         }
 
@@ -1514,51 +1514,14 @@ namespace SHARRandomizer
 
         Task Watcher_CoinsChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.CoinsChangedEventArgs e, CancellationToken token)
         {
-            /*
-            if (_updatingCoins)
+            var characterSheet = sender.Singletons.CharacterSheetManager;
+            int coincap = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
+
+            if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= coincap)
             {
-                _updatingCoins = false;
-                Common.WriteLog("Suppressed CoinsChanged event.", "Watcher_CoinsChanged");
-                return Task.CompletedTask;
+                characterSheet.CharacterSheet.Coins = coincap;
             }
-
-            Common.WriteLog($"Coins Changed: {e.LastCoins} to {e.NewCoins}", "Watcher_CoinsChanged");
-
-            if (e.NewCoins > e.LastCoins)
-            {
-                var characterSheet = sender.Singletons.CharacterSheetManager;
-
-                if (characterSheet == null)
-                {
-                    Common.WriteLog("Character sheet missing", "Watcher_CoinsChanged");
-                    return Task.CompletedTask;
-                }
-                int amount = WalletLevel == 1 ? 0 : (WalletLevel * coinScale) - 1;
-
-                _updatingCoins = true;
-                characterSheet.CharacterSheet.Coins += amount;
-                Common.WriteLog($"Added {amount} coins.", "Watcher_CoinsChanged");
-                if (amount != 0)
-                {
-                    var remainder = e.NewCoins - e.LastCoins - amount;
-                    if (remainder > 0)
-                    {
-                        _updatingCoins = true;
-                        characterSheet.CharacterSheet.Coins += (remainder * amount);
-                        Common.WriteLog($"Added {remainder * amount} coins.", "Watcher_CoinsChanged");
-                    }
-                    amount = 0;
-                }
-
-                int coincap = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
-
-                if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= coincap)
-                {
-                    _updatingCoins = true;
-                    characterSheet.CharacterSheet.Coins = coincap;
-                }
-            }
-            */
+            
             return Task.CompletedTask;
         }
 

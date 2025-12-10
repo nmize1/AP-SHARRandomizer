@@ -348,10 +348,10 @@ namespace SHARRandomizer
             long location = await sentLocations.DequeueAsync();
             if (location == 122361)
                 await SetDataStorage("finalmission", 1);
-            SendLocation(location);
+            await SendLocation(location);
         }
 
-        void SendLocation(long location)
+        async Task SendLocation(long location)
         {
             if (!Connected)
             {
@@ -364,8 +364,8 @@ namespace SHARRandomizer
                 return;
             }
             Common.WriteLog(location, "ArchipelagoClient::SendLocation");
-            _session.Locations.CompleteLocationChecksAsync(location);
-            CheckVictory();
+            await _session.Locations.CompleteLocationChecksAsync(location);
+            await CheckVictory();
         }
 
         public bool IsLocationChecked(long location)
@@ -668,7 +668,7 @@ namespace SHARRandomizer
             return null;
         }
 
-        public async void CheckVictory()
+        public async Task CheckVictory()
         {
             /*
             int missions = await _session.DataStorage[Scope.Slot, "missions"].GetAsync<int>();
