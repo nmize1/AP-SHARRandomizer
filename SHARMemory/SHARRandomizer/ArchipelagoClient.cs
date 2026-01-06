@@ -3,15 +3,18 @@ using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 using Archipelago.MultiClient.Net.Models;
-using SHARRandomizer.Classes;
-using SHARMemory.SHAR.Classes;
-using Newtonsoft.Json.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
-using System;
-using System.Runtime.CompilerServices;
 using Archipelago.MultiClient.Net.Packets;
+using Newtonsoft.Json.Linq;
+using SHARMemory.SHAR.Classes;
+using SHARRandomizer.Classes;
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.Json;
+using System.Threading.Channels;
 
 
 namespace SHARRandomizer
@@ -20,21 +23,35 @@ namespace SHARRandomizer
     {
         public MemoryManip? mm;
         readonly LocationTranslations lt = LocationTranslations.LoadFromJson("Configs/Vanilla.json");
-        readonly RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
-        readonly UITranslations uit = UITranslations.LoadFromJson("Configs/UITranslations.json");
+        //readonly RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
+        //readonly UITranslations uit = UITranslations.LoadFromJson("Configs/UITranslations.json");
 
+        private Process _trackerProcess;
+        private StreamWriter _trackerStdin;
+        private readonly object _outputLock = new();
+        private readonly List<string> _outputBuffer = new();
+        private readonly TaskCompletionSource _trackerReadyTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public event Action<List<string>> LocationsInLogicUpdated;
+        private static readonly Random _rng = new();
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset", "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" };
         private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
-        public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>(); 
+        public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>();
 
         public bool Connected => _session?.Socket.Connected ?? false;
         private bool _attemptingConnection;
+
+        public event System.Action? ConnectionSucceeded;
+        public event System.Action? ConnectionFailed;
+
+        private CancellationTokenSource _cts = new();
+        public CancellationToken Token => _cts.Token;
 
         private ArchipelagoSession? _session;
 
         public string URI = "";
         public string SLOTNAME = "";
         public string PASSWORD = "";
+        public string appath = "";
 
         public static string? SaveName;
         public static List<int>? ShopCosts;
@@ -44,7 +61,7 @@ namespace SHARRandomizer
             AllMissions = 0,
             AllStory = 1,
             FinalMission = 2,
-            WaspsCards = 3
+            Cars = 3
         }
 
         public VICTORY victory = VICTORY.FinalMission;
@@ -60,6 +77,7 @@ namespace SHARRandomizer
             None = 2
         }
         public ShopHintPolicy shp = ShopHintPolicy.All;
+        public bool ehp = false;
 
         [DllImport("user32.dll")]
         private static extern int GetSystemMetrics(int nIndex);
@@ -110,172 +128,126 @@ namespace SHARRandomizer
 
         private async void TryConnect()
         {
-            LoginResult loginResult;
-            _attemptingConnection = true;
-
-            do
+            while (!Token.IsCancellationRequested)
             {
+                LoginResult loginResult;
+                _attemptingConnection = true;
+
+                do
+                {
+                    try
+                    {
+                        if (_session == null)
+                        {
+                            try
+                            {
+                                _session = ArchipelagoSessionFactory.CreateSession(URI);
+                                SetupSession();
+                            }
+                            catch (Exception e)
+                            {
+                                Common.WriteLog($"Error creating session: \"{e.Message}\".", "ArchipelagoClient::TryConnect");
+                                loginResult = new LoginFailure("Session creation failed.");
+                                _cts.Cancel();
+                                ConnectionFailed?.Invoke();
+                                return;
+                            }
+                        }
+
+                        loginResult = _session.TryConnectAndLogin(
+                            "Simpsons Hit and Run",
+                            SLOTNAME,
+                            ItemsHandlingFlags.AllItems,
+                            new Version(MinArchipelagoVersion),
+                            password: PASSWORD,
+                            requestSlotData: true);
+                    }
+                    catch (Exception e)
+                    {
+                        loginResult = new LoginFailure(e.GetBaseException().Message);
+                    }
+
+                    if (loginResult is LoginFailure loginFailure)
+                    {
+                        _attemptingConnection = false;
+                        Common.WriteLog("AP connection failed.", "ArchipelagoClient::TryConnect");
+                        _session = null;
+                        ConnectionFailed?.Invoke();
+                        _cts.Cancel();
+                        return;
+                    }
+                } while (loginResult is LoginFailure);
+
+                var login = (LoginSuccessful)loginResult;
+                Common.WriteLog($"Successfully connected to {URI} as {SLOTNAME}", "ArchipelagoClient::TryConnect");
+                Common.WriteLog("Slot Data:", "ArchipelagoClient::TryConnect");
+                foreach (var kvp in login.SlotData)
+                {
+                    Common.WriteLog($"  {kvp.Key}: {kvp.Value}", "ArchipelagoClient::TryConnect");
+                }
                 try
                 {
-                    if (_session == null)
+                    //SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
+                    victory = (VICTORY)int.Parse(login.SlotData["Itchy_And_Scratchy_Ticket_Requirement"].ToString()!);
+                    waspPercent = Convert.ToInt32(login.SlotData["Wasp_Percent"]);
+                    waspPercent = Convert.ToInt32(login.SlotData["Card_Percent"]);
+                    MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["Max_Shop_Price"]);
+                    MemoryManip.coinScale = Convert.ToInt32(login.SlotData["Shop_Scale_Modifier"]);
+                    MemoryManip.gagfinder = (login.SlotData["Shuffle_Gagfinder"] as JArray)?.Count > 0; ;
+                    MemoryManip.checkeredflag = (login.SlotData["Shuffle_Checkered_Flags"] as JArray)?.Count > 0; ;
+                    MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>()!;
+                    JArray costsArray = (JArray)login.SlotData["costs"];
+                    ShopCosts = costsArray.ToObject<List<int>>()!;
+                    shp = (ShopHintPolicy)Convert.ToInt32(login.SlotData["Shop_Hint_Policy"].ToString()!);
+                    ehp = Convert.ToBoolean(login.SlotData["Extra_Hint_Policy"]);
+                    MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
+                    var ingameHints = login.SlotData["ingamehints"];
+
+                    if (ingameHints is JValue jv && jv.Value is string s && s == "No hints")
                     {
-                        try
+                        Common.WriteLog("No ingame hints provided.", "ArchipelagoClient::TryConnect");
+                    }
+                    else if (ingameHints is JObject obj)
+                    {
+                        foreach (var kv in (JObject)login.SlotData["ingamehints"])
                         {
-                            _session = ArchipelagoSessionFactory.CreateSession(URI);
-                            SetupSession();
-                        }
-                        catch (Exception e)
-                        {
-                            Common.WriteLog($"Error creating session: \"{e.Message}\".", "ArchipelagoClient::TryConnect");
-                            loginResult = new LoginFailure("Session creation failed.");
-                            if (await HandleRetryDelayAsync())
-                            {
-                                URI = GetURI();
-                                SLOTNAME = GetSlotName();
-                                PASSWORD = GetPassword();
-                            }
-                            continue;
+                            long itemID = long.Parse(kv.Key);
+                            var loc = (JArray)kv.Value;
+
+                            long locID = loc[0].Value<long>();
+                            int player = loc[1].Value<int>();
+
+                            ighints.Enqueue((itemID, locID, player));
                         }
                     }
-
-                    loginResult = _session.TryConnectAndLogin(
-                        "The Simpsons Hit And Run",
-                        SLOTNAME,
-                        ItemsHandlingFlags.AllItems,
-                        new Version(MinArchipelagoVersion),
-                        password: PASSWORD,
-                        requestSlotData: true);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    loginResult = new LoginFailure(e.GetBaseException().Message);
+                    Common.WriteLog(ex.ToString(), "test");
+                    ex.ToString();
                 }
 
-                if (loginResult is LoginFailure loginFailure)
+                _session!.DataStorage[Scope.Slot, "missions"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "wasps"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "cards"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "gags"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "shops"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "hnr"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "coins"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] { (long)1 });
+
+                MemoryManip.APCONNECTED = true;
+                ConnectionSucceeded?.Invoke();
+                while (true)
                 {
-                    _attemptingConnection = false;
-                    Common.WriteLog("AP connection failed.", "ArchipelagoClient::TryConnect");
-                    _session = null;
-
-                    if (await HandleRetryDelayAsync())
-                    {
-                        URI = GetURI();
-                        SLOTNAME = GetSlotName();
-                        PASSWORD = GetPassword();
-                    }
+                    await SendLocs();
                 }
-            } while (loginResult is LoginFailure);
-
-            var login = (LoginSuccessful)loginResult;
-            Common.WriteLog($"Successfully connected to {URI} as {SLOTNAME}", "ArchipelagoClient::TryConnect");
-            Common.WriteLog("Slot Data:", "ArchipelagoClient::TryConnect");
-            foreach (var kvp in login.SlotData)
-            {
-                Common.WriteLog($"  {kvp.Key}: {kvp.Value}", "ArchipelagoClient::TryConnect");
-            }
-            try
-            {
-                SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
-                victory = (VICTORY)int.Parse(login.SlotData["goal"].ToString()!);
-                waspPercent = Convert.ToInt32(login.SlotData["EnableWaspPercent"]) == 1 ? Convert.ToInt32(login.SlotData["wasppercent"]) : 0;
-                cardPercent = Convert.ToInt32(login.SlotData["EnableCardPercent"]) == 1 ? Convert.ToInt32(login.SlotData["cardpercent"]) : 0;
-                MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["maxprice"]);
-                MemoryManip.coinScale = Convert.ToInt32(login.SlotData["shopscalemod"]);
-                MemoryManip.gagfinder = (login.SlotData["shufflegagfinder"] as JArray)?.Count > 0; ;
-                MemoryManip.checkeredflag = (login.SlotData["shufflecheckeredflags"] as JArray)?.Count > 0; ;
-                MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>()!;
-                JArray costsArray = (JArray)login.SlotData["costs"];
-                ShopCosts = costsArray.ToObject<List<int>>()!;
-                shp = (ShopHintPolicy)Convert.ToInt32(login.SlotData["shophintpolicy"].ToString()!);
-                MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
-                var ingameHints = login.SlotData["ingamehints"];
-
-                if (ingameHints is JValue jv && jv.Value is string s && s == "No hints")
-                {
-                    Common.WriteLog("No ingame hints provided.", "ArchipelagoClient::TryConnect");
-                }
-                else if (ingameHints is JObject obj)
-                {
-                    foreach (var kv in (JObject)login.SlotData["ingamehints"])
-                    {
-                        long itemID = long.Parse(kv.Key);
-                        var loc = (JArray)kv.Value;
-
-                        long locID = loc[0].Value<long>();
-                        int player = loc[1].Value<int>();
-
-                        ighints.Enqueue((itemID, locID, player));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Common.WriteLog($"{ex} This likely means this game was generated on an older .apworld.", "ArchipelagoClient::TryConnect");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
-                Environment.Exit(1);
-            }
-
-            _session!.DataStorage[Scope.Slot, "missions"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "wasps"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "cards"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "gags"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "shops"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "hnr"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "coins"].Initialize(0);
-            _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] {(long)1});
-            _session.DataStorage[Scope.Slot, "finalmission"].Initialize(0);
-
-            MemoryManip.APCONNECTED = true;
-            while (true)
-            {
-                await SendLocs();
             }
         }
 
-        static async Task<bool> HandleRetryDelayAsync()
-        {
-            Common.WriteLog("Reattempting connection in 5 seconds. Press any key to re-enter connection info.", "ArchipelagoClient::TryConnect");
-
-            int steps = 50;
-            for (int i = 0; i < steps; i++)
-            {
-                if (Console.KeyAvailable)
-                {
-                    Console.ReadKey(true); 
-                    return true; 
-                }
-                await Task.Delay(100);
-            }
-
-            return false; 
-        }
-
-        static string GetURI()
-        {
-            Common.WriteLog("Enter ip or port. If entry is just a port, then address will be assumed as archipelago.gg:", "Main");
-            string uri = Console.ReadLine()!;
-            if (int.TryParse(uri, out int porttest))
-                uri = $"archipelago.gg:{uri}";
-            return uri;
-        }
-
-        static string GetSlotName()
-        {
-            Common.WriteLog("Enter slot name:", "Main");
-            return Console.ReadLine()!;
-        }
-
-        static string GetPassword()
-        {
-            Common.WriteLog("Enter password:", "Main");
-            return Console.ReadLine()!;
-        }
-
-
-        public void Disconnect()
+        public async void Disconnect()
         {
             if (!Connected)
             {
@@ -283,8 +255,9 @@ namespace SHARRandomizer
             }
 
             _attemptingConnection = false;
-            _session?.Socket.DisconnectAsync().Wait();
+            await _session?.Socket.DisconnectAsync();
             _session = null;
+            _cts.Cancel();
         }
 
         public void Session_SocketClosed(string reason)
@@ -346,8 +319,10 @@ namespace SHARRandomizer
         async Task SendLocs()
         {
             long location = await sentLocations.DequeueAsync();
+            /*
             if (location == 122361)
                 await SetDataStorage("finalmission", 1);
+            */
             await SendLocation(location);
         }
 
@@ -365,7 +340,17 @@ namespace SHARRandomizer
             }
             Common.WriteLog(location, "ArchipelagoClient::SendLocation");
             await _session.Locations.CompleteLocationChecksAsync(location);
-            await CheckVictory();
+        }
+
+        public List<long> GetCheckedLocations()
+        {
+            if (!Connected)
+                return new List<long>();
+            if (_session == null)
+                return new List<long>();
+            
+            return _session.Locations.AllLocationsChecked.ToList<long>();
+
         }
 
         public bool IsLocationChecked(long location)
@@ -382,7 +367,7 @@ namespace SHARRandomizer
             return _session.Locations.AllLocationsChecked.Contains(location);
         }
 
-        
+
         public bool IsLocationCheckedLocally(long location)
         {
             if (!Connected)
@@ -485,9 +470,8 @@ namespace SHARRandomizer
             {
                 MemoryManip.itemsReceived.Enqueue(itemName);
             }
-            
         }
-        
+
         public async void SetShopNames(Dictionary<long, string> locations, FeLanguage? language)
         {
             Common.WriteLog("Scouting", "ArchipelagoClient::ScoutShopLocationNoHint");
@@ -498,7 +482,7 @@ namespace SHARRandomizer
             var results = await _session.Locations.ScoutLocationsAsync(HintCreationPolicy.None, [.. locations.Keys]);
             foreach (var item in results.Values)
             {
-                string ret = $"{item.Player}'s {item.ItemName}"; 
+                string ret = $"{item.Player}'s {item.ItemName}";
                 language?.SetString(locations[item.LocationId].ToUpper(), ret);
             }
         }
@@ -524,22 +508,49 @@ namespace SHARRandomizer
             }
             else if (shp == ShopHintPolicy.None) { /* pass */ }
         }
-
         public string ExtraHint()
         {
             if (ighints.Count == 0)
-                return "This will be a silly false hint later.";
+                return GetJoke();
 
-            (long itemID, long locID, int player) = ighints.Dequeue();
-            //_session.Hints.CreateHints(player, HintStatus.Unspecified, locID);
+            var receivedItemIds = _session?.Items.AllItemsReceived.Select(i => i.ItemId).ToHashSet();
 
-            
-            var p = _session.Players.GetPlayerInfo(player);
-            var l = _session.Locations.GetLocationNameFromId(locID, _session.Players.GetPlayerInfo(p).Game);
-            var i = _session.Items.GetItemName(itemID);
+            while (ighints.Count > 0)
+            {
+                var (itemID, locID, player) = ighints.Dequeue();
 
-            return $"Your {i} is at {l} in {p}'s world.";
+                if (!receivedItemIds.Contains(itemID))
+                    continue;
+
+                _session?.Hints.CreateHints(player, HintStatus.Unspecified, locID);
+
+                var p = _session.Players.GetPlayerInfo(player);
+                var location = _session.Locations.GetLocationNameFromId(locID, p.Game);
+                var item = _session.Items.GetItemName(itemID);
+
+                return $"Your {item} is at {location} in {p}'s world.";
+            }
+
+            return GetJoke();
         }
+
+        private string GetJoke() =>
+            _jokes[_rng.Next(_jokes.Count)];
+
+        /* Exception on declaring things randomly in the middle cuz its only relevant here */
+        private static readonly List<string> _jokes =
+        [
+            "Milhouse says he saw your hint behind the Kwik-E-Mart, but Milhouse says a lot of things.",
+            "Your hint is in the Aurora Borealis. Localized entirely within your kitchen. At this time of year.",
+            "Apu put your hint back on the hot dog roller even though it fell on the floor. He says it's still good.",
+            "Worst. Hint. Ever.",
+            "Now lemme tell ya, your hint was over on the banana tree... OH that reminds me of the time I was court-martialed...",
+            "Now listen here, your hint.... well, that takes me back to the time I went huntin' for clues...",
+            "Uh.. your hint? Yeaaahh, about that... I had it right here next to my donut...",
+            "Dude, your hint totally bailed...",
+            "The hint machine has been unplugged to prevent Lenny and Carl from fighting...",
+            "You want the new hint from the B-Sharps? Sorry they broke up. Again."
+        ];
 
         public async Task<T> GetDataStorage<T>(string type)
         {
@@ -588,12 +599,12 @@ namespace SHARRandomizer
                 try
                 {
                     _session.DataStorage[Scope.Slot, type] = amount;
-                    return; 
+                    return;
                 }
                 catch (Exception ex)
                 {
                     Common.WriteLog($"Failed to set data for {type}: \"{ex.Message}\". Retrying in 5 seconds", "SetDataStorage");
-                    await Task.Delay(5000); 
+                    await Task.Delay(5000);
                 }
             }
             Common.WriteLog($"Failed to set data for {type}. Data is desynced, please restart.", "SetDataStorage");
@@ -620,7 +631,7 @@ namespace SHARRandomizer
                     int currentValue = await _session.DataStorage[Scope.Slot, type].GetAsync<int>();
                     _session.DataStorage[Scope.Slot, type] = currentValue + 1;
                     //Common.WriteLog($"Current Value for {type} is {currentValue}", "IncrementDataStorage");
-                    return; 
+                    return;
                 }
                 catch (Exception ex)
                 {
@@ -650,7 +661,7 @@ namespace SHARRandomizer
             while (attempts++ < 5)
             {
                 try
-                {       
+                {
                     return _session.DataStorage[Scope.Slot, "localchecks"].To<List<long>>();
                 }
                 catch (Exception ex)
@@ -668,14 +679,11 @@ namespace SHARRandomizer
             return null;
         }
 
+
+
+        /* Old victory check, will remove eventually
         public async Task CheckVictory()
-        {
-            /*
-            int missions = await _session.DataStorage[Scope.Slot, "missions"].GetAsync<int>();
-            int bonus = await _session.DataStorage[Scope.Slot, "bonus"].GetAsync<int>();
-            int wasps = await _session.DataStorage[Scope.Slot, "wasps"].GetAsync<int>();
-            int cards = await _session.DataStorage[Scope.Slot, "cards"].GetAsync<int>();
-            */
+        {            
             var localChecks = await GetLocalChecks();
 
             int missions = 0;
@@ -741,7 +749,7 @@ namespace SHARRandomizer
                     if (fmcheck == 1)
                         SendCompletion();
                     return;
-                
+
                 case VICTORY.AllStory:
                     if (missions >= 49)
                         SendCompletion();
@@ -757,5 +765,6 @@ namespace SHARRandomizer
                     return;
             }
         }
+        */
     }
 }

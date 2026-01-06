@@ -45,6 +45,8 @@ namespace SHARRandomizer
             }
         }
 
+        private CancellationTokenSource _cts = new();
+        public CancellationToken Token => _cts.Token;
 
         public ArchipelagoClient ac;
         public static string? VerifyID;
@@ -70,7 +72,7 @@ namespace SHARRandomizer
         bool DISABLEDEFAULT = false;
         public string CURRENTLEVEL = "";
 
-        public int WalletLevel = 1;
+        public int WalletLevel = 0;
         public static int maxCoins;
         public static int coinScale;
         bool _updatingCoins = false;
@@ -91,9 +93,14 @@ namespace SHARRandomizer
             this.ac = ac;
         }
 
+        public void Stop()
+        {
+            _cts.Cancel();
+        }
+
         public async Task MemoryStart()
         {
-            while (true)
+            while (!Token.IsCancellationRequested)
             {
                 Common.WriteLog("Waiting for SHAR process...", "MemoryStart");
                 while ((p = Memory.GetSHARProcess()) == null)
@@ -194,12 +201,6 @@ namespace SHARRandomizer
 
             Common.WriteLog("Waiting till gameplay starts.", "InitialGameState");
 
-            for(int i = 1; i <= 7; i++)
-            {
-                textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{i}",
-                ac.ExtraHint());
-
-            }
 
             while (!Extensions.InGame(memory))
             {
@@ -310,7 +311,6 @@ namespace SHARRandomizer
                 language.SetString("APWrench", $"{w:D2}");
             }
 
-            await ac.CheckVictory();
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" });
             _ = Task.Run(async () =>
             {
@@ -334,17 +334,19 @@ namespace SHARRandomizer
                     Common.WriteLog($"{ex}", "CheckGags");
                 }
             });
+            /*
             _ = Task.Run(async () =>
             {
                 try
                 {
-                    await AutoCheckVictory(memory);
+                    await UpdateData(memory);
                 }
                 catch (Exception ex)
                 {
-                    Common.WriteLog($"{ex}", "AutoSave");
+                    Common.WriteLog($"{ex}", "UpdateData");
                 }
             });
+            */
             _ = Task.Run(async () =>
             {
                 try
@@ -370,7 +372,8 @@ namespace SHARRandomizer
 
             characterSheet.CharacterSheet.Coins = await ac.GetDataStorage<int>("coins");
             Common.WriteLog($"Restoring coins to {characterSheet.CharacterSheet.Coins}", "LoadState");
-            List<long> locations = await ac.GetDataStorage<List<long>>("localchecks");
+            List<long> locations = ac.GetCheckedLocations(); //collected checks get restored
+            //await ac.GetDataStorage<List<long>>("localchecks"); //collected checks don't get restored (maybe option eventually)
             
             /* get struct from characterSheet.LevelList.ToArray() to update below */
             LevelRecord[] record = characterSheet.CharacterSheet.LevelList.ToArray();
@@ -379,7 +382,7 @@ namespace SHARRandomizer
             uint[] gagmask = new uint[7];
             List<string> purchased = [];
 
-            foreach (var l in locations.Skip(1))
+            foreach (var l in locations)
             {
                 var check = lt.getTypeAndNameByAPID(l);
                 string id = lt.GetIDByAPID(l);
@@ -1263,14 +1266,18 @@ namespace SHARRandomizer
             }
         }
 
-        async Task AutoCheckVictory(Memory memory)
+        /*
+        async Task UpdateData(Memory memory)
         {
             while (memory.IsRunning)
             {
+                Common.WriteLog("Updating", "UpdateData");
                 await ac.CheckVictory();
-                await Task.Delay(10000);
+                await Task.Delay(30000);
             }
         }
+        */
+       
 
         async Task CardRadar(Memory memory)
         {
@@ -1336,11 +1343,6 @@ namespace SHARRandomizer
                     language?.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
                 }
             }
-            /* Things that can be done in pause or not */
-            if (e.Button.ToString() == "DPadLeft" || e.Button.ToString() == "D4")
-            {
-                await ac.CheckVictory();
-            }
         }
 
         Task Watcher_Error(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.Error.ErrorEventArgs e, CancellationToken token)
@@ -1366,6 +1368,13 @@ namespace SHARRandomizer
                 Common.WriteLog($"{(int)e.Level} - bonus2", "Watcher_MissionStageChanged");
                 ArchipelagoClient.sentLocations.Enqueue(lt.getAPID($"{(int)e.Level} - bonus2", "gag"));
                 LockBonusCars(sender);
+            }
+
+            if (sender.Globals.GameplayManager is MissionManager missionManager)
+            {
+                var mission = missionManager.GetCurrentMission();
+                var stage = mission.GetCurrentStage();
+                stage.Objective.
             }
 
             var characterSheet = sender.Singletons.CharacterSheetManager;
@@ -1426,15 +1435,23 @@ namespace SHARRandomizer
 
         async Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
-            Common.WriteLog($"Mission Complete: {e.Level} - {e.Mission + 1}", "Watcher_MissionComplete");
-            long location = lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions");
-            ArchipelagoClient.sentLocations.Enqueue(location);
-            if (!ac.IsLocationCheckedLocally(location))
-                await ac.IncrementDataStorage("missions");
+            Common.WriteLog($"Mission Complete: {e.Level + 1} - {e.Mission + 1}", "Watcher_MissionComplete");
+            if (e.Level + 1 == 7 && e.Mission + 1 == 7)
+                ac.SendCompletion();
+            else
+            {
+                long location = lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions"); //levels are 0 indexed and missions aren't in this context
+                ArchipelagoClient.sentLocations.Enqueue(location);
+                if (!ac.IsLocationCheckedLocally(location))
+                    await ac.IncrementDataStorage("missions");
+            }
         }
 
         async Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
         {
+            var textBible = sender.Globals.TextBible.CurrentLanguage;
+            textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{e.Level}", ac.ExtraHint());
+
             Common.WriteLog($"Mission Complete: {e.Level} - bonus", "Watcher_BonusMissionComplete");
             long location = lt.getAPID($"{e.Level} - bonus", "bonus missions");
             ArchipelagoClient.sentLocations.Enqueue(location);
@@ -1446,6 +1463,16 @@ namespace SHARRandomizer
 
         async Task Watcher_StreetRaceComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.StreetRaceCompleteEventArgs e, CancellationToken token)
         {
+            var characterSheet = sender.Singletons.CharacterSheetManager;
+            LevelRecord[] record = characterSheet.CharacterSheet.LevelList.ToArray();
+            StreetRaceList races = record[e.Level].StreetRaces;
+            var textBible = sender.Globals.TextBible.CurrentLanguage;
+
+            if (races.List.All(r => r.Completed))
+            {
+                textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{e.Level}", ac.ExtraHint());
+            }
+
             Common.WriteLog($"Race Complete: {e.Level} - {e.Race}", "Watcher_StreetRaceComplete");
             long location = lt.getAPID($"{e.Level} - {e.Race}", "bonus missions");
             ArchipelagoClient.sentLocations.Enqueue(location);

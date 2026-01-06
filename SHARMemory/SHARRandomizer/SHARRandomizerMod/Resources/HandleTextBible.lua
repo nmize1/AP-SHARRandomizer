@@ -77,7 +77,7 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		chunk:AddValue("APWrench", "XXX")
 		chunk:AddValue("APHnR", "XXX")
 		
-		chunk:AddValue("APMaxCoins", "       ")
+		chunk:AddValue("APMaxCoins", "XXXXXXXXXXXXXXX")
 		
 		chunk:AddValue("APProgressTitle", "Goals:")
 		chunk:AddValue("APProgress", "AP NOT LOADED" .. string.rep(" ", 475))

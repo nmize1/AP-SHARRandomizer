@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHARMemory", "SHARMemory\SH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHARRandomizer", "SHARRandomizer\SHARRandomizer.csproj", "{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHARRandomizerFrontend", "SHARRandomizerFrontend\SHARRandomizerFrontend.csproj", "{2F429964-0992-493E-97B3-408AB1D3D1B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88C86DD3-BD6D-4620-BB8A-F7F30FC45783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F429964-0992-493E-97B3-408AB1D3D1B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F429964-0992-493E-97B3-408AB1D3D1B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F429964-0992-493E-97B3-408AB1D3D1B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F429964-0992-493E-97B3-408AB1D3D1B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,11 +1,14 @@
-﻿using System.Collections.Concurrent;
-using SHARMemory.SHAR.Structs;
+﻿using SHARMemory.SHAR.Structs;
+using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace SHARRandomizer;
 public static class Common
 {
     private static readonly string LogFile;
     private static readonly ConcurrentQueue<string> LogQueue;
+
+    public static event Action<string>? LogMessageReceived;
 
     static Common()
     {
@@ -41,6 +44,10 @@ public static class Common
         Console.WriteLine(msg);
 
         LogQueue.Enqueue(msg);
+        //if (method == "ArchipelagoClient::Session_OnMessageReceived")
+        //{
+            LogMessageReceived?.Invoke(msg);
+        //}
     }
 
     public static Vector3 GetVector3Dir(Vector3 pos1, Vector3 pos2)
@@ -54,5 +61,21 @@ public static class Common
         if(length == 0) return new Vector3(0, 0, 0);
 
         return new Vector3(dx / length, dy / length, dz / length);
+    }
+
+
+    public static string ExtractEmbeddedPythonScript(string resourceName)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        using var stream = assembly.GetManifestResourceStream(resourceName)
+            ?? throw new InvalidOperationException($"Resource not found: {resourceName}");
+
+        string tempPath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}_ut_query.py");
+
+        using (var fs = File.Create(tempPath))
+            stream.CopyTo(fs);
+
+        return tempPath;
     }
 }
