@@ -297,6 +297,7 @@ namespace SHARRandomizer
             language.SetString("APHnR", "00");
             language.SetString("APWrench", "00");
             UpdateProgress(0, 0, 0, 0, 0, 0, 0, 0);
+
             var characterSheet = memory.Singletons.CharacterSheetManager;
             if (characterSheet == null)
             {
@@ -311,6 +312,7 @@ namespace SHARRandomizer
                 fillerInventory.Add("Wrench", w);
                 language.SetString("APHnR", $"{h:D2}");
                 language.SetString("APWrench", $"{w:D2}");
+                characterSheet.CharacterSheet.ItchyScratchyTicket = true;
             }
 
             traps.AddRange(new List<string> { "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" });
@@ -487,13 +489,13 @@ namespace SHARRandomizer
                 Common.WriteLog("Character sheet missing", "CheckGoal");
                 return;
             }
-            //if (CheckTicketRequirements(memory, characterSheet))
-            characterSheet.CharacterSheet.State = 0;
-            Common.WriteLog(characterSheet.CharacterSheet.State, "test");
-            characterSheet.CharacterSheet.State = 0xFF;
-            Common.WriteLog(characterSheet.CharacterSheet.State, "test");
-            var lvl3fmv = characterSheet.CharacterSheet.LevelList[2];
-            lvl3fmv.FMVUnlocked = true;
+            if (CheckTicketRequirements(memory, characterSheet))
+            {
+                characterSheet.CharacterSheet.ItchyScratchyCBGFirst = true;
+                var lvl3Data = characterSheet.CharacterSheet.LevelList[2];
+                lvl3Data.FMVUnlocked = true;
+                characterSheet.CharacterSheet.LevelList[2] = lvl3Data;
+            }
         }
 
         async Task LoadState(Memory memory)
