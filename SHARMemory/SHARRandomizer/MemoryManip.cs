@@ -1684,11 +1684,11 @@ namespace SHARRandomizer
             var characterSheet = sender.Singletons.CharacterSheetManager;
             int coincap = WalletLevel > 1 ? maxCoins * WalletLevel * coinScale : maxCoins;
 
-            if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= coincap)
-            {
+            if (WalletLevel == 0)
+                characterSheet.CharacterSheet.Coins = 0;
+            else if (WalletLevel < 7 && characterSheet.CharacterSheet.Coins >= coincap)
                 characterSheet.CharacterSheet.Coins = coincap;
-            }
-            
+                        
             return Task.CompletedTask;
         }
 
