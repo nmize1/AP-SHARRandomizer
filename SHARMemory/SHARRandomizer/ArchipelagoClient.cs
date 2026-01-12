@@ -56,6 +56,8 @@ namespace SHARRandomizer
         public static string? SaveName;
         public static List<int>? ShopCosts;
 
+        public double timerMod;
+
         public enum VICTORY
         {
             AllMissions = 0,
@@ -65,8 +67,12 @@ namespace SHARRandomizer
         }
 
         public VICTORY victory = VICTORY.FinalMission;
-        public int cardPercent = 0;
-        public int waspPercent = 0;
+        public int cardAmount = 0;
+        public int waspAmount = 0;
+        public int carAmount = 0;
+        public float wrenchEfficiency = 100;
+        public float hnrEfficiency = 100;
+        public bool[] requiredLevels = new bool[7]; //all false initially
 
         Queue<(long itemID, long locationID, int player)> ighints = new();
 
@@ -189,8 +195,9 @@ namespace SHARRandomizer
                 {
                     //SaveName = $"{SLOTNAME}{login.Slot}-{login.SlotData["id"]}";
                     victory = (VICTORY)int.Parse(login.SlotData["Itchy_And_Scratchy_Ticket_Requirement"].ToString()!);
-                    waspPercent = Convert.ToInt32(login.SlotData["Wasp_Percent"]);
-                    waspPercent = Convert.ToInt32(login.SlotData["Card_Percent"]);
+                    waspAmount = Convert.ToInt32(login.SlotData["Wasp_Amount"]);
+                    cardAmount = Convert.ToInt32(login.SlotData["Card_Amount"]);
+                    carAmount = Convert.ToInt32(login.SlotData["Car_Amount"]);
                     MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["Max_Shop_Price"]);
                     MemoryManip.coinScale = Convert.ToInt32(login.SlotData["Shop_Scale_Modifier"]);
                     MemoryManip.gagfinder = (login.SlotData["Shuffle_Gagfinder"] as JArray)?.Count > 0; ;
@@ -201,6 +208,10 @@ namespace SHARRandomizer
                     shp = (ShopHintPolicy)Convert.ToInt32(login.SlotData["Shop_Hint_Policy"].ToString()!);
                     ehp = Convert.ToBoolean(login.SlotData["Extra_Hint_Policy"]);
                     MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
+                    timerMod = 1.0 + Convert.ToInt32(login.SlotData["Mission_Timers"]) / 100;
+                    wrenchEfficiency = Convert.ToInt32(login.SlotData["Filler_Wrench_Efficiency"]) / 100;
+                    hnrEfficiency = Convert.ToInt32(login.SlotData["Filler_HitNRun_Reset_Efficiency"]);
+
                     var ingameHints = login.SlotData["ingamehints"];
 
                     if (ingameHints is JValue jv && jv.Value is string s && s == "No hints")
@@ -220,13 +231,25 @@ namespace SHARRandomizer
                             ighints.Enqueue((itemID, locID, player));
                         }
                     }
+
+                    var reqLevels = ((JArray)login.SlotData["Required_Mission_Levels"]).ToObject<List<string>>();
+                    if (reqLevels!.Contains("All"))
+                        Array.Fill(requiredLevels, true);
+                    else
+                    {
+                        foreach (var level in reqLevels)
+                        {
+                            if (int.TryParse(level, out int i) && i - 1 >= 0 && i - 1 < requiredLevels.Length)
+                                requiredLevels[i - 1] = true;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
                     Common.WriteLog(ex.ToString(), "test");
                     ex.ToString();
                 }
-
+                /*
                 _session!.DataStorage[Scope.Slot, "missions"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "bonus"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "wasps"].Initialize(0);
@@ -237,7 +260,7 @@ namespace SHARRandomizer
                 _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "coins"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] { (long)1 });
-
+                */
                 MemoryManip.APCONNECTED = true;
                 ConnectionSucceeded?.Invoke();
                 while (true)

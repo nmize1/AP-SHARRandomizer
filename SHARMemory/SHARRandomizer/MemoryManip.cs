@@ -1,13 +1,15 @@
-﻿using System.Diagnostics;
+﻿using Archipelago.MultiClient.Net.Helpers;
+using Archipelago.MultiClient.Net.Models;
 using SHARMemory.SHAR;
 using SHARMemory.SHAR.Classes;
-using SHARRandomizer.Classes;
-using Archipelago.MultiClient.Net.Models;
-using static SHARRandomizer.ArchipelagoClient;
+using SHARMemory.SHAR.Events.RewardsManager;
 using SHARMemory.SHAR.Structs;
+using SHARRandomizer.Classes;
 using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Reflection.Emit;
-using Archipelago.MultiClient.Net.Helpers;
+using static SHARRandomizer.ArchipelagoClient;
 
 namespace SHARRandomizer
 {
@@ -360,6 +362,140 @@ namespace SHARRandomizer
             });
         }
 
+        bool CheckTicketRequirements(Memory memory, CharacterSheetManager characterSheet)
+        {
+            VICTORY goal = ac.victory;
+            LevelRecord[] record = characterSheet.CharacterSheet.LevelList.ToArray();
+            bool success = true;
+            int wasps = 0;
+            int cards = 0;
+
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    if (record[i].Cards.List[j].Completed)
+                        cards++;
+                }
+                wasps += record[i].WaspsDestroyed;
+            }
+
+            if (wasps < ac.waspAmount || cards < ac.cardAmount)
+                success = false;
+
+            if (goal == VICTORY.AllMissions || goal == VICTORY.AllStory)
+            {
+                int finMission = 0;
+                int finBonus = 0;
+                for (int i = 0; i < memory.Globals.LevelCount; i++)
+                {
+                    if (ac.requiredLevels[i])
+                    {
+                        MissionList missions = record[i].Missions;
+                        for (int j = 0; j < 7; j++)
+                        {
+                            if (!missions.List[j].Completed)
+                                success = false;
+                            else
+                                finMission++;
+                        }
+
+                        if (goal == VICTORY.AllMissions)
+                        {
+                            if (!record[i].BonusMission.Completed)
+                                success = false;
+                            else
+                                finBonus++;
+
+                            StreetRaceList races = record[i].StreetRaces;
+                            for (int j = 0; j < 7; j++)
+                            {
+                                if (!races.List[j].Completed)
+                                    success = false;
+                                else
+                                    finBonus++;
+                            }
+                        }
+                    }
+                }
+                UpdateProgress(finMission, finBonus, wasps, cards, 0, goal, ac.waspAmount, ac.cardAmount);
+            }
+            else if (goal == VICTORY.Cars)
+            {
+                var rewardsManager = memory.Singletons.RewardsManager;
+                if (rewardsManager == null)
+                {
+                    Common.WriteLog("Error accessing rewardsManager.", "CheckTicketRequirements");
+                    return false;
+                }
+
+                int carCount = 0;
+
+                foreach(var level in rewardsManager.RewardsList)
+                {
+                    if (level.DefaultCar.Earned)
+                        carCount++;
+                    if (level.BonusMission.Earned)
+                        carCount++;
+                    if (level.StreetRace.Earned)
+                        carCount++;
+                }
+
+                var tokenStoreList = rewardsManager.LevelTokenStoreList.ToArray();
+                for (int level = 0; level < memory.Globals.LevelCount; level++)
+                {
+                    var levelTokenStoreList = tokenStoreList[level];
+                    for (int merchandiseIndex = 0; merchandiseIndex < levelTokenStoreList.Counter; merchandiseIndex++)
+                    {
+                        var merchandise = memory.Functions.GetMerchandise(level, merchandiseIndex);
+
+                        if (merchandise == null)
+                            continue;
+                        if (merchandise.Earned && merchandise.RewardType == Reward.RewardTypes.PlayerCar)
+                            carCount++;
+                    }
+                }
+
+                if (carCount < ac.carAmount)
+                    success = false;
+
+
+                UpdateProgress(0, 0, wasps, cards, carCount, goal, ac.waspAmount, ac.cardAmount);
+            }
+            else if (goal == VICTORY.FinalMission)
+            {
+                if (!record[6].Missions.List[6].Completed)
+                    success = false;
+                else
+                    UpdateProgress(0, 0, wasps, cards, 0, goal, ac.waspAmount, ac.cardAmount);
+            }
+            else
+            {
+                Common.WriteLog("Goal not found.", "CheckGoal");
+                return false;
+            }
+
+            return success;
+        }
+
+        void CheckGiveTicket(Memory memory)
+        {
+            var characterSheet = memory.Singletons.CharacterSheetManager;
+
+            if (characterSheet == null)
+            {
+                Common.WriteLog("Character sheet missing", "CheckGoal");
+                return;
+            }
+            //if (CheckTicketRequirements(memory, characterSheet))
+            characterSheet.CharacterSheet.State = 0;
+            Common.WriteLog(characterSheet.CharacterSheet.State, "test");
+            characterSheet.CharacterSheet.State = 0xFF;
+            Common.WriteLog(characterSheet.CharacterSheet.State, "test");
+            var lvl3fmv = characterSheet.CharacterSheet.LevelList[2];
+            lvl3fmv.FMVUnlocked = true;
+        }
+
         async Task LoadState(Memory memory)
         {
             var characterSheet = memory.Singletons.CharacterSheetManager;
@@ -614,13 +750,6 @@ namespace SHARRandomizer
                     {
                         string item = await itemsReceived.DequeueAsync();
 
-                        var rewardsManager = memory.Singletons.RewardsManager;
-                        if (rewardsManager == null)
-                        {
-                            Common.WriteLog("Error retrieving items from AP. Will retry.", "Main");
-                            return;
-                        }
-
                         var textBible = memory.Globals.TextBible.CurrentLanguage;
 
                         if (item == "Cell Phone Car")
@@ -778,7 +907,7 @@ namespace SHARRandomizer
                 level = $"Level {nextLevel}";
             }
             UnlockedLevels.Add(level);
-
+            
             UpdateMissionTitles();
 
             return true;
@@ -1321,10 +1450,11 @@ namespace SHARRandomizer
             {
                 if (e.Button.ToString() == "DPadUp" || e.Button.ToString() == "D1")
                 {
+
+                    CheckGiveTicket(listener.memory);
                     if (fillerInventory["Hit N Run Reset"] > 0 && listener.memory.Singletons.HitNRunManager.CurrHitAndRun > 0f)
                     {
-                        listener.memory.Singletons.HitNRunManager.CurrHitAndRun = 0f;
-
+                        listener.memory.Singletons.HitNRunManager.CurrHitAndRun -= ac.hnrEfficiency;
                         fillerInventory["Hit N Run Reset"]--;
                     }
                     Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
@@ -1335,7 +1465,8 @@ namespace SHARRandomizer
                 {
                     if (fillerInventory["Wrench"] > 0)
                     {
-                        listener.memory.Functions.TriggerEvent(Globals.Events.REPAIR_CAR);
+                        var car = listener.memory.Singletons.CharacterManager?.Player?.Car;
+                        car.HitPoints += ac.wrenchEfficiency;
                         fillerInventory["Wrench"]--;
                     }
                     Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
@@ -1373,8 +1504,14 @@ namespace SHARRandomizer
             if (sender.Globals.GameplayManager is MissionManager missionManager)
             {
                 var mission = missionManager.GetCurrentMission();
-                var stage = mission.GetCurrentStage();
-                stage.Objective.
+                if (mission is not null)
+                {
+                    var timer = mission.MissionTimer;
+                    if (timer > 0)
+                    {
+                        timer = (int)Math.Ceiling(timer * ac.timerMod);
+                    }
+                }
             }
 
             var characterSheet = sender.Singletons.CharacterSheetManager;
@@ -1387,6 +1524,14 @@ namespace SHARRandomizer
             await ac.SetDataStorage("coins", characterSheet.CharacterSheet.Coins);
         }
 
+        Task SendLocation(long location, Memory memory)
+        {
+            ArchipelagoClient.sentLocations.Enqueue(location);
+            CheckGiveTicket(memory);
+
+            return Task.CompletedTask;
+        }
+
         async Task Watcher_CardCollected(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CardGallery.CardCollectedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"L{e.Level + 1}C{e.Card + 1} collected.", "Watcher_CardCollected");
@@ -1394,30 +1539,30 @@ namespace SHARRandomizer
                 return;
 
             long location = cardIDs[e.Level * 7 + e.Card];
-            ArchipelagoClient.sentLocations.Enqueue(location);
-            if (!ac.IsLocationCheckedLocally(location))
-                await ac.IncrementDataStorage("cards");
+            await SendLocation(location, sender);
+            /*if (!ac.IsLocationCheckedLocally(location))
+                await ac.IncrementDataStorage("cards");*/
         }
 
         async Task Watcher_PersistentObjectDestroyed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.PersistentObjectDestroyedEventArts e, CancellationToken token)
         {
             Common.WriteLog($"Destroyed object: {e.Sector} - {e.Index}", "Watcher_PersistentObjectDestroyed");
             long location = lt.getAPID($"{e.Sector} - {e.Index}", "wasp");
-            ArchipelagoClient.sentLocations.Enqueue(location);
-            if (location != -1)
+            await SendLocation(location, sender);
+            /*if (location != -1)
             {
                 if (!ac.IsLocationCheckedLocally(location))
                     await ac.IncrementDataStorage("wasps");
-            }
+            }*/
         }
 
         async Task Watcher_GagViewed(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.GagViewedEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Gag Viewed: {e.Level} - {e.Gag}", "Watcher_GagViewed");
             long location = lt.getAPID($"{e.Level} - {e.Gag}", "gag");
-            ArchipelagoClient.sentLocations.Enqueue(location);
-            if (!ac.IsLocationCheckedLocally(location))
-                await ac.IncrementDataStorage("gags");
+            await SendLocation(location, sender);
+            /*if (!ac.IsLocationCheckedLocally(location))
+                await ac.IncrementDataStorage("gags");*/
         }
 
         async Task Watcher_MerchandisePurchased(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.RewardsManager.MerchandisePurchasedEventArgs e, CancellationToken token)
@@ -1427,24 +1572,19 @@ namespace SHARRandomizer
             {
                 Common.WriteLog($"Sending check from {e.Merchandise.Name}", "Watcher_MerchandisePurchased");
                 long location = lt.getAPID(e.Merchandise.Name, "shop");
-                ArchipelagoClient.sentLocations.Enqueue(location);
-                if (!ac.IsLocationCheckedLocally(location))
-                    await ac.IncrementDataStorage("shops");
+                await SendLocation(location, sender);
+                /*if (!ac.IsLocationCheckedLocally(location))
+                    await ac.IncrementDataStorage("shops");*/
             }
         }
 
         async Task Watcher_MissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.MissionCompleteEventArgs e, CancellationToken token)
         {
             Common.WriteLog($"Mission Complete: {e.Level + 1} - {e.Mission + 1}", "Watcher_MissionComplete");
-            if (e.Level + 1 == 7 && e.Mission + 1 == 7)
-                ac.SendCompletion();
-            else
-            {
-                long location = lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions"); //levels are 0 indexed and missions aren't in this context
-                ArchipelagoClient.sentLocations.Enqueue(location);
-                if (!ac.IsLocationCheckedLocally(location))
-                    await ac.IncrementDataStorage("missions");
-            }
+            long location = lt.getAPID($"{e.Level} - {e.Mission + 1}", "missions"); //levels are 0 indexed and missions aren't in this context
+            await SendLocation(location, sender);
+            /*if (!ac.IsLocationCheckedLocally(location))
+                await ac.IncrementDataStorage("missions");*/
         }
 
         async Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
@@ -1454,9 +1594,9 @@ namespace SHARRandomizer
 
             Common.WriteLog($"Mission Complete: {e.Level} - bonus", "Watcher_BonusMissionComplete");
             long location = lt.getAPID($"{e.Level} - bonus", "bonus missions");
-            ArchipelagoClient.sentLocations.Enqueue(location);
-            if (!ac.IsLocationCheckedLocally(location))
-                await ac.IncrementDataStorage("bonus");
+            await SendLocation(location, sender);
+            /*if (!ac.IsLocationCheckedLocally(location))
+                await ac.IncrementDataStorage("bonus");*/
 
             LockBonusCars(sender);
         }
@@ -1475,17 +1615,14 @@ namespace SHARRandomizer
 
             Common.WriteLog($"Race Complete: {e.Level} - {e.Race}", "Watcher_StreetRaceComplete");
             long location = lt.getAPID($"{e.Level} - {e.Race}", "bonus missions");
-            ArchipelagoClient.sentLocations.Enqueue(location);
-            if (!ac.IsLocationCheckedLocally(location))
-                await ac.IncrementDataStorage("bonus");
+            await SendLocation(location, sender);
+            /*if (!ac.IsLocationCheckedLocally(location))
+                await ac.IncrementDataStorage("bonus");*/
         }
 
-        public void UpdateProgress(int missions, int bonus, int wasps, int cards, int gags, ArchipelagoClient.VICTORY victory, int rwp, int rcp)
+        public void UpdateProgress(int missions, int bonus, int wasps, int cards, int cars, ArchipelagoClient.VICTORY victory, int rw, int rc)
         {
             string ret = "";
-            int wp = (int)Math.Ceiling(140 * rwp / 100.0);
-            int cp = (int)Math.Ceiling(49 * rcp / 100.0); 
-            
 
             switch (victory)
             {
@@ -1501,18 +1638,19 @@ namespace SHARRandomizer
                     ret += $"Missions: {missions:D2}/49\n";
                     ret += $"Bonus: { bonus:D2}/28\n";
                     break;
-                case VICTORY.WaspsCards:
-                    ret += "Wasps & Cards\n";
+                case VICTORY.Cars:
+                    ret += "Cars:\n";
+                    ret += $"Cars: {cars:D2}/81";
                     break;
                 default:
                     ret += "Goal failed to load?\n";
                     break;
             }
 
-            if (wp > 0)
-                ret += $"Wasps: {wasps:D2}/{wp:D2}\n";
-            if (cp > 0)
-                ret += $"Cards: {cards:D2}/{cp:D2}";
+            if (rw > 0)
+                ret += $"Wasps: {wasps:D2}/{rw:D2}\n";
+            if (rc > 0)
+                ret += $"Cards: {cards:D2}/{rc:D2}";
 
             if (language != null)
                 language.SetString("APProgress", ret);
@@ -1607,7 +1745,7 @@ namespace SHARRandomizer
                     if (e.NewWindow is not CGuiScreenPhoneBooth guiScreenPhoneBooth)
                         break;
 
-                    Console.WriteLine($"Entered phoneboth: {guiScreenPhoneBooth.NumPreviewVehicles} preview vehicles");
+                    Console.WriteLine($"Entered phonebooth: {guiScreenPhoneBooth.NumPreviewVehicles} preview vehicles");
 
                     var previewVehicles = guiScreenPhoneBooth.PreviewVehicles;
                     var vehicles = previewVehicles.ToArray().OrderByDescending(x => x.IsUnlocked).ThenBy(x => x.Name);
