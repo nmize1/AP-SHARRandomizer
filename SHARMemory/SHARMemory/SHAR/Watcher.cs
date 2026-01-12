@@ -16,6 +16,7 @@ using SHARMemory.SHAR.Events.Error;
 using SHARMemory.SHAR.Events.InputManager;
 using SHARMemory.SHAR.Events.TrafficManager;
 using SHARMemory.SHAR.Events.CGuiSystem;
+using SHARMemory.SHAR.Events.PresentationManager;
 
 namespace SHARMemory.SHAR;
 
@@ -157,6 +158,11 @@ public sealed class Watcher
     /// An event handler for when a new traffic Vehicle is created.
     /// </summary>
     public event AsyncEventHandler<InGameWindowChangedEventArgs> InGameWindowChanged;
+
+    /// <summary>
+    /// An event handler for when a new traffic Vehicle is created.
+    /// </summary>
+    public event AsyncEventHandler<CurrentEventChangedEventArgs> CurrentEventChanged;
 
     private readonly Memory Memory;
 
@@ -325,6 +331,9 @@ public sealed class Watcher
 
                 if (InGameWindowChanged.HasSubscribers())
                     await CheckCGuiSystem();
+
+                if (CurrentEventChanged.HasSubscribers())
+                    await CheckPresentationManager();
             }
             catch (Exception ex)
             {
@@ -564,6 +573,7 @@ public sealed class Watcher
         {
             lastLevel = null;
             lastMissionIndex = -1;
+            lastVehicle = 0;
             return;
         }
 
@@ -923,6 +933,41 @@ public sealed class Watcher
         {
             await InGameWindowChanged.InvokeAsync(Memory, new(lastInGameWindowID, newInGameWindowID, newInGameWindow), CancellationToken.None);
             lastInGameWindowID = newInGameWindowID;
+        }
+    }
+
+    private uint lastPresentationEvent = 0;
+    private async Task CheckPresentationManager()
+    {
+        var presentationManager = Memory.Singletons.PresentationManager;
+        if (presentationManager == null)
+        {
+            lastPresentationEvent = 0;
+            return;
+        }
+
+        var currentEvent = presentationManager.Current;
+        if (currentEvent == null)
+        {
+            if (lastPresentationEvent != 0)
+            {
+
+            }
+        }
+
+        if ((currentEvent?.Address ?? 0) != lastPresentationEvent)
+        {
+            PresentationEvent lastPresentationEvent2 = null;
+            if (lastPresentationEvent != 0)
+            {
+                try
+                {
+                    lastPresentationEvent2 = Memory.ClassFactory.Create<PresentationEvent>(lastPresentationEvent);
+                }
+                catch { }
+            }
+            lastPresentationEvent = currentEvent?.Address ?? 0;
+            await CurrentEventChanged.InvokeAsync(Memory, new(lastPresentationEvent2, currentEvent), CancellationToken.None);
         }
     }
 }
