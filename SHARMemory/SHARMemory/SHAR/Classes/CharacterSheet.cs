@@ -149,10 +149,21 @@ public class CharacterSheet : Class
     public StructArray<byte> PersistentObjectStates => new(Memory, Address + PersistentObjectStatesOffset, sizeof(byte), NUM_BYTES_FOR_PERSISTENT_STATES);
 
     internal const uint StateOffset = PersistentObjectStatesOffset + NUM_BYTES_FOR_PERSISTENT_STATES;
-    public byte State
+    //public byte State
+    //{
+    //    get => ReadByte(StateOffset);
+    //    set => WriteByte(StateOffset, value);
+    //}
+    public bool ItchyScratchyCBGFirst
     {
-        get => ReadByte(StateOffset);
-        set => WriteByte(StateOffset, value);
+        get => ReadBitfield(StateOffset, 0);
+        set => WriteBitfield(StateOffset, 0, value);
+    }
+
+    public bool ItchyScratchyTicket
+    {
+        get => ReadBitfield(StateOffset, 1);
+        set => WriteBitfield(StateOffset, 1, value);
     }
 
     public bool IsPersistentObjectDestroyed(PersistentObjectStateSector sector, int index)
