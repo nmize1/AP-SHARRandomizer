@@ -30,7 +30,7 @@ public class CGuiScreenPhoneBooth : IGuiScreenRewards
     public FeEntity RightArrow => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(RightArrowOffset));
 
     internal const uint MenuOffset = RightArrowOffset + sizeof(uint);
-    public CGuiEntity Menu => Memory.ClassFactory.Create<CGuiEntity>(ReadUInt32(MenuOffset));
+    public CGuiMenu Menu => Memory.ClassFactory.Create<CGuiMenu>(ReadUInt32(MenuOffset));
 
     internal const uint CarSelectOverlayOffset = MenuOffset + sizeof(uint);
     public FeEntity CarSelectOverlay => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(CarSelectOverlayOffset));

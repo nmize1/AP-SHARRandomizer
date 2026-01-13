@@ -12,10 +12,10 @@ public class CGuiScreenMissionSelect : CGuiScreen
     public CGuiScreenMissionSelect(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     internal const uint MenuLevelOffset = PlayTransitionAnimationLastOffset + 4; // Padding
-    public CGuiEntity MenuLevel => Memory.ClassFactory.Create<CGuiEntity>(ReadUInt32(MenuLevelOffset));
+    public CGuiMenu MenuLevel => Memory.ClassFactory.Create<CGuiMenu>(ReadUInt32(MenuLevelOffset));
 
     internal const uint MenuOffset = MenuLevelOffset + sizeof(uint);
-    public CGuiEntity Menu => Memory.ClassFactory.Create<CGuiEntity>(ReadUInt32(MenuOffset));
+    public CGuiMenu Menu => Memory.ClassFactory.Create<CGuiMenu>(ReadUInt32(MenuOffset));
 
     internal const uint NumLevelSelectionsOffset = MenuOffset + sizeof(uint);
     public int NumLevelSelections
