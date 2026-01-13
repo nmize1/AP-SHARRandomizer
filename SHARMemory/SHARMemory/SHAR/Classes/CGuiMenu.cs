@@ -51,4 +51,11 @@ public class CGuiMenu : CGuiEntity
         get => ReadInt32(NumItemsOffset);
         set => WriteInt32(NumItemsOffset, value);
     }
+
+    internal const uint SelectionOffset = NumItemsOffset + sizeof(int);
+    public int Selection
+    {
+        get => ReadInt32(SelectionOffset);
+        set => WriteInt32(SelectionOffset, value);
+    }
 }

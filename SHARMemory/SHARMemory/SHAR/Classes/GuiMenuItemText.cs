@@ -9,8 +9,8 @@ public class GuiMenuItemText : GuiMenuItem
     public GuiMenuItemText(Memory memory, uint address, CompleteObjectLocator completeObjectLocator) : base(memory, address, completeObjectLocator) { }
 
     internal const uint ItemOffset = SliderOffset + 36; // TODO: ImageSlider.Size
-    public FeDrawable Item => Memory.ClassFactory.Create<FeDrawable>(ReadUInt32(ItemOffset)); // TODO: FeText
+    public FeText Item => Memory.ClassFactory.Create<FeText>(ReadUInt32(ItemOffset));
 
     internal const uint ItemValueOffset = ItemOffset + sizeof(uint);
-    public FeDrawable ItemValue => Memory.ClassFactory.Create<FeDrawable>(ReadUInt32(ItemValueOffset)); // TODO: FeText
+    public FeText ItemValue => Memory.ClassFactory.Create<FeText>(ReadUInt32(ItemValueOffset));
 }

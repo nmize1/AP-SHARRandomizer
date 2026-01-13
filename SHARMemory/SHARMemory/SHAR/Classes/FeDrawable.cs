@@ -37,9 +37,13 @@ public class FeDrawable : FeEntity
     }
 
     internal const uint RectOffset = ClipOffset + 4; // Padding
-    //mutable pddiRect
+    public pddiRect Rect
+    {
+        get => ReadStruct<pddiRect>(RectOffset);
+        set => WriteStruct(RectOffset, value);
+    }
 
-    internal const uint LayerOffset = RectOffset + 16; // TODO: Mutable size
+    internal const uint LayerOffset = RectOffset + pddiRect.Size;
     public float Layer
     {
         get => ReadSingle(LayerOffset);

@@ -25,10 +25,10 @@ public class CGuiScreenMissionSelect : CGuiScreen
     }
 
     internal const uint LeftArrowOffset = NumLevelSelectionsOffset + sizeof(int);
-    public FeEntity LeftArrow => Memory.ClassFactory.Create<FeEntity>(LeftArrowOffset);
+    public FeEntity LeftArrow => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(LeftArrowOffset));
 
     internal const uint RightArrowOffset = LeftArrowOffset + sizeof(uint);
-    public FeEntity RightArrow => Memory.ClassFactory.Create<FeEntity>(RightArrowOffset);
+    public FeEntity RightArrow => Memory.ClassFactory.Create<FeEntity>(ReadUInt32(RightArrowOffset));
 
     internal const uint MissionInfoOffset = RightArrowOffset + sizeof(uint);
     public StructArray<MissionDisplayInfo> MissionInfo => new(Memory, Address + MissionInfoOffset, MissionDisplayInfo.Size, MAX_NUM_REGULAR_MISSIONS);
