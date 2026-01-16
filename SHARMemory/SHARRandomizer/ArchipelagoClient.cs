@@ -57,6 +57,7 @@ namespace SHARRandomizer
         public static List<int>? ShopCosts;
 
         public double timerMod;
+        public bool levelLock = false;
 
         public enum VICTORY
         {
@@ -211,6 +212,7 @@ namespace SHARRandomizer
                     timerMod = 1.0 + Convert.ToInt32(login.SlotData["Mission_Timers"]) / 100;
                     wrenchEfficiency = Convert.ToInt32(login.SlotData["Filler_Wrench_Efficiency"]) / 100;
                     hnrEfficiency = Convert.ToInt32(login.SlotData["Filler_HitNRun_Reset_Efficiency"]);
+                    levelLock = Convert.ToBoolean(login.SlotData["Lock_Levels"]);
 
                     var ingameHints = login.SlotData["ingamehints"];
 
@@ -256,11 +258,11 @@ namespace SHARRandomizer
                 _session.DataStorage[Scope.Slot, "cards"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "gags"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "shops"].Initialize(0);
-                _session.DataStorage[Scope.Slot, "hnr"].Initialize(0);
-                _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
-                _session.DataStorage[Scope.Slot, "coins"].Initialize(0);
                 _session.DataStorage[Scope.Slot, "localchecks"].Initialize(new[] { (long)1 });
                 */
+                _session!.DataStorage[Scope.Slot, "coins"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "hnr"].Initialize(0);
+                _session.DataStorage[Scope.Slot, "wrench"].Initialize(0);
                 MemoryManip.APCONNECTED = true;
                 ConnectionSucceeded?.Invoke();
                 while (true)
@@ -390,7 +392,7 @@ namespace SHARRandomizer
             return _session.Locations.AllLocationsChecked.Contains(location);
         }
 
-
+        /*
         public bool IsLocationCheckedLocally(long location)
         {
             if (!Connected)
@@ -410,7 +412,7 @@ namespace SHARRandomizer
 
             return ret;
         }
-
+        */
         public bool SyncLocations(List<long> locations)
         {
             if (!Connected || locations == null || locations.Count == 0)
@@ -478,20 +480,28 @@ namespace SHARRandomizer
             var playerName = player.Alias ?? player.Name ?? $"Player #{player.Slot}";
 
             _session.DataStorage[Scope.Slot, "index"].Initialize(0);
-
             var storedIndex = await _session.DataStorage[Scope.Slot, "index"].GetAsync<int>();
-            if (storedIndex < index)
+
+            bool isNew = index > storedIndex;
+            bool isNoResend = NORESEND.Contains(itemName);
+
+            if (isNew)
             {
                 _session.DataStorage[Scope.Slot, "index"] = index;
                 MemoryManip.itemsReceived.Enqueue(itemName);
             }
-            else if (NORESEND.Contains(item.ItemName))
+            else if (!isNoResend)
             {
-                Common.WriteLog($"Didn't enqueue {itemName} which is {item.Flags}", "ArchipelagoClient::Session_ItemReceived");
+                // Old item, but allowed to repeat
+                MemoryManip.itemsReceived.Enqueue(itemName);
             }
             else
             {
-                MemoryManip.itemsReceived.Enqueue(itemName);
+                // Old item and NORESEND
+                Common.WriteLog(
+                    $"Skipped resend of {itemName} (flags={item.Flags}, index={index})",
+                    "ArchipelagoClient::Session_ItemReceived"
+                );
             }
         }
 
@@ -670,6 +680,7 @@ namespace SHARRandomizer
             Environment.Exit(1);
         }
 
+        /*
         public async Task<List<long>> GetLocalChecks()
         {
             if (_session == null)
@@ -701,7 +712,7 @@ namespace SHARRandomizer
 
             return null;
         }
-
+        */
 
 
         /* Old victory check, will remove eventually

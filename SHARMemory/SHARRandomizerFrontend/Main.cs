@@ -41,34 +41,10 @@ namespace SHARRandomizerFrontend
             string? SLOTNAME = null;
             string? PASSWORD = null;
 
-            /*
-            for (int i = 1; i < args.Length; i++)
-            {
-                switch (args[i].ToLower())
-                {
-                    case "-url":
-                        if (i + 1 < args.Length)
-                            URI = args[++i];
-                        break;
-
-                    case "-slot":
-                        if (i + 1 < args.Length)
-                            SLOTNAME = args[++i];
-                        break;
-
-                    case "-pass":
-                        if (i + 1 < args.Length)
-                            PASSWORD = args[++i];
-                        break;
-
-                    default:
-                        if (URI == null) URI = args[i];
-                        else if (SLOTNAME == null) SLOTNAME = args[i];
-                        else if (PASSWORD == null) PASSWORD = args[i];
-                        break;
-                }
-            }
-            */
+            tbURL.Text = cSettings.prevURL;
+            tbPort.Text = cSettings.prevPort;
+            tbSlot.Text = cSettings.prevSlot;
+            tbPass.Text = cSettings.prvPass;
         }
 
         public async Task<bool> CheckVersion()
@@ -85,7 +61,6 @@ namespace SHARRandomizerFrontend
                     Common.WriteLog("ARE YOU ON THE LATEST VERSION?", "GitHub");
                     Common.WriteLog($"YOU ARE RUNNING VERSION: {VERSION}.", "GitHub");
                     Common.WriteLog($"THE LATEST VERSION ON GITHUB IS: {latestRelease.Name}", "GitHub");
-                    Common.WriteLog($"Do you want to continue?", "GitHub");
                     var result = MessageBox.Show
                     (
                         $"ARE YOU ON THE LATEST VERSION?\nYOU ARE RUNNING VERSION: {VERSION}\n" +
@@ -134,7 +109,6 @@ namespace SHARRandomizerFrontend
 
                 btnConnect.Text = "Connect";
                 btnConnect.Enabled = true;
-                dgvTracker.Rows.Clear();
                 tbSlot.Enabled = true;
                 tbPort.Enabled = true;
                 tbURL.Enabled = true;
@@ -143,7 +117,7 @@ namespace SHARRandomizerFrontend
             }
             else
             {
-                btnConnect.Enabled = false;
+                btnConnect.Enabled = true;
 
                 _ac = new ArchipelagoClient();
                 _ac.URI = $"{tbURL.Text}:{tbPort.Text}";

@@ -42,11 +42,8 @@
             btnConnect = new Button();
             pnLog = new Panel();
             txbLog = new RichTextBox();
-            dgvTracker = new DataGridView();
-            Locations = new DataGridViewTextBoxColumn();
             pnConnection.SuspendLayout();
             pnLog.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvTracker).BeginInit();
             SuspendLayout();
             // 
             // lbURL
@@ -169,31 +166,12 @@
             txbLog.TabIndex = 0;
             txbLog.Text = "";
             // 
-            // dgvTracker
-            // 
-            dgvTracker.AllowUserToAddRows = false;
-            dgvTracker.AllowUserToDeleteRows = false;
-            dgvTracker.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTracker.Columns.AddRange(new DataGridViewColumn[] { Locations });
-            dgvTracker.Location = new Point(576, 12);
-            dgvTracker.Name = "dgvTracker";
-            dgvTracker.RowHeadersVisible = false;
-            dgvTracker.Size = new Size(454, 469);
-            dgvTracker.TabIndex = 10;
-            // 
-            // Locations
-            // 
-            Locations.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Locations.HeaderText = "Locations";
-            Locations.Name = "Locations";
-            // 
             // Main
             // 
             AcceptButton = btnConnect;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1043, 493);
-            Controls.Add(dgvTracker);
+            ClientSize = new Size(584, 493);
             Controls.Add(pnLog);
             Controls.Add(pnConnection);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -203,7 +181,6 @@
             pnConnection.ResumeLayout(false);
             pnConnection.PerformLayout();
             pnLog.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvTracker).EndInit();
             ResumeLayout(false);
         }
 
@@ -222,7 +199,5 @@
         private Panel pnLog;
         private RichTextBox txbLog;
         private Button btnSettings;
-        private DataGridView dgvTracker;
-        private DataGridViewTextBoxColumn Locations;
     }
 }
