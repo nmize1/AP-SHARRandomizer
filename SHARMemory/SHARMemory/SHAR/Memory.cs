@@ -138,34 +138,16 @@ public class Memory : ProcessMemory
     internal Dictionary<ModLauncherOrdinals, uint> ModLauncherOrdinalAddresses { get; } = new Dictionary<ModLauncherOrdinals, uint>(Enum.GetValues(typeof(ModLauncherOrdinals)).Length);
     private void LoadModLauncherOrdinals(ProcessModule hacksModule)
     {
-        IntPtr dll = LoadLibraryEx(hacksModule.FileName, IntPtr.Zero, LoadLibraryFlags.DONT_RESOLVE_DLL_REFERENCES);
-        if (dll == IntPtr.Zero)
-        {
-            Debug.WriteLine($"Couldn't load module: {hacksModule.FileName}");
-            return;
-        }
-
         try
         {
-            foreach (var ordinal in Enum.GetValues(typeof(ModLauncherOrdinals)))
-            {
-                UIntPtr method = GetProcAddressOrdinal(dll, new UIntPtr((uint)ordinal));
-                if (method == UIntPtr.Zero)
-                {
-                    Debug.WriteLine($"Couldn't find method: {ordinal}");
-                    continue;
-                }
+            var pe = new PeFile(hacksModule.FileName);
 
-                uint offset = (uint)(method.ToUInt32() - dll.ToInt32());
-
-                uint address = (uint)(hacksModule.BaseAddress.ToInt32() + offset);
-
-                ModLauncherOrdinalAddresses.Add((ModLauncherOrdinals)ordinal, address);
-            }
+            foreach (ModLauncherOrdinals ordinal in Enum.GetValues(typeof(ModLauncherOrdinals)))
+                ModLauncherOrdinalAddresses.Add(ordinal, pe.GetRuntimeAddress(hacksModule.BaseAddress, (uint)ordinal));
         }
-        finally
+        catch (Exception ex)
         {
-            FreeLibrary(dll);
+            Debug.WriteLine($"Failed to load mod launcher ordinals: {ex}");
         }
     }
 
