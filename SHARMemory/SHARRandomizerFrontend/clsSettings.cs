@@ -11,8 +11,7 @@ namespace SHARRandomizerFrontend
 {
     public class clsSettings
     {
-        public string APPath { get; set; } = "";
-
+        public bool ShowFullLog { get; set; } = false;
         public string prevURL { get; set; } = "";
         public string prevPort { get; set; } = "";
         public string prevSlot { get; set; } = "";

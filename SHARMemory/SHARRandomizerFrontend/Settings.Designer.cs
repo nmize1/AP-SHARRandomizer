@@ -30,13 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             btnSave = new Button();
-            tbxPath = new TextBox();
-            lblAPPath = new Label();
+            cbLog = new CheckBox();
             SuspendLayout();
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(307, 56);
+            btnSave.Location = new Point(95, 60);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 23);
             btnSave.TabIndex = 2;
@@ -44,29 +43,22 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
-            // tbxPath
+            // cbLog
             // 
-            tbxPath.Location = new Point(12, 27);
-            tbxPath.Name = "tbxPath";
-            tbxPath.Size = new Size(370, 23);
-            tbxPath.TabIndex = 3;
-            // 
-            // lblAPPath
-            // 
-            lblAPPath.AutoSize = true;
-            lblAPPath.Location = new Point(12, 9);
-            lblAPPath.Name = "lblAPPath";
-            lblAPPath.Size = new Size(146, 15);
-            lblAPPath.TabIndex = 4;
-            lblAPPath.Text = "Path to Archipelago Install";
+            cbLog.AutoSize = true;
+            cbLog.Location = new Point(36, 12);
+            cbLog.Name = "cbLog";
+            cbLog.Size = new Size(100, 19);
+            cbLog.TabIndex = 3;
+            cbLog.Text = "Show Full Log";
+            cbLog.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(394, 95);
-            Controls.Add(lblAPPath);
-            Controls.Add(tbxPath);
+            ClientSize = new Size(182, 95);
+            Controls.Add(cbLog);
             Controls.Add(btnSave);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Settings";
@@ -77,7 +69,6 @@
 
         #endregion
         private Button btnSave;
-        private TextBox tbxPath;
-        private Label lblAPPath;
+        private CheckBox cbLog;
     }
 }

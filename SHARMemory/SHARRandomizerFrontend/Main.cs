@@ -165,20 +165,23 @@ namespace SHARRandomizerFrontend
             MessageBox.Show("Failed to connect. Double check your connection info.");
         }
 
-        void OnLogMessage(string message)
+        void OnLogMessage(string message, string method)
         {
             if (InvokeRequired)
             {
-                Invoke(() => AddLog(message));
+                Invoke(() => AddLog(message, method));
             }
             else
-                AddLog(message);
+                AddLog(message, method);
         }
 
-        private void AddLog(string message)
+        private void AddLog(string message, string method)
         {
-            txbLog.AppendText(message + Environment.NewLine);
-            txbLog.ScrollToCaret();
+            if (method == "ArchipelagoClient::Session_OnMessageReceived" || cSettings.ShowFullLog)
+            {
+                txbLog.AppendText(message + Environment.NewLine);
+                txbLog.ScrollToCaret();
+            }
         }
 
         private void btnSettings_Click(object sender, EventArgs e)

@@ -8,7 +8,7 @@ public static class Common
     private static readonly string LogFile;
     private static readonly ConcurrentQueue<string> LogQueue;
 
-    public static event Action<string>? LogMessageReceived;
+    public static event Action<string, string>? LogMessageReceived;
 
     static Common()
     {
@@ -44,10 +44,7 @@ public static class Common
         Console.WriteLine(msg);
 
         LogQueue.Enqueue(msg);
-        if (method == "ArchipelagoClient::Session_OnMessageReceived")
-        {
-            LogMessageReceived?.Invoke(msg);
-        }
+        LogMessageReceived?.Invoke(msg, method);
     }
 
     public static Vector3 GetVector3Dir(Vector3 pos1, Vector3 pos2)

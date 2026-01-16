@@ -22,7 +22,7 @@ namespace SHARRandomizerFrontend
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            CSettings.APPath = tbxPath.Text;
+            CSettings.ShowFullLog = cbLog.Checked;
             SettingsManager.Save(CSettings);
             this.Hide();
         }
