@@ -44,10 +44,10 @@ public static class Common
         Console.WriteLine(msg);
 
         LogQueue.Enqueue(msg);
-        //if (method == "ArchipelagoClient::Session_OnMessageReceived")
-        //{
+        if (method == "ArchipelagoClient::Session_OnMessageReceived")
+        {
             LogMessageReceived?.Invoke(msg);
-        //}
+        }
     }
 
     public static Vector3 GetVector3Dir(Vector3 pos1, Vector3 pos2)
