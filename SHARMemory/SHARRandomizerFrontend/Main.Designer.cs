@@ -48,6 +48,7 @@
             // 
             // lbURL
             // 
+            lbURL.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lbURL.AutoSize = true;
             lbURL.Location = new Point(3, 9);
             lbURL.Name = "lbURL";
@@ -57,6 +58,7 @@
             // 
             // tbURL
             // 
+            tbURL.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbURL.Location = new Point(51, 6);
             tbURL.Name = "tbURL";
             tbURL.Size = new Size(129, 23);
@@ -65,6 +67,7 @@
             // 
             // tbPort
             // 
+            tbPort.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbPort.Location = new Point(252, 6);
             tbPort.Name = "tbPort";
             tbPort.Size = new Size(117, 23);
@@ -72,6 +75,7 @@
             // 
             // lblPort
             // 
+            lblPort.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPort.AutoSize = true;
             lblPort.Location = new Point(214, 9);
             lblPort.Name = "lblPort";
@@ -81,6 +85,7 @@
             // 
             // tbPass
             // 
+            tbPass.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbPass.Location = new Point(252, 35);
             tbPass.Name = "tbPass";
             tbPass.Size = new Size(117, 23);
@@ -88,6 +93,7 @@
             // 
             // lblPassword
             // 
+            lblPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPassword.AutoSize = true;
             lblPassword.Location = new Point(186, 38);
             lblPassword.Name = "lblPassword";
@@ -97,6 +103,7 @@
             // 
             // tbSlot
             // 
+            tbSlot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbSlot.Location = new Point(51, 35);
             tbSlot.Name = "tbSlot";
             tbSlot.Size = new Size(129, 23);
@@ -104,6 +111,7 @@
             // 
             // lblSlot
             // 
+            lblSlot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblSlot.AutoSize = true;
             lblSlot.Location = new Point(15, 38);
             lblSlot.Name = "lblSlot";
@@ -130,6 +138,7 @@
             // 
             // btnSettings
             // 
+            btnSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnSettings.Location = new Point(411, 5);
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new Size(102, 23);
@@ -140,6 +149,7 @@
             // 
             // btnConnect
             // 
+            btnConnect.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnConnect.Location = new Point(411, 34);
             btnConnect.Name = "btnConnect";
             btnConnect.Size = new Size(102, 23);
@@ -150,6 +160,7 @@
             // 
             // pnLog
             // 
+            pnLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnLog.Controls.Add(txbLog);
             pnLog.Location = new Point(12, 104);
             pnLog.Name = "pnLog";
@@ -158,11 +169,12 @@
             // 
             // txbLog
             // 
+            txbLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txbLog.BackColor = Color.White;
-            txbLog.Location = new Point(3, 3);
+            txbLog.Location = new Point(0, 0);
             txbLog.Name = "txbLog";
             txbLog.ReadOnly = true;
-            txbLog.Size = new Size(552, 371);
+            txbLog.Size = new Size(558, 377);
             txbLog.TabIndex = 0;
             txbLog.Text = "";
             // 

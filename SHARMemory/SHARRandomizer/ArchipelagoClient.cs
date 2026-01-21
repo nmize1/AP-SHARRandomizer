@@ -214,6 +214,9 @@ namespace SHARRandomizer
                     hnrEfficiency = Convert.ToInt32(login.SlotData["Filler_HitNRun_Reset_Efficiency"]);
                     levelLock = Convert.ToBoolean(login.SlotData["Lock_Levels"]);
 
+                    MemoryManip.shuffledbumper = ((JArray)login.SlotData["Shuffle_Bumpers"] as JArray).ToObject<List<string>>()!;
+
+
                     var ingameHints = login.SlotData["ingamehints"];
 
                     if (ingameHints is JValue jv && jv.Value is string s && s == "No hints")
