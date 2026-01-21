@@ -109,11 +109,15 @@ namespace SHARRandomizerFrontend
 
                 btnConnect.Text = "Connect";
                 btnConnect.Enabled = true;
+                btnSend.Enabled = false;
                 tbSlot.Enabled = true;
                 tbPort.Enabled = true;
                 tbURL.Enabled = true;
                 tbPass.Enabled = true;
                 txbLog.Clear();
+
+                btnConnect.Focus();
+                this.AcceptButton = btnConnect;
             }
             else
             {
@@ -123,6 +127,8 @@ namespace SHARRandomizerFrontend
                 _ac.URI = $"{tbURL.Text}:{tbPort.Text}";
                 _ac.SLOTNAME = tbSlot.Text;
                 _ac.PASSWORD = tbPass.Text;
+
+                Common.ac = _ac;
 
                 _mm = new MemoryManip(_ac);
                 _ac.mm = _mm;
@@ -134,10 +140,14 @@ namespace SHARRandomizerFrontend
 
                 btnConnect.Text = "Disconnect";
                 btnConnect.Enabled = true;
+                btnSend.Enabled = true;
                 tbSlot.Enabled = false;
                 tbPort.Enabled = false;
                 tbURL.Enabled = false;
                 tbPass.Enabled = false;
+
+                tbMessage.Focus();
+                this.AcceptButton = btnSend;
 
                 cSettings.prevURL = tbURL.Text;
                 cSettings.prevPort = tbPort.Text;
@@ -187,6 +197,12 @@ namespace SHARRandomizerFrontend
         private void btnSettings_Click(object sender, EventArgs e)
         {
             settings.ShowDialog();
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            Common.ac.SendMessage(tbMessage.Text);
+            tbMessage.Clear();
         }
     }
 }

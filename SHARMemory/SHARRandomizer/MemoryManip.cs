@@ -84,7 +84,6 @@ namespace SHARRandomizer
         public static bool checkeredflag;
 
         public bool carwasp = false;
-        public static List<string> shuffledbumper;
 
         uint gameLanguage;
         private Watcher? _watcher;
@@ -285,6 +284,9 @@ namespace SHARRandomizer
 
             switch (WalletLevel)
             {
+                case 0:
+                    language.SetString("ApMaxCoins", "/0");
+                    break;
                 case 1:
                     language.SetString("APMaxCoins", $"/{maxCoins}");
                     break;
@@ -1213,10 +1215,7 @@ namespace SHARRandomizer
                 DISABLEEBRAKE = false;
             }
 
-            if (shuffledbumper.Contains($"{character}"))
-                carwasp = moves.Contains($"{character} Frink-o-Matic Wasp Bumper") ? true : false;
-            else
-                carwasp = false;
+            carwasp = moves.Contains($"{character} Frink-o-Matic Wasp Bumper") ? true : false;
         }
 
         async Task CheckActions(Memory memory)

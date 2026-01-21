@@ -5,6 +5,7 @@ using System.Reflection;
 namespace SHARRandomizer;
 public static class Common
 {
+    public static ArchipelagoClient ac;
     private static readonly string LogFile;
     private static readonly ConcurrentQueue<string> LogQueue;
 

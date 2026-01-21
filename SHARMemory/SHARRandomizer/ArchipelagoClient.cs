@@ -26,12 +26,6 @@ namespace SHARRandomizer
         //readonly RewardTranslations rt = RewardTranslations.LoadFromJson("Configs/Rewards.json");
         //readonly UITranslations uit = UITranslations.LoadFromJson("Configs/UITranslations.json");
 
-        private Process _trackerProcess;
-        private StreamWriter _trackerStdin;
-        private readonly object _outputLock = new();
-        private readonly List<string> _outputBuffer = new();
-        private readonly TaskCompletionSource _trackerReadyTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
-        public event Action<List<string>> LocationsInLogicUpdated;
         private static readonly Random _rng = new();
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset", "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" };
         private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
@@ -201,8 +195,8 @@ namespace SHARRandomizer
                     carAmount = Convert.ToInt32(login.SlotData["Car_Amount"]);
                     MemoryManip.maxCoins = Convert.ToInt32(login.SlotData["Max_Shop_Price"]);
                     MemoryManip.coinScale = Convert.ToInt32(login.SlotData["Shop_Scale_Modifier"]);
-                    MemoryManip.gagfinder = (login.SlotData["Shuffle_Gagfinder"] as JArray)?.Count > 0; ;
-                    MemoryManip.checkeredflag = (login.SlotData["Shuffle_Checkered_Flags"] as JArray)?.Count > 0; ;
+                    MemoryManip.gagfinder = ((JArray)login.SlotData["Shuffle_Gagfinder"])?.Count > 0; ;
+                    MemoryManip.checkeredflag = ((JArray)login.SlotData["Shuffle_Checkered_Flags"])?.Count > 0; ;
                     MemoryManip.cardIDs = ((JArray)login.SlotData["card_locations"]).ToObject<List<long>>()!;
                     JArray costsArray = (JArray)login.SlotData["costs"];
                     ShopCosts = costsArray.ToObject<List<int>>()!;
@@ -213,9 +207,6 @@ namespace SHARRandomizer
                     wrenchEfficiency = Convert.ToInt32(login.SlotData["Filler_Wrench_Efficiency"]) / 100;
                     hnrEfficiency = Convert.ToInt32(login.SlotData["Filler_HitNRun_Reset_Efficiency"]);
                     levelLock = Convert.ToBoolean(login.SlotData["Lock_Levels"]);
-
-                    MemoryManip.shuffledbumper = ((JArray)login.SlotData["Shuffle_Bumpers"] as JArray).ToObject<List<string>>()!;
-
 
                     var ingameHints = login.SlotData["ingamehints"];
 
@@ -228,7 +219,7 @@ namespace SHARRandomizer
                         foreach (var kv in (JObject)login.SlotData["ingamehints"])
                         {
                             long itemID = long.Parse(kv.Key);
-                            var loc = (JArray)kv.Value;
+                            var loc = (JArray)kv.Value!;
 
                             long locID = loc[0].Value<long>();
                             int player = loc[1].Value<int>();
