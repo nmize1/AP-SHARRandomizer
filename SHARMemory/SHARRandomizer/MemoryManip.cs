@@ -285,7 +285,7 @@ namespace SHARRandomizer
             switch (WalletLevel)
             {
                 case 0:
-                    language.SetString("ApMaxCoins", "/0");
+                    language.SetString("APMaxCoins", "/0");
                     break;
                 case 1:
                     language.SetString("APMaxCoins", $"/{maxCoins}");
@@ -476,8 +476,8 @@ namespace SHARRandomizer
             {
                 if (!record[6].Missions.List[6].Completed)
                     success = false;
-                else
-                    UpdateProgress(0, 0, wasps, cards, 0, goal, ac.waspAmount, ac.cardAmount);
+                
+                UpdateProgress(0, 0, wasps, cards, 0, goal, ac.waspAmount, ac.cardAmount);
             }
             else
             {
@@ -832,7 +832,8 @@ namespace SHARRandomizer
                                 case string s when s.Contains("Wallet"):
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     WalletLevel++;
-                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{(maxCoins * WalletLevel * coinScale).ToString()}"));
+                                    int coincap = WalletLevel == 1 ? maxCoins : maxCoins * WalletLevel * coinScale;
+                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{coincap.ToString()}"));
                                     UpdateCoinDrops(memory);                                    
                                     break;
 
