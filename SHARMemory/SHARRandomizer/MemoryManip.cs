@@ -148,6 +148,7 @@ namespace SHARRandomizer
                 watcher.ButtonBound += Watcher_ButtonBound;
                 watcher.NewGame += Watcher_NewGame;
                 watcher.NewTrafficVehicle += Watcher_NewTrafficVehicle;
+                watcher.NewParkedCar += Watcher_NewParkedCar;
                 watcher.InGameWindowChanged += Watcher_InGameWindowChanged;
                 watcher.CurrentEventChanged += Watcher_CurrentEventChanged;
 
@@ -1899,8 +1900,12 @@ namespace SHARRandomizer
 
         private Task Watcher_NewParkedCar(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.ParkedCarManager.NewParkedCarEventArgs e, CancellationToken token)
         {
-            Console.WriteLine($"Locking new parked car: {e.Vehicle} ({e.Vehicle.Name})");
-            e.Vehicle.EventLocator.Flags = SHARMemory.SHAR.Classes.Locator.LocatorFlags.None;
+            if (!UnlockedItems.Contains(e.Vehicle.Name))
+            {
+                Console.WriteLine($"Locking new parked car: {e.Vehicle} ({e.Vehicle.Name})");
+                e.Vehicle.EventLocator.Flags = SHARMemory.SHAR.Classes.Locator.LocatorFlags.None;
+            }
+
             return Task.CompletedTask;
         }
 
