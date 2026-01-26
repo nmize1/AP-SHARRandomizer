@@ -1775,18 +1775,17 @@ namespace SHARRandomizer
             switch (e.NewID)
             {
                 case CGuiManager.WindowID.PhoneBooth:
-                    /*
                     if (e.NewWindow is not CGuiScreenPhoneBooth guiScreenPhoneBooth)
                         break;
 
-                    Console.WriteLine($"Entered phonebooth: {guiScreenPhoneBooth.NumPreviewVehicles} preview vehicles");
+                    Common.WriteLog($"Entered phonebooth: {guiScreenPhoneBooth.NumPreviewVehicles} preview vehicles", "InGameWindowChanged_Phonebooth");
 
                     var previewVehicles = guiScreenPhoneBooth.PreviewVehicles;
                     var vehicles = previewVehicles.ToArray().OrderByDescending(x => x.IsUnlocked).ThenBy(x => x.Name);
                     previewVehicles.FromArray(vehicles.ToArray());
                     guiScreenPhoneBooth.CurrentPreviewVehicle = 0;
                     guiScreenPhoneBooth.NumPreviewVehicles = vehicles.Count(x => x.IsUnlocked);
-                    */
+
                     break;
                 case CGuiManager.WindowID.PurchaseRewards:
                     if (e.NewWindow is not CGuiScreenPurchaseRewards guiScreenPurchaseRewards)
@@ -1895,6 +1894,13 @@ namespace SHARRandomizer
                 ac.SendCompletion();
             }
 
+            return Task.CompletedTask;
+        }
+
+        private Task Watcher_NewParkedCar(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.ParkedCarManager.NewParkedCarEventArgs e, CancellationToken token)
+        {
+            Console.WriteLine($"Locking new parked car: {e.Vehicle} ({e.Vehicle.Name})");
+            e.Vehicle.EventLocator.Flags = SHARMemory.SHAR.Classes.Locator.LocatorFlags.None;
             return Task.CompletedTask;
         }
 

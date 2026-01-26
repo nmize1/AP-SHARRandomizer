@@ -33,4 +33,15 @@ MFK:AddFunction("LoadP3DFile",{"art\\cars\\dune_v.p3d"})
 
 MFK:AddFunction("LoadP3DFile", "art\\frontend\\dynaload\\images\\msnicons\\object\\ApLogoMSN.p3d")
 
+if(Level == 3) then
+	MFK:AddFunction("GagBegin",{"gag_ismv.p3d"})
+	MFK:AddFunction("GagSetPosition",{-147.5, -30, -120})
+	MFK:AddFunction("GagSetRandom",{0})
+	MFK:AddFunction("GagSetCycle",{"reset"})
+	MFK:AddFunction("GagCheckMovie",{"teen", "lisa", "fmv8.rmv", "aztec"})
+	MFK:AddFunction("GagSetTrigger", {"action", -147.5, -30, -120, 2.0})
+	MFK:AddFunction("GagSetSparkle", {1})
+	MFK:AddFunction("GagEnd", {})
+end
+
 MFK:Output(true)

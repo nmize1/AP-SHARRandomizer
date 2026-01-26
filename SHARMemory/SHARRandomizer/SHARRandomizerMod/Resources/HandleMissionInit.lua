@@ -42,7 +42,17 @@ local VehicleFunctions = {
 	["AddDriver"] = 2,
 }
 
+local oldCars = {}
+
+for Old, _ in pairs(LevelTraffic) do
+	oldCars[Old] = true
+end
+
 for Old, New in pairs(LevelTraffic) do
+	if oldCars[New] then
+		New = "redbrick"
+	end
+
 	for FunctionName, FunctionArgument in pairs(VehicleFunctions) do
 		MFK:SetAll(FunctionName, FunctionArgument, New, Old)
 	end
