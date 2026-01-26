@@ -18,10 +18,18 @@ public sealed partial class Globals
     public FeTextBible TextBible => Memory.ClassFactory.Create<FeTextBible>(Memory.ReadUInt32(Memory.SelectAddress(0x6C8944, 0x6C8904, 0x6C8904, 0x6C893C)));
 
     /// <summary>
+    /// A reference to SHAR's <see cref="Classes.ParkedCarManager"/> static global.
+    /// </summary>
+    public ParkedCarManager ParkedCarManager => Memory.ClassFactory.Create<ParkedCarManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6C8444, 0x6C8404, 0x6C8404, 0x6C843C)));
+
+    /// <summary>
     /// A reference to SHAR's <see cref="Classes.RoadManager"/> static global.
     /// </summary>
     public RoadManager RoadManager => Memory.ClassFactory.Create<RoadManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6C85B0, 0x6C8570, 0x6C8570, 0x6C85A8)));
 
+    /// <summary>
+    /// A reference to SHAR's <see cref="Classes.TrafficManager"/> static global.
+    /// </summary>
     public TrafficManager TrafficManager => Memory.ClassFactory.Create<TrafficManager>(Memory.ReadUInt32(Memory.SelectAddress(0x6C8468, 0x6C8428, 0x6C8428, 0x6C8460)));
 
     /// <summary>

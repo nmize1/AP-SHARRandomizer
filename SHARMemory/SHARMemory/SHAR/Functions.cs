@@ -59,6 +59,9 @@ public sealed class Functions
     /// <returns>The Merchandise.</returns>
     public Merchandise GetMerchandise(uint level, uint index)
     {
+        if (Environment.Is64BitProcess)
+            throw new PlatformNotSupportedException("Custom functions are only supported when the host application is 32bit (x86).");
+
         if (GetMerchandiseAddress == IntPtr.Zero)
             GetMerchandiseAddress = _memory.InjectFunction(GetMerchandiseBytes);
 
@@ -126,6 +129,9 @@ public sealed class Functions
     /// <returns>The number of listeners notified.</returns>
     public uint TriggerEvent(Globals.Events @event, uint param = 0)
     {
+        if (Environment.Is64BitProcess)
+            throw new PlatformNotSupportedException("Custom functions are only supported when the host application is 32bit (x86).");
+
         if (TriggerEventAddress == IntPtr.Zero)
             TriggerEventAddress = _memory.InjectFunction(TriggerEventBytes);
 
@@ -175,6 +181,9 @@ public sealed class Functions
     /// <returns>The string value or <c>null</c>.</returns>
     public string LookupString(string name)
     {
+        if (Environment.Is64BitProcess)
+            throw new PlatformNotSupportedException("Custom functions are only supported when the host application is 32bit (x86).");
+
         if (LookupStringAddress == IntPtr.Zero)
             LookupStringAddress = _memory.InjectFunction(LookupStringBytes);
 

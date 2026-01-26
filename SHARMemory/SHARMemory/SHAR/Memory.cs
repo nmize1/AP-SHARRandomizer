@@ -327,17 +327,15 @@ public class Memory : ProcessMemory
         GameVersion = DetectVersion(ref subVersion);
         GameSubVersion = subVersion;
 
-        using (ProcessModule hacksModule = Process.Modules.Cast<ProcessModule>().FirstOrDefault(x => x.ModuleName.Equals("Hacks.dll", StringComparison.OrdinalIgnoreCase)))
+        var hacksModule = Process.Modules.Cast<ProcessModule>().FirstOrDefault(x => x.ModuleName.Equals("Hacks.dll", StringComparison.OrdinalIgnoreCase));
+        if (hacksModule == null)
         {
-            if (hacksModule == null)
-            {
-                IsModLauncherLoaded = false;
-            }
-            else
-            {
-                IsModLauncherLoaded = true;
-                LoadModLauncherOrdinals(hacksModule);
-            }
+            IsModLauncherLoaded = false;
+        }
+        else
+        {
+            IsModLauncherLoaded = true;
+            LoadModLauncherOrdinals(hacksModule);
         }
 
         Globals = new(this);
