@@ -15,6 +15,21 @@ local function is_replaced(x)
     return false
 end
 
+local CollCars = {}
+local TrafficList = {}
+local function find_next_traffic(startIndex)
+	for offset = 1, 5 do
+		local idx = ((startIndex + offset - 1) % 5) + 1
+		local car = TrafficList[idx]
+
+		if not CollCars[car] then
+			return LevelTraffic[car]
+		end
+	end
+
+	return "redbrick"
+end
+
 if Level == 1 and Mission == 0 then
 	print("Handling Tutorial")
 	local MFK = MFKLexer.Lexer:New()
@@ -42,21 +57,40 @@ local VehicleFunctions = {
 	["AddDriver"] = 2,
 }
 
-local oldCars = {}
 
-for Old, _ in pairs(LevelTraffic) do
-	oldCars[Old] = true
-end
-
-for Old, New in pairs(LevelTraffic) do
-	if oldCars[New] then
-		New = "redbrick"
-	end
-
+for Old, New in ipairs(LevelTraffic) do
+    table.insert(TrafficList, Old)
 	for FunctionName, FunctionArgument in pairs(VehicleFunctions) do
-		MFK:SetAll(FunctionName, FunctionArgument, New, Old)
+		local fn = MFK:GetFunction(FunctionName)
+
+		if fn and tostring(fn):find(Old, 1, true) then
+			CollCars[Old] = true
+			break
+		end
 	end
 end
+
+for i, Old in ipairs(TrafficList) do
+	if CollCars[Old] then
+		LevelTraffic[Old] = find_next_traffic(i)
+	end
+end
+
+local rbc = 0
+for _, car in pairs(LevelTraffic) do
+    if car == "redbrick" then
+        rbc = rbc + 1
+    end
+end
+
+if rbc < 2 then
+	for Old, New in pairs(LevelTraffic) do
+		for FunctionName, FunctionArgument in pairs(VehicleFunctions) do
+			MFK:SetAll(FunctionName, FunctionArgument, New, Old)
+		end
+	end
+end
+
 
 for Function, Index in MFK:GetFunctions("AddStageVehicle", true) do
 	if is_replaced(Function.Arguments[1]) then
