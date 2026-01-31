@@ -204,7 +204,7 @@ namespace SHARRandomizer
                     ehp = Convert.ToBoolean(login.SlotData["Extra_Hint_Policy"]);
                     MemoryManip.VerifyID = (string)login.SlotData["VerifyID"];
                     timerMod = 1.0 + Convert.ToInt32(login.SlotData["Mission_Timers"]) / 100;
-                    wrenchEfficiency = Convert.ToInt32(login.SlotData["Filler_Wrench_Efficiency"]) / 100;
+                    wrenchEfficiency = Convert.ToInt32(login.SlotData["Filler_Wrench_Efficiency"]);
                     hnrEfficiency = Convert.ToInt32(login.SlotData["Filler_HitNRun_Reset_Efficiency"]);
                     levelLock = Convert.ToBoolean(login.SlotData["Lock_Levels"]);
 

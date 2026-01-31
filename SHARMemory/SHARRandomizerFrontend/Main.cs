@@ -99,67 +99,77 @@ namespace SHARRandomizerFrontend
 
             if (_connected)
             {
-                btnConnect.Enabled = false;
-                _connected = false;
-
-                _ac?.Disconnect();
-                _mm?.Stop();
-
-                await Task.Delay(100);
-
-                btnConnect.Text = "Connect";
-                btnConnect.Enabled = true;
-                btnSend.Enabled = false;
-                tbSlot.Enabled = true;
-                tbPort.Enabled = true;
-                tbURL.Enabled = true;
-                tbPass.Enabled = true;
-                txbLog.Clear();
-
-                btnConnect.Focus();
-                this.AcceptButton = btnConnect;
+                await update_ui_disconnected();
             }
             else
             {
-                btnConnect.Enabled = true;
-
-                _ac = new ArchipelagoClient();
-                _ac.URI = $"{tbURL.Text}:{tbPort.Text}";
-                _ac.SLOTNAME = tbSlot.Text;
-                _ac.PASSWORD = tbPass.Text;
-
-                Common.ac = _ac;
-
-                _mm = new MemoryManip(_ac);
-                _ac.mm = _mm;
-                _ac.ConnectionSucceeded += OnConnect;
-                _ac.ConnectionFailed += OnDisconnect;
-
-                _ = Task.Run(() => _ac.Connect());
-                _ = Task.Run(() => _mm.MemoryStart());
-
-                btnConnect.Text = "Disconnect";
-                btnConnect.Enabled = true;
-                btnSend.Enabled = true;
-                tbSlot.Enabled = false;
-                tbPort.Enabled = false;
-                tbURL.Enabled = false;
-                tbPass.Enabled = false;
-
-                tbMessage.Focus();
-                this.AcceptButton = btnSend;
-
-                cSettings.prevURL = tbURL.Text;
-                cSettings.prevPort = tbPort.Text;
-                cSettings.prevSlot = tbSlot.Text;
-                cSettings.prvPass = tbPass.Text;
-                SettingsManager.Save(cSettings);
+                await update_ui_connected();
             }
+        }
+
+        async Task update_ui_disconnected()
+        {
+            btnConnect.Enabled = false;
+            _connected = false;
+
+            _ac?.Disconnect();
+            _mm?.Stop();
+
+            await Task.Delay(100);
+
+            btnConnect.Text = "Connect";
+            btnConnect.Enabled = true;
+            btnSend.Enabled = false;
+            tbSlot.Enabled = true;
+            tbPort.Enabled = true;
+            tbURL.Enabled = true;
+            tbPass.Enabled = true;
+            txbLog.Clear();
+
+            btnConnect.Focus();
+            this.AcceptButton = btnConnect;
+        }
+
+        async Task update_ui_connected()
+        {
+            btnConnect.Enabled = false;
+
+            _ac = new ArchipelagoClient();
+            _ac.URI = $"{tbURL.Text}:{tbPort.Text}";
+            _ac.SLOTNAME = tbSlot.Text;
+            _ac.PASSWORD = tbPass.Text;
+
+            Common.ac = _ac;
+
+            _mm = new MemoryManip(_ac);
+            _ac.mm = _mm;
+            _ac.ConnectionSucceeded += OnConnect;
+            _ac.ConnectionFailed += OnDisconnect;
+
+            _ = Task.Run(() => _ac.Connect());
+            _ = Task.Run(() => _mm.MemoryStart());
+
+            btnConnect.Text = "Disconnect";
+            btnConnect.Enabled = true;
+            btnSend.Enabled = true;
+            tbSlot.Enabled = false;
+            tbPort.Enabled = false;
+            tbURL.Enabled = false;
+            tbPass.Enabled = false;
+
+            tbMessage.Focus();
+            this.AcceptButton = btnSend;
+
+            cSettings.prevURL = tbURL.Text;
+            cSettings.prevPort = tbPort.Text;
+            cSettings.prevSlot = tbSlot.Text;
+            cSettings.prvPass = tbPass.Text;
+            SettingsManager.Save(cSettings);
         }
 
         void OnConnect()
         {
-            this.Invoke(new Action(() =>
+            this.Invoke(new Action(async () =>
             {
                 _connected = true;
             }));
@@ -167,9 +177,10 @@ namespace SHARRandomizerFrontend
 
         void OnDisconnect()
         {
-            this.Invoke(new Action(() =>
+            this.Invoke(new Action(async () =>
             {
                 _connected = false;
+                await update_ui_disconnected();
             }));
 
             MessageBox.Show("Failed to connect. Double check your connection info.");

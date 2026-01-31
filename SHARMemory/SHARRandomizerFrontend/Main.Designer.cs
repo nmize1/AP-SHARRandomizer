@@ -197,6 +197,7 @@
             // 
             // btnSend
             // 
+            btnSend.Enabled = false;
             btnSend.Location = new Point(474, 3);
             btnSend.Name = "btnSend";
             btnSend.Size = new Size(75, 23);
