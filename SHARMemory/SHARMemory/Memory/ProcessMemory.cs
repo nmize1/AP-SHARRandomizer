@@ -46,6 +46,9 @@ public class ProcessMemory : IDisposable
     internal const uint MEM_DECOMMIT = 0x00004000;
     internal const uint MEM_RELEASE = 0x00008000;
     internal const uint PAGE_READWRITE = 4;
+    internal const uint PAGE_EXECUTE = 0x10;
+    internal const uint PAGE_EXECUTE_READ = 0x20;
+    internal const uint PAGE_EXECUTE_READWRITE = 0x40;
 
     [Flags]
     internal enum LoadLibraryFlags : uint
@@ -1326,7 +1329,7 @@ public class ProcessMemory : IDisposable
                 throw new Win32Exception(Marshal.GetLastWin32Error());
 
             uint funcSize = (uint)Bytes.Length;
-            IntPtr funcMemoryAddress = VirtualAllocEx(procHandle, IntPtr.Zero, funcSize, MEM_COMMIT | MEM_RESERVE, 0x40);
+            IntPtr funcMemoryAddress = VirtualAllocEx(procHandle, IntPtr.Zero, funcSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 
             if (funcMemoryAddress == IntPtr.Zero)
                 throw new Win32Exception(Marshal.GetLastWin32Error());

@@ -131,6 +131,9 @@ public class Memory : ProcessMemory
 
         GUIScreenRewards_MaxSkinPreviews = 3361,
         GUIScreenRewards_SkinPreviewsOffset = 3366,
+
+        MaxTriggers = 538,
+        TriggersOffset = 541,
     }
     /// <summary>
     /// A <c>Dictionary</c> containing a list of ordinals used by <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" /> and their addresses.

@@ -128,6 +128,12 @@ public sealed class Singletons
     /// </summary>
     public SoundManager SoundManager => SoundManagerSingleton.Get();
 
+    private readonly Singleton<TriggerVolumeTracker> TriggerVolumeTrackerSingleton;
+    /// <summary>
+    /// A reference to SHAR's <see cref="Classes.TriggerVolumeTracker"/> singleton.
+    /// </summary>
+    public TriggerVolumeTracker TriggerVolumeTracker => TriggerVolumeTrackerSingleton.Get();
+
     private readonly Singleton<VehicleCentral> VehicleCentralSingleton;
     /// <summary>
     /// A reference to SHAR's <see cref="Classes.VehicleCentral"/> singleton.
@@ -156,6 +162,7 @@ public sealed class Singletons
         RenderManagerSingleton = new(memory, memory.SelectAddress(0x6C87B4, 0x6C8774, 0x6C8774, 0x6C87AC));
         RewardsManagerSingleton = new(memory, memory.SelectAddress(0x6C8988, 0x6C8948, 0x6C8948, 0x6C8980));
         SoundManagerSingleton = new(memory, memory.SelectAddress(0x6C8590, 0x6C8550, 0x6C8550, 0x6C8588));
+        TriggerVolumeTrackerSingleton = new(memory, memory.SelectAddress(0x6C8410, 0x6C83D0, 0x6C83D0, 0x6C8408));
         VehicleCentralSingleton = new(memory, memory.SelectAddress(0x6C84D8, 0x6C8498, 0x6C8498, 0x6C84D0));
     }
 }

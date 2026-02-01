@@ -45,6 +45,8 @@ public sealed partial class Globals
     /// </summary>
     public FeTextBibleHandler FeTextBible { get; }
 
+    public DialogLineHandler DialogLine { get; }
+
     private readonly uint LevelCountAddress;
     /// <summary>
     /// A <c>byte</c> containing how many levels in the game. Usually 7, but can differ when using <see href="https://modbakery.donutteam.com/releases/view/lucas-mod-launcher" langword=" (Lucas' Mod Launcher)" />.
@@ -213,6 +215,7 @@ public sealed partial class Globals
         CharacterTune = new(Memory);
         Cheats = new(Memory);
         FeTextBible = new(Memory);
+        DialogLine = new(Memory);
 
         LevelCountAddress = Memory.SelectAddress(0x4798A8, 0x479748, 0x479618, 0x4793D8) + 3;
 
