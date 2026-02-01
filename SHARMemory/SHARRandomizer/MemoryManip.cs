@@ -1718,7 +1718,7 @@ namespace SHARRandomizer
                     break;
                 case VICTORY.Cars:
                     ret += "Cars:\n";
-                    ret += $"Cars: {cars:D2}/81\n";
+                    ret += $"Cars: {cars:D2}/{rcar}\n";
                     break;
                 default:
                     ret += "Goal failed to load?\n";
