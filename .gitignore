@@ -351,3 +351,8 @@ MigrationBackup/
 /SHARMemory/SHARRandomizer/SHARRandomizerMod/SHARAP.lmlm
 /SHARMemory/SHARRandomizer/Saves
 *.lmlm
+/SHARMemory/SHARRandomizer/SHARRandomizerMod/Resources/art/doorbells.p3d
+/SHARMemory/SHARRandomizer/SHARRandomizerMod/Resources/art/archroom.p3d
+/SHARMemory/SHARRandomizer/SHARRandomizerMod/CustomFiles/art/archroom.p3d
+/SHARMemory/SHARRandomizer/SHARRandomizerMod/CustomFiles/art/doorbells.p3d
+/SHARMemory/SHARRandomizer/SHARRandomizerMod/CustomFiles/scripts/missions/level07/m8sdi.mfk
