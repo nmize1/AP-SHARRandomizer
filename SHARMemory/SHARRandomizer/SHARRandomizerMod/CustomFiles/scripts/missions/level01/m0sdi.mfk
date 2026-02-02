@@ -1,0 +1,20 @@
+SelectMission("m0sd");
+
+SetMissionResetPlayerOutCar("m0_homer_start", "level1_carstart");
+SetDynaLoadData("archroom.p3d;doorbells.p3d;");
+
+UsePedGroup( 0 );
+
+AddStage(0);
+	AddObjective("dummy");
+	CloseObjective();
+CloseStage();
+
+AddStage("final");
+	AddObjective("timer");
+		SetDurationTime(0);
+	CloseObjective();
+	SetLevelOver();
+CloseStage();
+
+CloseMission();

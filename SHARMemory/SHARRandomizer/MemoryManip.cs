@@ -91,6 +91,8 @@ namespace SHARRandomizer
         private TrapHandler _trapHandler;
         private TrapWatcher _trapWatcher;
 
+        private bool ResetLevelOverTarget = false;
+
         public MemoryManip(ArchipelagoClient ac)
         {
             this.ac = ac;
@@ -137,6 +139,7 @@ namespace SHARRandomizer
                 watcher.Error += Watcher_Error;
                 watcher.CardCollected += Watcher_CardCollected;
                 watcher.MissionStageChanged += Watcher_MissionStageChanged;
+                watcher.MissionIndexChanged += Watcher_MissionIndexChanged;
                 watcher.MissionComplete += Watcher_MissionComplete;
                 watcher.BonusMissionComplete += Watcher_BonusMissionComplete;
                 watcher.StreetRaceComplete += Watcher_StreetRaceComplete;
@@ -1734,11 +1737,21 @@ namespace SHARRandomizer
                 language.SetString("APProgress", ret);
         }
 
+        private static void SetLevelOverTarget(SHARMemory.SHAR.Memory memory, byte level, byte mission)
+        {
+            memory.WriteBytes(memory.SelectAddress(0x482A4B, 0x4828DB, 0x4827AB, 0x48256B),
+                [
+                    0x6A, mission, // PUSH mission
+                    0x6A, level    // PUSH level
+                ]);
+        }
+
         Task Watcher_DialogPlaying(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.SoundManager.DialogPlayingEventArgs e, CancellationToken token)
         {
-            Common.WriteLog(e.Dialog.Event, "Watcher_DialogPlaying");
+            var dialog = e.Dialog;
+            Common.WriteLog(dialog.Event, "Watcher_DialogPlaying");
 
-            if (e.Dialog.Event.ToString() == "HAGGLING_WITH_GIL")
+            if (dialog.Event == SHARMemory.SHAR.Globals.Events.HAGGLING_WITH_GIL)
             {
                 Common.WriteLog($"Spoke to Gil on level {CURRENTLEVEL}", "Watcher_DialogPlaying");
                 Dictionary<long, string> locsToScout = [];
@@ -1752,8 +1765,68 @@ namespace SHARRandomizer
                 ac.ScoutShopLocation(locsToScout.Keys.ToArray());
             }
 
-            //else if (e.Dialog.Event.ToString() == "DING_DONG")
-                //InitiateLevelLoad(sender, 1);
+            else if (dialog.Event == SHARMemory.SHAR.Globals.Events.DING_DONG)
+            {
+                if (sender.Globals.GameplayManager is not MissionManager missionManager)
+                    return Task.CompletedTask;
+
+                if (missionManager.CurrentMission != 0)
+                    return Task.CompletedTask;
+
+                var levelData = missionManager.LevelData;
+                if (levelData.Level != 0)
+                    return Task.CompletedTask;
+
+                var dialogLine = (DialogLine)dialog;
+                var characterName = dialogLine.GetCharacterName();
+                Common.WriteLog($"Doorbell pressed: {characterName}", "DING_DONG");
+
+                switch (characterName)
+                {
+                    case "level1":
+                        SetLevelOverTarget(sender, 0, 1);
+                        break;
+                    case "level2":
+                        SetLevelOverTarget(sender, 1, 0);
+                        break;
+                    case "level3":
+                        SetLevelOverTarget(sender, 2, 0);
+                        break;
+                    case "level4":
+                        SetLevelOverTarget(sender, 3, 0);
+                        break;
+                    case "level5":
+                        SetLevelOverTarget(sender, 4, 0);
+                        break;
+                    case "level6":
+                        SetLevelOverTarget(sender, 5, 0);
+                        break;
+                    case "level7":
+                        SetLevelOverTarget(sender, 6, 0);
+                        break;
+                    default:
+                        return Task.CompletedTask;
+                }
+
+                ResetLevelOverTarget = true;
+
+                var objective = missionManager.Missions[0].GetCurrentStage()?.Objective;
+                if (objective != null)
+                    objective.Finished = true;
+
+                return Task.CompletedTask;
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private Task Watcher_MissionIndexChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionIndexChangedEventArgs e, CancellationToken token)
+        {
+            if (ResetLevelOverTarget)
+            {
+                SetLevelOverTarget(sender, 0, 0);
+                ResetLevelOverTarget = false;
+            }
 
             return Task.CompletedTask;
         }

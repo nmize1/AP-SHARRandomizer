@@ -3,8 +3,8 @@ local Path = GetPath()
 local Level, Mission = Path:match("scripts[\\/]missions[\\/]level0(%d)[\\/]m(%d)sdi.mfk")
 Level, Mission = tonumber(Level), tonumber(Mission)
 
-if Mission > 7 then
-	-- Don't mess with cutscenes
+if Mission < 1 or Mission > 7 then
+	-- Don't mess with cutscenes or tutorial
 	print("Not adding dummy to cutscene.")
 	return
 end
@@ -43,11 +43,9 @@ local function AddStages(idx, dummy)
 		MFK:InsertFunction(idx, "CloseObjective")
 		idx = idx + 1
 		MFK:InsertFunction(idx, "CloseStage")
-		idx = idx + 1
-	
+		idx = idx + 1	
 		MFK:InsertFunction(idx, "AddStage", {"locked", "car", CarLock})
 		idx = idx + 1
-		print(indexes.IngameMessageIdx)
 		MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.IngameMessageIdx)
 		idx = idx + 1
 		MFK:InsertFunction(idx, "AddObjective", "timer")
@@ -57,11 +55,9 @@ local function AddStages(idx, dummy)
 		MFK:InsertFunction(idx, "CloseObjective")
 		idx = idx + 1
 		MFK:InsertFunction(idx, "CloseStage")
-		idx = idx + 1
-	
+		idx = idx + 1	
 		MFK:InsertFunction(idx, "AddStage")
 		idx = idx + 1
-		print(indexes.MissionObjectiveIdx)
 		MFK:InsertFunction(idx, "SetStageMessageIndex", indexes.MissionObjectiveIdx)
 		idx = idx + 1
 		MFK:InsertFunction(idx, "SetHUDIcon", "aplogomsn")
