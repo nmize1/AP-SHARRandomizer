@@ -4,7 +4,7 @@ local P3DFile = P3D.P3DFile(GamePath)
 
 local SkeletonChunkOrig = P3DFile:GetChunk(P3D.Identifiers.Skeleton, true, "level1_switch")
 local AnimCollChunkOrig = P3DFile:GetChunk(P3D.Identifiers.Anim_Coll, true, "level1_switch")
-local LocatorChunkOrig = P3DFile:GetChunk(P3D.Identifiers.Locator, true, "Level1")
+
 local xOffset = 4.4
 local zOffset = 3.95
 
@@ -12,12 +12,13 @@ local zOffset = 3.95
 for i=2,7 do
 	SkeletonChunk = SkeletonChunkOrig:Clone()
 	AnimCollChunk = AnimCollChunkOrig:Clone()
-	LocatorChunk = LocatorChunkOrig:Clone()
 	
 	P3DFile:AddChunk(SkeletonChunk)
 	P3DFile:AddChunk(AnimCollChunk)
-	P3DFile:AddChunk(LocatorChunk)
-	
+
+	local CompositeDrawableProp = AnimCollChunk.Chunks[2].Chunks[2].Chunks[1]
+	CompositeDrawableProp.Name = tostring(i)
+
 	SkeletonChunk.Name = "level" .. i .. "_switch"
 
 	local SkeletonJoint = SkeletonChunk.Chunks[1]
@@ -36,13 +37,6 @@ for i=2,7 do
 		local MultiControllerTracks = MultiController:GetChunk(P3D.Identifiers.Multi_Controller_Tracks)
 		MultiControllerTracks.Tracks = {}
 	end
-	
-	LocatorChunk.Name = "Level" .. i
-	LocatorChunk.JointName = SkeletonChunk.Name
-	LocatorChunk.ObjectName = "DB_level" .. i
-	local TriggerVolume = LocatorChunk:GetChunk(P3D.Identifiers.Trigger_Volume)
-	TriggerVolume.Name = "Level" .. i .. "Trigger"
-	local LocatorMatrix = LocatorChunk:GetChunk(P3D.Identifiers.Locator_Matrix)
 
 	local shiftX = 0
 	local shiftZ = 0
@@ -50,12 +44,12 @@ for i=2,7 do
 	local rOffset = 2
 
 	local transforms = {
-		[2] = {x = -rOffset,           z = zOffset,   flip = true},
-		[3] = {x = -xOffset,           z = 0,         flip = false},
-		[4] = {x = -xOffset-rOffset,   z = zOffset,   flip = true},
-		[5] = {x = -xOffset*2,         z = 0,         flip = false},
-		[6] = {x = -xOffset*2-rOffset, z = zOffset,   flip = true},
-		[7] = {x = -xOffset*2.76,	   z = 1,	      flip = false},
+		[2] = {x = -rOffset,             z = zOffset,   flip = true},
+		[3] = {x = -xOffset,      z = 0,         flip = false},
+		[4] = {x = -xOffset-rOffset,      z = zOffset,   flip = true},
+		[5] = {x = -xOffset*2,    z = 0,         flip = false},
+		[6] = {x = -xOffset*2-rOffset,    z = zOffset,   flip = true},
+		[7] = {x = -xOffset*2.76, z = 1,	     flip = false},
 	}
 
 	local shiftX, shiftZ, flip = 0, 0, false
@@ -82,9 +76,6 @@ for i=2,7 do
 			restPose.M31 = m33
 			restPose.M32 = m32
 			restPose.M33 = -m31
-
-			LocatorMatrix.Matrix.M31 = -1
-			LocatorMatrix.Matrix.M33 = 0
 		end
 	end
 
@@ -93,21 +84,10 @@ for i=2,7 do
 		restPose.M13 = -restPose.M13
 		restPose.M31 = -restPose.M31
 		restPose.M33 = -restPose.M33
-
-		LocatorMatrix.Matrix.M33 = -LocatorMatrix.Matrix.M33
 	end
 
 	restPose.M41 = restPose.M41 + shiftX
 	restPose.M43 = restPose.M43 + shiftZ
-
-	LocatorChunk.Position.X = LocatorChunk.Position.X + shiftX
-	LocatorChunk.Position.Z = LocatorChunk.Position.Z + shiftZ
-
-	TriggerVolume.Matrix.M41 = TriggerVolume.Matrix.M41 + shiftX
-	TriggerVolume.Matrix.M43 = TriggerVolume.Matrix.M43 + shiftZ
-
-	LocatorMatrix.Matrix.M41 = LocatorMatrix.Matrix.M41 + shiftX
-	LocatorMatrix.Matrix.M43 = LocatorMatrix.Matrix.M43 + shiftZ
 end
 
 P3DFile:Output()

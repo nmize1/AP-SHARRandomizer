@@ -1,12 +1,14 @@
 SelectMission("m0sd");
 
+EnableTutorialMode( false );
 SetMissionResetPlayerOutCar("m0_homer_start", "level1_carstart");
-SetDynaLoadData("archroom.p3d;doorbells.p3d;");
+SetDynaLoadData("archroom.p3d;doorbells.p3d;doorplates.p3d;");
 
 UsePedGroup( 0 );
 
 AddStage(0);
 	AddObjective("dummy");
+	AddNPC("teen", "Counter");
 	CloseObjective();
 CloseStage();
 

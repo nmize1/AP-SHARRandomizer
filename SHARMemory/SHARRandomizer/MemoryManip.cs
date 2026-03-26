@@ -91,7 +91,7 @@ namespace SHARRandomizer
         private TrapHandler _trapHandler;
         private TrapWatcher _trapWatcher;
 
-        private bool ResetLevelOverTarget = false;
+        private (int, int) LevelOverTarget = (0, 0);
 
         public MemoryManip(ArchipelagoClient ac)
         {
@@ -404,7 +404,7 @@ namespace SHARRandomizer
                     if (ac.requiredLevels[i])
                     {
                         MissionList missions = record[i].Missions;
-                        for (int j = 0; j < 8; j++)
+                        for (int j = 0; j < 7; j++)
                         {
                             if (!missions.List[j].Completed)
                                 success = false;
@@ -427,8 +427,6 @@ namespace SHARRandomizer
                                 else
                                     finBonus++;
                             }
-
-                            Console.WriteLine(races);
                         }
                     }
                 }
@@ -1737,8 +1735,10 @@ namespace SHARRandomizer
                 language.SetString("APProgress", ret);
         }
 
-        private static void SetLevelOverTarget(SHARMemory.SHAR.Memory memory, byte level, byte mission)
+        private void SetLevelOverTarget(SHARMemory.SHAR.Memory memory, byte level, byte mission)
         {
+            Common.WriteLog($"{level} : {mission}", "SetLevelOverTarget");
+            LevelOverTarget = (level, mission);
             memory.WriteBytes(memory.SelectAddress(0x482A4B, 0x4828DB, 0x4827AB, 0x48256B),
                 [
                     0x6A, mission, // PUSH mission
@@ -1785,6 +1785,10 @@ namespace SHARRandomizer
                 {
                     case "level1":
                         SetLevelOverTarget(sender, 0, 1);
+                        sender.WriteBytes(sender.SelectAddress(0x47EDB5, 0x47EC35, 0x47EB05, 0x47E8C5),
+                        [
+                            0x90, 0x90
+                        ]);
                         break;
                     case "level2":
                         SetLevelOverTarget(sender, 1, 0);
@@ -1808,8 +1812,6 @@ namespace SHARRandomizer
                         return Task.CompletedTask;
                 }
 
-                ResetLevelOverTarget = true;
-
                 var objective = missionManager.Missions[0].GetCurrentStage()?.Objective;
                 if (objective != null)
                     objective.Finished = true;
@@ -1822,10 +1824,19 @@ namespace SHARRandomizer
 
         private Task Watcher_MissionIndexChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionIndexChangedEventArgs e, CancellationToken token)
         {
-            if (ResetLevelOverTarget)
+            if (((int?)e.NewLevel, (int?)e.NewMission) == LevelOverTarget)
             {
-                SetLevelOverTarget(sender, 0, 0);
-                ResetLevelOverTarget = false;
+                Common.WriteLog($"{(int?)e.NewLevel} - {(int?) e.NewMission}", "mic");
+                //SetLevelOverTarget(sender, 0, 0);
+                LevelOverTarget = (0,0);
+
+                if ((int?)e.NewLevel == 1)
+                {
+                    sender.WriteBytes(sender.SelectAddress(0x47EDB5, 0x47EC35, 0x47EB05, 0x47E8C5),
+                    [
+                        0x74, 0x38
+                    ]);
+                }
             }
 
             return Task.CompletedTask;

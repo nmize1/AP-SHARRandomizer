@@ -1,9 +1,26 @@
-﻿if not P3DFiles then
+﻿local Path = GetPath()
+local GamePath = GetGamePath(Path)
+
+local Match = Path:lower()
+if Match:match("^art[\\/]doorbells%.p3d$") then
+    dofile(GetModPath() .. "/Resources/HandleDoorbells.lua")
+    return
+end
+
+if Match:match("^art[\\/]doorplates%.p3d$") then
+    dofile(GetModPath() .. "/Resources/HandleDoorplates.lua")
+    return
+end
+
+if Match:match("^art[\\/]returndoorbell%.p3d$") then
+    dofile(GetModPath() .. "/Resources/HandleReturnDoorbell.lua")
+    return
+end
+
+if not P3DFiles then
 	return
 end
 
-local Path = GetPath()
-local GamePath = GetGamePath(Path)
 
 if not P3DFiles[GamePath] then
 	return
