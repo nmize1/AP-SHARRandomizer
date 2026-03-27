@@ -3,19 +3,6 @@ local GamePath = GetGamePath(Path)
 
 local SPT = SPTParser.SPTFile(GamePath)
 
-for carSoundParameters in SPT:GetClasses("carSoundParameters") do
-	for method, index in carSoundParameters:GetMethods(true) do
-		local name = method.Name
-		if name == "SetEngineClipName" or name == "SetEngineIdleClipName" then
-			if method.Parameters[1] == "tt" then
-				method.Parameters[1] = "apu_car"
-			end
-		--elseif name == "SetOverlayClipName" and method.Parameters[1] == "generator" then -- Fucking Radical and their broken ass Monorail
-			--carSoundParameters:RemoveMethod(index)
-		end
-	end
-end
-
 local redbrick = SPT:GetClass("carSoundParameters", false, "redbrick")
 for i=1,21 do
 	local class = SPTParser.Class("carSoundParameters", "APCar" .. i)
@@ -30,7 +17,7 @@ end
 sclass = SPT:GetClass("carSoundParameters", false, "bookb_v")
 
 if sclass then
-	smethod = sclass:GetMethod(false, "SetOverlayClipName")
+	local smethod = sclass:GetMethod(false, "SetOverlayClipName")
 	if smethod then
 		smethod.Parameters[1] = "book_fire"
 	end
@@ -39,7 +26,7 @@ end
 sclass = SPT:GetClass("carSoundParameters", false, "mono_v")
 
 if sclass then
-	smethod = sclass:GetMethod(false, "SetOverlayClipName")
+	local smethod = sclass:GetMethod(false, "SetOverlayClipName")
 	if smethod then
 		smethod.Parameters[1] = "generator"
 	end

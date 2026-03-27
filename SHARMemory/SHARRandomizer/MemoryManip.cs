@@ -1780,15 +1780,15 @@ namespace SHARRandomizer
                 var dialogLine = (DialogLine)dialog;
                 var characterName = dialogLine.GetCharacterName();
                 Common.WriteLog($"Doorbell pressed: {characterName}", "DING_DONG");
+                sender.WriteBytes(sender.SelectAddress(0x47EDB5, 0x47EC35, 0x47EB05, 0x47E8C5),
+                [
+                    0x90, 0x90
+                ]);
 
                 switch (characterName)
                 {
                     case "level1":
                         SetLevelOverTarget(sender, 0, 1);
-                        sender.WriteBytes(sender.SelectAddress(0x47EDB5, 0x47EC35, 0x47EB05, 0x47E8C5),
-                        [
-                            0x90, 0x90
-                        ]);
                         break;
                     case "level2":
                         SetLevelOverTarget(sender, 1, 0);
@@ -1824,19 +1824,14 @@ namespace SHARRandomizer
 
         private Task Watcher_MissionIndexChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionIndexChangedEventArgs e, CancellationToken token)
         {
+
             if (((int?)e.NewLevel, (int?)e.NewMission) == LevelOverTarget)
             {
+                Common.WriteLog($"{(int?)e.LastLevel} - {(int?)e.LastMission}", "mic");
                 Common.WriteLog($"{(int?)e.NewLevel} - {(int?) e.NewMission}", "mic");
-                //SetLevelOverTarget(sender, 0, 0);
+                SetLevelOverTarget(sender, 0, 0);
                 LevelOverTarget = (0,0);
 
-                if ((int?)e.NewLevel == 1)
-                {
-                    sender.WriteBytes(sender.SelectAddress(0x47EDB5, 0x47EC35, 0x47EB05, 0x47E8C5),
-                    [
-                        0x74, 0x38
-                    ]);
-                }
             }
 
             return Task.CompletedTask;

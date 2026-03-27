@@ -4,9 +4,9 @@ local P3DFile = P3D.P3DFile(GamePath)
 
 local level = GetCurrentLevel()
 
-local SkeletonChunk = P3DFile:GetChunk(P3D.Identifiers.Skeleton, true, "level1_switch")
-local AnimCollChunk = P3DFile:GetChunk(P3D.Identifiers.Anim_Coll, true, "level1_switch")
-local LocatorChunk = P3DFile:GetChunk(P3D.Identifiers.Locator, true, "Level1")
+local SkeletonChunk = P3DFile:GetChunk(P3D.Identifiers.Skeleton, true, "level0_switch")
+local AnimCollChunk = P3DFile:GetChunk(P3D.Identifiers.Anim_Coll, true, "level0_switch")
+local LocatorChunk = P3DFile:GetChunk(P3D.Identifiers.Locator, true, "Level0")
 local TriggerVolume = LocatorChunk:GetChunk(P3D.Identifiers.Trigger_Volume)
 local LocatorMatrix = LocatorChunk:GetChunk(P3D.Identifiers.Locator_Matrix)
 
