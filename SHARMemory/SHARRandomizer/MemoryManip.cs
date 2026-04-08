@@ -835,7 +835,7 @@ namespace SHARRandomizer
                                     Common.WriteLog($"Received {s}", "GetItems");
                                     WalletLevel++;
                                     int coincap = WalletLevel == 1 ? maxCoins : maxCoins * WalletLevel * coinScale;
-                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? "" : $"/{coincap.ToString()}"));
+                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? " " : $"/{coincap.ToString()}"));
                                     UpdateCoinDrops(memory);                                    
                                     break;
 
@@ -1532,11 +1532,20 @@ namespace SHARRandomizer
                         var car = listener.memory.Singletons.CharacterManager?.Player?.Car;
                         if (car != null)
                         {
-                            var maxHP = car.DesignerParams.HitPoints;
-                            var healAmount = (maxHP * ac.wrenchEfficiency) / 100;
+                            var hp = car.Name == "huskA" ? 0 : car.HitPoints;
+                            if (ac.wrenchEfficiency == 100 || car.Name == "huskA")
+                            {
+                                listener.memory.Globals.GameplayManager.RepairCurrentVehicle();
+                                car = listener.memory.Singletons.CharacterManager?.Player?.Car;
+                            }
 
+                            if (ac.wrenchEfficiency < 100)
+                            {
+                                var maxHP = car.DesignerParams.HitPoints;
+                                var healAmount = (maxHP * ac.wrenchEfficiency) / 100;
+                                car.HitPoints = Math.Min(hp + healAmount, maxHP);
+                            }
 
-                            car.HitPoints = Math.Min(car.HitPoints + healAmount, maxHP);
                             fillerInventory["Wrench"]--;
                         }
                     }
@@ -1770,12 +1779,12 @@ namespace SHARRandomizer
                 if (sender.Globals.GameplayManager is not MissionManager missionManager)
                     return Task.CompletedTask;
 
-                if (missionManager.CurrentMission != 0)
-                    return Task.CompletedTask;
+                //if (missionManager.CurrentMission != 0)
+                //    return Task.CompletedTask;
 
-                var levelData = missionManager.LevelData;
-                if (levelData.Level != 0)
-                    return Task.CompletedTask;
+                //var levelData = missionManager.LevelData;
+                //if (levelData.Level != 0)
+                //    return Task.CompletedTask;
 
                 var dialogLine = (DialogLine)dialog;
                 var characterName = dialogLine.GetCharacterName();
