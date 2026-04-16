@@ -3,12 +3,6 @@ local GamePath = "/GameData/" .. Path
 
 print("Handling dialog SPT: " .. Path)
 
-local contents = ReadFile(GamePath)
-
-contents = contents:gsub("Zm2_L7R1", "Hom_L7")
-
-Output(contents)
-
 local SPT = SPTParser.SPTFile(GamePath)
 
 for i=0,7 do
@@ -18,4 +12,7 @@ for i=0,7 do
     SPT.Classes[#SPT.Classes + 1] = class
 end
 
-Output(tostring(SPT))
+local res = tostring(SPT)
+res = res:gsub("Zm2_L7R1", "Hom_L7")
+
+Output(tostring(res))

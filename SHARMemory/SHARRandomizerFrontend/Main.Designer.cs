@@ -45,9 +45,14 @@
             tbMessage = new TextBox();
             btnSend = new Button();
             txbLog = new RichTextBox();
+            pnlUpdate = new Panel();
+            lblUpdate = new Label();
+            btnDownload = new Button();
+            btnDismissUpdate = new Button();
             pnConnection.SuspendLayout();
             pnLog.SuspendLayout();
             tlpSendMessage.SuspendLayout();
+            pnlUpdate.SuspendLayout();
             SuspendLayout();
             // 
             // lbURL
@@ -217,12 +222,53 @@
             txbLog.TabIndex = 0;
             txbLog.Text = "";
             // 
+            // pnlUpdate
+            // 
+            pnlUpdate.BackColor = SystemColors.Info;
+            pnlUpdate.Controls.Add(lblUpdate);
+            pnlUpdate.Controls.Add(btnDownload);
+            pnlUpdate.Controls.Add(btnDismissUpdate);
+            pnlUpdate.Location = new Point(15, 107);
+            pnlUpdate.Name = "pnlUpdate";
+            pnlUpdate.Size = new Size(552, 29);
+            pnlUpdate.TabIndex = 10;
+            // 
+            // lblUpdate
+            // 
+            lblUpdate.AutoSize = true;
+            lblUpdate.Location = new Point(3, 7);
+            lblUpdate.Name = "lblUpdate";
+            lblUpdate.Size = new Size(333, 15);
+            lblUpdate.TabIndex = 3;
+            lblUpdate.Text = "UPDATE AVAILABLE: Current Version x.x.x Newest Version x.x.x";
+            // 
+            // btnDownload
+            // 
+            btnDownload.Location = new Point(415, 3);
+            btnDownload.Name = "btnDownload";
+            btnDownload.Size = new Size(72, 22);
+            btnDownload.TabIndex = 2;
+            btnDownload.Text = "Download";
+            btnDownload.UseVisualStyleBackColor = true;
+            btnDownload.Click += btnDownload_Click;
+            // 
+            // btnDismissUpdate
+            // 
+            btnDismissUpdate.Location = new Point(493, 3);
+            btnDismissUpdate.Name = "btnDismissUpdate";
+            btnDismissUpdate.Size = new Size(56, 22);
+            btnDismissUpdate.TabIndex = 1;
+            btnDismissUpdate.Text = "Dismiss";
+            btnDismissUpdate.UseVisualStyleBackColor = true;
+            btnDismissUpdate.Click += btnDismissUpdate_Click;
+            // 
             // Main
             // 
             AcceptButton = btnConnect;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 561);
+            Controls.Add(pnlUpdate);
             Controls.Add(pnLog);
             Controls.Add(pnConnection);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -235,6 +281,8 @@
             pnLog.ResumeLayout(false);
             tlpSendMessage.ResumeLayout(false);
             tlpSendMessage.PerformLayout();
+            pnlUpdate.ResumeLayout(false);
+            pnlUpdate.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -257,5 +305,9 @@
         private Button btnSend;
         private TextBox tbMessage;
         private TableLayoutPanel tlpSendMessage;
+        private Panel pnlUpdate;
+        private Button btnDismissUpdate;
+        private Label lblUpdate;
+        private Button btnDownload;
     }
 }

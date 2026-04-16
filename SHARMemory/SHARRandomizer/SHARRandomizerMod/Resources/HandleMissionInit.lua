@@ -83,6 +83,14 @@ for _, car in pairs(LevelTraffic) do
     end
 end
 
+if Level == 2 and Mission == 4 then
+    for oldCar, newCar in pairs(LevelTraffic) do
+        if newCar == "snake_v" then
+            LevelTraffic[oldCar] = "redbrick"
+        end
+    end
+end
+
 if rbc < 2 then
 	for Old, New in pairs(LevelTraffic) do
 		for FunctionName, FunctionArgument in pairs(VehicleFunctions) do
@@ -90,7 +98,6 @@ if rbc < 2 then
 		end
 	end
 end
-
 
 for Function, Index in MFK:GetFunctions("AddStageVehicle", true) do
 	if is_replaced(Function.Arguments[1]) then

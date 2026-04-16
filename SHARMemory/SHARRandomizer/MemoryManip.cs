@@ -155,6 +155,7 @@ namespace SHARRandomizer
                 watcher.NewParkedCar += Watcher_NewParkedCar;
                 watcher.InGameWindowChanged += Watcher_InGameWindowChanged;
                 watcher.CurrentEventChanged += Watcher_CurrentEventChanged;
+                
 
                 var trapWatcher = new TrapWatcher();
                 _trapWatcher = trapWatcher;
@@ -295,7 +296,7 @@ namespace SHARRandomizer
                     language.SetString("APMaxCoins", $"/{maxCoins}");
                     break;
                 case 7:
-                    language.SetString("APMaxCoins", "");
+                    language.SetString("APMaxCoins", " ");
                     break;
                 default:
                     language.SetString("APMaxCoins", $"/{maxCoins * WalletLevel * coinScale}");
@@ -758,92 +759,99 @@ namespace SHARRandomizer
             {
                 try
                 {
-                    if (Extensions.InGame(memory))
+                    if (!Extensions.InGame(memory))
                     {
-                        string item = await itemsReceived.DequeueAsync();
+                        await Task.Delay(100);
+                        continue;
+                    }
 
-                        var textBible = memory.Globals.TextBible.CurrentLanguage;
+                    string item = await itemsReceived.DequeueAsync();
 
-                        if (item == "Cell Phone Car")
-                            item = $"Cell Phone Car A";
+                    while (!Extensions.InGame(memory))
+                    {
+                        await Task.Delay(100);
+                    }
 
-                        var matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
-                        if (matchingReward != null)
+                    var textBible = memory.Globals.TextBible.CurrentLanguage;
+
+                    if (item == "Cell Phone Car")
+                        item = $"Cell Phone Car A";
+
+                    var matchingReward = REWARDS.FirstOrDefault(reward => reward.Name == rt.GetInternalName(item));
+                    if (matchingReward != null)
+                    {
+                        Common.WriteLog($"Unlocking {textBible?.GetString(matchingReward.Name.ToUpper()) ?? matchingReward.Name}", "GetItems");
+                        matchingReward.Earned = true;
+                        UnlockedItems.Add(matchingReward.Name);
+                    }
+                    else
+                    {
+                        switch (item)
                         {
-                            Common.WriteLog($"Unlocking {textBible?.GetString(matchingReward.Name.ToUpper()) ?? matchingReward.Name}", "GetItems");
-                            matchingReward.Earned = true;
-                            UnlockedItems.Add(matchingReward.Name);
-                        }
-                        else
-                        {
-                            switch (item)
-                            {
-                                case string s when (s.StartsWith("Level ") || s.StartsWith("Progressive Level")) && !s.StartsWith("Progressive Wallet"):
-                                    Common.WriteLog($"Unlocking {item}", "GetItems");
-                                    UnlockMissionsPerLevel(item);
+                            case string s when (s.StartsWith("Level ") || s.StartsWith("Progressive Level")) && !s.StartsWith("Progressive Wallet"):
+                                Common.WriteLog($"Unlocking {item}", "GetItems");
+                                UnlockMissionsPerLevel(item);
+                                break;
+
+                            case string s when s.Contains("Coins"):
+                                int amount = int.Parse(new string(s.TakeWhile(char.IsDigit).ToArray()));
+                                var characterSheet = memory.Singletons.CharacterSheetManager;
+
+                                if (characterSheet == null)
+                                {
+                                    Common.WriteLog("Error getting character sheet.", "GetItems");
                                     break;
+                                }
+                                characterSheet.CharacterSheet.Coins += amount;
+                                Common.WriteLog($"Received {amount} coins.", "GetItems");
+                                break;
 
-                                case string s when s.Contains("Coins"):
-                                    int amount = int.Parse(new string(s.TakeWhile(char.IsDigit).ToArray()));
-                                    var characterSheet = memory.Singletons.CharacterSheetManager;
-
-                                    if (characterSheet == null)
+                            case string s when fillerInventory.ContainsKey(s):
+                                fillerInventory[s]++;
+                                if (fillerInventory[s] < 101)
+                                {
+                                    switch (s)
                                     {
-                                        Common.WriteLog("Error getting character sheet.", "GetItems");
-                                        break;
+                                        case "Hit N Run Reset":
+                                            await ac.IncrementDataStorage("hnr");
+                                            language?.SetString("APHnR", $"{fillerInventory[s]:D2}");
+                                            break;
+
+                                        case "Wrench":
+                                            await ac.IncrementDataStorage("wrench");
+                                            language?.SetString("APWrench", $"{fillerInventory[s]:D2}");
+                                            break;
+
                                     }
-                                    characterSheet.CharacterSheet.Coins += amount;
-                                    Common.WriteLog($"Received {amount} coins.", "GetItems");
-                                    break;
+                                }
+                                Common.WriteLog($"Received {s}.", "GetItems");
+                                break;
 
-                                case string s when fillerInventory.ContainsKey(s):
-                                    fillerInventory[s]++;
-                                    if (fillerInventory[s] < 101)
-                                    {
-                                        switch (s)
-                                        {
-                                            case "Hit N Run Reset":
-                                                await ac.IncrementDataStorage("hnr");
-                                                language?.SetString("APHnR", $"{fillerInventory[s]:D2}");
-                                                break;
+                            case string s when traps.Contains(s):
+                                Common.WriteLog($"Received TRAP {s}.", "GetItems");
+                                _trapWatcher.OnTrapDetected(s);
+                                break;
 
-                                            case "Wrench":
-                                                await ac.IncrementDataStorage("wrench");
-                                                language?.SetString("APWrench", $"{fillerInventory[s]:D2}");
-                                                break;
+                            case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") || s.Contains("Forward") ||
+                                                s.Contains("Gagfinder") || s.Contains("Checkered Flag") || s.Contains("Frink-o-Matic Wasp Bumper"):
+                                Common.WriteLog($"Received {s}", "GetItems");
+                                moves.Add(s);
+                                CheckAvailableMoves(memory, CURRENTLEVEL);
+                                HandleCurrentRaces(memory);
+                                //CheckGags(memory);
+                                break;
 
-                                        }
-                                    }
-                                    Common.WriteLog($"Received {s}.", "GetItems");
-                                    break;
+                            case string s when s.Contains("Wallet"):
+                                Common.WriteLog($"Received {s}", "GetItems");
+                                WalletLevel++;
+                                int coincap = WalletLevel == 1 ? maxCoins : maxCoins * WalletLevel * coinScale;
+                                language?.SetString("APMaxCoins", (WalletLevel >= 7 ? " " : $"/{coincap.ToString()}"));
+                                UpdateCoinDrops(memory);                                    
+                                break;
 
-                                case string s when traps.Contains(s):
-                                    Common.WriteLog($"Received TRAP {s}.", "GetItems");
-                                    _trapWatcher.OnTrapDetected(s);
-                                    break;
-
-                                case string s when s.Contains("Jump") || s.Contains("Attack") || s.Contains("Brake") || s.Contains("Forward") ||
-                                                   s.Contains("Gagfinder") || s.Contains("Checkered Flag") || s.Contains("Frink-o-Matic Wasp Bumper"):
-                                    Common.WriteLog($"Received {s}", "GetItems");
-                                    moves.Add(s);
-                                    CheckAvailableMoves(memory, CURRENTLEVEL);
-                                    HandleCurrentRaces(memory);
-                                    //CheckGags(memory);
-                                    break;
-
-                                case string s when s.Contains("Wallet"):
-                                    Common.WriteLog($"Received {s}", "GetItems");
-                                    WalletLevel++;
-                                    int coincap = WalletLevel == 1 ? maxCoins : maxCoins * WalletLevel * coinScale;
-                                    language?.SetString("APMaxCoins", (WalletLevel >= 7 ? " " : $"/{coincap.ToString()}"));
-                                    UpdateCoinDrops(memory);                                    
-                                    break;
-
-                                default:
-                                    Common.WriteLog($"Error unlocking reward: {item}.", "GetItems");
-                                    break;
-                            }
-
+                            default:
+                                Common.WriteLog($"Error unlocking reward: {item}.", "GetItems");
+                                break;
                         }
                     }
                 }

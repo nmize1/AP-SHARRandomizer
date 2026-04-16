@@ -28,11 +28,7 @@ namespace SHARRandomizerFrontend
 
         private async void Main_Load(object sender, EventArgs e)
         {
-            if (!await CheckVersion())
-            {
-                Application.Exit();
-                return;
-            }
+            await CheckVersion();
 
             this.Text = $"Simpsons Hit & Run Archipelago {VERSION}";
             Common.WriteLog($"SHARRandomizer.exe version: {VERSION}", "Main");
@@ -47,7 +43,7 @@ namespace SHARRandomizerFrontend
             tbPass.Text = cSettings.prvPass;
         }
 
-        public async Task<bool> CheckVersion()
+        public async Task CheckVersion()
         {
             try
             {
@@ -57,7 +53,7 @@ namespace SHARRandomizerFrontend
                 var latestReleaseJson = await _http.GetStringAsync("https://api.github.com/repos/nmize1/AP-SHARRandomizer/releases/latest");
                 var latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(latestReleaseJson);
                 if (latestRelease != null && latestRelease.Name != VERSION)
-                {
+                {/*
                     Common.WriteLog("ARE YOU ON THE LATEST VERSION?", "GitHub");
                     Common.WriteLog($"YOU ARE RUNNING VERSION: {VERSION}.", "GitHub");
                     Common.WriteLog($"THE LATEST VERSION ON GITHUB IS: {latestRelease.Name}", "GitHub");
@@ -79,14 +75,17 @@ namespace SHARRandomizerFrontend
                         });
                         return false;
                     }
+                  */
+
+                    lblUpdate.Text = $"UPDATE AVAILABLE: Current Version {VERSION} Newest Version {latestRelease.Name}";
                 }
+                else
+                    pnlUpdate.Visible = false;
             }
             catch (Exception ex)
             {
                 Common.WriteLog($"Error checking latest version: {ex}", "GitHub");
             }
-
-            return true;
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
@@ -214,6 +213,23 @@ namespace SHARRandomizerFrontend
         {
             Common.ac.SendMessage(tbMessage.Text);
             tbMessage.Clear();
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Opening latest release on GitHub...\nClient will close.");
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://github.com/nmize1/AP-SHARRandomizer/releases/latest",
+                UseShellExecute = true
+            });
+
+            Application.Exit();
+        }
+
+        private void btnDismissUpdate_Click(object sender, EventArgs e)
+        {
+            pnlUpdate.Visible = false;
         }
     }
 }

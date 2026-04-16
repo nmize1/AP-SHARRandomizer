@@ -18,6 +18,8 @@ namespace SHARRandomizerFrontend
         {
             InitializeComponent();
             CSettings = csettings;
+
+            cbLog.Checked = CSettings.ShowFullLog;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
