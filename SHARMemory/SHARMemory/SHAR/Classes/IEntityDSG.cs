@@ -20,8 +20,8 @@ public class IEntityDSG : tDrawable
     internal const uint TranslucentOffset = RankOffset + sizeof(float);
     public bool Translucent
     {
-        get => ReadBoolean(4);
-        set => WriteBoolean(4, value);
+        get => ReadBoolean(TranslucentOffset);
+        set => WriteBoolean(TranslucentOffset, value);
     }
 
     internal const uint ShaderNameOffset = TranslucentOffset + 4; // Padding
