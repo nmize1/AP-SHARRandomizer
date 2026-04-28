@@ -43,6 +43,6 @@ if(Level == 1) then
 	MFK:AddFunction("GagSetTrigger", {"action", -6, 1, -3.5, 2.0})
 	MFK:AddFunction("GagSetSparkle", {0})
 	MFK:AddFunction("GagEnd", {})
-end
+
 
 MFK:Output(true)
