@@ -28,7 +28,7 @@ namespace SHARRandomizer
 
         private static readonly Random _rng = new();
         List<string> NORESEND = new List<string>() { "Wrench", "10 Coins", "Hit N Run Reset", "Hit N Run", "Reset Car", "Duff Trap", "Eject", "Launch", "Traffic Trap" };
-        private const string MinArchipelagoVersion = "0.5.0"; //update to .6.0 soon
+        private const string MinArchipelagoVersion = "0.6.0"; 
         public static AwaitableQueue<long> sentLocations = new AwaitableQueue<long>();
 
         public bool Connected => _session?.Socket.Connected ?? false;

@@ -124,6 +124,8 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 			local value = chunk:GetValueFromName(race)
 			chunk:SetValue(race, value .. string.rep(" ", math.max(0, 500 - #value)))
 		end
+
+		chunk:SetValue("INGAME_MESSAGE_10", "You haven't completed all your goals yet! Check the pause menu to see your progress.")
 	end
 end
 
