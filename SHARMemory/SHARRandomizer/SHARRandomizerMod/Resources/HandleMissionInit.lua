@@ -7,12 +7,7 @@ local Level, Type, Mission = Path:match("scripts[\\/]missions[\\/]level0(%d)[\\/
 Level, Mission = tonumber(Level), tonumber(Mission)
 
 local function is_replaced(x)
-    for _, newcar in pairs(LevelTraffic) do
-        if newcar == x then
-            return true
-        end
-    end
-    return false
+    return LevelTraffic[x] and LevelTraffic[x] ~= x
 end
 
 local CollCars = {}
@@ -100,10 +95,12 @@ if rbc < 2 then
 end
 
 for Function, Index in MFK:GetFunctions("AddStageVehicle", true) do
+	print(Function)
 	if is_replaced(Function.Arguments[1]) then
 		Function.Arguments[4] = "trafficmission\\" .. Function.Arguments[1] .. ".con"
 		print("Replaced with" .. Function.Arguments[1])
 	end
+	print(Function)
 end
 
 if Level == 7 and Mission == 1 and Type == "sr" then

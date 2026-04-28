@@ -29,5 +29,10 @@ namespace SHARRandomizer.Classes
             // This should not happen because the semaphore was released.
             throw new InvalidOperationException("Queue signaled an available item, but none was found.");
         }
+
+        public int Count()
+        {
+            return _queue.Count;
+        }
     }
 }

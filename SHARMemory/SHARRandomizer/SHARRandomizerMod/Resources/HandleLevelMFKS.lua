@@ -2,15 +2,17 @@
 local GamePath = "/GameData/" .. Path
 
 local MFK = MFKLexer.Lexer:Parse(ReadFile(GamePath))
-
-local Level = Path:match("level0(%d)")
 local Traffic = Config.TRAFFIC
-
-local Path = GetPath()
 local Level = GetCurrentLevel()
 
 
 MFK:AddFunction("AddBonusMission", {"bm2"})
+
+
+--local v = LookupString("APDefaultCar"):gsub("^%s*(.-)%s*$", "%1")
+--DefaultCar = v
+--print("Default car load to " .. DefaultCar)
+--MFK:AddFunction("LoadP3DFile", {"art\\cars\\" .. DefaultCar .. ".p3d"})
 
 MFK:AddFunction("LoadP3DFile",{"art\\missions\\level0" .. Level .. "\\cards.p3d"})
 MFK:AddFunction("LoadP3DFile",{"art\\returndoorbell.p3d"})
@@ -33,16 +35,16 @@ MFK:AddFunction("LoadP3DFile",{"art\\cars\\dune_v.p3d"})
 
 MFK:AddFunction("LoadP3DFile", "art\\frontend\\dynaload\\images\\msnicons\\object\\ApLogoMSN.p3d")
 
-if(Level == 1) then
-	MFK:AddFunction("AddBonusMission", {"ismovie"})
-	MFK:AddFunction("GagBegin",{"gag_ismv.p3d"})
-	MFK:AddFunction("GagSetPosition",{-6, 1, -3.5})
-	MFK:AddFunction("GagSetRandom",{0})
-	MFK:AddFunction("GagSetCycle",{"reset"})
-	MFK:AddFunction("GagCheckMovie",{"teen", "homer", "fmv8.rmv", "aztec"})
-	MFK:AddFunction("GagSetTrigger", {"action", -6, 1, -3.5, 2.0})
-	MFK:AddFunction("GagSetSparkle", {0})
-	MFK:AddFunction("GagEnd", {})
+chars = { "homer", "bart", "lisa", "marge", "apu", "bart", "homer" }
+MFK:AddFunction("AddBonusMission", {"ismovie"})
+MFK:AddFunction("GagBegin",{"gag_ismv.p3d"})
+MFK:AddFunction("GagSetPosition",{ 993.75, 1, 997.33})
+MFK:AddFunction("GagSetRandom",{0})
+MFK:AddFunction("GagSetCycle",{"reset"})
+MFK:AddFunction("GagCheckMovie",{"teen", chars[Level], "fmv8.rmv", "aztec"})
+MFK:AddFunction("GagSetTrigger", {"action", 993.75, 1, 997.33, 2.0})
+MFK:AddFunction("GagSetSparkle", {0})
+MFK:AddFunction("GagEnd", {})
 
 
 MFK:Output(true)

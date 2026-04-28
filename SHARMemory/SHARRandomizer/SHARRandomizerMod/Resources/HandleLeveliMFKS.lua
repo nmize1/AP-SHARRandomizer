@@ -114,6 +114,15 @@ MFK:AddFunction("AddTrafficModel", { "cCola", 1})
 MFK:AddFunction("AddTrafficModel", { "dune_v", 1})
 MFK:AddFunction("CloseTrafficGroup")
 
+--for Function, Index in MFK:GetFunctions("InitLevelPlayerVehicle", true) do
+--    if DefaultCar then
+--        print("Default car to " .. DefaultCar)
+--        Function.Arguments[1] = DefaultCar
+--    end
+--end
+
+MFK:AddFunction("AddAmbientCharacter", {"teen", "counter",  1.8});
+
 if changed then
     MFK:Output(true)
 end

@@ -17,6 +17,11 @@ if Match:match("^art[\\/]returndoorbell%.p3d$") then
     return
 end
 
+if Match:match("^art[\\/]missions[\\/]level0[1-7][\\/]level%.p3d$") then
+	dofile(GetModPath() .. "/Resources/HandleLevelP3D.lua")
+	return
+end
+
 if not P3DFiles then
 	return
 end

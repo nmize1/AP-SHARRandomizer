@@ -171,3 +171,5 @@ if Config.MISSIONLOCK and Config.MISSIONLOCK[1].Mission ~= 0 then
 		LockSundayDrive[level][mission] = carName
 	end
 end
+
+DefaultCar = ""

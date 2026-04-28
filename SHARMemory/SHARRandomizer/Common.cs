@@ -5,7 +5,7 @@ using System.Reflection;
 namespace SHARRandomizer;
 public static class Common
 {
-    public static ArchipelagoClient ac;
+    public static ArchipelagoClient? ac;
     private static readonly string LogFile;
     private static readonly ConcurrentQueue<string> LogQueue;
 
@@ -59,21 +59,5 @@ public static class Common
         if(length == 0) return new Vector3(0, 0, 0);
 
         return new Vector3(dx / length, dy / length, dz / length);
-    }
-
-
-    public static string ExtractEmbeddedPythonScript(string resourceName)
-    {
-        var assembly = Assembly.GetExecutingAssembly();
-
-        using var stream = assembly.GetManifestResourceStream(resourceName)
-            ?? throw new InvalidOperationException($"Resource not found: {resourceName}");
-
-        string tempPath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}_ut_query.py");
-
-        using (var fs = File.Create(tempPath))
-            stream.CopyTo(fs);
-
-        return tempPath;
     }
 }

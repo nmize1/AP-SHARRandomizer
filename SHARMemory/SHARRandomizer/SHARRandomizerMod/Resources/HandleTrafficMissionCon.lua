@@ -11,6 +11,7 @@ for i=1,#CON.Functions do
 
 	if name == "SetHitPoints" then
 		local hp = func.Arguments[1]
+		print(hp .. "to 12")
 		if hp > 12 then
 			func.Arguments[1] = 12
 		end

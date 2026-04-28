@@ -150,10 +150,18 @@ namespace SHARRandomizer.Classes
         public string Name => "Launch";
 
         private Memory _memory;
+        private readonly TimerComponent _timer;
+
+        private List<object> _components = new();
+        public IEnumerable<object> Components => _components;
 
         public LaunchTrap(Memory memory, MemoryManip memoryManip, TrapWatcher watcher)
         {
             _memory = memory;
+
+            _timer = new TimerComponent(OnTrapStartAsync, OnTrapStopAsync);
+            _components.Add(_timer);
+
             watcher.TrapTriggered += OnTrapTriggered;
         }
 
@@ -162,12 +170,34 @@ namespace SHARRandomizer.Classes
             if (e.TrapName != Name)
                 return;
 
+            _timer.AddTime(TimeSpan.FromSeconds(10));
+
             var car = _memory.Singletons.CharacterManager?.Player?.Car;
 
             while ((car = _memory.Globals.GameplayManager?.CurrentVehicle) == null)
                 await Task.Delay(100);
 
             car.Launch(Random.Shared.Next(20, 101), Random.Shared.Next(-20, 51));
+        }
+
+        private Task OnTrapStartAsync()
+        {
+            var controller = _memory.Singletons.InputManager.ControllerArray[0];
+
+            controller.DisableButton(InputManager.Buttons.ResetCar);
+            controller.DisableButton(InputManager.Buttons.GetOutCar);
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnTrapStopAsync()
+        {
+            var controller = _memory.Singletons.InputManager.ControllerArray[0];
+
+            controller.EnableButton(InputManager.Buttons.ResetCar);
+            controller.EnableButton(InputManager.Buttons.GetOutCar);
+
+            return Task.CompletedTask;
         }
     }
 

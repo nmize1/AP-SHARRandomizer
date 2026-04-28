@@ -8,7 +8,6 @@ UsePedGroup( 0 );
 
 AddStage(0);
 	AddObjective("dummy");
-	AddNPC("teen", "Counter");
 	CloseObjective();
 CloseStage();
 

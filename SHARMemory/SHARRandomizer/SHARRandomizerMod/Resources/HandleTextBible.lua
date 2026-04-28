@@ -81,6 +81,8 @@ for chunk in BibleChunk:GetChunks(P3D.Identifiers.Frontend_Language) do
 		
 		chunk:AddValue("APProgressTitle", "Goals:")
 		chunk:AddValue("APProgress", "AP NOT LOADED" .. string.rep(" ", 475))
+
+		chunk:AddValue("APDefaultCar", "famil_v" .. string.rep(" ", 100))
 		
 		local translations = TranslationMap[chunk.Language]
 		if translations then

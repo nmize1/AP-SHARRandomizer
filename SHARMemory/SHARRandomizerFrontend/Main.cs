@@ -19,7 +19,7 @@ namespace SHARRandomizerFrontend
         public Main()
         {
             InitializeComponent();
-
+            Application.SetColorMode(SystemColorMode.Classic);
             Common.LogMessageReceived += OnLogMessage;
 
             cSettings = SettingsManager.Load();
