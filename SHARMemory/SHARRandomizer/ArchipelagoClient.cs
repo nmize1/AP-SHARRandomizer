@@ -510,7 +510,7 @@ namespace SHARRandomizer
             foreach (var item in results.Values)
             {
                 string ret = $"{item.Player}'s {item.ItemName}";
-                language?.SetString(locations[item.LocationId].ToUpper(), ret);
+                SHARRandomizer.Classes.Extensions.SetString(language, locations[item.LocationId].ToUpper(), ret);
             }
         }
 
