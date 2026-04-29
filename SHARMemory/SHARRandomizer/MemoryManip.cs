@@ -1866,23 +1866,13 @@ namespace SHARRandomizer
 
         private Task Watcher_MissionIndexChanged(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.GameplayManager.MissionIndexChangedEventArgs e, CancellationToken token)
         {
-            /*
-            if ((int?)e.NewLevel == 0)
+            if ((int?)e.NewLevel == 0 && (int?)e.NewMission == 0)
             {
                 sender.WriteBytes(sender.SelectAddress(0x47EDB5, 0x47EC35, 0x47EB05, 0x47E8C5),
-                [
-                    0x90, 0x90
-                ]);
+                 [
+                     0x74, 0x38
+                 ]);
             }
-
-            if (((int?)e.NewLevel, (int?)e.NewMission) == LevelOverTarget || (int?)e.NewMission == 6)
-            {
-                Common.WriteLog($"{(int?)e.LastLevel} - {(int?)e.LastMission}", "mic");
-                Common.WriteLog($"{(int?)e.NewLevel} - {(int?) e.NewMission}", "mic");
-                SetLevelOverTarget(sender, 0, 0);
-                LevelOverTarget = (0,0);
-            }
-            */
             return Task.CompletedTask;
         }
 
