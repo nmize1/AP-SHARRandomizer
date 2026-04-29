@@ -15,36 +15,7 @@ using static LocationTranslations;
 using static SHARRandomizer.ArchipelagoClient;
 
 namespace SHARRandomizer
-{
-    static class Extensions
-    {
-        public static bool InGame(this Memory memory) => memory.IsRunning && memory.Singletons.GameFlow?.NextContext switch
-        {
-            GameFlow.GameState.NormalInGame or GameFlow.GameState.DemoInGame or GameFlow.GameState.BonusInGame => true,
-            _ => false,
-        };
-
-        public static InterprocessCommunication GetInterprocessCommunication(SHARMemory.SHAR.Memory memory) => new(memory.Process.Id);
-
-        public static void Teleport(Memory memory, System.Numerics.Vector3 pos, float rotationY)
-        {
-            using var ipc = GetInterprocessCommunication(memory);
-            IPCUtils.Teleport(ipc, memory, pos, true, rotationY);
-        }
-
-        public static void Repair(Memory memory)
-        {
-            using var ipc = GetInterprocessCommunication(memory);
-            IPCUtils.Repair(ipc, memory);
-        }
-
-        public static void Dynaload(Memory memory, string dynString)
-        {
-            using var ipc = GetInterprocessCommunication(memory);
-            IPCUtils.Dynaload(ipc, memory, dynString);
-        }
-    }
-
+{ 
     public class MemoryManip
     {
         Process? p;
@@ -217,17 +188,17 @@ namespace SHARRandomizer
 
             var textBible = memory.Globals.TextBible.CurrentLanguage;
 
-            var gameVerifyID = textBible?.GetString("VerifyID");
+            var gameVerifyID = textBible.GetString("VerifyID");
             if (gameVerifyID != VerifyID)
             {
-                textBible?.SetString("NEW_GAME", uit.GetUITranslation("IncorrectPatch", gameLanguage));
+                Extensions.SetString(textBible, "NEW_GAME", uit.GetUITranslation("IncorrectPatch", gameLanguage));
                 Common.WriteLog($"SHAR.ini verification ID \"{gameVerifyID ?? "NULL"}\" does not match expected verification ID \"{VerifyID}\".", "MemoryStart");
                 /* add pop up */
                 //Environment.Exit(1);
             }
 
             var checks = ac.GetCheckedLocations();
-            textBible?.SetString("NEW_GAME",
+            Extensions.SetString(textBible, "NEW_GAME",
                 uit.GetUITranslation(
                     checks.Count == 0 ? "NewGame" : "ResumeGame",
                     gameLanguage
@@ -316,21 +287,21 @@ namespace SHARRandomizer
             switch (WalletLevel)
             {
                 case 0:
-                    language.SetString("APMaxCoins", "/0");
+                    Extensions.SetString(language, "APMaxCoins", "/0");
                     break;
                 case 1:
-                    language.SetString("APMaxCoins", $"/{maxCoins}");
+                    Extensions.SetString(language, "APMaxCoins", $"/{maxCoins}");
                     break;
                 case 7:
-                    language.SetString("APMaxCoins", " ");
+                    Extensions.SetString(language, "APMaxCoins", " ");
                     break;
                 default:
-                    language.SetString("APMaxCoins", $"/{maxCoins * WalletLevel * coinScale}");
+                    Extensions.SetString(language, "APMaxCoins", $"/{maxCoins * WalletLevel * coinScale}");
                     break;
             }
 
-            language.SetString("APHnR", "00");
-            language.SetString("APWrench", "00");
+            Extensions.SetString(language, "APHnR", "00");
+            Extensions.SetString(language, "APWrench", "00");
             //UpdateProgress(0, 0, 0, 0, 0, ac.victory, ac.cardAmount, ac.waspAmount);
 
 
@@ -346,8 +317,8 @@ namespace SHARRandomizer
                 h = await ac.GetDataStorage<int>("hnr");
                 fillerInventory.Add("Hit N Run Reset", h);
                 fillerInventory.Add("Wrench", w);
-                language.SetString("APHnR", $"{h:D2}");
-                language.SetString("APWrench", $"{w:D2}");
+                Extensions.SetString(language, "APHnR", $"{h:D2}");
+                Extensions.SetString(language, "APWrench", $"{w:D2}");
                 characterSheet.CharacterSheet.ItchyScratchyTicket = true;
                 CheckTicketRequirements(memory, characterSheet);
             }
@@ -847,12 +818,12 @@ namespace SHARRandomizer
                                     {
                                         case "Hit N Run Reset":
                                             await ac.IncrementDataStorage("hnr");
-                                            language?.SetString("APHnR", $"{fillerInventory[s]:D2}");
+                                            Extensions.SetString(language, "APHnR", $"{fillerInventory[s]:D2}");
                                             break;
 
                                         case "Wrench":
                                             await ac.IncrementDataStorage("wrench");
-                                            language?.SetString("APWrench", $"{fillerInventory[s]:D2}");
+                                            Extensions.SetString(language, "APWrench", $"{fillerInventory[s]:D2}");
                                             break;
 
                                     }
@@ -878,7 +849,7 @@ namespace SHARRandomizer
                                 Common.WriteLog($"Received {s}", "GetItems");
                                 WalletLevel++;
                                 int coincap = WalletLevel == 1 ? maxCoins : maxCoins * WalletLevel * coinScale;
-                                language?.SetString("APMaxCoins", (WalletLevel >= 7 ? " " : $"/{coincap.ToString()}"));
+                                Extensions.SetString(language, "APMaxCoins", (WalletLevel >= 7 ? " " : $"/{coincap.ToString()}"));
                                 UpdateCoinDrops(memory);                                    
                                 break;
 
@@ -903,7 +874,7 @@ namespace SHARRandomizer
             }
 
             string log = APLog.Print();
-            language.SetString("APLog", log);
+            Extensions.SetString(language, "APLog", log);
         }
 
         void UpdateCoinDrops(Memory memory)
@@ -1113,17 +1084,17 @@ namespace SHARRandomizer
             if (missionnames)
             {
                 string name = $"MISSION_TITLE_L{0}_M{0}";
-                language?.SetString(name, "LOCKED");
+                Extensions.SetString(language, name, "LOCKED");
                 for (int level = 0; level < 7; level++)
                 {
-                    language?.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Missions");
+                    Extensions.SetString(language, $"LEVEL_{level + 1}", $"Level {level + 1} Missions");
                     if (!UnlockedLevels.Contains($"Level {level + 1}"))
                     {
                         string replacement = ac.levelLock ? "LOCKED" : "Free Roam Available";
                         for (int mission = 0; mission < 7; mission++)
                         {
                             name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                            language?.SetString(name, replacement);
+                            Extensions.SetString(language, name, replacement);
                         }
                     }
                     else
@@ -1132,7 +1103,7 @@ namespace SHARRandomizer
                         {
                             string missionTitle = lt.getMissionName(mission, level, gameLanguage);
                             name = $"MISSION_TITLE_L{level + 1}_M{mission + 1}";
-                            language?.SetString(name, missionTitle.Trim());
+                            Extensions.SetString(language, name, missionTitle.Trim());
                         }
                     }
                 }
@@ -1141,84 +1112,84 @@ namespace SHARRandomizer
             {
                 for (int level = 0; level < 7; level++)
                 {
-                    language?.SetString($"LEVEL_{level + 1}", $"Level {level + 1} Teleports");
+                    Extensions.SetString(language, $"LEVEL_{level + 1}", $"Level {level + 1} Teleports");
                 }
 
                 if (UnlockedLevels.Contains("Level 1"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{1}_M{4}", "Power Plant");
-                    language?.SetString($"MISSION_TITLE_L{1}_M{5}", "Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{1}_M{6}", "Grocery Store");
-                    language?.SetString($"MISSION_TITLE_L{1}_M{7}", "Power Plant Parking Lot");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{1}", "Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{2}", "Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{3}", "Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{4}", "Power Plant");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{5}", "Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{6}", "Grocery Store");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{1}_M{7}", "Power Plant Parking Lot");
                 }
 
                 if (UnlockedLevels.Contains("Level 2"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{2}_M{1}", "Park");
-                    language?.SetString($"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
-                    language?.SetString($"MISSION_TITLE_L{2}_M{3}", "Googolplex");
-                    language?.SetString($"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
-                    language?.SetString($"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
-                    language?.SetString($"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
-                    language?.SetString($"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{1}", "Park");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{2}", "Herman's Military Antiques");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{3}", "Googolplex");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{4}", "Springfield Stadium");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{5}", "Construction Krusty Burger");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{6}", "Springfield Stadium");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{2}_M{7}", "Springfield Stadium");
                 }
 
                 if (UnlockedLevels.Contains("Level 3"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
-                    language?.SetString($"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
-                    language?.SetString($"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
-                    language?.SetString($"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
-                    language?.SetString($"MISSION_TITLE_L{3}_M{5}", "Casino");
-                    language?.SetString($"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
-                    language?.SetString($"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{1}", "The Android Dungeon");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{2}", "Across From Krusty Burger");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{3}", "Krusty Burger");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{4}", "Observatory Overlook");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{5}", "Casino");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{6}", "Captain Chum 'N' Stuff");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{3}_M{7}", "Captain Chum 'N' Stuff");
                 }
 
                 if (UnlockedLevels.Contains("Level 4"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
-                    language?.SetString($"MISSION_TITLE_L{4}_M{3}", "Gas Station");
-                    language?.SetString($"MISSION_TITLE_L{4}_M{4}", "Cemetary");
-                    language?.SetString($"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
-                    language?.SetString($"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{1}", "Inside Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{2}", "Cletus' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{3}", "Gas Station");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{4}", "Cemetary");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{5}", "Springfield Retirement Castle");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{6}", "Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{4}_M{7}", "Kwik-E-Mart");
                 }
 
                 if (UnlockedLevels.Contains("Level 5"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{5}_M{1}", "Googolplex");
-                    language?.SetString($"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
-                    language?.SetString($"MISSION_TITLE_L{5}_M{3}", "General Hospital");
-                    language?.SetString($"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
-                    language?.SetString($"MISSION_TITLE_L{5}_M{5}", "DMV");
-                    language?.SetString($"MISSION_TITLE_L{5}_M{6}", "DMV");
-                    language?.SetString($"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{1}", "Googolplex");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{2}", "The Legitimate Businessman's Social Club");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{3}", "General Hospital");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{4}", "Construction Krusty Burger");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{5}", "DMV");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{6}", "DMV");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{5}_M{7}", "Lexicon Bookstore");
                 }
 
                 if (UnlockedLevels.Contains("Level 6"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
-                    language?.SetString($"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
-                    language?.SetString($"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
-                    language?.SetString($"MISSION_TITLE_L{6}_M{4}", "Observatory");
-                    language?.SetString($"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
-                    language?.SetString($"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
-                    language?.SetString($"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{1}", "Across From Krusty Burger");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{2}", "KrustyLu Studios");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{3}", "Squidport Entrance");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{4}", "Observatory");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{5}", "Call Me Delish-Mael Taffy Shop");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{6}", "KrustyLu Studios");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{6}_M{7}", "Krusty Burger");
                 }
 
                 if (UnlockedLevels.Contains("Level 7"))
                 {
-                    language?.SetString($"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
-                    language?.SetString($"MISSION_TITLE_L{7}_M{2}", "School Playground");
-                    language?.SetString($"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
-                    language?.SetString($"MISSION_TITLE_L{7}_M{4}", "Inside School");
-                    language?.SetString($"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
-                    language?.SetString($"MISSION_TITLE_L{7}_M{6}", "School Playground");
-                    language?.SetString($"MISSION_TITLE_L{7}_M{7}", "School Playground");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{1}", "Inside Simpsons' House");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{2}", "School Playground");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{3}", "Power Plant Parking Lot");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{4}", "Inside School");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{5}", "Power Plant Parking Lot");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{6}", "School Playground");
+                    Extensions.SetString(language, $"MISSION_TITLE_L{7}_M{7}", "School Playground");
                 }
             }
         }
@@ -1567,7 +1538,7 @@ namespace SHARRandomizer
                     }
                     Common.WriteLog($"Hit N Run Resets: {fillerInventory["Hit N Run Reset"]}", "Listener_ButtonDown");
                     await ac.SetDataStorage("hnr", fillerInventory["Hit N Run Reset"]);
-                    language?.SetString("APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
+                    Extensions.SetString(language, "APHnR", $"{fillerInventory["Hit N Run Reset"]:D2}");
                 }
                 if (e.Button.ToString() == "DPadDown" || e.Button.ToString() == "D2")
                 {
@@ -1596,7 +1567,7 @@ namespace SHARRandomizer
                     }
                     Common.WriteLog($"Wrenches: {fillerInventory["Wrench"]}", "Listener_ButtonDown");
                     await ac.SetDataStorage("wrench", fillerInventory["Wrench"]);
-                    language?.SetString("APWrench", $"{fillerInventory["Wrench"]:D2}");
+                    Extensions.SetString(language, "APWrench", $"{fillerInventory["Wrench"]:D2}");
                 }
             }
         }
@@ -1718,7 +1689,7 @@ namespace SHARRandomizer
         async Task Watcher_BonusMissionComplete(SHARMemory.SHAR.Memory sender, SHARMemory.SHAR.Events.CharacterSheet.BonusMissionCompleteEventArgs e, CancellationToken token)
         {
             var textBible = sender.Globals.TextBible.CurrentLanguage;
-            textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{e.Level}", ac.ExtraHint());
+            Extensions.SetString(textBible, $"RACE_COMPLETE_INFO_ALL_{e.Level}", ac.ExtraHint());
 
             Common.WriteLog($"Mission Complete: {e.Level} - bonus", "Watcher_BonusMissionComplete");
             long location = lt.getAPID($"{e.Level} - bonus", "bonus missions");
@@ -1738,7 +1709,7 @@ namespace SHARRandomizer
 
             if (races.List.All(r => r.Completed))
             {
-                textBible?.SetString($"RACE_COMPLETE_INFO_ALL_{e.Level}", ac.ExtraHint());
+                Extensions.SetString(textBible, $"RACE_COMPLETE_INFO_ALL_{e.Level}", ac.ExtraHint());
             }
 
             Common.WriteLog($"Race Complete: {e.Level} - {e.Race}", "Watcher_StreetRaceComplete");
@@ -1787,7 +1758,7 @@ namespace SHARRandomizer
                 ret += $"Cards: {cards:D2}/{rc:D2}";
 
             if (language != null)
-                language.SetString("APProgress", ret);
+                Extensions.SetString(language, "APProgress", ret);
         }
 
         private void SetLevelOverTarget(SHARMemory.SHAR.Memory memory, byte level, byte mission)
@@ -2013,8 +1984,8 @@ namespace SHARRandomizer
                         //if (guiScreenPurchaseRewards.RewardPrice is FeDrawable rewardPrice)
                         //    rewardPrice.Visible = false;
 
-                        textBible?.SetString("COINS", " ");
-                        textBible?.SetString("TO_PURCHASE", "LOCKED");
+                        Extensions.SetString(textBible, "COINS", " ");
+                        Extensions.SetString(textBible, "TO_PURCHASE", "LOCKED");
                     }
 
                     break;
@@ -2104,7 +2075,7 @@ namespace SHARRandomizer
                     break;
                 case CGuiManager.WindowID.MissionSelect:
                     for (int i = 1; i < 8; i++)
-                        textBible?.SetString($"LEVEL_{i}", $"                    Level {i}");
+                        Extensions.SetString(textBible, $"LEVEL_{i}", $"                    Level {i}");
                     break;
             }
 
@@ -2141,7 +2112,7 @@ namespace SHARRandomizer
             {
                 var car = vehicles[Random.Shared.Next(vehicles.Count)];
                 Common.WriteLog($"{car.Name} earned? {car.Earned}", "");
-                language?.SetString("APDefaultCar", car.Name);
+                Extensions.SetString(language, "APDefaultCar", car.Name);
             }
             */
             return Task.CompletedTask;
@@ -2149,8 +2120,8 @@ namespace SHARRandomizer
 
         public void textDC()
         {
-            language?.SetString("APProgress", "Disconnected.");
-            language?.SetString("APLog", "Disconnected.");
+            Extensions.SetString(language, "APProgress", "Disconnected.");
+            Extensions.SetString(language, "APLog", "Disconnected.");
         }
     }
 }
