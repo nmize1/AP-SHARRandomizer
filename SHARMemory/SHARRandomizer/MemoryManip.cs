@@ -402,7 +402,8 @@ namespace SHARRandomizer
                     if (ac.requiredLevels[i])
                     {
                         MissionList missions = record[i].Missions;
-                        for (int j = 0; j < 7; j++)
+                        int mNum = i == 0 ? 8 : 7;
+                        for (int j = 0; j < mNum; j++)
                         {
                             if (!missions.List[j].Completed)
                                 success = false;
