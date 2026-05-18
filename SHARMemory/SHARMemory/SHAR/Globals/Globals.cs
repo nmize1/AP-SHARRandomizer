@@ -208,6 +208,22 @@ public sealed partial class Globals
         }
     }
 
+    private readonly uint CoinsLostOnUserVehicleDestroyedAddress;
+    private bool CoinsLostOnUserVehicleDestroyedNOPsWritten = false;
+    public int CoinsLostOnUserVehicleDestroyed
+    {
+        get => Memory.ReadInt32(CoinsLostOnUserVehicleDestroyedAddress);
+        set
+        {
+            if (!CoinsLostOnUserVehicleDestroyedNOPsWritten)
+            {
+                Memory.WriteBytes(Memory.SelectAddress(0x505A63, 0x505B83, 0x505E33, 0x505CC3), [0x90, 0x90, 0x90, 0x90, 0x90]);
+                CoinsLostOnUserVehicleDestroyedNOPsWritten = true;
+            }
+            Memory.WriteInt32(CoinsLostOnUserVehicleDestroyedAddress, value);
+        }
+    }
+
     internal Globals(Memory memory)
     {
         Memory = memory;
@@ -237,5 +253,7 @@ public sealed partial class Globals
         CharacterShadowAddress = Memory.SelectAddress(0x4FE846, 0x4FE956, 0x4FEC26, 0x4FEA46);
 
         TrafficAIMinSecondsBetweenLaneChangesAddress = Memory.SelectAddress(0x40F4A8, 0x40F498, 0x40F4B8, 0x40F468) + 2;
+
+        CoinsLostOnUserVehicleDestroyedAddress = Memory.SelectAddress(0x505A68 + 0x1, 0x505B88 + 0x1, 0x505E38 + 0x1, 0x505CC8 + 0x1);
     }
 }
