@@ -1804,7 +1804,7 @@ namespace SHARRandomizer
                 case VICTORY.AllMissions:
                     goal += "Missions\n";
                     ret += $"{reqLvlStr}\n";
-                    ret += $"Story: {missions:D2}/{totMiss}\n";
+                    ret += $"Story: {missions:D2}/{totMiss:D2}\n";
                     break;
                 case VICTORY.Cars:
                     goal += "Collect Cars:\n";
